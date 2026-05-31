@@ -3402,3 +3402,466 @@ html, body {
     border-radius: 22px;
   }
 }
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE FIXES ONLY
+   Fixes nav crowding, Voice AI overflow, proof tabs, screenshots,
+   pricing swipe, spacing and horizontal overflow without changing desktop.
+═══════════════════════════════════════ */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .nav {
+    height: 76px !important;
+  }
+
+  .nav-inner {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    gap: 12px;
+  }
+
+  .nav-logo-img {
+    height: 48px !important;
+    max-width: 176px !important;
+    object-fit: contain;
+  }
+
+  .nav-inner > .nav-right .nav-login,
+  .nav-inner > .nav-right .nav-demo {
+    display: none !important;
+  }
+
+  .nav-hamburger {
+    display: flex !important;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(15, 23, 42, .12);
+    border-radius: 14px;
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 10px 26px rgba(15, 23, 42, .08);
+  }
+
+  .nav-hamburger span {
+    width: 20px;
+  }
+
+  .hero {
+    padding-top: 112px !important;
+    padding-bottom: 48px !important;
+  }
+
+  .hero-heading,
+  .display-lg,
+  .display-md {
+    letter-spacing: -0.045em !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-heading {
+    font-size: clamp(42px, 11vw, 58px) !important;
+    line-height: 1.02 !important;
+    max-width: 100% !important;
+  }
+
+  .hero-sub {
+    font-size: 18px !important;
+    line-height: 1.62 !important;
+    max-width: 100% !important;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-ctas .btn,
+  .hero-ctas a,
+  .hero-ctas button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-channels {
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-channel-pill {
+    font-size: 13px !important;
+    padding: 8px 13px !important;
+  }
+
+  .hero-visual {
+    margin-top: 42px !important;
+  }
+
+  .hero-dash-wrap,
+  .screenshot-frame,
+  .demo-wrap,
+  .voice-call-sim,
+  .pricing-card,
+  .industry-detail-card {
+    border-radius: 24px !important;
+  }
+
+  .hero-dash-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .dash-titlebar {
+    padding: 10px 12px !important;
+  }
+
+  .dash-url {
+    margin: 0 6px !important;
+    font-size: 10px !important;
+  }
+
+  .dash-content {
+    padding: 14px !important;
+  }
+
+  .dash-kpis {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .hero-float {
+    display: none !important;
+  }
+
+  /* Product proof tabs: no more cut-off on phones */
+  #proof .section-header + div {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  #proof .section-header + div::-webkit-scrollbar {
+    display: none;
+  }
+
+  #proof .section-header + div button {
+    flex: 0 0 auto !important;
+    min-width: 148px !important;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+
+  #proof .screenshot-content {
+    padding: 10px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  #proof .screenshot-content > div {
+    min-width: 690px;
+  }
+
+  /* Voice AI: stack cleanly instead of side-by-side overflow */
+  #voice-ai {
+    padding: 64px 0 !important;
+    overflow: hidden !important;
+  }
+
+  #voice-ai .container > div {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    align-items: stretch !important;
+  }
+
+  #voice-ai .display-lg {
+    font-size: clamp(40px, 10vw, 54px) !important;
+    line-height: 1.05 !important;
+  }
+
+  #voice-ai .body-md {
+    font-size: 17px !important;
+    line-height: 1.65 !important;
+  }
+
+  .voice-call-sim {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-shadow: 0 22px 60px rgba(37, 99, 235, .14) !important;
+  }
+
+  .vcall-header {
+    padding: 18px !important;
+  }
+
+  .vcall-live {
+    display: none !important;
+  }
+
+  .vcall-body {
+    padding: 18px !important;
+    gap: 12px !important;
+  }
+
+  .vcall-msg {
+    width: 100%;
+  }
+
+  .vcall-msg.ai {
+    flex-direction: row !important;
+  }
+
+  .vcall-bubble {
+    max-width: calc(100vw - 112px) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    word-break: break-word;
+  }
+
+  .vcall-footer {
+    padding: 14px 18px !important;
+  }
+
+  /* Interactive demo: stack and keep visible */
+  .demo-light-section {
+    padding: 64px 0 !important;
+  }
+
+  .demo-wrap {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .demo-left {
+    padding: 28px 22px !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(37, 99, 235, .12) !important;
+  }
+
+  .demo-hd {
+    font-size: clamp(34px, 9vw, 46px) !important;
+    line-height: 1.04 !important;
+  }
+
+  .demo-tabs {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .demo-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .demo-tabs .d-tab,
+  .d-tab {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  .demo-msgs {
+    min-height: 360px !important;
+    max-height: 520px !important;
+    padding: 18px 16px !important;
+  }
+
+  .dm-b {
+    max-width: calc(100vw - 130px) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  .demo-input-row {
+    padding: 12px !important;
+  }
+
+  .demo-send {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* Pricing: premium mobile swipe instead of cramped vertical wall */
+  .pricing-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    padding: 10px 20px 22px !important;
+    margin-left: -20px;
+    margin-right: -20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .pricing-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing-card {
+    flex: 0 0 86vw !important;
+    min-width: 86vw !important;
+    max-width: 86vw !important;
+    scroll-snap-align: center;
+    padding: 28px 22px !important;
+  }
+
+  .pricing-card.popular,
+  .pricing-card.popular:hover {
+    transform: none !important;
+  }
+
+  .pricing-toggle {
+    margin-bottom: 26px !important;
+  }
+
+  .p-price {
+    font-size: 48px !important;
+  }
+
+  .p-feat {
+    font-size: 14px !important;
+  }
+
+  .industries-detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .industry-image-wrap {
+    height: 210px !important;
+  }
+
+  .footer {
+    padding-top: 74px !important;
+    padding-bottom: 92px !important;
+  }
+
+  .footer-grid {
+    gap: 26px !important;
+  }
+
+  .final-cta,
+  .founder-vision-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .mobile-cta {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 10px !important;
+    padding: 10px !important;
+    border-radius: 22px !important;
+    box-shadow: 0 18px 46px rgba(15, 23, 42, .18) !important;
+  }
+
+  .mobile-cta a,
+  .mobile-cta button {
+    min-height: 52px !important;
+    font-size: 15px !important;
+    border-radius: 16px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .container {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .nav-inner {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .nav-logo-img {
+    height: 44px !important;
+    max-width: 168px !important;
+  }
+
+  .nav-hamburger {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+
+  .hero-heading {
+    font-size: clamp(39px, 11vw, 48px) !important;
+  }
+
+  .display-lg {
+    font-size: clamp(36px, 10vw, 46px) !important;
+  }
+
+  .display-md {
+    font-size: clamp(30px, 9vw, 40px) !important;
+  }
+
+  .body-lg,
+  .body-md {
+    font-size: 16px !important;
+  }
+
+  .hero-channel-pill {
+    font-size: 12.5px !important;
+    padding: 7px 11px !important;
+  }
+
+  .vcall-bubble,
+  .dm-b {
+    max-width: calc(100vw - 108px) !important;
+  }
+
+  #proof .screenshot-content > div {
+    min-width: 650px;
+  }
+
+  .pricing-card {
+    flex-basis: 88vw !important;
+    min-width: 88vw !important;
+    max-width: 88vw !important;
+  }
+}
