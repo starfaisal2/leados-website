@@ -4,36 +4,36 @@ import "./globals.css";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
-const siteUrl = "https://leadoscrm.com";
-const title = "LeadOS — Most CRMs Store Data. LeadOS Learns From It.";
-const description =
-  "LeadOS is the AI CRM that learns from conversations, bookings, follow-ups and customer interactions. Capture leads, automate bookings, track revenue and improve over time.";
+const siteUrl = "https://www.leadoscrm.com";
+const siteTitle = "LeadOS — Most CRMs Store Data. LeadOS Learns From It.";
+const siteDescription =
+  "AI CRM that learns from conversations, bookings and follow-ups. Capture leads, automate bookings, track revenue and improve over time.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: title,
+    default: siteTitle,
     template: "%s | LeadOS",
   },
-  description,
+  description: siteDescription,
   keywords: [
     "AI CRM",
     "WhatsApp CRM",
-    "Clinic CRM",
-    "AI Receptionist",
-    "Voice AI CRM",
-    "Booking CRM",
-    "Omni Inbox CRM",
+    "clinic CRM",
+    "AI receptionist",
+    "voice AI CRM",
+    "booking CRM",
+    "omni inbox CRM",
     "CRM for clinics",
-    "CRM for medical centers",
-    "Revenue intelligence CRM",
+    "revenue intelligence CRM",
     "WhatsApp automation",
     "appointment booking software",
-    "LeadOS",
+    "GCC CRM",
+    "UAE CRM",
+    "Saudi Arabia CRM",
   ],
   authors: [{ name: "LeadOS" }],
   creator: "LeadOS",
-  publisher: "LeadOS",
   alternates: {
     canonical: siteUrl,
   },
@@ -42,21 +42,22 @@ export const metadata: Metadata = {
     locale: "en_AE",
     url: siteUrl,
     siteName: "LeadOS",
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
         url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "LeadOS — AI CRM that learns from conversations, bookings and revenue",
+        alt: "LeadOS — Most CRMs Store Data. LeadOS Learns From It.",
+        type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
     images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {

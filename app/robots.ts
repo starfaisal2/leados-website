@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 
+const siteUrl = "https://www.leadoscrm.com";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://leadoscrm.com/sitemap.xml",
-    host: "https://leadoscrm.com",
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }
