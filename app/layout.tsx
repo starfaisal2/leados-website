@@ -4,47 +4,72 @@ import "./globals.css";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
+const siteUrl = "https://leadoscrm.com";
+const title = "LeadOS — Most CRMs Store Data. LeadOS Learns From It.";
+const description =
+  "LeadOS is the AI CRM that learns from conversations, bookings, follow-ups and customer interactions. Capture leads, automate bookings, track revenue and improve over time.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "LeadOS — The Revenue Operating System That Learns",
+    default: title,
     template: "%s | LeadOS",
   },
-  description:
-    "LeadOS is the Revenue Operating System that learns from conversations, bookings and outcomes. AI Receptionist, CRM, Booking Intelligence and Revenue Intelligence in one platform.",
+  description,
   keywords: [
     "AI CRM",
     "WhatsApp CRM",
-    "clinic CRM",
-    "AI receptionist",
-    "voice AI CRM",
-    "booking CRM",
-    "omni inbox CRM",
+    "Clinic CRM",
+    "AI Receptionist",
+    "Voice AI CRM",
+    "Booking CRM",
+    "Omni Inbox CRM",
     "CRM for clinics",
-    "revenue intelligence CRM",
+    "CRM for medical centers",
+    "Revenue intelligence CRM",
     "WhatsApp automation",
     "appointment booking software",
-    "GCC CRM",
-    "UAE CRM",
-    "Saudi Arabia CRM",
+    "LeadOS",
   ],
   authors: [{ name: "LeadOS" }],
   creator: "LeadOS",
+  publisher: "LeadOS",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_AE",
-    url: "https://leadoscrm.com",
+    url: siteUrl,
     siteName: "LeadOS",
-    title: "LeadOS — Most CRMs Store Data. LeadOS Learns From It.",
-    description:
-      "The Revenue Operating System with omni inbox, AI receptionist, voice AI, booking automation and revenue intelligence.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    title,
+    description,
+    images: [
+      {
+        url: `${siteUrl}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "LeadOS — AI CRM that learns from conversations, bookings and revenue",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "LeadOS — Most CRMs Store Data. LeadOS Learns From It.",
-    description: "The Revenue Operating System that learns.",
+    title,
+    description,
+    images: [`${siteUrl}/og-image.jpg`],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {
