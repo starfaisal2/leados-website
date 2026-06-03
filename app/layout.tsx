@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -89,6 +90,11 @@ export default function RootLayout({
         <Nav />
         <main>{children}</main>
         <Footer />
+
+        <Script
+          src="https://app.leadoscrm.com/api/widget/embed?tenant=leados"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
