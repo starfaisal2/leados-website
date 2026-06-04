@@ -4075,3 +4075,133 @@ canvas {
     padding: 14px 15px !important;
   }
 }
+
+/* ═══════════════════════════════════════
+   FLOATING CHAT + BOOK DEMO FIX
+   Keeps the LeadOS chat widget floating and prevents CTA overlap.
+═══════════════════════════════════════ */
+
+/* Desktop: keep Book Demo pill visible but move it left of chat widget */
+.float-pill {
+  right: 112px !important;
+  bottom: 28px !important;
+  z-index: 180 !important;
+}
+
+/* Keep common injected chat containers fixed and premium */
+.leados-chat-widget,
+.chat-widget,
+.chat-bubble,
+[data-leados-chat],
+[id*="leados-chat"],
+[class*="leados-chat"],
+[id*="chat-widget"],
+[class*="chat-widget"] {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  z-index: 260 !important;
+}
+
+/* If LeadOS widget injects an iframe, keep it floating above all page content */
+iframe[src*="app.leadoscrm.com"],
+iframe[src*="/api/widget/embed"],
+iframe[title*="LeadOS"],
+iframe[title*="chat"],
+iframe[title*="Chat"] {
+  position: fixed !important;
+  right: 22px !important;
+  bottom: 22px !important;
+  z-index: 260 !important;
+  border: 0 !important;
+  max-width: calc(100vw - 32px) !important;
+}
+
+/* Premium floating launcher treatment for non-iframe button-based widgets */
+.leados-chat-widget button,
+.chat-widget button,
+.chat-bubble button,
+[data-leados-chat] button,
+[id*="leados-chat"] button,
+[class*="leados-chat"] button,
+[id*="chat-widget"] button,
+[class*="chat-widget"] button {
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 58%, #7c3aed 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 18px 46px rgba(37, 99, 235, 0.34), 0 6px 18px rgba(79, 70, 229, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease !important;
+}
+
+.leados-chat-widget button:hover,
+.chat-widget button:hover,
+.chat-bubble button:hover,
+[data-leados-chat] button:hover,
+[id*="leados-chat"] button:hover,
+[class*="leados-chat"] button:hover,
+[id*="chat-widget"] button:hover,
+[class*="chat-widget"] button:hover {
+  transform: translateY(-3px) scale(1.035) !important;
+  filter: brightness(1.06) !important;
+  box-shadow: 0 22px 56px rgba(37, 99, 235, 0.42), 0 8px 24px rgba(79, 70, 229, 0.28) !important;
+}
+
+/* Mobile: bottom CTA owns the bottom; chat floats above it */
+@media (max-width: 768px) {
+  .float-pill {
+    display: none !important;
+  }
+
+  .leados-chat-widget,
+  .chat-widget,
+  .chat-bubble,
+  [data-leados-chat],
+  [id*="leados-chat"],
+  [class*="leados-chat"],
+  [id*="chat-widget"],
+  [class*="chat-widget"] {
+    right: 18px !important;
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 260 !important;
+  }
+
+  iframe[src*="app.leadoscrm.com"],
+  iframe[src*="/api/widget/embed"],
+  iframe[title*="LeadOS"],
+  iframe[title*="chat"],
+  iframe[title*="Chat"] {
+    right: 14px !important;
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 260 !important;
+    max-width: calc(100vw - 28px) !important;
+  }
+
+  .mobile-cta {
+    z-index: 220 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .leados-chat-widget,
+  .chat-widget,
+  .chat-bubble,
+  [data-leados-chat],
+  [id*="leados-chat"],
+  [class*="leados-chat"],
+  [id*="chat-widget"],
+  [class*="chat-widget"] {
+    right: 14px !important;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  iframe[src*="app.leadoscrm.com"],
+  iframe[src*="/api/widget/embed"],
+  iframe[title*="LeadOS"],
+  iframe[title*="chat"],
+  iframe[title*="Chat"] {
+    right: 10px !important;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
