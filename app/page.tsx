@@ -6,6 +6,7 @@ const BOOK_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20book%20a%20demo";
 const SALES_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20discuss%20Enterprise";
+const SIGNUP_URL = "/signup";
 
 /* ── Logo SVG ── */
 function Logo({ size = 32 }: { size?: number }) {
@@ -195,6 +196,11 @@ export default function HomePage() {
     }, 1700);
   };
 
+  const prices = {
+    starter: annual ? 239 : 299,
+    growth: annual ? 559 : 699,
+    enterprise: annual ? 1199 : 1499,
+  };
 
   const waveH = [8, 14, 22, 30, 36, 28, 20, 32, 18, 26, 34, 22, 16, 28, 12, 24, 32, 20, 14, 30];
 
@@ -225,22 +231,15 @@ export default function HomePage() {
               ))}
             </div>
             <div className="hero-ctas" style={{ marginTop: 32 }}>
-              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-                Book Demo
+              <Link href={SIGNUP_URL} className="btn btn-primary btn-lg">
+                Start Free Trial
                 <svg className="btn-arrow" width="16" height="16" fill="none" viewBox="0 0 24 24">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
+              </Link>
+              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-lg">
+                Book Demo
               </a>
-              <button
-                className="btn btn-secondary btn-lg"
-                onClick={() => document.getElementById("proof")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M10 8l6 4-6 4V8z" fill="currentColor" />
-                </svg>
-                See Live Product
-              </button>
             </div>
             <p style={{ fontSize: 12, color: "var(--ink-4)", marginTop: 14, fontWeight: 400 }}>
               AI improves over time · Multi-language conversations · Human + AI collaboration · Revenue Operating System · Live in days
@@ -1073,51 +1072,52 @@ export default function HomePage() {
             <div className="pricing-card">
               <div className="p-tier">Starter</div>
               <div className="p-tagline">For small teams starting with AI CRM.</div>
-              <div className="p-price">$499/mo</div>
-              <div className="p-sub-price">/month · billed {annual ? "annually" : "monthly"}</div>
-              <div className="p-aed">AED 1,850/mo</div>
+              <div className="p-price" style={{ fontSize: "clamp(34px, 3vw, 48px)" }}>AED / USD</div>
+              <div className="p-sub-price">Launch pricing placeholder</div>
+              <div className="p-aed">Simple AI CRM foundation</div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "Basic AI Replies", "Basic Reporting"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <a href="/contact" className="p-btn pb-outline">Start Free Trial →</a>
+              <Link href="/signup?plan=starter" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Start Free Trial →</Link>
             </div>
 
             {/* Growth — Popular */}
             <div className="pricing-card popular">
               <div className="popular-pill">Most Popular</div>
               <div className="p-tier">Growth</div>
-              <div className="p-tagline" style={{ color: "rgba(255,255,255,.35)" }}>For clinics and businesses running WhatsApp + AI.</div>
-              <div className="p-price">$999/mo</div>
-              <div className="p-sub-price">/month · billed {annual ? "annually" : "monthly"}</div>
-              <div className="p-aed" style={{ color: "rgba(255,255,255,.28)" }}>AED 3,700/mo</div>
+              <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
+              <div className="p-price" style={{ fontSize: "clamp(34px, 3vw, 48px)" }}>AED / USD</div>
+              <div className="p-sub-price">Launch pricing placeholder</div>
+              <div className="p-aed">WhatsApp + AI booking growth stack</div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Bookings", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <a href="/contact" className="p-btn pb-solid">Book Demo →</a>
+              <Link href="/signup?plan=growth" className="p-btn pb-solid" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Start Free Trial →</Link>
             </div>
 
-            {/* Enterprise */}
+            {/* Enterprise AI */}
             <div className="pricing-card">
               <div className="p-tier">Enterprise AI</div>
               <div className="p-tagline">For multi-location teams and full automation.</div>
-              <div className="p-price">Custom Pricing</div>
+              <div className="p-price">Custom</div>
               <div className="p-sub-price">Tailored to your operation</div>
+              <div className="p-aed">Advanced automation and support</div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Everything in Growth", "Voice AI", "Advanced Marketing Brain", "Multi-Channel Integrations", "Advanced Reporting", "Priority Support", "Custom Onboarding"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <a href="/contact" className="p-btn pb-outline">Contact Sales →</a>
+              <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Contact Sales →</a>
             </div>
           </div>
-          <p className="p-note">All plans require a one-time onboarding & setup fee · AI usage billed fairly based on plan · Pricing may vary based on integrations and usage</p>
+          <p className="p-note">7-day free trial available · AI usage billed fairly based on plan · Pricing may vary based on integrations and usage</p>
         </div>
       </section>
 
@@ -1213,15 +1213,15 @@ export default function HomePage() {
 
       {/* ── FLOATING PILL (desktop) ── */}
       <div className="float-pill">
-        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer">
-          Book Demo ↗
-        </a>
+        <Link href="/signup">
+          Start Free Trial ↗
+        </Link>
       </div>
 
       {/* ── MOBILE STICKY CTA ── */}
       <div className="mobile-cta">
-        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="mobile-cta-primary">Book Demo</a>
-        <button className="mobile-cta-secondary" onClick={() => document.getElementById("proof")?.scrollIntoView({ behavior: "smooth" })}>See Product</button>
+        <Link href="/signup" className="mobile-cta-primary">Start Free Trial</Link>
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="mobile-cta-secondary">Book Demo</a>
       </div>
     </>
   );

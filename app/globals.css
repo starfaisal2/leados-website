@@ -3404,804 +3404,215 @@ html, body {
 }
 
 /* ═══════════════════════════════════════
-   MOBILE RESPONSIVE FIXES ONLY
-   Fixes nav crowding, Voice AI overflow, proof tabs, screenshots,
-   pricing swipe, spacing and horizontal overflow without changing desktop.
+   SIGNUP FLOW + NAV TRIAL CTA
 ═══════════════════════════════════════ */
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
+.nav-trial {
+  font-size: 14px;
+  font-weight: 700;
+  background: white;
+  color: var(--blue);
+  padding: 9px 18px;
+  border-radius: var(--r);
+  border: 1.5px solid rgba(37, 99, 235, .22);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, .08);
+  cursor: pointer;
+  transition: all .22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
-
-img,
-svg,
-video,
-canvas {
-  max-width: 100%;
+.nav-trial:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, .34);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, .14);
+  background: var(--blue-50);
 }
-
-@media (max-width: 900px) {
-  .container {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-
-  .nav {
-    height: 76px !important;
-  }
-
-  .nav-inner {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-    gap: 12px;
-  }
-
-  .nav-logo-img {
-    height: 48px !important;
-    max-width: 176px !important;
-    object-fit: contain;
-  }
-
-  .nav-inner > .nav-right .nav-login,
-  .nav-inner > .nav-right .nav-demo {
-    display: none !important;
-  }
-
-  .nav-hamburger {
-    display: flex !important;
-    width: 44px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(15, 23, 42, .12);
-    border-radius: 14px;
-    background: rgba(255,255,255,.78);
-    box-shadow: 0 10px 26px rgba(15, 23, 42, .08);
-  }
-
-  .nav-hamburger span {
-    width: 20px;
-  }
-
-  .hero {
-    padding-top: 112px !important;
-    padding-bottom: 48px !important;
-  }
-
-  .hero-heading,
-  .display-lg,
-  .display-md {
-    letter-spacing: -0.045em !important;
-  }
+.signup-page {
+  min-height: 100vh;
+  padding: calc(var(--nav-h) + 72px) 0 96px;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(37, 99, 235, .15), transparent 30%),
+    radial-gradient(circle at 88% 22%, rgba(124, 58, 237, .10), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+  position: relative;
+  overflow: hidden;
 }
-
-@media (max-width: 760px) {
-  .hero-heading {
-    font-size: clamp(42px, 11vw, 58px) !important;
-    line-height: 1.02 !important;
-    max-width: 100% !important;
-  }
-
-  .hero-sub {
-    font-size: 18px !important;
-    line-height: 1.62 !important;
-    max-width: 100% !important;
-  }
-
-  .hero-ctas {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-ctas .btn,
-  .hero-ctas a,
-  .hero-ctas button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .hero-channels {
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-channel-pill {
-    font-size: 13px !important;
-    padding: 8px 13px !important;
-  }
-
-  .hero-visual {
-    margin-top: 42px !important;
-  }
-
-  .hero-dash-wrap,
-  .screenshot-frame,
-  .demo-wrap,
-  .voice-call-sim,
-  .pricing-card,
-  .industry-detail-card {
-    border-radius: 24px !important;
-  }
-
-  .hero-dash-wrap {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .dash-titlebar {
-    padding: 10px 12px !important;
-  }
-
-  .dash-url {
-    margin: 0 6px !important;
-    font-size: 10px !important;
-  }
-
-  .dash-content {
-    padding: 14px !important;
-  }
-
-  .dash-kpis {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
-  }
-
-  .hero-float {
-    display: none !important;
-  }
-
-  /* Product proof tabs: no more cut-off on phones */
-  #proof .section-header + div {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    justify-content: flex-start !important;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  #proof .section-header + div::-webkit-scrollbar {
-    display: none;
-  }
-
-  #proof .section-header + div button {
-    flex: 0 0 auto !important;
-    min-width: 148px !important;
-    scroll-snap-align: start;
-    white-space: nowrap;
-  }
-
-  #proof .screenshot-content {
-    padding: 10px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
-
-  #proof .screenshot-content > div {
-    min-width: 690px;
-  }
-
-  /* Voice AI: stack cleanly instead of side-by-side overflow */
-  #voice-ai {
-    padding: 64px 0 !important;
-    overflow: hidden !important;
-  }
-
-  #voice-ai .container > div {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
-    align-items: stretch !important;
-  }
-
-  #voice-ai .display-lg {
-    font-size: clamp(40px, 10vw, 54px) !important;
-    line-height: 1.05 !important;
-  }
-
-  #voice-ai .body-md {
-    font-size: 17px !important;
-    line-height: 1.65 !important;
-  }
-
-  .voice-call-sim {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    box-shadow: 0 22px 60px rgba(37, 99, 235, .14) !important;
-  }
-
-  .vcall-header {
-    padding: 18px !important;
-  }
-
-  .vcall-live {
-    display: none !important;
-  }
-
-  .vcall-body {
-    padding: 18px !important;
-    gap: 12px !important;
-  }
-
-  .vcall-msg {
-    width: 100%;
-  }
-
-  .vcall-msg.ai {
-    flex-direction: row !important;
-  }
-
-  .vcall-bubble {
-    max-width: calc(100vw - 112px) !important;
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-    word-break: break-word;
-  }
-
-  .vcall-footer {
-    padding: 14px 18px !important;
-  }
-
-  /* Interactive demo: stack and keep visible */
-  .demo-light-section {
-    padding: 64px 0 !important;
-  }
-
-  .demo-wrap {
-    grid-template-columns: 1fr !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .demo-left {
-    padding: 28px 22px !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(37, 99, 235, .12) !important;
-  }
-
-  .demo-hd {
-    font-size: clamp(34px, 9vw, 46px) !important;
-    line-height: 1.04 !important;
-  }
-
-  .demo-tabs {
-    overflow-x: auto !important;
-    flex-wrap: nowrap !important;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .demo-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .demo-tabs .d-tab,
-  .d-tab {
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-  }
-
-  .demo-msgs {
-    min-height: 360px !important;
-    max-height: 520px !important;
-    padding: 18px 16px !important;
-  }
-
-  .dm-b {
-    max-width: calc(100vw - 130px) !important;
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-  }
-
-  .demo-input-row {
-    padding: 12px !important;
-  }
-
-  .demo-send {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-
-  /* Pricing: premium mobile swipe instead of cramped vertical wall */
-  .pricing-grid {
-    display: flex !important;
-    grid-template-columns: none !important;
-    gap: 16px !important;
-    overflow-x: auto !important;
-    overflow-y: visible !important;
-    padding: 10px 20px 22px !important;
-    margin-left: -20px;
-    margin-right: -20px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .pricing-grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .pricing-card {
-    flex: 0 0 86vw !important;
-    min-width: 86vw !important;
-    max-width: 86vw !important;
-    scroll-snap-align: center;
-    padding: 28px 22px !important;
-  }
-
-  .pricing-card.popular,
-  .pricing-card.popular:hover {
-    transform: none !important;
-  }
-
-  .pricing-toggle {
-    margin-bottom: 26px !important;
-  }
-
-  .p-price {
-    font-size: 48px !important;
-  }
-
-  .p-feat {
-    font-size: 14px !important;
-  }
-
-  .industries-detail-grid {
-    grid-template-columns: 1fr !important;
-    gap: 18px !important;
-  }
-
-  .industry-image-wrap {
-    height: 210px !important;
-  }
-
-  .footer {
-    padding-top: 74px !important;
-    padding-bottom: 92px !important;
-  }
-
-  .footer-grid {
-    gap: 26px !important;
-  }
-
-  .final-cta,
-  .founder-vision-card {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  .mobile-cta {
-    left: 12px !important;
-    right: 12px !important;
-    bottom: 10px !important;
-    padding: 10px !important;
-    border-radius: 22px !important;
-    box-shadow: 0 18px 46px rgba(15, 23, 42, .18) !important;
-  }
-
-  .mobile-cta a,
-  .mobile-cta button {
-    min-height: 52px !important;
-    font-size: 15px !important;
-    border-radius: 16px !important;
-  }
+.signup-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  pointer-events: none;
 }
-
-@media (max-width: 430px) {
-  .container {
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-  }
-
-  .nav-inner {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-
-  .nav-logo-img {
-    height: 44px !important;
-    max-width: 168px !important;
-  }
-
-  .nav-hamburger {
-    width: 42px;
-    height: 42px;
-    border-radius: 13px;
-  }
-
-  .hero-heading {
-    font-size: clamp(39px, 11vw, 48px) !important;
-  }
-
-  .display-lg {
-    font-size: clamp(36px, 10vw, 46px) !important;
-  }
-
-  .display-md {
-    font-size: clamp(30px, 9vw, 40px) !important;
-  }
-
-  .body-lg,
-  .body-md {
-    font-size: 16px !important;
-  }
-
-  .hero-channel-pill {
-    font-size: 12.5px !important;
-    padding: 7px 11px !important;
-  }
-
-  .vcall-bubble,
-  .dm-b {
-    max-width: calc(100vw - 108px) !important;
-  }
-
-  #proof .screenshot-content > div {
-    min-width: 650px;
-  }
-
-  .pricing-card {
-    flex-basis: 88vw !important;
-    min-width: 88vw !important;
-    max-width: 88vw !important;
-  }
+.signup-orb-one {
+  width: 260px;
+  height: 260px;
+  background: rgba(37, 99, 235, .12);
+  top: 120px;
+  right: -90px;
 }
-
-/* ═══════════════════════════════════════
-   HOTFIX — Interactive demo mobile overflow
-   Keeps desktop unchanged. Makes the demo section readable on phones.
-═══════════════════════════════════════ */
-@media (max-width: 760px) {
-  .demo-light-section {
-    overflow: hidden !important;
-    padding: 56px 0 72px !important;
-  }
-
-  .demo-container-wide {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-
-  .demo-wrap {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    margin: 0 auto !important;
-    overflow: hidden !important;
-    border-radius: 28px !important;
-  }
-
-  .demo-left,
-  .demo-right {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  .demo-left {
-    padding: 28px 22px 30px !important;
-  }
-
-  .demo-slabel {
-    font-size: 12px !important;
-    letter-spacing: 2.4px !important;
-    margin-bottom: 14px !important;
-  }
-
-  .demo-tabs {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-    overflow: visible !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 24px !important;
-  }
-
-  .demo-tabs .d-tab,
-  .d-tab {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    justify-content: center !important;
-    text-align: center !important;
-    white-space: nowrap !important;
-    padding: 12px 10px !important;
-    font-size: 14px !important;
-    border-radius: 14px !important;
-  }
-
-  .demo-hd {
-    font-size: clamp(34px, 9.4vw, 44px) !important;
-    line-height: 1.06 !important;
-    letter-spacing: -0.055em !important;
-    margin-bottom: 16px !important;
-  }
-
-  .demo-sub {
-    max-width: 100% !important;
-    font-size: 17px !important;
-    line-height: 1.68 !important;
-    overflow-wrap: anywhere !important;
-    word-break: normal !important;
-  }
-
-  .demo-info {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 7px !important;
-    max-width: 100% !important;
-    margin-top: 18px !important;
-    margin-bottom: 24px !important;
-    font-size: 15px !important;
-    line-height: 1.55 !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  .demo-cta-btn {
-    width: 100% !important;
-    max-width: 260px !important;
-    min-height: 54px !important;
-    font-size: 15px !important;
-  }
-
-  .demo-chat-hdr {
-    padding: 22px 20px !important;
-    align-items: center !important;
-  }
-
-  .demo-ai-av {
-    width: 44px !important;
-    height: 44px !important;
-    flex: 0 0 44px !important;
-  }
-
-  .demo-ai-name {
-    font-size: 17px !important;
-    line-height: 1.25 !important;
-  }
-
-  .demo-ai-status {
-    font-size: 13px !important;
-    line-height: 1.35 !important;
-  }
-
-  .demo-msgs {
-    min-height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    padding: 22px 16px !important;
-    gap: 16px !important;
-  }
-
-  .dm {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    gap: 10px !important;
-    align-items: flex-start !important;
-  }
-
-  .dm.u {
-    justify-content: flex-start !important;
-    flex-direction: row-reverse !important;
-  }
-
-  .dm-av {
-    width: 28px !important;
-    height: 28px !important;
-    flex: 0 0 28px !important;
-  }
-
-  .dm-b {
-    max-width: calc(100vw - 128px) !important;
-    min-width: 0 !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-    word-break: normal !important;
-    hyphens: auto !important;
-    font-size: 16px !important;
-    line-height: 1.55 !important;
-    padding: 15px 17px !important;
-    border-radius: 18px !important;
-  }
-
-  .demo-input-row {
-    padding: 14px !important;
-    gap: 10px !important;
-  }
-
-  .demo-inp {
-    min-width: 0 !important;
-    height: 50px !important;
-    font-size: 15px !important;
-  }
-
-  .demo-send {
-    flex: 0 0 auto !important;
-    min-width: 72px !important;
-    height: 50px !important;
-  }
+.signup-orb-two {
+  width: 220px;
+  height: 220px;
+  background: rgba(124, 58, 237, .10);
+  bottom: 40px;
+  left: -80px;
 }
-
-@media (max-width: 430px) {
-  .demo-container-wide {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-
-  .demo-left {
-    padding: 26px 20px 28px !important;
-  }
-
-  .demo-tabs {
-    gap: 8px !important;
-  }
-
-  .demo-tabs .d-tab,
-  .d-tab {
-    font-size: 13px !important;
-    padding: 11px 8px !important;
-  }
-
-  .demo-sub {
-    font-size: 16px !important;
-  }
-
-  .dm-b {
-    max-width: calc(100vw - 116px) !important;
-    font-size: 15px !important;
-    padding: 14px 15px !important;
-  }
+.signup-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
 }
-
-/* ═══════════════════════════════════════
-   FLOATING CHAT + BOOK DEMO FIX
-   Keeps the LeadOS chat widget floating and prevents CTA overlap.
-═══════════════════════════════════════ */
-
-/* Desktop: keep Book Demo pill visible but move it left of chat widget */
-.float-pill {
-  right: 112px !important;
-  bottom: 28px !important;
-  z-index: 180 !important;
+.signup-back {
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+  margin-bottom: 22px;
 }
-
-/* Keep common injected chat containers fixed and premium */
-.leados-chat-widget,
-.chat-widget,
-.chat-bubble,
-[data-leados-chat],
-[id*="leados-chat"],
-[class*="leados-chat"],
-[id*="chat-widget"],
-[class*="chat-widget"] {
-  position: fixed !important;
-  right: 24px !important;
-  bottom: 24px !important;
-  z-index: 260 !important;
+.signup-back:hover { color: var(--blue); }
+.signup-trust-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 30px;
 }
-
-/* If LeadOS widget injects an iframe, keep it floating above all page content */
-iframe[src*="app.leadoscrm.com"],
-iframe[src*="/api/widget/embed"],
-iframe[title*="LeadOS"],
-iframe[title*="chat"],
-iframe[title*="Chat"] {
-  position: fixed !important;
-  right: 22px !important;
-  bottom: 22px !important;
-  z-index: 260 !important;
-  border: 0 !important;
-  max-width: calc(100vw - 32px) !important;
+.signup-trust-list div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink-2);
+  font-weight: 650;
+  font-size: 14px;
 }
-
-/* Premium floating launcher treatment for non-iframe button-based widgets */
-.leados-chat-widget button,
-.chat-widget button,
-.chat-bubble button,
-[data-leados-chat] button,
-[id*="leados-chat"] button,
-[class*="leados-chat"] button,
-[id*="chat-widget"] button,
-[class*="chat-widget"] button {
-  border-radius: 999px !important;
-  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 58%, #7c3aed 100%) !important;
-  color: #fff !important;
-  box-shadow: 0 18px 46px rgba(37, 99, 235, 0.34), 0 6px 18px rgba(79, 70, 229, 0.22) !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease !important;
+.signup-trust-list span { color: var(--green); font-weight: 900; }
+.signup-card {
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid rgba(37, 99, 235, .14);
+  border-radius: 32px;
+  box-shadow: 0 30px 90px rgba(37, 99, 235, .14), 0 12px 36px rgba(15, 23, 42, .08);
+  padding: 34px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
-
-.leados-chat-widget button:hover,
-.chat-widget button:hover,
-.chat-bubble button:hover,
-[data-leados-chat] button:hover,
-[id*="leados-chat"] button:hover,
-[class*="leados-chat"] button:hover,
-[id*="chat-widget"] button:hover,
-[class*="chat-widget"] button:hover {
-  transform: translateY(-3px) scale(1.035) !important;
-  filter: brightness(1.06) !important;
-  box-shadow: 0 22px 56px rgba(37, 99, 235, 0.42), 0 8px 24px rgba(79, 70, 229, 0.28) !important;
+.signup-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
 }
-
-/* Mobile: bottom CTA owns the bottom; chat floats above it */
-@media (max-width: 768px) {
-  .float-pill {
-    display: none !important;
-  }
-
-  .leados-chat-widget,
-  .chat-widget,
-  .chat-bubble,
-  [data-leados-chat],
-  [id*="leados-chat"],
-  [class*="leados-chat"],
-  [id*="chat-widget"],
-  [class*="chat-widget"] {
-    right: 18px !important;
-    bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
-    z-index: 260 !important;
-  }
-
-  iframe[src*="app.leadoscrm.com"],
-  iframe[src*="/api/widget/embed"],
-  iframe[title*="LeadOS"],
-  iframe[title*="chat"],
-  iframe[title*="Chat"] {
-    right: 14px !important;
-    bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
-    z-index: 260 !important;
-    max-width: calc(100vw - 28px) !important;
-  }
-
-  .mobile-cta {
-    z-index: 220 !important;
-  }
+.signup-card-header h2 {
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  margin-bottom: 5px;
 }
-
-@media (max-width: 420px) {
-  .leados-chat-widget,
-  .chat-widget,
-  .chat-bubble,
-  [data-leados-chat],
-  [id*="leados-chat"],
-  [class*="leados-chat"],
-  [id*="chat-widget"],
-  [class*="chat-widget"] {
-    right: 14px !important;
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
-  }
-
-  iframe[src*="app.leadoscrm.com"],
-  iframe[src*="/api/widget/embed"],
-  iframe[title*="LeadOS"],
-  iframe[title*="chat"],
-  iframe[title*="Chat"] {
-    right: 10px !important;
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
-  }
+.signup-card-header p { color: var(--ink-3); font-size: 14px; }
+.signup-plan-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  color: var(--blue);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 850;
 }
-
+.signup-card label {
+  display: grid;
+  gap: 7px;
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+.signup-card input,
+.signup-card select {
+  width: 100%;
+  height: 48px;
+  border: 1px solid rgba(15, 23, 42, .12);
+  background: white;
+  border-radius: 14px;
+  color: var(--ink);
+  padding: 0 14px;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: all .18s ease;
+}
+.signup-card input:focus,
+.signup-card select:focus {
+  border-color: rgba(37, 99, 235, .48);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .10);
+}
+.signup-grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.signup-alert {
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 750;
+  margin: 8px 0 14px;
+}
+.signup-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.signup-success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+.signup-submit {
+  width: 100%;
+  min-height: 54px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--indigo));
+  color: white;
+  font-size: 16px;
+  font-weight: 850;
+  box-shadow: 0 16px 34px rgba(37, 99, 235, .22);
+  cursor: pointer;
+  transition: all .22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.signup-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 20px 44px rgba(37, 99, 235, .30);
+}
+.signup-submit:disabled {
+  opacity: .72;
+  cursor: not-allowed;
+}
+.signup-smallprint {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--ink-4);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.signup-smallprint a { color: var(--blue); font-weight: 800; }
+@media (max-width: 1024px) {
+  .signup-container { grid-template-columns: 1fr; gap: 34px; }
+  .signup-copy { text-align: center; max-width: 720px; margin: 0 auto; }
+  .signup-trust-list { max-width: 360px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 640px) {
+  .nav-trial { display: none; }
+  .signup-page { padding-top: calc(var(--nav-h) + 44px); padding-bottom: 82px; }
+  .signup-card { padding: 24px; border-radius: 24px; }
+  .signup-grid-two { grid-template-columns: 1fr; gap: 0; }
+  .signup-card-header { flex-direction: column; }
+}

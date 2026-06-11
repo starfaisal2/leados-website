@@ -5,6 +5,7 @@ import LoginModal from "./LoginModal";
 
 const BOOK_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20book%20a%20demo";
+const SIGNUP_URL = "/signup";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -57,6 +58,9 @@ export default function Nav() {
               </svg>
               Login
             </button>
+            <Link href={SIGNUP_URL} className="nav-trial">
+              Start Free Trial
+            </Link>
             <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
               Book Demo
             </a>
@@ -98,20 +102,28 @@ export default function Nav() {
                 {label}
               </Link>
             ))}
-            <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+            <div style={{ display: "grid", gap: 10, marginTop: 16 }}>
               <button
                 className="nav-login"
-                style={{ flex: 1 }}
+                style={{ width: "100%", justifyContent: "center" }}
                 onClick={() => { setLoginOpen(true); setMobileOpen(false); }}
               >
                 Login
               </button>
+              <Link
+                href={SIGNUP_URL}
+                className="nav-trial"
+                style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Start Free Trial
+              </Link>
               <a
                 href={BOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nav-demo"
-                style={{ flex: 2, textAlign: "center" }}
+                style={{ width: "100%", textAlign: "center" }}
               >
                 Book Demo
               </a>
