@@ -195,11 +195,6 @@ export default function HomePage() {
     }, 1700);
   };
 
-  const prices = {
-    starter: annual ? 239 : 299,
-    growth: annual ? 559 : 699,
-    enterprise: annual ? 1199 : 1499,
-  };
 
   const waveH = [8, 14, 22, 30, 36, 28, 20, 32, 18, 26, 34, 22, 16, 28, 12, 24, 32, 20, 14, 30];
 
@@ -1077,53 +1072,49 @@ export default function HomePage() {
             {/* Starter */}
             <div className="pricing-card">
               <div className="p-tier">Starter</div>
-              <div className="p-tagline">For small businesses getting started</div>
-              <div className="p-price">${prices.starter}</div>
+              <div className="p-tagline">For small teams starting with AI CRM.</div>
+              <div className="p-price">$499/mo</div>
               <div className="p-sub-price">/month · billed {annual ? "annually" : "monthly"}</div>
-              <div className="p-aed">≈ AED {(prices.starter * 3.67).toFixed(0)}/month</div>
-              <div className="p-highlight">👥 3 Users &nbsp;·&nbsp; 💬 1,000 AI Chats/mo</div>
+              <div className="p-aed">AED 1,850/mo</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["3 Team Members", "1,000 AI-handled conversations/month", "WhatsApp Business + Website Chat", "AI Receptionist (24/7)", "Appointment Booking Automation", "Basic Reports Dashboard", "Human Handoff Alerts", "Email & Chat Support"].map((f) => (
+                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "Basic AI Replies", "Basic Reporting"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <button className="p-btn pb-outline" onClick={() => window.open(BOOK_URL, "_blank")}>Book a Demo →</button>
+              <a href="/contact" className="p-btn pb-outline">Start Free Trial →</a>
             </div>
 
             {/* Growth — Popular */}
             <div className="pricing-card popular">
               <div className="popular-pill">Most Popular</div>
               <div className="p-tier">Growth</div>
-              <div className="p-tagline" style={{ color: "rgba(255,255,255,.35)" }}>For growing teams that need more power</div>
-              <div className="p-price">${prices.growth}</div>
+              <div className="p-tagline" style={{ color: "rgba(255,255,255,.35)" }}>For clinics and businesses running WhatsApp + AI.</div>
+              <div className="p-price">$999/mo</div>
               <div className="p-sub-price">/month · billed {annual ? "annually" : "monthly"}</div>
-              <div className="p-aed" style={{ color: "rgba(255,255,255,.28)" }}>≈ AED {(prices.growth * 3.67).toFixed(0)}/month</div>
-              <div className="p-highlight">👥 15 Users &nbsp;·&nbsp; 💬 10,000 AI Chats/mo</div>
+              <div className="p-aed" style={{ color: "rgba(255,255,255,.28)" }}>AED 3,700/mo</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["15 Team Members", "10,000 AI-handled conversations/month", "All Channels (WA + IG + FB + Web)", "AI Receptionist + Revenue Brain", "Voice AI Receptionist", "Advanced Booking Automation", "Follow-Up & Recovery Sequences", "Full Reports & Revenue Attribution", "Multilingual AI (10+ languages)", "Priority Support", "Meta Brain Access"].map((f) => (
+                {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Bookings", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <button className="p-btn pb-solid" onClick={() => window.open(BOOK_URL, "_blank")}>Book a Demo →</button>
+              <a href="/contact" className="p-btn pb-solid">Book Demo →</a>
             </div>
 
             {/* Enterprise */}
             <div className="pricing-card">
-              <div className="p-tier">Enterprise</div>
-              <div className="p-tagline">For large operations & multi-location</div>
-              <div className="p-price">${prices.enterprise}+</div>
-              <div className="p-sub-price">/month · billed {annual ? "annually" : "monthly"}</div>
-              <div className="p-aed">≈ AED {(prices.enterprise * 3.67).toFixed(0)}+/month</div>
-              <div className="p-highlight">♾️ Unlimited Users &nbsp;·&nbsp; 💬 Unlimited Chats</div>
+              <div className="p-tier">Enterprise AI</div>
+              <div className="p-tagline">For multi-location teams and full automation.</div>
+              <div className="p-price">Custom Pricing</div>
+              <div className="p-sub-price">Tailored to your operation</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Unlimited Team Members", "Unlimited AI conversations (fair use)", "All Channels + Custom Integrations", "Dedicated AI Model Training", "Multi-Location Management", "Voice AI — All Languages", "White-Label Options", "Custom Reporting & Analytics", "Dedicated Account Manager", "API Access", "SLA & Uptime Guarantee", "Full Meta Brain Access"].map((f) => (
+                {["Everything in Growth", "Voice AI", "Advanced Marketing Brain", "Multi-Channel Integrations", "Advanced Reporting", "Priority Support", "Custom Onboarding"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <button className="p-btn pb-outline" onClick={() => window.open(SALES_URL, "_blank")}>Talk to Sales →</button>
+              <a href="/contact" className="p-btn pb-outline">Contact Sales →</a>
             </div>
           </div>
           <p className="p-note">All plans require a one-time onboarding & setup fee · AI usage billed fairly based on plan · Pricing may vary based on integrations and usage</p>
