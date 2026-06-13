@@ -196,11 +196,11 @@ export default function HomePage() {
     }, 1700);
   };
 
-  const prices = {
-    starter: annual ? 239 : 299,
-    growth: annual ? 559 : 699,
-    enterprise: annual ? 1199 : 1499,
-  };
+  // Monthly = list price; Annual = 20% discount, billed annually (shown per-month).
+  const prices = annual
+    ? { starter: { usd: 399, aed: "1,480" }, growth: { usd: 799, aed: "2,960" } }
+    : { starter: { usd: 499, aed: "1,850" }, growth: { usd: 999, aed: "3,700" } };
+  const billed = annual ? " billed annually" : "";
 
   const waveH = [8, 14, 22, 30, 36, 28, 20, 32, 18, 26, 34, 22, 16, 28, 12, 24, 32, 20, 14, 30];
 
@@ -1072,12 +1072,12 @@ export default function HomePage() {
             <div className="pricing-card">
               <div className="p-tier">Starter</div>
               <div className="p-tagline">For small teams starting with AI CRM.</div>
-              <div className="p-price">USD 499<span className="p-per">/month</span></div>
-              <div className="p-sub-price">AED 1,850 / month</div>
-              <div className="p-aed">AED 5,000 setup fee · First month included after setup</div>
+              <div className="p-price">USD {prices.starter.usd}<span className="p-per">/month{billed}</span></div>
+              <div className="p-sub-price">AED {prices.starter.aed} / month{billed}</div>
+              <div className="p-aed">AED 5,000 One-Time Setup Fee · Professional onboarding · First month included</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "Basic AI Replies", "Basic Reporting"].map((f) => (
+                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting", "1 Team Member"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
@@ -1089,12 +1089,12 @@ export default function HomePage() {
               <div className="popular-pill">Most Popular</div>
               <div className="p-tier">Growth</div>
               <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
-              <div className="p-price">USD 999<span className="p-per">/month</span></div>
-              <div className="p-sub-price">AED 3,700 / month</div>
-              <div className="p-aed">AED 5,000 setup fee · First month included after setup</div>
+              <div className="p-price">USD {prices.growth.usd}<span className="p-per">/month{billed}</span></div>
+              <div className="p-sub-price">AED {prices.growth.aed} / month{billed}</div>
+              <div className="p-aed">AED 5,000 One-Time Setup Fee · Professional onboarding · First month included</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Bookings", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution"].map((f) => (
+                {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution", "Reporting Suite"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
@@ -1110,7 +1110,7 @@ export default function HomePage() {
               <div className="p-aed">Advanced automation and support</div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Everything in Growth", "Voice AI", "Advanced Marketing Brain", "Multi-Channel Integrations", "Advanced Reporting", "Priority Support", "Custom Onboarding"].map((f) => (
+                {["Everything in Growth", "Voice AI", "Multi-Location Support", "Advanced Marketing Brain", "Multi-Channel Integrations", "Custom AI Training", "Advanced Reporting", "Priority Support", "Dedicated Onboarding"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
@@ -1118,6 +1118,25 @@ export default function HomePage() {
             </div>
           </div>
           <p className="p-note">Professional onboarding included · First month included after setup · Terms &amp; Conditions apply · AI usage billed fairly based on plan</p>
+
+          {/* Trust / why choose */}
+          <div className="section-header center" style={{ marginTop: 72 }}>
+            <h2 className="display-lg">Why businesses choose <span className="text-serif-em" style={{ color: "var(--ink-3)" }}>LeadOS.</span></h2>
+          </div>
+          <div className="roi-grid">
+            {[
+              { n: "🤖", h: "AI Sales Assistant", p: "Converts conversations into bookings automatically." },
+              { n: "📊", h: "Revenue Attribution", p: "Track revenue from lead to booking." },
+              { n: "🧠", h: "Marketing Brain", p: "Understand which campaigns generate revenue." },
+              { n: "📞", h: "Voice AI", p: "Handle calls, bookings and enquiries automatically." },
+            ].map((r) => (
+              <div key={r.h} className="roi-card">
+                <div className="roi-number">{r.n}</div>
+                <div className="roi-h">{r.h}</div>
+                <div className="roi-p">{r.p}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

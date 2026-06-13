@@ -4345,6 +4345,34 @@ iframe[src*="/api/widget/embed"] {
   padding-right: 40px;
 }
 
+/* Checkbox — opt out of the generic input box styling above and render a
+   proper custom check (otherwise appearance:none leaves an empty box). */
+.signup-card input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+.signup-card input[type="checkbox"]:checked {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.signup-card input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .signup-card a {
   color: var(--blue);
   font-weight: 700;

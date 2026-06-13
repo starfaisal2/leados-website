@@ -265,7 +265,6 @@ export default function GetStartedPage() {
               type="checkbox"
               checked={form.terms_accepted}
               onChange={(e) => update("terms_accepted", e.target.checked)}
-              style={{ width: "auto", marginTop: 3, flex: "0 0 auto" }}
             />
             <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--ink-3)" }}>
               I agree to the LeadOS <Link href="/terms">Terms &amp; Conditions</Link> and{" "}
