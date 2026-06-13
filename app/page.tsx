@@ -6,7 +6,7 @@ const BOOK_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20book%20a%20demo";
 const SALES_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20discuss%20Enterprise";
-const SIGNUP_URL = "/signup";
+const SIGNUP_URL = "/get-started";
 
 /* ── Logo SVG ── */
 function Logo({ size = 32 }: { size?: number }) {
@@ -232,7 +232,7 @@ export default function HomePage() {
             </div>
             <div className="hero-ctas" style={{ marginTop: 32 }}>
               <Link href={SIGNUP_URL} className="btn btn-primary btn-lg">
-                Start Free Trial
+                Get Started
                 <svg className="btn-arrow" width="16" height="16" fill="none" viewBox="0 0 24 24">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -1081,7 +1081,7 @@ export default function HomePage() {
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <Link href="/signup?plan=starter" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Start Free Trial →</Link>
+              <Link href="/get-started?plan=starter" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Get Started →</Link>
             </div>
 
             {/* Growth — Popular */}
@@ -1098,7 +1098,7 @@ export default function HomePage() {
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
-              <Link href="/signup?plan=growth" className="p-btn pb-solid" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Start Free Trial →</Link>
+              <Link href="/get-started?plan=growth" className="p-btn pb-solid" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Get Started →</Link>
             </div>
 
             {/* Enterprise AI */}
@@ -1117,7 +1117,7 @@ export default function HomePage() {
               <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Contact Sales →</a>
             </div>
           </div>
-          <p className="p-note">7-day free trial available · AI usage billed fairly based on plan · Pricing may vary based on integrations and usage</p>
+          <p className="p-note">Professional onboarding included · First month included after setup · Terms &amp; Conditions apply · AI usage billed fairly based on plan</p>
         </div>
       </section>
 
@@ -1213,14 +1213,14 @@ export default function HomePage() {
 
       {/* ── FLOATING PILL (desktop) ── */}
       <div className="float-pill">
-        <Link href="/signup">
-          Start Free Trial ↗
+        <Link href="/get-started">
+          Get Started ↗
         </Link>
       </div>
 
       {/* ── MOBILE STICKY CTA ── */}
       <div className="mobile-cta">
-        <Link href="/signup" className="mobile-cta-primary">Start Free Trial</Link>
+        <Link href="/get-started" className="mobile-cta-primary">Get Started</Link>
         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="mobile-cta-secondary">Book Demo</a>
       </div>
     </>
