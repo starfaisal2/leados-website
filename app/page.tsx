@@ -1072,9 +1072,9 @@ export default function HomePage() {
             <div className="pricing-card">
               <div className="p-tier">Starter</div>
               <div className="p-tagline">For small teams starting with AI CRM.</div>
-              <div className="p-price" style={{ fontSize: "clamp(34px, 3vw, 48px)" }}>AED / USD</div>
-              <div className="p-sub-price">Launch pricing placeholder</div>
-              <div className="p-aed">Simple AI CRM foundation</div>
+              <div className="p-price">USD 499<span className="p-per">/month</span></div>
+              <div className="p-sub-price">AED 1,850 / month</div>
+              <div className="p-aed">AED 5,000 setup fee · First month included after setup</div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "Basic AI Replies", "Basic Reporting"].map((f) => (
@@ -1089,9 +1089,9 @@ export default function HomePage() {
               <div className="popular-pill">Most Popular</div>
               <div className="p-tier">Growth</div>
               <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
-              <div className="p-price" style={{ fontSize: "clamp(34px, 3vw, 48px)" }}>AED / USD</div>
-              <div className="p-sub-price">Launch pricing placeholder</div>
-              <div className="p-aed">WhatsApp + AI booking growth stack</div>
+              <div className="p-price">USD 999<span className="p-per">/month</span></div>
+              <div className="p-sub-price">AED 3,700 / month</div>
+              <div className="p-aed">AED 5,000 setup fee · First month included after setup</div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Bookings", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution"].map((f) => (

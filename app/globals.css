@@ -4105,62 +4105,16 @@ canvas {
   margin-top: auto !important;
 }
 
-/* Replace public placeholder pricing without changing layout markup */
-.pricing-grid .pricing-card:nth-child(1) .p-price,
-.pricing-grid .pricing-card:nth-child(2) .p-price {
-  font-size: 0 !important;
-  line-height: 1.05 !important;
-}
-
-.pricing-grid .pricing-card:nth-child(1) .p-price::after,
-.pricing-grid .pricing-card:nth-child(2) .p-price::after {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: clamp(40px, 3.4vw, 58px);
-  font-weight: 600;
-  letter-spacing: -2.5px;
-  line-height: 1.05;
-  color: var(--ink);
-}
-
-.pricing-grid .pricing-card:nth-child(1) .p-price::after {
-  content: "AED 1,850";
-}
-
-.pricing-grid .pricing-card:nth-child(2) .p-price::after {
-  content: "AED 3,700";
-}
-
-.pricing-grid .pricing-card:nth-child(1) .p-sub-price,
-.pricing-grid .pricing-card:nth-child(2) .p-sub-price,
-.pricing-grid .pricing-card:nth-child(1) .p-aed,
-.pricing-grid .pricing-card:nth-child(2) .p-aed {
-  font-size: 0 !important;
-  line-height: 1.45 !important;
-}
-
-.pricing-grid .pricing-card:nth-child(1) .p-sub-price::after,
-.pricing-grid .pricing-card:nth-child(2) .p-sub-price::after,
-.pricing-grid .pricing-card:nth-child(1) .p-aed::after,
-.pricing-grid .pricing-card:nth-child(2) .p-aed::after {
+/* Pricing copy now lives in the markup (USD first, AED second). */
+.p-per {
   font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
   color: var(--ink-4);
+  margin-left: 4px;
 }
-
-.pricing-grid .pricing-card:nth-child(1) .p-sub-price::after {
-  content: "USD 499 / month";
-}
-
-.pricing-grid .pricing-card:nth-child(2) .p-sub-price::after {
-  content: "USD 999 / month";
-}
-
-.pricing-grid .pricing-card:nth-child(1) .p-aed::after,
-.pricing-grid .pricing-card:nth-child(2) .p-aed::after {
-  content: "AED 5,000 setup fee • First month included after setup";
-}
+.pricing-card.popular .p-per { color: rgba(255,255,255,.4); }
 
 /* Keep Enterprise custom pricing clean */
 .pricing-grid .pricing-card:nth-child(3) .p-price {
@@ -4208,9 +4162,254 @@ iframe[src*="/api/widget/embed"] {
     bottom: 92px !important;
     z-index: 220 !important;
   }
+}
 
-  .pricing-grid .pricing-card:nth-child(1) .p-price::after,
-  .pricing-grid .pricing-card:nth-child(2) .p-price::after {
-    font-size: clamp(36px, 11vw, 48px);
+/* ═══════════════════════════════════════
+   GET STARTED / SIGNUP PAGE
+   Premium two-column layout matching the site.
+═══════════════════════════════════════ */
+.signup-page {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2);
+  padding-top: calc(var(--nav-h) + 72px);
+  padding-bottom: 96px;
+  min-height: 100vh;
+}
+
+.signup-bg-orb {
+  position: absolute;
+  border-radius: var(--r-full);
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+.signup-orb-one {
+  width: 520px;
+  height: 520px;
+  top: -160px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(37,99,235,.28), transparent 70%);
+}
+.signup-orb-two {
+  width: 460px;
+  height: 460px;
+  bottom: -180px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(99,102,241,.22), transparent 70%);
+}
+
+.signup-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── Left copy column ── */
+.signup-copy {
+  position: sticky;
+  top: calc(var(--nav-h) + 32px);
+}
+.signup-back {
+  display: inline-block;
+  margin-bottom: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.signup-back:hover { color: var(--blue); }
+
+.signup-copy h1 {
+  margin-top: 14px;
+}
+
+.signup-trust-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.signup-trust-list > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.signup-trust-list > div > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-full);
+  background: var(--blue-50);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ── Right form card ── */
+.signup-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-xl);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.signup-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 6px;
+}
+.signup-card-header h2 {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+.signup-card-header p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--ink-3);
+}
+.signup-plan-pill {
+  flex: 0 0 auto;
+  padding: 7px 16px;
+  border-radius: var(--r-full);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.signup-grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Labels wrap inputs/selects */
+.signup-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.signup-card input,
+.signup-card select {
+  width: 100%;
+  padding: 13px 15px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  appearance: none;
+}
+.signup-card input::placeholder { color: var(--ink-4); font-weight: 400; }
+.signup-card input:focus,
+.signup-card select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.14);
+}
+.signup-card select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235a5c6e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+.signup-card a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+.signup-card a:hover { text-decoration: underline; }
+
+.signup-submit {
+  width: 100%;
+  margin-top: 4px;
+  padding: 16px 24px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--indigo) 100%);
+  border: none;
+  border-radius: var(--r);
+  box-shadow: var(--shadow-blue);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.signup-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-blue-lg);
+}
+.signup-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.signup-smallprint {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-4);
+}
+
+.signup-alert {
+  padding: 13px 16px;
+  border-radius: var(--r);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.signup-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+.signup-success {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  color: var(--blue-hover);
+}
+
+@media (max-width: 900px) {
+  .signup-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
+  .signup-copy { position: static; }
+}
+
+@media (max-width: 560px) {
+  .signup-page {
+    padding-top: calc(var(--nav-h) + 40px);
+    padding-bottom: 64px;
+  }
+  .signup-card { padding: 26px 20px; }
+  .signup-grid-two { grid-template-columns: 1fr; }
 }
