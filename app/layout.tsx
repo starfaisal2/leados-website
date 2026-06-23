@@ -92,6 +92,7 @@ export default function RootLayout({
         <Footer />
 
         <Script
+          id="leados-crm-widget"
           src="https://app.leadoscrm.com/api/widget/embed?tenant=leados"
           strategy="afterInteractive"
         />

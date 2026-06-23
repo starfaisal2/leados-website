@@ -184,22 +184,6 @@ export default function HomePage() {
     return () => window.clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    const widgetSrc = "https://app.leadoscrm.com/api/widget/embed?tenant=leados";
-    const existingScript =
-      document.getElementById("leados-widget-embed") ||
-      document.querySelector(`script[src="${widgetSrc}"]`);
-
-    if (existingScript) return;
-
-    const script = document.createElement("script");
-    script.id = "leados-widget-embed";
-    script.src = widgetSrc;
-    script.async = true;
-    script.dataset.tenant = "leados";
-    document.body.appendChild(script);
-  }, []);
-
   const switchDemo = (k: string) => { setActiveDemo(k); };
 
   const sendDemo = () => {
@@ -210,56 +194,6 @@ export default function HomePage() {
       setTyping(false);
       setDemoMsgs([...msgs, { f: "a", t: "Got it — let me find the best option for you right now ✨" }]);
     }, 1700);
-  };
-
-  const openVoiceAi = () => {
-    if (typeof window === "undefined") return;
-
-    const tenant = "leados";
-    const w = window as Window & {
-      LeadOSWidget?: {
-        open?: () => void;
-        openChat?: () => void;
-        openWidget?: () => void;
-        openVoice?: () => void;
-        startVoice?: () => void;
-        startCall?: () => void;
-        call?: () => void;
-      };
-    };
-
-    const widget = w.LeadOSWidget;
-
-    if (widget?.openVoice) return widget.openVoice();
-    if (widget?.startVoice) return widget.startVoice();
-    if (widget?.startCall) return widget.startCall();
-    if (widget?.call) return widget.call();
-
-    window.dispatchEvent(new CustomEvent("leados:voice:open", { detail: { tenant, mode: "voice" } }));
-    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant, mode: "voice" } }));
-    window.dispatchEvent(new CustomEvent("leados:call:start", { detail: { tenant, mode: "voice" } }));
-    window.postMessage({ type: "leados:voice:open", tenant, mode: "voice" }, window.location.origin);
-
-    const possibleVoiceButton = Array.from(
-      document.querySelectorAll<HTMLButtonElement | HTMLAnchorElement>('button, a, [role="button"]')
-    ).find((el) => {
-      if (el.closest(".voice-call-floating")) return false;
-      if ("disabled" in el && el.disabled) return false;
-
-      const text = `${el.textContent || ""} ${el.getAttribute("aria-label") || ""}`.trim();
-      return /call ai|try voice|voice ai|start call|call now|talk to ai/i.test(text);
-    });
-
-    if (possibleVoiceButton) {
-      possibleVoiceButton.click();
-      return;
-    }
-
-    if (widget?.open) return widget.open();
-    if (widget?.openChat) return widget.openChat();
-    if (widget?.openWidget) return widget.openWidget();
-
-    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant, mode: "chat" } }));
   };
 
   // Monthly = list price; Annual = 20% discount, billed annually (shown per-month).
@@ -1295,19 +1229,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── FLOATING VOICE AI CTA ── */}
-      <button type="button" className="voice-call-floating" onClick={openVoiceAi} aria-label="Try Voice AI call">
-        <span className="voice-call-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6.6 10.8c1.44 2.83 3.77 5.14 6.6 6.6l2.2-2.2c.28-.28.68-.37 1.04-.25 1.14.38 2.37.58 3.56.58.56 0 1 .44 1 1V20c0 .56-.44 1-1 1C10.61 21 3 13.39 3 4c0-.56.44-1 1-1h3.48c.56 0 1 .44 1 1 0 1.2.2 2.42.58 3.56.12.36.03.76-.25 1.04l-2.2 2.2Z" fill="currentColor" />
-          </svg>
-        </span>
-        <span className="voice-call-copy">
-          <span className="voice-call-status"><i /> LIVE</span>
-          <strong>Try Voice AI</strong>
-        </span>
-      </button>
 
       {/* ── FLOATING PILL (desktop) ── */}
       <div className="float-pill">
