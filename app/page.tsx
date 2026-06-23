@@ -196,6 +196,36 @@ export default function HomePage() {
     }, 1700);
   };
 
+  const openVoiceAi = () => {
+    if (typeof window === "undefined") return;
+
+    const w = window as Window & {
+      LeadOSWidget?: {
+        open?: () => void;
+        openVoice?: () => void;
+        startVoice?: () => void;
+        call?: () => void;
+      };
+    };
+
+    if (w.LeadOSWidget?.openVoice) return w.LeadOSWidget.openVoice();
+    if (w.LeadOSWidget?.startVoice) return w.LeadOSWidget.startVoice();
+    if (w.LeadOSWidget?.call) return w.LeadOSWidget.call();
+
+    window.dispatchEvent(new CustomEvent("leados:voice:open", { detail: { tenant: "enfield" } }));
+    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant: "enfield", mode: "voice" } }));
+
+    const possibleVoiceButton = Array.from(document.querySelectorAll<HTMLButtonElement | HTMLAnchorElement>("button, a"))
+      .find((el) => /call ai|try voice|voice ai|start call|call now/i.test(el.textContent || ""));
+
+    if (possibleVoiceButton) {
+      possibleVoiceButton.click();
+      return;
+    }
+
+    w.LeadOSWidget?.open?.();
+  };
+
   // Monthly = list price; Annual = 20% discount, billed annually (shown per-month).
   const prices = annual
     ? { starter: { usd: 399, aed: "1,480" }, growth: { usd: 799, aed: "2,960" } }
@@ -1229,6 +1259,19 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── FLOATING VOICE AI CTA ── */}
+      <button type="button" className="voice-call-floating" onClick={openVoiceAi} aria-label="Try Voice AI call">
+        <span className="voice-call-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6.6 10.8c1.44 2.83 3.77 5.14 6.6 6.6l2.2-2.2c.28-.28.68-.37 1.04-.25 1.14.38 2.37.58 3.56.58.56 0 1 .44 1 1V20c0 .56-.44 1-1 1C10.61 21 3 13.39 3 4c0-.56.44-1 1-1h3.48c.56 0 1 .44 1 1 0 1.2.2 2.42.58 3.56.12.36.03.76-.25 1.04l-2.2 2.2Z" fill="currentColor" />
+          </svg>
+        </span>
+        <span className="voice-call-copy">
+          <span className="voice-call-status"><i /> LIVE</span>
+          <strong>Try Voice AI</strong>
+        </span>
+      </button>
 
       {/* ── FLOATING PILL (desktop) ── */}
       <div className="float-pill">
