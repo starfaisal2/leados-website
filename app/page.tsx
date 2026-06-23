@@ -184,6 +184,22 @@ export default function HomePage() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const widgetSrc = "https://app.leadoscrm.com/api/widget/embed?tenant=leados";
+    const existingScript =
+      document.getElementById("leados-widget-embed") ||
+      document.querySelector(`script[src="${widgetSrc}"]`);
+
+    if (existingScript) return;
+
+    const script = document.createElement("script");
+    script.id = "leados-widget-embed";
+    script.src = widgetSrc;
+    script.async = true;
+    script.dataset.tenant = "leados";
+    document.body.appendChild(script);
+  }, []);
+
   const switchDemo = (k: string) => { setActiveDemo(k); };
 
   const sendDemo = () => {
@@ -199,31 +215,51 @@ export default function HomePage() {
   const openVoiceAi = () => {
     if (typeof window === "undefined") return;
 
+    const tenant = "leados";
     const w = window as Window & {
       LeadOSWidget?: {
         open?: () => void;
+        openChat?: () => void;
+        openWidget?: () => void;
         openVoice?: () => void;
         startVoice?: () => void;
+        startCall?: () => void;
         call?: () => void;
       };
     };
 
-    if (w.LeadOSWidget?.openVoice) return w.LeadOSWidget.openVoice();
-    if (w.LeadOSWidget?.startVoice) return w.LeadOSWidget.startVoice();
-    if (w.LeadOSWidget?.call) return w.LeadOSWidget.call();
+    const widget = w.LeadOSWidget;
 
-    window.dispatchEvent(new CustomEvent("leados:voice:open", { detail: { tenant: "enfield" } }));
-    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant: "enfield", mode: "voice" } }));
+    if (widget?.openVoice) return widget.openVoice();
+    if (widget?.startVoice) return widget.startVoice();
+    if (widget?.startCall) return widget.startCall();
+    if (widget?.call) return widget.call();
 
-    const possibleVoiceButton = Array.from(document.querySelectorAll<HTMLButtonElement | HTMLAnchorElement>("button, a"))
-      .find((el) => /call ai|try voice|voice ai|start call|call now/i.test(el.textContent || ""));
+    window.dispatchEvent(new CustomEvent("leados:voice:open", { detail: { tenant, mode: "voice" } }));
+    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant, mode: "voice" } }));
+    window.dispatchEvent(new CustomEvent("leados:call:start", { detail: { tenant, mode: "voice" } }));
+    window.postMessage({ type: "leados:voice:open", tenant, mode: "voice" }, window.location.origin);
+
+    const possibleVoiceButton = Array.from(
+      document.querySelectorAll<HTMLButtonElement | HTMLAnchorElement>('button, a, [role="button"]')
+    ).find((el) => {
+      if (el.closest(".voice-call-floating")) return false;
+      if ("disabled" in el && el.disabled) return false;
+
+      const text = `${el.textContent || ""} ${el.getAttribute("aria-label") || ""}`.trim();
+      return /call ai|try voice|voice ai|start call|call now|talk to ai/i.test(text);
+    });
 
     if (possibleVoiceButton) {
       possibleVoiceButton.click();
       return;
     }
 
-    w.LeadOSWidget?.open?.();
+    if (widget?.open) return widget.open();
+    if (widget?.openChat) return widget.openChat();
+    if (widget?.openWidget) return widget.openWidget();
+
+    window.dispatchEvent(new CustomEvent("leados:widget:open", { detail: { tenant, mode: "chat" } }));
   };
 
   // Monthly = list price; Annual = 20% discount, billed annually (shown per-month).
