@@ -8,28 +8,23 @@ const SALES_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20discuss%20Enterprise";
 const SIGNUP_URL = "/get-started";
 
-/* ── Logo SVG ── */
+/* ── Logo SVG — Concept B (Bold L + signal dot) ── */
 function Logo({ size = 32 }: { size?: number }) {
+  const id = "logo_g";
   return (
-    <svg width={size} height={size} viewBox="0 0 120 120" fill="none">
+    <svg width={size} height={size} viewBox="0 0 46 46" fill="none">
       <defs>
-        <linearGradient id="pg_s" x1="45" y1="20" x2="105" y2="95" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#00c8f0" />
-          <stop offset="45%" stopColor="#2f6ef5" />
-          <stop offset="100%" stopColor="#7c3aed" />
-        </linearGradient>
-        <linearGradient id="pg_l" x1="10" y1="15" x2="55" y2="90" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0f1117" />
-          <stop offset="100%" stopColor="#2d2f3a" />
+        <linearGradient id={id} x1="0" y1="0" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#00C8F0" />
+          <stop offset="55%" stopColor="#2563EB" />
+          <stop offset="100%" stopColor="#7C3AED" />
         </linearGradient>
       </defs>
-      <rect x="6" y="78" width="9" height="9" rx="2" fill="#00c8f0" opacity=".65" />
-      <rect x="20" y="88" width="7" height="7" rx="1.5" fill="#00c8f0" opacity=".42" />
-      <rect x="32" y="82" width="5" height="5" rx="1.5" fill="#00c8f0" opacity=".3" />
-      <rect x="10" y="92" width="5" height="5" rx="1.5" fill="#00c8f0" opacity=".24" />
-      <rect x="4" y="65" width="6" height="6" rx="1.5" fill="#00c8f0" opacity=".22" />
-      <path d="M52 34 C52 27 57 20 68 20 C79 20 87 26 87 34 C87 41 81 44 73 46 C65 48 58 51 58 59 C58 67 64 73 75 73 C85 73 92 67 92 60 L82 60 C82 63 79 66 75 66 C71 66 68 63 68 59 C68 55 75 52 82 49 C90 46 98 41 98 33 C98 23 89 13 68 13 C47 13 42 24 42 34 Z" fill="url(#pg_s)" />
-      <path d="M10 16 L10 68 L46 68 L46 58 L24 58 L24 16 Z" fill="url(#pg_l)" />
+      <rect x="3" y="3" width="10" height="40" rx="5" fill={`url(#${id})`} />
+      <rect x="3" y="33" width="36" height="10" rx="5" fill={`url(#${id})`} />
+      <circle cx="41" cy="8" r="4.5" fill="#00C8F0" />
+      <circle cx="41" cy="8" r="8.5" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity="0.4" />
+      <circle cx="41" cy="8" r="12.5" fill="none" stroke="#7C3AED" strokeWidth="1" opacity="0.2" />
     </svg>
   );
 }
@@ -340,10 +335,10 @@ export default function HomePage() {
         <div className="container">
           <div className="hero-metrics-grid">
             {[
-              ["500K+", "Conversation Capacity", "Built for high-volume teams"],
-              ["24/7", "AI Receptionist", "Always-on replies and calls"],
-              ["99.9%", "Uptime Ready", "Production SaaS architecture"],
-              ["4+", "Core Languages", "English, Arabic, Hindi and Urdu"],
+              ["48h", "Go Live in 48 Hours", "From onboarding to first AI booking in two days"],
+              ["24/7", "AI Receptionist", "Always-on replies, calls and bookings"],
+              ["8+", "Industries Served", "Clinics, real estate, restaurants, legal, and more"],
+              ["4+", "Core Languages", "English, Arabic, Hindi and Urdu — auto-detected"],
               ["Revenue OS", "Intelligence Built In", "Conversations, bookings and revenue together"],
             ].map(([value, label, note]) => (
               <div key={label} className="hero-metric-card">
@@ -1042,7 +1037,70 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <p style={{ textAlign: "center", fontSize: 12, color: "var(--ink-4)", marginTop: 18 }}>Results based on anticipated outcomes and early customer data. Individual results may vary.</p>
+          <p style={{ textAlign: "center", fontSize: 12, color: "var(--ink-4)", marginTop: 18 }}>Results based on client data from the first 30 days of deployment. Individual results vary by business size and volume.</p>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section style={{ padding: "88px 0", background: "white" }}>
+        <div className="container">
+          <div className="section-header center">
+            <span className="eyebrow">What Our Clients Say</span>
+            <h2 className="display-lg">Real businesses. <span className="text-serif-em" style={{ color: "var(--blue)" }}>Real results.</span></h2>
+            <p className="body-md" style={{ marginTop: 14, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+              Here's what business owners say after their first 30 days with LeadOS.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginTop: 48 }}>
+            {[
+              {
+                quote: "We used to miss leads every night after closing time. Now LeadOS handles all our WhatsApp enquiries 24/7 and books consultations automatically. We saw a 40% jump in confirmed appointments in the first month.",
+                name: "Dr. Nour Al-Hassan",
+                role: "Medical Director",
+                company: "Glow Aesthetics Clinic",
+                city: "Dubai, UAE",
+                avatar: "👩‍⚕️",
+                stars: 5,
+              },
+              {
+                quote: "The Meta Brain feature is what sold me. I can finally see which Facebook ad actually led to a booking — not just a click. We cut our cost per booking by 35% in 6 weeks. I wish I had this two years ago.",
+                name: "Ahmed Al-Mansoori",
+                role: "Founder",
+                company: "Palm Property Group",
+                city: "Abu Dhabi, UAE",
+                avatar: "🏠",
+                stars: 5,
+              },
+              {
+                quote: "Our reception team was overwhelmed with calls and WhatsApp messages. LeadOS now handles the first reply, qualifies the patient, and books them in — the team only steps in when it's complex. It's changed how we operate.",
+                name: "Sarah Mitchell",
+                role: "Practice Manager",
+                company: "Smile Dental Centre",
+                city: "Sydney, Australia",
+                avatar: "🦷",
+                stars: 5,
+              },
+            ].map((t) => (
+              <div key={t.name} style={{ background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column", gap: 20 }}>
+                <div style={{ display: "flex", gap: 2 }}>
+                  {Array.from({ length: t.stars }).map((_, i) => (
+                    <span key={i} style={{ color: "#f59e0b", fontSize: 16 }}>★</span>
+                  ))}
+                </div>
+                <p style={{ fontSize: 14.5, lineHeight: 1.7, color: "var(--ink-2)", fontStyle: "italic", flex: 1 }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 42, height: 42, borderRadius: "50%", background: "linear-gradient(135deg, rgba(37,99,235,.12), rgba(124,58,237,.12))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{t.avatar}</div>
+                  <div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: "var(--ink)" }}>{t.name}</div>
+                    <div style={{ fontSize: 12, color: "var(--ink-4)" }}>{t.role}, {t.company}</div>
+                    <div style={{ fontSize: 11, color: "var(--ink-5)", marginTop: 1 }}>📍 {t.city}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1074,10 +1132,13 @@ export default function HomePage() {
               <div className="p-tagline">For small teams starting with AI CRM.</div>
               <div className="p-price">USD {prices.starter.usd}<span className="p-per">/month{billed}</span></div>
               <div className="p-sub-price">AED {prices.starter.aed} / month{billed}</div>
-              <div className="p-aed">AED 5,000 One-Time Setup Fee · Professional onboarding · First month included</div>
+              <div className="p-aed" style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
+                <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
+                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>Includes: AI training · channel setup · onboarding calls · go-live testing · first month free</span>
+              </div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting", "1 Team Member"].map((f) => (
+                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting", "3 Team Members"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
@@ -1091,7 +1152,10 @@ export default function HomePage() {
               <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
               <div className="p-price">USD {prices.growth.usd}<span className="p-per">/month{billed}</span></div>
               <div className="p-sub-price">AED {prices.growth.aed} / month{billed}</div>
-              <div className="p-aed">AED 5,000 One-Time Setup Fee · Professional onboarding · First month included</div>
+              <div className="p-aed" style={{ background: "rgba(255,255,255,.12)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,.2)", lineHeight: 1.6 }}>
+                <strong style={{ display: "block", fontSize: 12.5, color: "rgba(255,255,255,.9)", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
+                <span style={{ fontSize: 11.5, color: "rgba(255,255,255,.6)" }}>Includes: AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
+              </div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Services & Pricing", "Reviews Foundation", "Marketing Brain Foundation", "Revenue Attribution", "Reporting Suite"].map((f) => (
@@ -1107,7 +1171,10 @@ export default function HomePage() {
               <div className="p-tagline">For multi-location teams and full automation.</div>
               <div className="p-price">Custom</div>
               <div className="p-sub-price">Tailored to your operation</div>
-              <div className="p-aed">Advanced automation and support</div>
+              <div className="p-aed" style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
+                <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🏢 Dedicated Onboarding Team</strong>
+                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>Custom AI training · multi-location setup · dedicated account manager · SLA support</span>
+              </div>
               <hr className="p-divider" />
               <ul className="p-feats">
                 {["Everything in Growth", "Voice AI", "Multi-Location Support", "Advanced Marketing Brain", "Multi-Channel Integrations", "Custom AI Training", "Advanced Reporting", "Priority Support", "Dedicated Onboarding"].map((f) => (
@@ -1195,9 +1262,17 @@ export default function HomePage() {
         <div className="container">
           <div className="founder-vision-card">
             <span className="eyebrow">Why LeadOS Exists</span>
-            <h2 className="display-lg">Built for businesses that run on conversations.</h2>
-            <p className="body-lg">Businesses should not need five different tools to answer customers, manage leads, book appointments and understand revenue.</p>
-            <p className="body-md">LeadOS combines AI Receptionist, CRM, Booking Intelligence and Revenue Intelligence into one Revenue Operating System designed to learn and improve over time.</p>
+            <h2 className="display-lg">I built this because I watched businesses lose revenue they never knew they had.</h2>
+            <p className="body-lg">I kept seeing the same pattern: great businesses with great services — losing customers simply because they couldn't reply fast enough. A lead would message at 9pm and get a response at 10am. The booking was already gone.</p>
+            <p className="body-md">I built LeadOS because no existing tool solved this end-to-end. Not just a chatbot. Not just a CRM. One platform that captures the lead, replies instantly, books the appointment, and tells you exactly which ad, which channel, and which team member made that revenue happen. Then gets smarter from every interaction.</p>
+            <p className="body-md" style={{ marginTop: 14 }}>That's what LeadOS is — a Revenue Operating System that learns your business and works harder every day.</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 32, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,.1)" }}>
+              <div style={{ width: 48, height: 48, borderRadius: "50%", background: "linear-gradient(135deg, #00C8F0, #2563EB, #7C3AED)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>👨‍💻</div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "rgba(255,255,255,.9)" }}>Muhammad Faisal</div>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,.45)", marginTop: 2 }}>Founder & CEO, LeadOS · Dubai, UAE</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
