@@ -1164,15 +1164,15 @@ export default function HomePage() {
               {/* Usage limits */}
               <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
                 {[["💬", "10,000 AI chats/mo"], ["👥", "10 Users"]].map(([ic, label]) => (
-                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.2)", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "rgba(255,255,255,.85)", fontWeight: 600 }}>
+                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(255,255,255,0.95)", border: "none", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "#1e293b", fontWeight: 700 }}>
                     <span>{ic}</span>{label}
                   </div>
                 ))}
               </div>
               {/* Setup fee */}
-              <div style={{ background: "rgba(255,255,255,.1)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,.18)", lineHeight: 1.6 }}>
-                <strong style={{ display: "block", fontSize: 12.5, color: "white", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
-                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,.65)" }}>AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
+              <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
+                <strong style={{ display: "block", fontSize: 12.5, color: "#ffffff", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
+                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,0.8)" }}>AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
