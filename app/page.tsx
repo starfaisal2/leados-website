@@ -1105,6 +1105,44 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════
+          AUTO SEO ADD-ON CALLOUT
+      ══════════════════════════════════════ */}
+      <section style={{ padding: "72px 0", background: "white" }}>
+        <div className="container">
+          <div style={{ background: "linear-gradient(135deg, #0f172a, #1e1b4b)", borderRadius: 24, padding: "52px 48px", display: "grid", gridTemplateColumns: "1fr auto", gap: 48, alignItems: "center" }}>
+            <div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(129,140,248,.15)", border: "1px solid rgba(129,140,248,.25)", borderRadius: 40, padding: "5px 14px", fontSize: 11, fontWeight: 700, color: "#a5b4fc", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 20 }}>
+                ✨ New Add-on
+              </div>
+              <h2 style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "white", lineHeight: 1.2, marginBottom: 14 }}>
+                Auto SEO — Your AI Employee<br />That Writes Content 24/7
+              </h2>
+              <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.7, maxWidth: 520, marginBottom: 28 }}>
+                Keyword research, long-form articles, auto-publishing and rank tracking — all on autopilot.
+                Add it to your LeadOS plan for <strong style={{ color: "rgba(255,255,255,.85)" }}>$49/month</strong>, or use it as a standalone product for $99/month.
+              </p>
+              <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                <a href="/auto-seo" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 14, padding: "12px 26px", borderRadius: 10, textDecoration: "none" }}>
+                  Learn More →
+                </a>
+                <a href="/auto-seo#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.08)", color: "rgba(255,255,255,.75)", fontWeight: 600, fontSize: 14, padding: "12px 26px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,.12)" }}>
+                  Get Started Free
+                </a>
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 200 }}>
+              {["Weekly AI-written articles", "Keyword tracking", "Auto-publish to website", "Rank monitoring"].map(f => (
+                <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "rgba(255,255,255,.7)" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  {f}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
           PRICING
       ══════════════════════════════════════ */}
       <section id="pricing" style={{ padding: "88px 0", background: "var(--surface-2)" }}>

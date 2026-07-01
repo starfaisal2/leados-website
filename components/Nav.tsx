@@ -22,8 +22,9 @@ export default function Nav() {
     { href: "/#features", label: "Product" },
     { href: "/#voice-ai", label: "Voice AI" },
     { href: "/#industries", label: "Industries" },
+    { href: "/auto-seo", label: "Auto SEO ✨" },
     { href: "/#pricing", label: "Pricing" },
-    { href: "/security", label: "Security" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
 
