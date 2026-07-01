@@ -565,7 +565,7 @@ export default function HomePage() {
                   </div>
                   <div style={{ flex: 1, padding: 20 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
-                      <div><div style={{ fontSize: 15.5, fontWeight: 600, color: "var(--ink)" }}>Sarah M. — Inbound Call</div><div style={{ fontSize: 11.5, color: "var(--ink-3)" }}>WhatsApp · +971 50 xxx xxxx · 2 min 14 sec</div></div>
+                      <div><div style={{ fontSize: 15.5, fontWeight: 600, color: "var(--ink)" }}>Sarah M. — Inbound Call</div><div style={{ fontSize: 11.5, color: "var(--ink-3)" }}>WhatsApp · +61 4xx xxx xxx · 2 min 14 sec</div></div>
                       <div style={{ marginLeft: "auto", background: "var(--green-50)", color: "var(--green)", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 20, border: "1px solid rgba(22,163,74,.15)" }}>✓ Appointment Booked</div>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 3, height: 40, marginBottom: 18 }}>
@@ -672,7 +672,7 @@ export default function HomePage() {
               { n: "01", icon: "💬", h: "Customer Enquires", p: "A lead messages on WhatsApp, Instagram, Messenger, your website — or calls. Anywhere, any time." },
               { n: "02", icon: "🤖", h: "LeadOS AI Responds", p: "Your AI replies in under 3 seconds — in the customer's language — qualifying, answering, and guiding toward booking." },
               { n: "03", icon: "📅", h: "Appointment Booked", p: "The AI books directly — confirmed in chat, synced to your calendar. No human needed." },
-              { n: "04", icon: "📊", h: "Revenue Tracked", p: "Every booking and revenue source is logged. You see exactly what's working and where every dirham comes from." },
+              { n: "04", icon: "📊", h: "Revenue Tracked", p: "Every booking and revenue source is logged. You see exactly what's working and where every dollar comes from." },
             ].map((s) => (
               <div key={s.n} className="how-step">
                 <span className="how-num">{s.n}</span>
@@ -715,7 +715,7 @@ export default function HomePage() {
             <div className="leak-divider-line" />
           </div>
           <div className="leak-solution">
-            {[["⚡", "Captures every lead", "Every message on every channel — instantly captured."], ["🤖", "AI replies in seconds", "Instant, personalised reply in the customer's language."], ["📅", "Books the appointment", "Confirmed appointment, synced to calendar. No human needed."], ["📊", "Tracks every AED", "Revenue, source, and ROI — all visible in your dashboard."]].map(([ic, h, p]) => (
+            {[["⚡", "Captures every lead", "Every message on every channel — instantly captured."], ["🤖", "AI replies in seconds", "Instant, personalised reply in the customer's language."], ["📅", "Books the appointment", "Confirmed appointment, synced to calendar. No human needed."], ["📊", "Tracks every dollar", "Revenue, source, and ROI — all visible in your dashboard."]].map(([ic, h, p]) => (
               <div key={h as string} className="leak-sol-card">
                 <div className="leak-sol-icon">{ic}</div>
                 <div className="leak-sol-h" style={{ color: "var(--blue)" }}>{h}</div>
@@ -1058,7 +1058,7 @@ export default function HomePage() {
                 name: "Dr. Nour Al-Hassan",
                 role: "Medical Director",
                 company: "Glow Aesthetics Clinic",
-                city: "Dubai, UAE",
+                city: "Sydney, Australia",
                 avatar: "👩‍⚕️",
                 stars: 5,
               },
@@ -1067,7 +1067,7 @@ export default function HomePage() {
                 name: "Ahmed Al-Mansoori",
                 role: "Founder",
                 company: "Palm Property Group",
-                city: "Abu Dhabi, UAE",
+                city: "Dubai, UAE",
                 avatar: "🏠",
                 stars: 5,
               },
@@ -1131,7 +1131,7 @@ export default function HomePage() {
               <div className="p-tier">Starter</div>
               <div className="p-tagline">For small teams starting with AI CRM.</div>
               <div className="p-price">USD {prices.starter.usd}<span className="p-per">/month{billed}</span></div>
-              <div className="p-sub-price">AED {prices.starter.aed} / month{billed}</div>
+              <div className="p-sub-price" style={{ opacity: 0.55, fontSize: 12 }}>AED {prices.starter.aed} / month · billed in USD</div>
               {/* Usage limits */}
               <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
                 {[["💬", "1,000 AI chats/mo"], ["👥", "2 Users"]].map(([ic, label]) => (
@@ -1140,10 +1140,16 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              {/* Setup fee */}
-              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
-                <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
-                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>AI training · channel setup · onboarding calls · go-live testing · first month free</span>
+              {/* Setup fee — Option B packaging */}
+              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 10, padding: "12px 14px", border: "1px solid rgba(37,99,235,.12)", lineHeight: 1.7 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <strong style={{ fontSize: 13, color: "var(--blue)" }}>🚀 Done-For-You Setup</strong>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: "var(--blue)" }}>USD 1,500</span>
+                </div>
+                <div style={{ fontSize: 11, color: "var(--ink-4)", marginBottom: 6 }}>One-time · includes your first month (USD 499 value)</div>
+                {["AI trained on your services & tone", "WhatsApp & channels connected", "2 onboarding calls + go-live testing"].map(i => (
+                  <div key={i} style={{ fontSize: 11.5, color: "var(--ink-3)", display: "flex", gap: 6 }}><span style={{ color: "var(--blue)" }}>✓</span>{i}</div>
+                ))}
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
@@ -1160,7 +1166,7 @@ export default function HomePage() {
               <div className="p-tier">Growth</div>
               <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
               <div className="p-price">USD {prices.growth.usd}<span className="p-per">/month{billed}</span></div>
-              <div className="p-sub-price">AED {prices.growth.aed} / month{billed}</div>
+              <div className="p-sub-price" style={{ opacity: 0.6, fontSize: 12 }}>AED {prices.growth.aed} / month · billed in USD</div>
               {/* Usage limits */}
               <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
                 {[["💬", "10,000 AI chats/mo"], ["👥", "10 Users"]].map(([ic, label]) => (
@@ -1169,10 +1175,16 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              {/* Setup fee */}
-              <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
-                <strong style={{ display: "block", fontSize: 12.5, color: "#ffffff", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
-                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,0.8)" }}>AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
+              {/* Setup fee — Option B packaging */}
+              <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: 10, padding: "12px 14px", border: "1px solid rgba(255,255,255,0.25)", lineHeight: 1.7 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <strong style={{ fontSize: 13, color: "#ffffff" }}>🚀 Done-For-You Setup</strong>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: "#ffffff" }}>USD 1,500</span>
+                </div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.55)", marginBottom: 6 }}>One-time · includes your first month (USD 999 value)</div>
+                {["AI trained on your services & tone", "WhatsApp & channels connected", "2 onboarding calls + go-live testing"].map(i => (
+                  <div key={i} style={{ fontSize: 11.5, color: "rgba(255,255,255,0.8)", display: "flex", gap: 6 }}><span style={{ color: "#7dd3fc" }}>✓</span>{i}</div>
+                ))}
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
@@ -1198,9 +1210,15 @@ export default function HomePage() {
                 ))}
               </div>
               {/* Setup info */}
-              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
-                <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🏢 Dedicated Onboarding Team</strong>
-                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>Custom AI training · multi-location setup · dedicated account manager · SLA support</span>
+              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 10, padding: "12px 14px", border: "1px solid rgba(37,99,235,.12)", lineHeight: 1.7 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <strong style={{ fontSize: 13, color: "var(--blue)" }}>🏢 Dedicated Onboarding</strong>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--blue)" }}>Custom</span>
+                </div>
+                <div style={{ fontSize: 11, color: "var(--ink-4)", marginBottom: 6 }}>Tailored setup for your operation</div>
+                {["Custom AI training for your business", "Multi-location & team setup", "Dedicated account manager + SLA"].map(i => (
+                  <div key={i} style={{ fontSize: 11.5, color: "var(--ink-3)", display: "flex", gap: 6 }}><span style={{ color: "var(--blue)" }}>✓</span>{i}</div>
+                ))}
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
@@ -1297,7 +1315,7 @@ export default function HomePage() {
               <div style={{ width: 48, height: 48, borderRadius: "50%", background: "linear-gradient(135deg, #00C8F0, #2563EB, #7C3AED)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>👨‍💻</div>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: "rgba(255,255,255,.9)" }}>Muhammad Faisal</div>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,.45)", marginTop: 2 }}>Founder & CEO, LeadOS · Dubai, UAE</div>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,.45)", marginTop: 2 }}>Founder & CEO, LeadOS · Sydney, Australia</div>
               </div>
             </div>
           </div>
@@ -1327,7 +1345,7 @@ export default function HomePage() {
           <div className="final-contact-links">
             <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a>
             <span>•</span>
-            <a href="tel:+971568350424">+971 56 835 0424</a>
+            <span>Sydney, Australia 🇦🇺</span>
           </div>
         </div>
       </section>

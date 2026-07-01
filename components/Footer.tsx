@@ -8,20 +8,19 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <svg width="26" height="26" viewBox="0 0 120 120" fill="none">
+              <svg width="26" height="26" viewBox="0 0 46 46" fill="none">
                 <defs>
-                  <linearGradient id="ft_s" x1="45" y1="20" x2="105" y2="95" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#00c8f0"/><stop offset="45%" stopColor="#2f6ef5"/><stop offset="100%" stopColor="#7c3aed"/>
-                  </linearGradient>
-                  <linearGradient id="ft_l" x1="10" y1="15" x2="55" y2="90" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="rgba(255,255,255,.7)"/><stop offset="100%" stopColor="rgba(255,255,255,.4)"/>
+                  <linearGradient id="ft_g" x1="0" y1="0" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#00C8F0"/>
+                    <stop offset="55%" stopColor="#2563EB"/>
+                    <stop offset="100%" stopColor="#7C3AED"/>
                   </linearGradient>
                 </defs>
-                <rect x="6" y="78" width="9" height="9" rx="2" fill="#00c8f0" opacity=".6"/>
-                <rect x="20" y="88" width="7" height="7" rx="1.5" fill="#00c8f0" opacity=".38"/>
-                <rect x="4" y="65" width="6" height="6" rx="1.5" fill="#00c8f0" opacity=".2"/>
-                <path d="M52 34 C52 27 57 20 68 20 C79 20 87 26 87 34 C87 41 81 44 73 46 C65 48 58 51 58 59 C58 67 64 73 75 73 C85 73 92 67 92 60 L82 60 C82 63 79 66 75 66 C71 66 68 63 68 59 C68 55 75 52 82 49 C90 46 98 41 98 33 C98 23 89 13 68 13 C47 13 42 24 42 34 Z" fill="url(#ft_s)"/>
-                <path d="M10 16 L10 68 L46 68 L46 58 L24 58 L24 16 Z" fill="url(#ft_l)"/>
+                <rect x="3" y="3" width="10" height="40" rx="5" fill="url(#ft_g)"/>
+                <rect x="3" y="33" width="36" height="10" rx="5" fill="url(#ft_g)"/>
+                <circle cx="41" cy="8" r="4.5" fill="#00C8F0"/>
+                <circle cx="41" cy="8" r="8.5" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity="0.5"/>
+                <circle cx="41" cy="8" r="12.5" fill="none" stroke="#7C3AED" strokeWidth="1" opacity="0.25"/>
               </svg>
               <span className="footer-bot-wm">LeadOS</span>
             </div>
@@ -30,7 +29,7 @@ export default function Footer() {
             </p>
             <div className="footer-contact-block">
               <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a>
-              <a href="tel:+971568350424">+971 56 835 0424</a>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,.4)" }}>🇦🇺 Sydney, Australia</span>
             </div>
             <div className="footer-chips">
               {["WhatsApp", "Instagram", "Messenger", "Web Chat", "Voice AI", "AI Booking", "Follow-Up", "Multilingual", "Meta Brain"].map((c) => (

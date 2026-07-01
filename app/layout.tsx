@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_AE",
+    locale: "en_AU",
     url: siteUrl,
     siteName: "LeadOS",
     title: siteTitle,
