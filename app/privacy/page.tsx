@@ -18,7 +18,7 @@ export default function PrivacyPage() {
         <h2>5. Security</h2>
         <p>We use business-grade safeguards such as access controls, tenant separation, logs, and secure infrastructure practices. No system is completely risk-free, but we work to protect customer data responsibly.</p>
         <h2>6. Contact</h2>
-        <p>For privacy questions, contact <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a> or <a href="tel:+971568350424">+971 56 835 0424</a>.</p>
+        <p>For privacy questions, contact <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a> or <a href="tel:+971568350424">+971 56 835 0424</a>.</p>
       </div>
     </section>
   );

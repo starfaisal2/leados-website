@@ -1343,7 +1343,7 @@ export default function HomePage() {
           </div>
           <p className="final-note">No commitment required · Guided setup · Live in 48 hours · No lock-in</p>
           <div className="final-contact-links">
-            <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a>
+            <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
             <span>•</span>
             <a href="tel:+61451095700">🇦🇺 +61 451 095 700</a>
             <span>•</span>

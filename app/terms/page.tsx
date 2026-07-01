@@ -18,7 +18,7 @@ export default function TermsPage() {
         <h2>5. Pricing and billing</h2>
         <p>Subscription fees, onboarding, usage charges, and integration costs may vary based on plan, setup, and usage.</p>
         <h2>6. Contact</h2>
-        <p>For questions about these terms, contact <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a> or <a href="tel:+971568350424">+971 56 835 0424</a>.</p>
+        <p>For questions about these terms, contact <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a> or <a href="tel:+971568350424">+971 56 835 0424</a>.</p>
       </div>
     </section>
   );
