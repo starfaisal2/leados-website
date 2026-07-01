@@ -1132,13 +1132,22 @@ export default function HomePage() {
               <div className="p-tagline">For small teams starting with AI CRM.</div>
               <div className="p-price">USD {prices.starter.usd}<span className="p-per">/month{billed}</span></div>
               <div className="p-sub-price">AED {prices.starter.aed} / month{billed}</div>
-              <div className="p-aed" style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
+              {/* Usage limits */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                {[["💬", "1,000 AI chats/mo"], ["👥", "2 Users"]].map(([ic, label]) => (
+                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(37,99,235,.06)", border: "1px solid rgba(37,99,235,.1)", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "var(--ink-2)", fontWeight: 600 }}>
+                    <span>{ic}</span>{label}
+                  </div>
+                ))}
+              </div>
+              {/* Setup fee */}
+              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
                 <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
-                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>Includes: AI training · channel setup · onboarding calls · go-live testing · first month free</span>
+                <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>AI training · channel setup · onboarding calls · go-live testing · first month free</span>
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
-                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting", "3 Team Members"].map((f) => (
+                {["Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting"].map((f) => (
                   <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>
                 ))}
               </ul>
@@ -1152,9 +1161,18 @@ export default function HomePage() {
               <div className="p-tagline">For clinics and businesses running WhatsApp + AI.</div>
               <div className="p-price">USD {prices.growth.usd}<span className="p-per">/month{billed}</span></div>
               <div className="p-sub-price">AED {prices.growth.aed} / month{billed}</div>
-              <div className="p-aed" style={{ background: "rgba(255,255,255,.12)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,.2)", lineHeight: 1.6 }}>
-                <strong style={{ display: "block", fontSize: 12.5, color: "rgba(255,255,255,.9)", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
-                <span style={{ fontSize: 11.5, color: "rgba(255,255,255,.6)" }}>Includes: AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
+              {/* Usage limits */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                {[["💬", "10,000 AI chats/mo"], ["👥", "10 Users"]].map(([ic, label]) => (
+                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.2)", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "rgba(255,255,255,.85)", fontWeight: 600 }}>
+                    <span>{ic}</span>{label}
+                  </div>
+                ))}
+              </div>
+              {/* Setup fee */}
+              <div style={{ background: "rgba(255,255,255,.1)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(255,255,255,.18)", lineHeight: 1.6 }}>
+                <strong style={{ display: "block", fontSize: 12.5, color: "white", marginBottom: 4 }}>🚀 Guided AI Setup — AED 5,000 one-time</strong>
+                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,.65)" }}>AI training · WhatsApp connect · onboarding calls · go-live testing · first month free</span>
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">
@@ -1171,7 +1189,16 @@ export default function HomePage() {
               <div className="p-tagline">For multi-location teams and full automation.</div>
               <div className="p-price">Custom</div>
               <div className="p-sub-price">Tailored to your operation</div>
-              <div className="p-aed" style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
+              {/* Usage limits */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                {[["💬", "Unlimited AI chats"], ["👥", "Unlimited Users"]].map(([ic, label]) => (
+                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(37,99,235,.06)", border: "1px solid rgba(37,99,235,.1)", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "var(--ink-2)", fontWeight: 600 }}>
+                    <span>{ic}</span>{label}
+                  </div>
+                ))}
+              </div>
+              {/* Setup info */}
+              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 8, padding: "10px 12px", border: "1px solid rgba(37,99,235,.1)", lineHeight: 1.6 }}>
                 <strong style={{ display: "block", fontSize: 12.5, color: "var(--blue)", marginBottom: 4 }}>🏢 Dedicated Onboarding Team</strong>
                 <span style={{ fontSize: 11.5, color: "var(--ink-3)" }}>Custom AI training · multi-location setup · dedicated account manager · SLA support</span>
               </div>
@@ -1184,7 +1211,7 @@ export default function HomePage() {
               <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>Contact Sales →</a>
             </div>
           </div>
-          <p className="p-note">Professional onboarding included · First month included after setup · Terms &amp; Conditions apply · AI usage billed fairly based on plan</p>
+          <p className="p-note">Professional onboarding included · First month free after setup · Terms &amp; Conditions apply · Additional AI chats available as add-ons</p>
 
           {/* Trust / why choose */}
           <div className="section-header center" style={{ marginTop: 72 }}>
