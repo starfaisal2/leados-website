@@ -1,11 +1,10 @@
 // LeadOS Blog — auto-populated from the CRM's Auto SEO module
-// Articles written by the AI employee appear here automatically when published.
+// Uses Supabase REST API directly — no supabase-js package required.
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 
-export const revalidate = 3600; // revalidate every hour
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Blog | LeadOS — AI CRM Insights",
@@ -17,26 +16,28 @@ async function getArticles() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return [];
 
-  const supabase = createClient(url, key);
+  const headers = {
+    "apikey": key,
+    "Authorization": `Bearer ${key}`,
+    "Content-Type": "application/json",
+  };
 
-  // Fetch published articles for the leados tenant
-  const { data: business } = await supabase
-    .from("businesses")
-    .select("id")
-    .eq("slug", "leados")
-    .maybeSingle();
+  // Get the leados tenant business id
+  const bizRes = await fetch(
+    `${url}/rest/v1/businesses?slug=eq.leados&select=id&limit=1`,
+    { headers, next: { revalidate: 3600 } }
+  );
+  if (!bizRes.ok) return [];
+  const businesses = await bizRes.json();
+  if (!businesses?.length) return [];
+  const businessId = businesses[0].id;
 
-  if (!business) return [];
-
-  const { data } = await supabase
-    .from("seo_articles")
-    .select("id, title, slug, excerpt, meta_description, target_keyword, word_count, reading_time_mins, published_at, created_at")
-    .eq("business_id", business.id)
-    .eq("status", "published")
-    .order("published_at", { ascending: false })
-    .limit(50);
-
-  return data ?? [];
+  const artRes = await fetch(
+    `${url}/rest/v1/seo_articles?business_id=eq.${businessId}&status=eq.published&select=id,title,slug,excerpt,meta_description,target_keyword,word_count,reading_time_mins,published_at,created_at&order=published_at.desc&limit=50`,
+    { headers, next: { revalidate: 3600 } }
+  );
+  if (!artRes.ok) return [];
+  return await artRes.json() ?? [];
 }
 
 function formatDate(dateStr: string) {
@@ -74,10 +75,9 @@ export default async function BlogPage() {
             <Link
               key={article.id}
               href={`/blog/${article.slug}`}
-              style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid #e2e8f0", borderRadius: 16, overflow: "hidden", transition: "box-shadow .2s, transform .2s", boxShadow: "0 1px 3px rgba(0,0,0,.06)" }}
+              style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid #e2e8f0", borderRadius: 16, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,.06)" }}
               className="blog-card"
             >
-              {/* Keyword pill */}
               <div style={{ background: "linear-gradient(135deg, rgba(79,70,229,.06), rgba(37,99,235,.04))", padding: "18px 20px 0" }}>
                 <span style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#4f46e5", background: "rgba(79,70,229,.08)", border: "1px solid rgba(79,70,229,.12)", borderRadius: 20, padding: "3px 10px", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
                   {article.target_keyword}
@@ -104,6 +104,7 @@ export default async function BlogPage() {
         .blog-card:hover {
           box-shadow: 0 8px 24px rgba(0,0,0,.1);
           transform: translateY(-2px);
+          transition: box-shadow .2s, transform .2s;
         }
       `}</style>
     </main>

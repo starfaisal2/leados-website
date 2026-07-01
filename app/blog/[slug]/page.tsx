@@ -1,10 +1,9 @@
 // LeadOS Blog — individual article page
-// Renders full markdown content from the Auto SEO module.
+// Uses Supabase REST API directly — no supabase-js package required.
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 
 export const revalidate = 3600;
 
@@ -13,25 +12,28 @@ async function getArticle(slug: string) {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return null;
 
-  const supabase = createClient(url, key);
+  const headers = {
+    "apikey": key,
+    "Authorization": `Bearer ${key}`,
+    "Content-Type": "application/json",
+  };
 
-  const { data: business } = await supabase
-    .from("businesses")
-    .select("id")
-    .eq("slug", "leados")
-    .maybeSingle();
+  const bizRes = await fetch(
+    `${url}/rest/v1/businesses?slug=eq.leados&select=id&limit=1`,
+    { headers, next: { revalidate: 3600 } }
+  );
+  if (!bizRes.ok) return null;
+  const businesses = await bizRes.json();
+  if (!businesses?.length) return null;
+  const businessId = businesses[0].id;
 
-  if (!business) return null;
-
-  const { data } = await supabase
-    .from("seo_articles")
-    .select("*")
-    .eq("business_id", business.id)
-    .eq("slug", slug)
-    .eq("status", "published")
-    .maybeSingle();
-
-  return data;
+  const artRes = await fetch(
+    `${url}/rest/v1/seo_articles?business_id=eq.${businessId}&slug=eq.${encodeURIComponent(slug)}&status=eq.published&limit=1`,
+    { headers, next: { revalidate: 3600 } }
+  );
+  if (!artRes.ok) return null;
+  const articles = await artRes.json();
+  return articles?.[0] ?? null;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -50,7 +52,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-// Very simple markdown → HTML converter (no external deps)
 function markdownToHtml(md: string): string {
   return md
     .replace(/^### (.+)$/gm, "<h3>$1</h3>")
@@ -60,11 +61,12 @@ function markdownToHtml(md: string): string {
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
     .replace(/^- (.+)$/gm, "<li>$1</li>")
-    .replace(/(<li>[\s\S]+?<\/li>)/g, "<ul>$1</ul>")
-    .replace(/\n\n/g, "</p><p>")
-    .replace(/^(?!<[h|u|l])/gm, "")
-    .split("\n")
-    .map((line) => (line.startsWith("<h") || line.startsWith("<ul") || line.startsWith("<li") ? line : line ? `<p>${line}</p>` : ""))
+    .split("\n\n")
+    .map((block) => {
+      if (block.startsWith("<h") || block.startsWith("<li")) return block;
+      if (block.trim()) return `<p>${block.replace(/\n/g, " ")}</p>`;
+      return "";
+    })
     .join("\n");
 }
 
@@ -89,17 +91,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <span style={{ color: "#64748b" }}>{article.target_keyword}</span>
       </div>
 
-      {/* Keyword tag */}
       <span style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#4f46e5", background: "rgba(79,70,229,.08)", border: "1px solid rgba(79,70,229,.12)", borderRadius: 20, padding: "3px 12px", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.04em" }}>
         {article.target_keyword}
       </span>
 
-      {/* Title */}
       <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, color: "#0f172a", lineHeight: 1.2, marginBottom: 16 }}>
         {article.title}
       </h1>
 
-      {/* Meta */}
       <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 13, color: "#94a3b8", marginBottom: 40, paddingBottom: 32, borderBottom: "1px solid #f1f5f9" }}>
         <span>📅 {publishDate}</span>
         <span>·</span>
@@ -108,18 +107,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <span>📝 {article.word_count?.toLocaleString()} words</span>
       </div>
 
-      {/* Excerpt / intro callout */}
       {article.excerpt && (
         <div style={{ background: "rgba(79,70,229,.04)", border: "1px solid rgba(79,70,229,.1)", borderLeft: "3px solid #4f46e5", borderRadius: "0 8px 8px 0", padding: "16px 20px", marginBottom: 32, fontSize: 15, color: "#334155", lineHeight: 1.65, fontStyle: "italic" }}>
           {article.excerpt}
         </div>
       )}
 
-      {/* Article content */}
-      <div
-        className="article-body"
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
+      <div className="article-body" dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
       {/* CTA */}
       <div style={{ marginTop: 64, padding: 32, background: "linear-gradient(135deg, #0f172a, #1e1b4b)", borderRadius: 16, textAlign: "center" }}>
