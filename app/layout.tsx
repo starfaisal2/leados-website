@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     template: "%s | LeadOS",
   },
   description: siteDescription,
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   keywords: [
     "AI CRM",
     "WhatsApp CRM",
