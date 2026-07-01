@@ -1170,20 +1170,20 @@ export default function HomePage() {
               {/* Usage limits */}
               <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
                 {[["💬", "10,000 AI chats/mo"], ["👥", "10 Users"]].map(([ic, label]) => (
-                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(255,255,255,0.95)", border: "none", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "#1e293b", fontWeight: 700 }}>
+                  <div key={label} style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(37,99,235,.08)", border: "1px solid rgba(37,99,235,.15)", borderRadius: 8, padding: "7px 10px", fontSize: 12, color: "var(--ink-2)", fontWeight: 700 }}>
                     <span>{ic}</span>{label}
                   </div>
                 ))}
               </div>
               {/* Setup fee — Option B packaging */}
-              <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: 10, padding: "12px 14px", border: "1px solid rgba(255,255,255,0.25)", lineHeight: 1.7 }}>
+              <div style={{ background: "rgba(37,99,235,.06)", borderRadius: 10, padding: "12px 14px", border: "1px solid rgba(37,99,235,.15)", lineHeight: 1.7 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <strong style={{ fontSize: 13, color: "#ffffff" }}>🚀 Done-For-You Setup</strong>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: "#ffffff" }}>USD 1,500</span>
+                  <strong style={{ fontSize: 13, color: "var(--blue)" }}>🚀 Done-For-You Setup</strong>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: "var(--blue)" }}>USD 1,500</span>
                 </div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.55)", marginBottom: 6 }}>One-time · includes your first month (USD 999 value)</div>
+                <div style={{ fontSize: 11, color: "var(--ink-4)", marginBottom: 6 }}>One-time · includes your first month (USD 999 value)</div>
                 {["AI trained on your services & tone", "WhatsApp & channels connected", "2 onboarding calls + go-live testing"].map(i => (
-                  <div key={i} style={{ fontSize: 11.5, color: "rgba(255,255,255,0.8)", display: "flex", gap: 6 }}><span style={{ color: "#7dd3fc" }}>✓</span>{i}</div>
+                  <div key={i} style={{ fontSize: 11.5, color: "var(--ink-3)", display: "flex", gap: 6 }}><span style={{ color: "var(--blue)" }}>✓</span>{i}</div>
                 ))}
               </div>
               <hr className="p-divider" />
