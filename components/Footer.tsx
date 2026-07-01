@@ -29,7 +29,12 @@ export default function Footer() {
             </p>
             <div className="footer-contact-block">
               <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,.4)" }}>🇦🇺 Sydney, Australia</span>
+              <a href="tel:+61451095700">🇦🇺 +61 451 095 700</a>
+              <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
+              <span style={{ fontSize: 12, color: "rgba(255,255,255,.35)", lineHeight: 1.5 }}>
+                🇦🇺 203 Clarence St, Sydney NSW 2000<br />
+                🇦🇪 SRTIP Freezone, Sharjah, UAE
+              </span>
             </div>
             <div className="footer-chips">
               {["WhatsApp", "Instagram", "Messenger", "Web Chat", "Voice AI", "AI Booking", "Follow-Up", "Multilingual", "Meta Brain"].map((c) => (

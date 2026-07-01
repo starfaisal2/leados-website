@@ -1345,7 +1345,13 @@ export default function HomePage() {
           <div className="final-contact-links">
             <a href="mailto:admin@leadoscrm.com">admin@leadoscrm.com</a>
             <span>•</span>
-            <span>Sydney, Australia 🇦🇺</span>
+            <a href="tel:+61451095700">🇦🇺 +61 451 095 700</a>
+            <span>•</span>
+            <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
+          </div>
+          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,.3)", display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap" }}>
+            <span>🇦🇺 203 Clarence St, Sydney NSW 2000</span>
+            <span>🇦🇪 SRTIP Freezone, Sharjah, UAE</span>
           </div>
         </div>
       </section>
