@@ -4,11 +4,13 @@ import { useState } from "react";
 
 export default function AutoSeoSignupForm() {
   const [form, setForm] = useState({ name: "", email: "", business_name: "", website_url: "", plan: "standalone" });
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!agreed) { setError("Please agree to the Terms & Conditions to continue."); return; }
     setLoading(true);
     setError("");
     try {
@@ -126,6 +128,25 @@ export default function AutoSeoSignupForm() {
         )}
       </div>
 
+      {/* Terms & Conditions */}
+      <label style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          checked={agreed}
+          onChange={e => { setAgreed(e.target.checked); setError(""); }}
+          style={{ marginTop: 2, accentColor: "#4f46e5", width: 15, height: 15, flexShrink: 0 }}
+        />
+        <span style={{ fontSize: 12, color: "rgba(255,255,255,.45)", lineHeight: 1.6 }}>
+          I agree to LeadOS{" "}
+          <a href="https://leadoscrm.com/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
+            Terms of Service
+          </a>{" "}and{" "}
+          <a href="https://leadoscrm.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
+            Privacy Policy
+          </a>. I understand that Auto SEO will publish AI-generated content to my website on my behalf and that I am responsible for reviewing and approving published content.
+        </span>
+      </label>
+
       {error && (
         <div style={{ background: "rgba(239,68,68,.12)", border: "1px solid rgba(239,68,68,.2)", borderRadius: 8, padding: "10px 14px", fontSize: 13, color: "#fca5a5" }}>
           {error}
@@ -138,7 +159,8 @@ export default function AutoSeoSignupForm() {
         style={{
           marginTop: 4, padding: "15px 0", borderRadius: 12, fontWeight: 800, fontSize: 16,
           color: "white", border: "none", cursor: loading ? "not-allowed" : "pointer",
-          background: loading ? "#4b5563" : "linear-gradient(135deg, #4f46e5, #7c3aed)",
+          background: (loading || !agreed) ? "#4b5563" : "linear-gradient(135deg, #4f46e5, #7c3aed)",
+          opacity: !agreed ? 0.6 : 1,
           boxShadow: loading ? "none" : "0 8px 24px rgba(79,70,229,.35)",
         }}
       >
