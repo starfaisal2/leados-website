@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Company Brain by LeadOS — Your Entire Business Knowledge, Answered by AI",
   description:
-    "Upload contracts, licenses, policies, visa records, HR documents — ask any question and get an instant AI answer with source citations. Like an in-house Claude for your business. From $79/month.",
+    "Upload contracts, licenses, policies, visa records, HR documents — ask any question and get an instant AI answer with source citations. Like an in-house Claude for your business. From $39/month standalone — free with LeadOS CRM.",
   openGraph: {
     title: "Company Brain by LeadOS — Your Entire Business Knowledge, Answered by AI",
     description:
@@ -87,7 +87,7 @@ const FAQS = [
   },
   {
     q: "Can I use this without the LeadOS CRM?",
-    a: "Yes — the Standalone plan gives you Company Brain as an independent product at $79/month. Add it to your CRM subscription for $39/month if you're already a LeadOS customer.",
+    a: "Yes — the Standalone plan gives you Company Brain as an independent product at $39/month. If you're already a LeadOS CRM customer, Company Brain is completely free — included in your subscription.",
   },
 ];
 
@@ -132,7 +132,7 @@ export default function CompanyBrainPage() {
 
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", boxShadow: "0 8px 24px rgba(37,99,235,.4)" }}>
-              Start for $79/month →
+              Start for $39/month →
             </a>
             <a href="#how-it-works" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.8)", fontWeight: 600, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", border: "1px solid rgba(255,255,255,.13)" }}>
               See How It Works
@@ -294,9 +294,9 @@ export default function CompanyBrainPage() {
             {/* Standalone */}
             <div style={{ background: "white", border: "2px solid #e2e8f0", borderRadius: 20, padding: 36, textAlign: "left" }}>
               <div style={{ fontSize: 11, fontWeight: 800, color: "#94a3b8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Standalone</div>
-              <div style={{ fontSize: 13, color: "#64748b", marginBottom: 20, lineHeight: 1.5 }}>For businesses that want Company Brain without the full CRM.</div>
+              <div style={{ fontSize: 13, color: "#64748b", marginBottom: 20, lineHeight: 1.5 }}>For businesses that want Company Brain without the full LeadOS CRM.</div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 28 }}>
-                <span style={{ fontSize: 42, fontWeight: 900, color: "#0f172a" }}>$79</span>
+                <span style={{ fontSize: 42, fontWeight: 900, color: "#0f172a" }}>$39</span>
                 <span style={{ fontSize: 14, color: "#94a3b8" }}>/month</span>
               </div>
               {["Unlimited document uploads", "AI-powered Q&A chat", "Source citations on every answer", "Confidential data flagging", "Conversation history", "PDF, Word, CSV, JSON support", "Team access", "Email support"].map(f => (
@@ -318,10 +318,9 @@ export default function CompanyBrainPage() {
               <div style={{ fontSize: 11, fontWeight: 800, color: "#93c5fd", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>LeadOS CRM Add-on</div>
               <div style={{ fontSize: 13, color: "rgba(255,255,255,.45)", marginBottom: 20, lineHeight: 1.5 }}>Already on LeadOS? Add Company Brain to your subscription.</div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
-                <span style={{ fontSize: 42, fontWeight: 900, color: "white" }}>$39</span>
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>/month</span>
+                <span style={{ fontSize: 42, fontWeight: 900, color: "white" }}>FREE</span>
               </div>
-              <div style={{ fontSize: 12, color: "#93c5fd", marginBottom: 24 }}>Added to your CRM plan</div>
+              <div style={{ fontSize: 12, color: "#93c5fd", marginBottom: 24 }}>Included with your LeadOS CRM subscription</div>
               {["Everything in Standalone", "Built into your CRM sidebar", "One-click access from any page", "Shared with your whole team", "Syncs with CRM contacts & records", "Priority support"].map(f => (
                 <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, fontSize: 14, color: "rgba(255,255,255,.7)" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
@@ -329,7 +328,7 @@ export default function CompanyBrainPage() {
                 </div>
               ))}
               <a href="#get-started" style={{ display: "block", marginTop: 28, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "13px 0", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
-                Enable for $39/month →
+                Enable Free with CRM →
               </a>
             </div>
           </div>
@@ -368,13 +367,13 @@ export default function CompanyBrainPage() {
               href="/get-started?product=company_brain"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 16, padding: "16px 36px", borderRadius: 14, textDecoration: "none", boxShadow: "0 8px 32px rgba(37,99,235,.4)" }}
             >
-              Start for $79/month →
+              Start for $39/month →
             </Link>
             <Link
               href="/get-started?product=company_brain&plan=crm_addon"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.8)", fontWeight: 600, fontSize: 16, padding: "16px 32px", borderRadius: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,.13)" }}
             >
-              Add to CRM — $39/mo
+              Free with LeadOS CRM →
             </Link>
           </div>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,.25)", marginTop: 20 }}>

@@ -1154,7 +1154,7 @@ export default function HomePage() {
                 </h2>
                 <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.7, maxWidth: 520, marginBottom: 28 }}>
                   Upload contracts, visas, licenses, HR policies, financial records — ask any question and get an instant answer with source citations.
-                  Add it to your CRM for <strong style={{ color: "rgba(255,255,255,.85)" }}>$39/month</strong>, or standalone for $79/month.
+                  <strong style={{ color: "rgba(255,255,255,.85)" }}>Free</strong> for all LeadOS CRM users, or standalone for $39/month.
                 </p>
                 <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
                   <a href="/company-brain" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 14, padding: "12px 26px", borderRadius: 10, textDecoration: "none" }}>
