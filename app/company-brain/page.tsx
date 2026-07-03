@@ -3,6 +3,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import BrainSignupForm from "./BrainSignupForm";
 
 export const metadata: Metadata = {
   title: "Company Brain by LeadOS — Your Entire Business Knowledge, Answered by AI",
@@ -352,33 +353,28 @@ export default function CompanyBrainPage() {
       </section>
 
       {/* ── GET STARTED ── */}
-      <section id="get-started" style={{ background: "linear-gradient(160deg, #0f172a, #0c1a3a, #0f172a)", padding: "80px 24px", textAlign: "center" }}>
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <div style={{ fontSize: 48, marginBottom: 20 }}>🧠</div>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, color: "white", marginBottom: 16, lineHeight: 1.2 }}>
-            Give Your Business a Brain
-          </h2>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,.55)", marginBottom: 40, lineHeight: 1.7 }}>
-            Stop searching through folders, email chains and WhatsApp messages.
-            Ask one question and get the answer — cited, accurate and instant.
-          </p>
-          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/get-started?product=company_brain"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 16, padding: "16px 36px", borderRadius: 14, textDecoration: "none", boxShadow: "0 8px 32px rgba(37,99,235,.4)" }}
-            >
-              Start for $39/month →
-            </Link>
-            <Link
-              href="/get-started?product=company_brain&plan=crm_addon"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.8)", fontWeight: 600, fontSize: 16, padding: "16px 32px", borderRadius: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,.13)" }}
-            >
-              Free with LeadOS CRM →
+      <section id="get-started" style={{ background: "linear-gradient(160deg, #0f172a, #0c1a3a, #0f172a)", padding: "80px 24px" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>🧠</div>
+            <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, color: "white", marginBottom: 12, lineHeight: 1.2 }}>
+              Start Your Free 30-Day Trial
+            </h2>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.7, marginBottom: 8 }}>
+              No credit card required. Upload up to 10 documents free.<br />
+              After 30 days, plans start at <strong style={{ color: "white" }}>$39/month</strong>.
+            </p>
+          </div>
+
+          <BrainSignupForm />
+
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,.3)", marginBottom: 8 }}>Already have LeadOS CRM?</p>
+            <Link href="/get-started?product=company_brain&plan=crm_addon"
+              style={{ fontSize: 13, color: "#818cf8", textDecoration: "underline" }}>
+              Company Brain is included free with your CRM plan →
             </Link>
           </div>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,.25)", marginTop: 20 }}>
-            No setup fee. No long-term contract. Cancel anytime.
-          </p>
         </div>
       </section>
 
