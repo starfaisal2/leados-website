@@ -23,6 +23,7 @@ export default function Nav() {
     { href: "/#voice-ai", label: "Voice AI" },
     { href: "/#industries", label: "Industries" },
     { href: "/auto-seo", label: "Auto SEO ✨" },
+    { href: "/company-brain", label: "Company Brain 🧠" },
     { href: "/#pricing", label: "Pricing" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
