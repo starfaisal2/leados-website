@@ -80,7 +80,7 @@ const FAQS = [
   },
   {
     q: "How many documents can I upload?",
-    a: "Unlimited. There's no cap on the number of documents. Upload your entire company archive — the AI scales to handle it.",
+    a: "During the 30-day free trial you can upload up to 10 documents (up to 50,000 words of content). After upgrading to the $39/month paid plan, uploads are unlimited — no cap on documents or storage.",
   },
   {
     q: "Can multiple team members use it?",
@@ -102,7 +102,11 @@ export default function CompanyBrainPage() {
         <div style={{ position: "absolute", top: "40%", left: "25%", width: 400, height: 300, background: "radial-gradient(ellipse, rgba(139,92,246,.12) 0%, transparent 70%)", pointerEvents: "none" }} />
 
         <div style={{ position: "relative", maxWidth: 860, margin: "0 auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(59,130,246,.12)", border: "1px solid rgba(59,130,246,.25)", borderRadius: 40, padding: "6px 16px", fontSize: 12, fontWeight: 700, color: "#93c5fd", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28 }}>
+          {/* Free trial badge */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, rgba(124,58,237,.25), rgba(37,99,235,.2))", border: "1px solid rgba(139,92,246,.4)", borderRadius: 40, padding: "8px 20px", fontSize: 13, fontWeight: 800, color: "#c4b5fd", marginBottom: 16 }}>
+            🎁 30-Day Free Trial — No Credit Card Required
+          </div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(59,130,246,.12)", border: "1px solid rgba(59,130,246,.25)", borderRadius: 40, padding: "6px 16px", fontSize: 12, fontWeight: 700, color: "#93c5fd", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, marginLeft: 10 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#3b82f6", display: "inline-block" }} />
             By LeadOS — The AI Business OS
           </div>
@@ -133,11 +137,16 @@ export default function CompanyBrainPage() {
 
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", boxShadow: "0 8px 24px rgba(37,99,235,.4)" }}>
-              Start for $39/month →
+              Start Free — 30 Days Trial →
             </a>
             <a href="#how-it-works" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.8)", fontWeight: 600, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", border: "1px solid rgba(255,255,255,.13)" }}>
               See How It Works
             </a>
+          </div>
+          <div style={{ marginTop: 20, display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap" }}>
+            {["✓ No credit card", "✓ Up to 10 documents free", "✓ Then $39/month — cancel anytime"].map(t => (
+              <span key={t} style={{ fontSize: 13, color: "rgba(255,255,255,.45)", fontWeight: 500 }}>{t}</span>
+            ))}
           </div>
         </div>
       </section>
