@@ -21,15 +21,24 @@ const LANGUAGES = [
   { code: "de", label: "Deutsch", flag: "🇩🇪" },
 ];
 
+const DROPDOWN_CHEVRON = (
+  <svg width="11" height="11" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.45, flexShrink: 0 }}>
+    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [productOpen, setProductOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
+  const productRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+  const t = useTranslations("nav");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -37,12 +46,10 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // Close lang dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) {
-        setLangOpen(false);
-      }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+      if (productRef.current && !productRef.current.contains(e.target as Node)) setProductOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -55,18 +62,34 @@ export default function Nav() {
   };
 
   const currentLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
-  const t = useTranslations("nav");
 
-  const links = [
-    { href: "/#features", label: t("product") },
-    { href: "/#voice-ai", label: t("voiceAi") },
-    { href: "/#industries", label: t("industries") },
-    { href: "/auto-seo", label: `${t("autoSeo")} ✨` },
-    { href: "/company-brain", label: `${t("companyBrain")} 🧠` },
+  const productItems = [
+    { href: "/#features", icon: "⚡", label: t("product"), desc: "AI inbox, CRM, bookings" },
+    { href: "/#voice-ai", icon: "🎙️", label: t("voiceAi"), desc: "Answer every call, 24/7" },
+    { href: "/#industries", icon: "🏢", label: t("industries"), desc: "Built for service businesses" },
+    { href: "/auto-seo", icon: "✨", label: t("autoSeo"), desc: "Auto-publish SEO content" },
+    { href: "/company-brain", icon: "🧠", label: t("companyBrain"), desc: "AI-powered knowledge base" },
+  ];
+
+  const topLinks = [
     { href: "/#pricing", label: t("pricing") },
     { href: "/blog", label: t("blog") },
     { href: "/contact", label: t("contact") },
   ];
+
+  const dropdownStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "calc(100% + 10px)",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "white",
+    border: "1px solid var(--border)",
+    borderRadius: 16,
+    boxShadow: "0 16px 48px rgba(0,0,0,.12)",
+    padding: "8px",
+    zIndex: 200,
+    minWidth: 260,
+  };
 
   return (
     <>
@@ -80,10 +103,52 @@ export default function Nav() {
           </a>
 
           {/* Desktop links */}
-          <ul className="nav-links">
-            {links.map(({ href, label }) => (
+          <ul className="nav-links" style={{ gap: 2 }}>
+            {/* Product dropdown */}
+            <li>
+              <div ref={productRef} style={{ position: "relative" }}>
+                <button
+                  className="nav-link"
+                  onClick={() => setProductOpen(!productOpen)}
+                  style={{ display: "flex", alignItems: "center", gap: 5, background: "none", border: "none", cursor: "pointer", padding: "6px 10px", borderRadius: 8 }}
+                >
+                  {t("product")}
+                  {DROPDOWN_CHEVRON}
+                </button>
+                {productOpen && (
+                  <div style={dropdownStyle}>
+                    {productItems.map(({ href, icon, label, desc }) => (
+                      <a
+                        key={href}
+                        href={href}
+                        onClick={() => setProductOpen(false)}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 12,
+                          padding: "10px 12px",
+                          borderRadius: 10,
+                          textDecoration: "none",
+                          transition: "background .15s",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.background = "var(--blue-50)")}
+                        onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                      >
+                        <span style={{ fontSize: 18, lineHeight: 1, marginTop: 2 }}>{icon}</span>
+                        <span>
+                          <span style={{ display: "block", fontSize: 13.5, fontWeight: 600, color: "var(--ink)" }}>{label}</span>
+                          <span style={{ display: "block", fontSize: 12, color: "var(--ink-4)", marginTop: 1 }}>{desc}</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+
+            {topLinks.map(({ href, label }) => (
               <li key={href}>
-                <a href={href} className="nav-link">
+                <a href={href} className="nav-link" style={{ padding: "6px 10px" }}>
                   {label}
                 </a>
               </li>
@@ -102,9 +167,7 @@ export default function Nav() {
               >
                 <span style={{ fontSize: 15 }}>{currentLang.flag}</span>
                 <span style={{ fontSize: 12 }}>{currentLang.label}</span>
-                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.5 }}>
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                {DROPDOWN_CHEVRON}
               </button>
               {langOpen && (
                 <div
@@ -114,11 +177,11 @@ export default function Nav() {
                     right: 0,
                     background: "white",
                     border: "1px solid var(--border)",
-                    borderRadius: 12,
+                    borderRadius: 14,
                     boxShadow: "0 8px 32px rgba(0,0,0,.12)",
                     padding: "6px 0",
                     zIndex: 200,
-                    minWidth: 160,
+                    minWidth: 170,
                   }}
                 >
                   {LANGUAGES.map((lang) => (
@@ -143,7 +206,7 @@ export default function Nav() {
                       <span style={{ fontSize: 16 }}>{lang.flag}</span>
                       {lang.label}
                       {lang.code === locale && (
-                        <span style={{ marginLeft: "auto", fontSize: 12 }}>✓</span>
+                        <span style={{ marginLeft: "auto", fontSize: 12, color: "var(--blue)" }}>✓</span>
                       )}
                     </button>
                   ))}
@@ -152,10 +215,6 @@ export default function Nav() {
             </div>
 
             <button className="nav-login" onClick={() => setLoginOpen(true)}>
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
               {t("login")}
             </button>
             <a href={SIGNUP_URL} className="nav-trial">
@@ -187,11 +246,28 @@ export default function Nav() {
               background: "white",
               borderBottom: "1px solid var(--border)",
               boxShadow: "0 8px 24px rgba(0,0,0,.08)",
-              padding: "12px 24px 20px",
+              padding: "12px 20px 20px",
               zIndex: 99,
             }}
           >
-            {links.map(({ href, label }) => (
+            {/* Product group */}
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-4)", textTransform: "uppercase", letterSpacing: "0.08em", padding: "10px 0 6px" }}>
+              {t("product")}
+            </div>
+            {productItems.map(({ href, icon, label }) => (
+              <a
+                key={href}
+                href={href}
+                className="nav-link"
+                style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid var(--border)" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                <span style={{ fontSize: 16 }}>{icon}</span>
+                {label}
+              </a>
+            ))}
+
+            {topLinks.map(({ href, label }) => (
               <a
                 key={href}
                 href={href}
@@ -203,7 +279,7 @@ export default function Nav() {
               </a>
             ))}
 
-            {/* Mobile language switcher */}
+            {/* Language switcher */}
             <div style={{ padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-4)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Language</div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -238,7 +314,7 @@ export default function Nav() {
                 style={{ width: "100%", justifyContent: "center" }}
                 onClick={() => { setLoginOpen(true); setMobileOpen(false); }}
               >
-                Login
+                {t("login")}
               </button>
               <a
                 href={SIGNUP_URL}
@@ -246,7 +322,7 @@ export default function Nav() {
                 style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
                 onClick={() => setMobileOpen(false)}
               >
-                Get Started
+                {t("getStarted")}
               </a>
               <a
                 href={BOOK_URL}
@@ -255,7 +331,7 @@ export default function Nav() {
                 className="nav-demo"
                 style={{ width: "100%", textAlign: "center" }}
               >
-                Book Demo
+                {t("bookDemo")}
               </a>
             </div>
           </div>
