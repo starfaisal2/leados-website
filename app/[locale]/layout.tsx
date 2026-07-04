@@ -27,7 +27,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div dir={isRTL ? 'rtl' : 'ltr'} lang={locale} style={{ minHeight: '100vh' }}>
+      <div style={{ minHeight: '100vh' }}>
         <Nav />
         <main>{children}</main>
         <Footer />

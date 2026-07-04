@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,9 +21,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RTL_LOCALES = ['ar'];
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const locale = headersList.get('x-next-intl-locale') ?? 'en';
+  const dir = RTL_LOCALES.includes(locale) ? 'rtl' : 'ltr';
+
   return (
-    <html>
+    <html lang={locale} dir={dir}>
       <body>{children}</body>
     </html>
   );
