@@ -4453,3 +4453,38 @@ iframe[src*="/api/widget/embed"] {
   .signup-card { padding: 26px 20px; }
   .signup-grid-two { grid-template-columns: 1fr; }
 }
+
+
+/* ═══════════════════════════════
+   RTL Support (Arabic)
+═══════════════════════════════ */
+[dir="rtl"] {
+  text-align: right;
+}
+[dir="rtl"] .nav-inner {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .nav-links {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .nav-right {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .footer-grid {
+  direction: rtl;
+}
+[dir="rtl"] .hero-content,
+[dir="rtl"] .section-header {
+  text-align: right;
+}
+[dir="rtl"] .section-header.center {
+  text-align: center;
+}
+[dir="rtl"] .hero-ctas,
+[dir="rtl"] .hero-channels {
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+[dir="rtl"] .btn-arrow {
+  transform: scaleX(-1);
+}
