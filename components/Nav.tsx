@@ -6,6 +6,7 @@ import LoginModal from "./LoginModal";
 
 const BOOK_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20book%20a%20demo";
+const SIGNUP_URL = "/get-started";
 
 const LANGUAGES = [
   { code: "en", label: "English", flag: "🇬🇧" },
@@ -29,7 +30,6 @@ export default function Nav() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
-  const t = useTranslations("nav");
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -37,9 +37,12 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Close lang dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -52,10 +55,14 @@ export default function Nav() {
   };
 
   const currentLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
+  const t = useTranslations("nav");
 
   const links = [
     { href: "/#features", label: t("product") },
     { href: "/#voice-ai", label: t("voiceAi") },
+    { href: "/#industries", label: t("industries") },
+    { href: "/auto-seo", label: `${t("autoSeo")} ✨` },
+    { href: "/company-brain", label: `${t("companyBrain")} 🧠` },
     { href: "/#pricing", label: t("pricing") },
     { href: "/blog", label: t("blog") },
     { href: "/contact", label: t("contact") },
@@ -76,14 +83,16 @@ export default function Nav() {
           <ul className="nav-links">
             {links.map(({ href, label }) => (
               <li key={href}>
-                <a href={href} className="nav-link">{label}</a>
+                <a href={href} className="nav-link">
+                  {label}
+                </a>
               </li>
             ))}
           </ul>
 
-          {/* Right side */}
+          {/* Right actions */}
           <div className="nav-right">
-            {/* Language switcher */}
+            {/* Language Switcher */}
             <div ref={langRef} style={{ position: "relative" }}>
               <button
                 className="nav-login"
@@ -93,23 +102,25 @@ export default function Nav() {
               >
                 <span style={{ fontSize: 15 }}>{currentLang.flag}</span>
                 <span style={{ fontSize: 12 }}>{currentLang.label}</span>
-                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.45 }}>
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.5 }}>
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               {langOpen && (
-                <div style={{
-                  position: "absolute",
-                  top: "calc(100% + 8px)",
-                  right: 0,
-                  background: "white",
-                  border: "1px solid var(--border)",
-                  borderRadius: 14,
-                  boxShadow: "0 8px 32px rgba(0,0,0,.12)",
-                  padding: "6px 0",
-                  zIndex: 200,
-                  minWidth: 170,
-                }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 8px)",
+                    right: 0,
+                    background: "white",
+                    border: "1px solid var(--border)",
+                    borderRadius: 12,
+                    boxShadow: "0 8px 32px rgba(0,0,0,.12)",
+                    padding: "6px 0",
+                    zIndex: 200,
+                    minWidth: 160,
+                  }}
+                >
                   {LANGUAGES.map((lang) => (
                     <button
                       key={lang.code}
@@ -132,7 +143,7 @@ export default function Nav() {
                       <span style={{ fontSize: 16 }}>{lang.flag}</span>
                       {lang.label}
                       {lang.code === locale && (
-                        <span style={{ marginLeft: "auto", fontSize: 12, color: "var(--blue)" }}>✓</span>
+                        <span style={{ marginLeft: "auto", fontSize: 12 }}>✓</span>
                       )}
                     </button>
                   ))}
@@ -140,46 +151,52 @@ export default function Nav() {
               )}
             </div>
 
-            {/* Login — ghost */}
             <button className="nav-login" onClick={() => setLoginOpen(true)}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
+              </svg>
               {t("login")}
             </button>
-
-            {/* Single primary CTA */}
+            <a href={SIGNUP_URL} className="nav-trial">
+              {t("getStarted")}
+            </a>
             <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
               {t("bookDemo")}
             </a>
-
-            {/* Hamburger */}
             <button
               className="nav-hamburger"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
-              <span /><span /><span />
+              <span />
+              <span />
+              <span />
             </button>
           </div>
         </div>
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            background: "white",
-            borderBottom: "1px solid var(--border)",
-            boxShadow: "0 8px 24px rgba(0,0,0,.08)",
-            padding: "12px 20px 20px",
-            zIndex: 99,
-          }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              background: "white",
+              borderBottom: "1px solid var(--border)",
+              boxShadow: "0 8px 24px rgba(0,0,0,.08)",
+              padding: "12px 24px 20px",
+              zIndex: 99,
+            }}
+          >
             {links.map(({ href, label }) => (
               <a
                 key={href}
                 href={href}
                 className="nav-link"
-                style={{ display: "block", padding: "12px 0", borderBottom: "1px solid var(--border)" }}
+                style={{ display: "block", padding: "11px 0", borderBottom: "1px solid var(--border)" }}
                 onClick={() => setMobileOpen(false)}
               >
                 {label}
@@ -221,8 +238,16 @@ export default function Nav() {
                 style={{ width: "100%", justifyContent: "center" }}
                 onClick={() => { setLoginOpen(true); setMobileOpen(false); }}
               >
-                {t("login")}
+                Login
               </button>
+              <a
+                href={SIGNUP_URL}
+                className="nav-trial"
+                style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Get Started
+              </a>
               <a
                 href={BOOK_URL}
                 target="_blank"
@@ -230,7 +255,7 @@ export default function Nav() {
                 className="nav-demo"
                 style={{ width: "100%", textAlign: "center" }}
               >
-                {t("bookDemo")}
+                Book Demo
               </a>
             </div>
           </div>
