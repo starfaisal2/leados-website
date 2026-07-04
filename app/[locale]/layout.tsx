@@ -21,19 +21,17 @@ export default async function LocaleLayout({
   const isRTL = rtlLocales.includes(locale);
 
   return (
-    <html lang={locale} dir={isRTL ? 'rtl' : 'ltr'}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          <Nav />
-          <main>{children}</main>
-          <Footer />
-          <Script
-            id="leados-crm-widget"
-            src="https://app.leadoscrm.com/api/widget/embed?tenant=leados"
-            strategy="afterInteractive"
-          />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <div dir={isRTL ? 'rtl' : 'ltr'} lang={locale} style={{ minHeight: '100vh' }}>
+        <Nav />
+        <main>{children}</main>
+        <Footer />
+        <Script
+          id="leados-crm-widget"
+          src="https://app.leadoscrm.com/api/widget/embed?tenant=leados"
+          strategy="afterInteractive"
+        />
+      </div>
+    </NextIntlClientProvider>
   );
 }
