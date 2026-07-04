@@ -83,7 +83,7 @@ export default function Nav() {
           <ul className="nav-links">
             {links.map(({ href, label }) => (
               <li key={href}>
-                <a href={href} className="nav-link">
+                <a href={href} className="nav-link" style={{ whiteSpace: "nowrap" }}>
                   {label}
                 </a>
               </li>
@@ -98,11 +98,10 @@ export default function Nav() {
                 className="nav-login"
                 onClick={() => setLangOpen(!langOpen)}
                 aria-label="Switch language"
-                style={{ gap: 5, fontWeight: 500 }}
+                style={{ gap: 4, fontWeight: 500, padding: "6px 10px", fontSize: 12 }}
               >
-                <span style={{ fontSize: 15 }}>{currentLang.flag}</span>
-                <span style={{ fontSize: 12 }}>{currentLang.label}</span>
-                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.5 }}>
+                <span style={{ fontSize: 14 }}>{currentLang.flag}</span>
+                <svg width="9" height="9" fill="none" viewBox="0 0 24 24" style={{ opacity: 0.45 }}>
                   <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
@@ -152,15 +151,8 @@ export default function Nav() {
             </div>
 
             <button className="nav-login" onClick={() => setLoginOpen(true)}>
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
               {t("login")}
             </button>
-            <a href={SIGNUP_URL} className="nav-trial">
-              {t("getStarted")}
-            </a>
             <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
               {t("bookDemo")}
             </a>
