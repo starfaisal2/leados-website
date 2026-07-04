@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "@/lib/i18n/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LoginModal from "./LoginModal";
 
 const BOOK_URL =
@@ -55,16 +55,17 @@ export default function Nav() {
   };
 
   const currentLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
+  const t = useTranslations("nav");
 
   const links = [
-    { href: "/#features", label: "Product" },
-    { href: "/#voice-ai", label: "Voice AI" },
-    { href: "/#industries", label: "Industries" },
-    { href: "/auto-seo", label: "Auto SEO ✨" },
-    { href: "/company-brain", label: "Company Brain 🧠" },
-    { href: "/#pricing", label: "Pricing" },
-    { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/#features", label: t("product") },
+    { href: "/#voice-ai", label: t("voiceAi") },
+    { href: "/#industries", label: t("industries") },
+    { href: "/auto-seo", label: `${t("autoSeo")} ✨` },
+    { href: "/company-brain", label: `${t("companyBrain")} 🧠` },
+    { href: "/#pricing", label: t("pricing") },
+    { href: "/blog", label: t("blog") },
+    { href: "/contact", label: t("contact") },
   ];
 
   return (
@@ -155,13 +156,13 @@ export default function Nav() {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
               </svg>
-              Login
+              {t("login")}
             </button>
             <a href={SIGNUP_URL} className="nav-trial">
-              Get Started
+              {t("getStarted")}
             </a>
             <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
-              Book Demo
+              {t("bookDemo")}
             </a>
             <button
               className="nav-hamburger"
