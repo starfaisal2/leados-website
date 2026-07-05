@@ -7,5 +7,7 @@ export default createMiddleware({
 });
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Exclude /blog/* — blog content is English-only SEO articles.
+  // Without this, Arabic/non-English users get redirected to /ar/blog/... which has no page → 404.
+  matcher: ['/((?!api|_next|blog|.*\\..*).*)']
 };
