@@ -22,18 +22,13 @@ async function getArticles() {
     "Content-Type": "application/json",
   };
 
-  // Get the leados tenant business id
-  const bizRes = await fetch(
-    `${url}/rest/v1/businesses?slug=eq.leados&select=id&limit=1`,
-    { headers, next: { revalidate: 3600 } }
-  );
-  if (!bizRes.ok) return [];
-  const businesses = await bizRes.json();
-  if (!businesses?.length) return [];
-  const businessId = businesses[0].id;
+  // LEADOS_BUSINESS_ID must be set in Vercel env vars to the LeadOS business UUID.
+  // Find it in Supabase → seo_articles → copy any article's business_id.
+  const businessId = process.env.LEADOS_BUSINESS_ID;
+  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
 
   const artRes = await fetch(
-    `${url}/rest/v1/seo_articles?business_id=eq.${businessId}&status=eq.published&select=id,title,slug,excerpt,meta_description,target_keyword,word_count,reading_time_mins,published_at,created_at&order=published_at.desc&limit=50`,
+    `${url}/rest/v1/seo_articles?status=eq.published${businessFilter}&select=id,title,slug,excerpt,meta_description,target_keyword,word_count,reading_time_mins,published_at,created_at&order=published_at.desc&limit=50`,
     { headers, next: { revalidate: 3600 } }
   );
   if (!artRes.ok) return [];
