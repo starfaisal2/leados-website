@@ -30,107 +30,18 @@ function Logo({ size = 32 }: { size?: number }) {
   );
 }
 
-/* ── Data ── */
-const INDUSTRIES = [
-  { icon: "💉", name: "Clinics & Aesthetics", desc: "Book consultations, follow up on treatments, collect reviews.", img: "https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🦷", name: "Dental Clinics", desc: "Reduce no-shows, automate reminders, fill your chair.", img: "https://images.pexels.com/photos/3881449/pexels-photo-3881449.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🏥", name: "Medical Centers", desc: "Multi-doctor scheduling, patient intake, AI receptionist.", img: "https://images.pexels.com/photos/7088529/pexels-photo-7088529.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🏠", name: "Real Estate", desc: "Qualify buyers, schedule viewings, track agent performance.", img: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🍽️", name: "Restaurants", desc: "Take reservations, recover cancellations, generate reviews.", img: "https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "⚖️", name: "Professional Services", desc: "Capture enquiries, book consultations, handle intake.", img: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🎓", name: "Education", desc: "Student enquiries, enrolment automation, follow-up sequences.", img: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=900" },
-  { icon: "🔧", name: "Home Services", desc: "Capture jobs, photo-quote requests, dispatch faster.", img: "https://images.pexels.com/photos/8961251/pexels-photo-8961251.jpeg?auto=compress&cs=tinysrgb&w=900" },
+/* ── Static image data (urls only, text comes from translations) ── */
+const INDUSTRY_IMGS = [
+  { icon: "💉", img: "https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🦷", img: "https://images.pexels.com/photos/3881449/pexels-photo-3881449.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🏥", img: "https://images.pexels.com/photos/7088529/pexels-photo-7088529.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🏠", img: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🍽️", img: "https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "⚖️", img: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🎓", img: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { icon: "🔧", img: "https://images.pexels.com/photos/8961251/pexels-photo-8961251.jpeg?auto=compress&cs=tinysrgb&w=900" },
 ];
 
-const DEMOS: Record<string, Array<{ f: string; t: string }>> = {
-  "Aesthetic Clinic": [
-    { f: "u", t: "Hi, I want a lip filler consultation" },
-    { f: "a", t: "Hi! I'm Aria from Glow Aesthetics ✨ I'd love to help. We have Thursday 3pm or Friday 11am with Dr. Sarah — which works?" },
-    { f: "u", t: "Thursday 3pm please" },
-    { f: "a", t: "Confirmed for Thursday at 3pm ✅ Sending details to your WhatsApp now. Any questions about the treatment?" },
-  ],
-  "Real Estate": [
-    { f: "u", t: "Is the Bayview Road listing still available?" },
-    { f: "a", t: "Yes! Beautiful 3-bed, 2-bath — listed this week 🏡 Ready to book a viewing? I can arrange one as early as tomorrow." },
-    { f: "u", t: "Tomorrow afternoon works" },
-    { f: "a", t: "Viewing confirmed for tomorrow at 2:30pm ✅ Agent Marcus will meet you there. Full details sent to your number." },
-  ],
-  "Restaurant": [
-    { f: "u", t: "Table for 4 this Saturday?" },
-    { f: "a", t: "Welcome to Ember! 🍽️ We have 7pm or 8:30pm Saturday for 4. Any special occasion or dietary needs?" },
-    { f: "u", t: "7pm — our anniversary" },
-    { f: "a", t: "Confirmed: table for 4 at 7pm Saturday 🎂 Noted your anniversary — the team will make it special!" },
-  ],
-  "Legal Firm": [
-    { f: "u", t: "I need advice on a commercial dispute" },
-    { f: "a", t: "Our team handles commercial disputes regularly. I can book a 30-min consultation with a senior partner — this week?" },
-    { f: "u", t: "Thursday morning" },
-    { f: "a", t: "Thursday 10am confirmed ✅ You'll receive a brief beforehand so we can make the most of your time." },
-  ],
-};
-
-const INTELLIGENCE_FEATURES = [
-  {
-    key: "omni",
-    badge: "AI Omni Inbox",
-    title: "Every channel in one learning inbox.",
-    desc: "WhatsApp, Instagram, Messenger, website chat and calls come together in one workspace. LeadOS learns what customers ask, what agents do and which conversations turn into bookings.",
-    points: ["Unified conversations", "AI reply suggestions", "Human handoff", "Lead memory"],
-    flow: ["Message arrives", "AI understands intent", "Best reply generated", "Booking opportunity detected"],
-    metric: "28s",
-    metricLabel: "average AI response"
-  },
-  {
-    key: "meta",
-    badge: "Meta Brain",
-    title: "Ad spend connected to real revenue.",
-    desc: "LeadOS connects campaigns, conversations, bookings and revenue so you know which ads deserve more budget and which ones are wasting money.",
-    points: ["Campaign ROI", "Cost per booking", "Revenue attribution", "Budget recommendations"],
-    flow: ["Ad click", "Lead captured", "Booking tracked", "ROI recommendation"],
-    metric: "8.4×",
-    metricLabel: "campaign ROAS insight"
-  },
-  {
-    key: "reviews",
-    badge: "Auto Reviews",
-    title: "Turn completed visits into stronger reputation.",
-    desc: "After appointments, LeadOS can trigger review requests, detect satisfied customers and help teams build a stronger online reputation automatically.",
-    points: ["Post-visit request", "Review reminders", "Sentiment detection", "Reputation growth"],
-    flow: ["Visit completed", "Review request sent", "Positive review received", "Rating improves"],
-    metric: "4.9",
-    metricLabel: "reputation target"
-  },
-  {
-    key: "seo",
-    badge: "SEO Intelligence",
-    title: "Growth insights beyond the inbox.",
-    desc: "LeadOS can help connect website performance, keyword demand and lead quality so your team sees what content and search traffic create real enquiries.",
-    points: ["Keyword opportunities", "Lead-source quality", "Content insights", "Growth recommendations"],
-    flow: ["Traffic analyzed", "Lead quality scored", "Keyword gap found", "Action recommended"],
-    metric: "+31%",
-    metricLabel: "organic opportunity"
-  },
-  {
-    key: "voice",
-    badge: "Voice AI",
-    title: "An AI receptionist for calls and voice notes.",
-    desc: "LeadOS can answer calls, transcribe voice notes, understand language and intent, then book or escalate with full context for your team.",
-    points: ["Call answering", "Voice-note transcription", "Arabic/English/Hindi/Urdu", "Transcript timeline"],
-    flow: ["Call or voice note", "AI transcribes", "Intent detected", "Booking or handoff"],
-    metric: "24/7",
-    metricLabel: "AI coverage"
-  },
-  {
-    key: "booking",
-    badge: "Booking Intelligence",
-    title: "AI that books like a trained receptionist.",
-    desc: "LeadOS understands the service, checks the right doctor, therapist or resource, suggests available slots and confirms bookings safely.",
-    points: ["Service detection", "Resource matching", "Slot suggestions", "Confirmation flow"],
-    flow: ["Service requested", "Resource matched", "Slot offered", "Appointment booked"],
-    metric: "3×",
-    metricLabel: "booking lift potential"
-  },
-];
 
 const FAQS = [
   { q: "Do I need technical knowledge to use LeadOS?", a: "Not at all. LeadOS is built for business owners, not developers. Our team handles every aspect of setup — after a guided onboarding and testing process, you go live in 48 hours." },
@@ -145,9 +56,64 @@ const FAQS = [
 
 export default function HomePage() {
   const t = useTranslations('home');
+
+  const INTELLIGENCE_FEATURES = [
+    { key: "omni", badge: t('intelOmniBadge'), title: t('intelOmniTitle'), desc: t('intelOmniDesc'),
+      points: [t('intelOmniP1'), t('intelOmniP2'), t('intelOmniP3'), t('intelOmniP4')],
+      flow: [t('intelOmniF1'), t('intelOmniF2'), t('intelOmniF3'), t('intelOmniF4')],
+      metric: "28s", metricLabel: t('intelOmniMetricLabel') },
+    { key: "meta", badge: t('intelMetaBadge'), title: t('intelMetaTitle'), desc: t('intelMetaDesc'),
+      points: [t('intelMetaP1'), t('intelMetaP2'), t('intelMetaP3'), t('intelMetaP4')],
+      flow: [t('intelMetaF1'), t('intelMetaF2'), t('intelMetaF3'), t('intelMetaF4')],
+      metric: "8.4×", metricLabel: t('intelMetaMetricLabel') },
+    { key: "reviews", badge: t('intelReviewsBadge'), title: t('intelReviewsTitle'), desc: t('intelReviewsDesc'),
+      points: [t('intelReviewsP1'), t('intelReviewsP2'), t('intelReviewsP3'), t('intelReviewsP4')],
+      flow: [t('intelReviewsF1'), t('intelReviewsF2'), t('intelReviewsF3'), t('intelReviewsF4')],
+      metric: "4.9", metricLabel: t('intelReviewsMetricLabel') },
+    { key: "seo", badge: t('intelSeoBadge'), title: t('intelSeoTitle'), desc: t('intelSeoDesc'),
+      points: [t('intelSeoP1'), t('intelSeoP2'), t('intelSeoP3'), t('intelSeoP4')],
+      flow: [t('intelSeoF1'), t('intelSeoF2'), t('intelSeoF3'), t('intelSeoF4')],
+      metric: "+31%", metricLabel: t('intelSeoMetricLabel') },
+    { key: "voice", badge: t('intelVoiceBadge'), title: t('intelVoiceTitle'), desc: t('intelVoiceDesc'),
+      points: [t('intelVoiceP1'), t('intelVoiceP2'), t('intelVoiceP3'), t('intelVoiceP4')],
+      flow: [t('intelVoiceF1'), t('intelVoiceF2'), t('intelVoiceF3'), t('intelVoiceF4')],
+      metric: "24/7", metricLabel: t('intelVoiceMetricLabel') },
+    { key: "booking", badge: t('intelBookingBadge'), title: t('intelBookingTitle'), desc: t('intelBookingDesc'),
+      points: [t('intelBookingP1'), t('intelBookingP2'), t('intelBookingP3'), t('intelBookingP4')],
+      flow: [t('intelBookingF1'), t('intelBookingF2'), t('intelBookingF3'), t('intelBookingF4')],
+      metric: "3×", metricLabel: t('intelBookingMetricLabel') },
+  ];
+
+  const INDUSTRIES = INDUSTRY_IMGS.map((img, i) => ({
+    ...img,
+    name: t(`ind${i + 1}Name` as any),
+    desc: t(`ind${i + 1}Desc` as any),
+  }));
+
+  const DEMOS: Record<string, Array<{ f: string; t: string }>> = {
+    [t('demo1Tab')]: [
+      { f: "u", t: t('demo1U1') }, { f: "a", t: t('demo1A1') },
+      { f: "u", t: t('demo1U2') }, { f: "a", t: t('demo1A2') },
+    ],
+    [t('demo2Tab')]: [
+      { f: "u", t: t('demo2U1') }, { f: "a", t: t('demo2A1') },
+      { f: "u", t: t('demo2U2') }, { f: "a", t: t('demo2A2') },
+    ],
+    [t('demo3Tab')]: [
+      { f: "u", t: t('demo3U1') }, { f: "a", t: t('demo3A1') },
+      { f: "u", t: t('demo3U2') }, { f: "a", t: t('demo3A2') },
+    ],
+    [t('demo4Tab')]: [
+      { f: "u", t: t('demo4U1') }, { f: "a", t: t('demo4A1') },
+      { f: "u", t: t('demo4U2') }, { f: "a", t: t('demo4A2') },
+    ],
+  };
+
+  const demoTabs = [t('demo1Tab'), t('demo2Tab'), t('demo3Tab'), t('demo4Tab')];
+
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
-  const [activeDemo, setActiveDemo] = useState("Aesthetic Clinic");
-  const [demoMsgs, setDemoMsgs] = useState(DEMOS["Aesthetic Clinic"]);
+  const [activeDemo, setActiveDemo] = useState(t('demo1Tab'));
+  const [demoMsgs, setDemoMsgs] = useState(DEMOS[t('demo1Tab')]);
   const [demoInput, setDemoInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [proofTab, setProofTab] = useState(0);
@@ -538,10 +504,10 @@ export default function HomePage() {
           </div>
           <div className="how-steps">
             {[
-              { n: "01", icon: "💬", h: "Customer Enquires", p: "A lead messages on WhatsApp, Instagram, Messenger, your website — or calls. Anywhere, any time." },
-              { n: "02", icon: "🤖", h: "LeadOS AI Responds", p: "Your AI replies in under 3 seconds — in the customer's language — qualifying, answering, and guiding toward booking." },
-              { n: "03", icon: "📅", h: "Appointment Booked", p: "The AI books directly — confirmed in chat, synced to your calendar. No human needed." },
-              { n: "04", icon: "📊", h: "Revenue Tracked", p: "Every booking and revenue source is logged. You see exactly what's working and where every dollar comes from." },
+              { n: "01", icon: "💬", h: t('howStep1H'), p: t('howStep1P') },
+              { n: "02", icon: "🤖", h: t('howStep2H'), p: t('howStep2P') },
+              { n: "03", icon: "📅", h: t('howStep3H'), p: t('howStep3P') },
+              { n: "04", icon: "📊", h: t('howStep4H'), p: t('howStep4P') },
             ].map((s) => (
               <div key={s.n} className="how-step">
                 <span className="how-num">{s.n}</span>
@@ -563,7 +529,13 @@ export default function HomePage() {
             <p className="body-md" style={{ marginTop: 14, maxWidth: 500, marginLeft: "auto", marginRight: "auto" }}>{t('problemDesc')}</p>
           </div>
           <div className="leak-flow">
-            {[["📣", "Ad Click", "Customer sees your ad"], ["💬", "WhatsApp Message", "They message you"], ["⏳", "Slow Reply", "Hours pass..."], ["🔇", "Missed Follow-up", "No one follows up"], ["❌", "Lost Booking", "They book elsewhere"]].map(([ic, l, s], i) => (
+            {[
+              ["📣", t('leakStep1L'), t('leakStep1S')],
+              ["💬", t('leakStep2L'), t('leakStep2S')],
+              ["⏳", t('leakStep3L'), t('leakStep3S')],
+              ["🔇", t('leakStep4L'), t('leakStep4S')],
+              ["❌", t('leakStep5L'), t('leakStep5S')],
+            ].map(([ic, l, s], i) => (
               <div key={l} style={{ display: "flex", alignItems: "center" }}>
                 <div className="leak-step">
                   <div className="leak-step-icon" style={{ background: i >= 2 ? "#fef2f2" : "white", borderColor: i >= 2 ? "#fecaca" : "var(--border)" }}>{ic}</div>
@@ -576,11 +548,16 @@ export default function HomePage() {
           </div>
           <div className="leak-divider">
             <div className="leak-divider-line" />
-            <div className="leak-divider-label">With LeadOS</div>
+            <div className="leak-divider-label">{t('leakWithLeados')}</div>
             <div className="leak-divider-line" />
           </div>
           <div className="leak-solution">
-            {[["⚡", "Captures every lead", "Every message on every channel — instantly captured."], ["🤖", "AI replies in seconds", "Instant, personalised reply in the customer's language."], ["📅", "Books the appointment", "Confirmed appointment, synced to calendar. No human needed."], ["📊", "Tracks every dollar", "Revenue, source, and ROI — all visible in your dashboard."]].map(([ic, h, p]) => (
+            {[
+              ["⚡", t('leakSol1H'), t('leakSol1P')],
+              ["🤖", t('leakSol2H'), t('leakSol2P')],
+              ["📅", t('leakSol3H'), t('leakSol3P')],
+              ["📊", t('leakSol4H'), t('leakSol4P')],
+            ].map(([ic, h, p]) => (
               <div key={h as string} className="leak-sol-card">
                 <div className="leak-sol-icon">{ic}</div>
                 <div className="leak-sol-h" style={{ color: "var(--blue)" }}>{h}</div>
@@ -603,21 +580,21 @@ export default function HomePage() {
             <div className="feature-card featured">
               <div>
                 <div className="feat-icon-wrap"><span>📥</span></div>
-                <div className="feat-outcome">Never miss another lead</div>
-                <div className="feat-h">One Inbox for Every Channel</div>
-                <div className="feat-p">WhatsApp, Instagram, Messenger, and your website — all in one place.</div>
-                <div className="feat-tags">{["WhatsApp", "Instagram", "Messenger", "Live Chat"].map((t) => <span key={t} className="feat-tag">{t}</span>)}</div>
+                <div className="feat-outcome">{t('featFeaturedOutcome')}</div>
+                <div className="feat-h">{t('featFeaturedH')}</div>
+                <div className="feat-p">{t('featFeaturedP')}</div>
+                <div className="feat-tags">{["WhatsApp", "Instagram", "Messenger", "Live Chat"].map((tag) => <span key={tag} className="feat-tag">{tag}</span>)}</div>
               </div>
             </div>
             {[
-              { icon: "🤖", outcome: "Qualify & book without staff", h: "AI Receptionist That Never Sleeps", p: "Replies in seconds, 24/7.", tags: ["24/7", "Multilingual", "Smart Routing"] },
-              { icon: "📞", outcome: "Answer every call. Book every lead.", h: "Voice AI Receptionist", p: "Your AI answers calls, books appointments, handles after-hours.", tags: ["Inbound Calls", "Outbound Follow-up", "Transcripts"] },
-              { icon: "📅", outcome: "Zero back-and-forth. Just bookings.", h: "Smart Booking Automation", p: "Leads book straight from WhatsApp or a voice call.", tags: ["Calendar Sync", "Auto-Reminders", "No-Show Reduction"] },
-              { icon: "📊", outcome: "Know exactly where revenue comes from", h: "Revenue Intelligence Dashboard", p: "See leads, replies, bookings, and revenue tracked to their source.", tags: ["ROI Tracking", "Source Attribution", "Team Performance"] },
-              { icon: "🔀", outcome: "Your team steps in when it matters", h: "Seamless Human + AI Handoff", p: "When a conversation needs a personal touch, your team is notified instantly.", tags: ["Smart Escalation", "Full Context", "Team Alerts"] },
-              { icon: "🌍", outcome: "Speak every customer's language", h: "Multilingual AI — Arabic & Beyond", p: "LeadOS auto-detects language and responds in Arabic, English, French, Spanish, Urdu, Hindi and more.", tags: ["Auto-Detect", "10+ Languages"] },
-              { icon: "🔁", outcome: "Turn cold leads into bookings", h: "Automated Follow-Up Recovery", p: "Leads that go quiet are re-engaged at exactly the right time.", tags: ["Drip Sequences", "Re-engagement"] },
-              { icon: "🏢", outcome: "One CRM for every location", h: "Multi-Location Management", p: "One LeadOS account manages every branch, clinic, or outlet.", tags: ["Multi-Branch", "Unified Reports"] },
+              { icon: "🤖", outcome: t('feat1Outcome'), h: t('feat1H'), p: t('feat1P'), tags: ["24/7", "Multilingual", "Smart Routing"] },
+              { icon: "📞", outcome: t('feat2Outcome'), h: t('feat2H'), p: t('feat2P'), tags: ["Inbound Calls", "Outbound Follow-up", "Transcripts"] },
+              { icon: "📅", outcome: t('feat3Outcome'), h: t('feat3H'), p: t('feat3P'), tags: ["Calendar Sync", "Auto-Reminders", "No-Show Reduction"] },
+              { icon: "📊", outcome: t('feat4Outcome'), h: t('feat4H'), p: t('feat4P'), tags: ["ROI Tracking", "Source Attribution", "Team Performance"] },
+              { icon: "🔀", outcome: t('feat5Outcome'), h: t('feat5H'), p: t('feat5P'), tags: ["Smart Escalation", "Full Context", "Team Alerts"] },
+              { icon: "🌍", outcome: t('feat6Outcome'), h: t('feat6H'), p: t('feat6P'), tags: ["Auto-Detect", "10+ Languages"] },
+              { icon: "🔁", outcome: t('feat7Outcome'), h: t('feat7H'), p: t('feat7P'), tags: ["Drip Sequences", "Re-engagement"] },
+              { icon: "🏢", outcome: t('feat8Outcome'), h: t('feat8H'), p: t('feat8P'), tags: ["Multi-Branch", "Unified Reports"] },
             ].map((f) => (
               <div key={f.h} className="feature-card">
                 <div className="feat-icon-wrap"><span>{f.icon}</span></div>
@@ -727,7 +704,7 @@ export default function HomePage() {
             <div className="demo-left">
               <div className="demo-slabel">{t('demoSelectLabel')}</div>
               <div className="demo-tabs">
-                {Object.keys(DEMOS).map((k) => (
+                {demoTabs.map((k) => (
                   <button key={k} className={`d-tab${activeDemo === k ? " on" : ""}`} onClick={() => switchDemo(k)}>{k}</button>
                 ))}
               </div>
@@ -768,17 +745,17 @@ export default function HomePage() {
             <p className="body-lg" style={{ marginTop: 14, maxWidth: 650, marginLeft: "auto", marginRight: "auto" }}>{t('industriesDesc')}</p>
           </div>
           <div className="industries-detail-grid">
-            {INDUSTRIES.map((industry) => {
-              const details: Record<string, string[]> = {
-                "Clinics & Aesthetics": ["AI answers treatment enquiries instantly", "Books consultations with the right doctor or therapist", "Follows up on missed leads, offers and reviews"],
-                "Dental Clinics": ["Handles treatment questions and appointment requests", "Reduces no-shows with automated reminders", "Tracks which campaigns bring booked patients"],
-                "Medical Centers": ["Routes enquiries by department, doctor and service", "Captures patient intake before the visit", "Keeps managers aware of response and booking performance"],
-                "Real Estate": ["Qualifies buyers and tenants by budget, area and timeline", "Schedules viewings from WhatsApp or website chat", "Shows which agents and sources convert best"],
-                "Restaurants": ["Takes reservations from social and website messages", "Recovers cancellations and missed booking requests", "Triggers review and repeat-visit follow-ups"],
-                "Professional Services": ["Collects enquiry details before consultation", "Routes leads to the right specialist or team", "Tracks source, follow-up and conversion performance"],
-                "Education": ["Answers course and admission enquiries", "Automates student follow-up and enrolment reminders", "Shows which campaigns generate qualified applicants"],
-                "Home Services": ["Captures job details, location and urgency", "Requests photos or extra details automatically", "Routes jobs and follows up on quotes"],
-              };
+            {INDUSTRIES.map((industry, idx) => {
+              const details: string[][] = [
+                ["AI answers treatment enquiries instantly", "Books consultations with the right doctor or therapist", "Follows up on missed leads, offers and reviews"],
+                ["Handles treatment questions and appointment requests", "Reduces no-shows with automated reminders", "Tracks which campaigns bring booked patients"],
+                ["Routes enquiries by department, doctor and service", "Captures patient intake before the visit", "Keeps managers aware of response and booking performance"],
+                ["Qualifies buyers and tenants by budget, area and timeline", "Schedules viewings from WhatsApp or website chat", "Shows which agents and sources convert best"],
+                ["Takes reservations from social and website messages", "Recovers cancellations and missed booking requests", "Triggers review and repeat-visit follow-ups"],
+                ["Collects enquiry details before consultation", "Routes leads to the right specialist or team", "Tracks source, follow-up and conversion performance"],
+                ["Answers course and admission enquiries", "Automates student follow-up and enrolment reminders", "Shows which campaigns generate qualified applicants"],
+                ["Captures job details, location and urgency", "Requests photos or extra details automatically", "Routes jobs and follows up on quotes"],
+              ];
               return (
                 <article className="industry-detail-card" key={industry.name}>
                   <div className="industry-image-wrap">
@@ -788,7 +765,7 @@ export default function HomePage() {
                   <div className="industry-detail-body">
                     <h3>{industry.name}</h3>
                     <p>{industry.desc}</p>
-                    <ul>{(details[industry.name] || []).map((item) => <li key={item}>✓ {item}</li>)}</ul>
+                    <ul>{(details[idx] || []).map((item) => <li key={item}>✓ {item}</li>)}</ul>
                   </div>
                 </article>
               );
