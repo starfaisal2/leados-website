@@ -91,29 +91,37 @@ export default function HomePage() {
   }));
 
   const DEMOS: Record<string, Array<{ f: string; t: string }>> = {
-    [t('demo1Tab')]: [
-      { f: "u", t: t('demo1U1') }, { f: "a", t: t('demo1A1') },
-      { f: "u", t: t('demo1U2') }, { f: "a", t: t('demo1A2') },
+    "Aesthetic Clinic": [
+      { f: "u", t: "Hi, I want a lip filler consultation" },
+      { f: "a", t: "Hi! I'm Aria from Glow Aesthetics. We have Thursday 3pm or Friday 11am with Dr. Sarah — which works?" },
+      { f: "u", t: "Thursday 3pm please" },
+      { f: "a", t: "Confirmed for Thursday at 3pm. Sending details to your WhatsApp now. Any questions about the treatment?" },
     ],
-    [t('demo2Tab')]: [
-      { f: "u", t: t('demo2U1') }, { f: "a", t: t('demo2A1') },
-      { f: "u", t: t('demo2U2') }, { f: "a", t: t('demo2A2') },
+    "Real Estate": [
+      { f: "u", t: "Is the Bayview Road listing still available?" },
+      { f: "a", t: "Yes! Beautiful 3-bed, 2-bath — listed this week. Ready to book a viewing? I can arrange one as early as tomorrow." },
+      { f: "u", t: "Tomorrow afternoon works" },
+      { f: "a", t: "Viewing confirmed for tomorrow at 2:30pm. Agent Marcus will meet you there. Full details sent to your number." },
     ],
-    [t('demo3Tab')]: [
-      { f: "u", t: t('demo3U1') }, { f: "a", t: t('demo3A1') },
-      { f: "u", t: t('demo3U2') }, { f: "a", t: t('demo3A2') },
+    "Restaurant": [
+      { f: "u", t: "Table for 4 this Saturday?" },
+      { f: "a", t: "Welcome to Ember! We have 7pm or 8:30pm Saturday for 4. Any special occasion or dietary needs?" },
+      { f: "u", t: "7pm — our anniversary" },
+      { f: "a", t: "Confirmed: table for 4 at 7pm Saturday. Noted your anniversary — the team will make it special!" },
     ],
-    [t('demo4Tab')]: [
-      { f: "u", t: t('demo4U1') }, { f: "a", t: t('demo4A1') },
-      { f: "u", t: t('demo4U2') }, { f: "a", t: t('demo4A2') },
+    "Legal Firm": [
+      { f: "u", t: "I need advice on a commercial dispute" },
+      { f: "a", t: "Our team handles commercial disputes regularly. I can book a 30-min consultation with a senior partner — this week?" },
+      { f: "u", t: "Thursday morning" },
+      { f: "a", t: "Thursday 10am confirmed. You will receive a brief beforehand so we can make the most of your time." },
     ],
   };
 
-  const demoTabs = [t('demo1Tab'), t('demo2Tab'), t('demo3Tab'), t('demo4Tab')];
+  const demoTabs = ["Aesthetic Clinic", "Real Estate", "Restaurant", "Legal Firm"];
 
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
-  const [activeDemo, setActiveDemo] = useState(t('demo1Tab'));
-  const [demoMsgs, setDemoMsgs] = useState(DEMOS[t('demo1Tab')]);
+  const [activeDemo, setActiveDemo] = useState("Aesthetic Clinic");
+  const [demoMsgs, setDemoMsgs] = useState(DEMOS["Aesthetic Clinic"]);
   const [demoInput, setDemoInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [proofTab, setProofTab] = useState(0);
