@@ -18,17 +18,12 @@ async function getArticle(slug: string) {
     "Content-Type": "application/json",
   };
 
-  const bizRes = await fetch(
-    `${url}/rest/v1/businesses?slug=eq.leados&select=id&limit=1`,
-    { headers, next: { revalidate: 3600 } }
-  );
-  if (!bizRes.ok) return null;
-  const businesses = await bizRes.json();
-  if (!businesses?.length) return null;
-  const businessId = businesses[0].id;
+  // If LEADOS_BUSINESS_ID is set, filter by it; otherwise fetch by slug alone.
+  const businessId = process.env.LEADOS_BUSINESS_ID;
+  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
 
   const artRes = await fetch(
-    `${url}/rest/v1/seo_articles?business_id=eq.${businessId}&slug=eq.${encodeURIComponent(slug)}&status=eq.published&limit=1`,
+    `${url}/rest/v1/seo_articles?slug=eq.${encodeURIComponent(slug)}&status=eq.published${businessFilter}&limit=1`,
     { headers, next: { revalidate: 3600 } }
   );
   if (!artRes.ok) return null;
