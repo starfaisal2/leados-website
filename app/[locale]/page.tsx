@@ -421,7 +421,7 @@ export default function HomePage() {
             <span className="eyebrow">{t('whyDiffEyebrow')}</span>
             <h2 className="display-lg">{t('whyDiffH2')} <span className="text-serif-em" style={{ color: "var(--ink-3)" }}>{t('whyDiffH2Em')}</span></h2>
           </div>
-          <div className="difference-grid">
+          <div className="difference-grid" dir="ltr">
             <div className="difference-card muted">
               <h3>{t('traditionalCrmTitle')}</h3>
               {['Stores leads', 'Stores conversations', 'Stores appointments', 'Stores reports', 'Requires manual follow-up'].map((item) => (
@@ -455,7 +455,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="screenshot-frame">
+          <div className="screenshot-frame" dir="ltr">
             <div className="screenshot-bar">
               <div className="sf-dot sf-r" /><div className="sf-dot sf-y" /><div className="sf-dot sf-g" />
               <div className="sf-url">{["app.leadoscrm.com/inbox", "app.leadoscrm.com/voice", "app.leadoscrm.com/reports", "app.leadoscrm.com/bookings"][proofTab]}</div>
@@ -639,7 +639,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="voice-call-sim">
+            <div className="voice-call-sim" dir="ltr">
               <div className="vcall-header">
                 <div className="vcall-avatar">🤖</div>
                 <div><div className="vcall-name">Aria — LeadOS Voice AI</div><div className="vcall-status">● Active Call — Handling Booking</div></div>
@@ -687,7 +687,7 @@ export default function HomePage() {
                 <a href="#pricing" className="btn btn-secondary btn-lg">View Pricing</a>
               </div>
             </div>
-            <div className="meta-dashboard-card">
+            <div className="meta-dashboard-card" dir="ltr">
               <div className="meta-dashboard-top"><div>Meta Brain Dashboard</div><span>Live ROI</span></div>
               <div className="meta-kpis">
                 {[["Ad Spend", "$4,820", "this month"], ["Cost / Booking", "$23", "↓ 34%"], ["Revenue Tracked", "$38.4k", "8× ROAS"]].map(([l, v, c]) => (
@@ -721,7 +721,7 @@ export default function HomePage() {
               <div className="demo-info">{t('demoInfo')}</div>
               <button className="demo-cta-btn" onClick={() => window.open(BOOK_URL, "_blank")}>{t('demoCta')}</button>
             </div>
-            <div className="demo-right">
+            <div className="demo-right" dir="ltr">
               <div className="demo-chat-hdr">
                 <div className="demo-ai-av">🤖</div>
                 <div><div className="demo-ai-name">{t('demoAiName')}</div><div className="demo-ai-status">{t('demoAiStatus')}</div></div>
