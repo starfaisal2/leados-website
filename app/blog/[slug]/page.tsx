@@ -49,6 +49,10 @@ export async function generateMetadata({
   };
 }
 
+function isArabic(text: string) {
+  return /[؀-ۿ]/.test(text);
+}
+
 function markdownToHtml(md: string): string {
   if (!md) return "";
   return md
@@ -87,11 +91,14 @@ export default async function ArticlePage({
   });
   const readMins =
     article.reading_time_mins ?? Math.ceil((article.word_count ?? 800) / 200);
+  const rtl = isArabic(article.title || "");
+  const dir = rtl ? "rtl" : "ltr";
 
   return (
     <>
       {/* ── Hero ── */}
       <section
+        dir={dir}
         style={{
           background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%)",
           padding: "80px 24px 64px",
@@ -176,7 +183,7 @@ export default async function ArticlePage({
       </section>
 
       {/* ── Article body ── */}
-      <section style={{ background: "#f8f8f6", padding: "0 24px 80px" }}>
+      <section dir={dir} style={{ background: "#f8f8f6", padding: "0 24px 80px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
 
           {/* Excerpt pull-quote */}

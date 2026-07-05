@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+function isArabic(text: string) {
+  return /[؀-ۿ]/.test(text);
+}
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -274,6 +278,7 @@ export default async function BlogPage() {
                         style={{ textDecoration: "none", display: "block" }}
                       >
                         <article
+                          dir={isArabic(article.title || "") ? "rtl" : "ltr"}
                           style={{
                             background: "white",
                             border: "1px solid rgba(0,0,0,.07)",
