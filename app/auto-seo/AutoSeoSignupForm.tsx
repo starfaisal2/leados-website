@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function AutoSeoSignupForm() {
-  const [form, setForm] = useState({ name: "", email: "", business_name: "", website_url: "", plan: "standalone" });
+  const [form, setForm] = useState({ name: "", email: "", business_name: "", website_url: "", plan: "trial" });
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -16,25 +16,15 @@ export default function AutoSeoSignupForm() {
     try {
       const appUrl = "https://app.leadoscrm.com";
 
-      if (form.plan === "standalone") {
-        // → Stripe Checkout for $99/month standalone
-        const res = await fetch(`${appUrl}/api/stripe/standalone-checkout`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: form.email,
-            name: form.name,
-            business_name: form.business_name,
-            website_url: form.website_url,
-          }),
+      if (form.plan === "trial" || form.plan === "standalone") {
+        // → Free trial: redirect to CRM signup with pre-filled fields + addon_trial param
+        const params = new URLSearchParams({
+          addon_trial: "auto_seo",
+          email: form.email,
+          name: form.name,
+          business_name: form.business_name,
         });
-        if (res.ok) {
-          const { url } = await res.json();
-          if (url) window.location.href = url;
-        } else {
-          const data = await res.json().catch(() => ({}));
-          setError(data.error || "Something went wrong. Please try again.");
-        }
+        window.location.href = `${appUrl}/signup?${params.toString()}`;
       } else {
         // CRM add-on — direct them to sign up for full CRM first
         window.location.href = `${appUrl}/signup?plan=crm_addon&email=${encodeURIComponent(form.email)}`;
@@ -101,7 +91,7 @@ export default function AutoSeoSignupForm() {
         <label style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,.5)", display: "block", marginBottom: 10 }}>Choose Your Plan</label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {[
-            { key: "standalone", label: "Standalone", price: "$99/mo", desc: "Auto SEO only — no CRM needed" },
+            { key: "trial", label: "Free Trial", price: "$0", desc: "1 free article — no card needed" },
             { key: "crm", label: "CRM Add-on", price: "$49/mo", desc: "Already have LeadOS CRM" },
           ].map(({ key, label, price, desc }) => (
             <button
@@ -121,6 +111,11 @@ export default function AutoSeoSignupForm() {
             </button>
           ))}
         </div>
+        {form.plan === "trial" && (
+          <p style={{ fontSize: 11, color: "rgba(165,180,252,.7)", marginTop: 8 }}>
+            Sign up free, connect your website, generate 1 article on us. Pay $99/mo to continue.
+          </p>
+        )}
         {form.plan === "crm" && (
           <p style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 8 }}>
             Requires a LeadOS CRM subscription. We'll help you add Auto SEO from inside your dashboard.
@@ -164,10 +159,10 @@ export default function AutoSeoSignupForm() {
           boxShadow: loading ? "none" : "0 8px 24px rgba(79,70,229,.35)",
         }}
       >
-        {loading ? "Redirecting to payment…" : form.plan === "standalone" ? "Start Auto SEO — $99/mo →" : "Get CRM Add-on — $49/mo →"}
+        {loading ? "Setting up your account…" : form.plan === "trial" ? "Start Free — Generate 1 Article →" : "Get CRM Add-on — $49/mo →"}
       </button>
       <p style={{ fontSize: 11, color: "rgba(255,255,255,.3)", textAlign: "center", margin: 0 }}>
-        Secure payment via Stripe · Cancel anytime
+        {form.plan === "trial" ? "No credit card required · 1 free article included" : "Secure payment via Stripe · Cancel anytime"}
       </p>
     </form>
   );

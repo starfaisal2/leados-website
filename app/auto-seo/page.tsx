@@ -6,12 +6,12 @@ import Link from "next/link";
 import AutoSeoSignupForm from "./AutoSeoSignupForm";
 
 export const metadata: Metadata = {
-  title: "Auto SEO by LeadOS — AI Employee That Writes SEO Content 24/7",
+  title: "Auto SEO by LeadOS — 1 Free Article. Then $99/mo.",
   description:
-    "An AI employee that researches keywords, writes long-form articles, publishes them to your website and tracks your rankings — completely on autopilot. From $99/month.",
+    "Sign up free and generate your first AI SEO article at no cost. Connect your website, see the article live, then pay to keep going. From $99/month.",
   openGraph: {
-    title: "Auto SEO by LeadOS — AI Employee That Writes SEO Content 24/7",
-    description: "Turn your website into a lead machine while you sleep. AI-written SEO articles every week, published automatically.",
+    title: "Auto SEO by LeadOS — 1 Free Article. Then $99/mo.",
+    description: "Try before you pay. Get 1 free AI-written SEO article published to your website — no credit card required.",
     type: "website",
   },
 };
@@ -73,8 +73,8 @@ const FAQS = [
     a: "Yes. Toggle auto-publish off and every article lands in Drafts for your review. You approve, edit or discard. Toggle it on and everything ships automatically.",
   },
   {
-    q: "Is there a setup fee?",
-    a: "No. Enter your niche, add your first keywords, and the AI starts writing within 24 hours.",
+    q: "Is there a setup fee or free trial?",
+    a: "No setup fee — and your first article is completely free. Sign up, connect your website and Google Search Console, and the AI writes your first article at no cost. After that, it's $99/month.",
   },
   {
     q: "Can I use this without the LeadOS CRM?",
@@ -95,7 +95,7 @@ export default function AutoSeoPage() {
           {/* Pill badge */}
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(79,70,229,.15)", border: "1px solid rgba(79,70,229,.3)", borderRadius: 40, padding: "6px 16px", fontSize: 12, fontWeight: 700, color: "#a5b4fc", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4f46e5", display: "inline-block", animation: "pulse 2s infinite" }} />
-            By LeadOS — The AI Revenue OS
+            Free first article — no credit card needed
           </div>
 
           <h1 style={{ fontSize: "clamp(36px, 6vw, 68px)", fontWeight: 900, color: "white", lineHeight: 1.08, marginBottom: 24, letterSpacing: "-0.02em" }}>
@@ -125,7 +125,7 @@ export default function AutoSeoPage() {
           {/* CTA buttons */}
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", boxShadow: "0 8px 24px rgba(79,70,229,.4)" }}>
-              Start for $99/month →
+              Get 1 Free Article →
             </a>
             <a href="#pricing" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.08)", color: "rgba(255,255,255,.85)", fontWeight: 600, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", border: "1px solid rgba(255,255,255,.15)" }}>
               See Pricing
@@ -142,10 +142,10 @@ export default function AutoSeoPage() {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
           {[
-            { step: "01", title: "Add Your Keywords", desc: "Tell Auto SEO which keywords matter to your business. Add as many as you want." },
-            { step: "02", title: "AI Writes Articles", desc: "Every week, the AI researches, writes and edits a 1,500–3,000 word expert article." },
-            { step: "03", title: "Auto-Publish", desc: "Articles go live on your website automatically. No CMS login needed." },
-            { step: "04", title: "Watch Rankings Climb", desc: "Track keyword positions rising week over week in your dashboard." },
+            { step: "01", title: "Sign Up Free", desc: "Create your account in 60 seconds. No credit card. Connect your website and Google Search Console." },
+            { step: "02", title: "Get Your Free Article", desc: "The AI researches your niche, writes a 1,500–2,500 word expert article targeting your keyword — completely free." },
+            { step: "03", title: "See It Live", desc: "The article publishes to your website and gets submitted to Google for indexing. You see the result before paying a cent." },
+            { step: "04", title: "Pay to Continue", desc: "Happy with the result? Upgrade for $99/month to get weekly articles, unlimited keywords, and rank tracking." },
           ].map(({ step, title, desc }) => (
             <div key={step} style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: 16, padding: 28, textAlign: "left" }}>
               <div style={{ fontSize: 11, fontWeight: 800, color: "#4f46e5", letterSpacing: "0.1em", marginBottom: 12 }}>{step}</div>
@@ -196,26 +196,30 @@ export default function AutoSeoPage() {
       <section id="pricing" style={{ background: "#f8fafc", padding: "80px 24px" }}>
         <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: "#4f46e5", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>Pricing</div>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 800, marginBottom: 8, lineHeight: 1.2 }}>Simple, Transparent Pricing</h2>
-          <p style={{ fontSize: 16, color: "#64748b", marginBottom: 52 }}>No setup fees. Cancel anytime.</p>
+          <h2 style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 800, marginBottom: 8, lineHeight: 1.2 }}>Start Free. Pay When You See Results.</h2>
+          <p style={{ fontSize: 16, color: "#64748b", marginBottom: 52 }}>Your first article is on us. No credit card required to start.</p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
             {/* Standalone */}
-            <div style={{ background: "white", border: "2px solid #e2e8f0", borderRadius: 20, padding: 36, textAlign: "left" }}>
-              <div style={{ fontSize: 11, fontWeight: 800, color: "#94a3b8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Standalone</div>
-              <div style={{ fontSize: 13, color: "#64748b", marginBottom: 20, lineHeight: 1.5 }}>For businesses that just need Auto SEO without the full CRM.</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 28 }}>
-                <span style={{ fontSize: 42, fontWeight: 900, color: "#0f172a" }}>$99</span>
-                <span style={{ fontSize: 14, color: "#94a3b8" }}>/month</span>
+            <div style={{ background: "white", border: "2px solid #4f46e5", borderRadius: 20, padding: 36, textAlign: "left", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: 16, right: 16, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontSize: 10, fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 40, padding: "4px 12px" }}>
+                Free to start
               </div>
-              {["Weekly AI-written articles", "Keyword research & tracking", "Auto-publish via API/Webhook", "Rank tracking dashboard", "Brand voice training", "Email support"].map(f => (
+              <div style={{ fontSize: 11, fontWeight: 800, color: "#4f46e5", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Standalone</div>
+              <div style={{ fontSize: 13, color: "#64748b", marginBottom: 20, lineHeight: 1.5 }}>Try it free with 1 article. Then $99/month for weekly articles.</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 42, fontWeight: 900, color: "#0f172a" }}>$0</span>
+                <span style={{ fontSize: 14, color: "#94a3b8" }}>to start</span>
+              </div>
+              <div style={{ fontSize: 12, color: "#64748b", marginBottom: 24 }}>then $99/month — cancel anytime</div>
+              {["1 free article to start", "Weekly AI-written articles", "Keyword research & tracking", "Auto-publish via API/Webhook", "Rank tracking dashboard", "Email support"].map(f => (
                 <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, fontSize: 14, color: "#334155" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                   {f}
                 </div>
               ))}
-              <a href="#get-started" style={{ display: "block", marginTop: 28, background: "white", border: "2px solid #4f46e5", color: "#4f46e5", fontWeight: 700, fontSize: 15, padding: "13px 0", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
-                Get Started →
+              <a href="#get-started" style={{ display: "block", marginTop: 28, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "13px 0", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
+                Get 1 Free Article →
               </a>
             </div>
 
@@ -305,14 +309,17 @@ export default function AutoSeoPage() {
       <section id="get-started" style={{ padding: "80px 24px", background: "linear-gradient(160deg, #0f172a, #1e1b4b)" }}>
         <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, color: "white", marginBottom: 12, lineHeight: 1.2 }}>
-            Start Growing Your<br />Organic Traffic Today
+            Try It Free —<br />1 Article on Us
           </h2>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", marginBottom: 40, lineHeight: 1.65 }}>
-            Your AI employee starts writing within 24 hours of sign-up. No setup fee. No lock-in.
+          <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", marginBottom: 8, lineHeight: 1.65 }}>
+            Sign up free → connect your website → generate your first AI article → see it live.
+          </p>
+          <p style={{ fontSize: 14, color: "rgba(165,180,252,.8)", marginBottom: 36, lineHeight: 1.5, fontWeight: 600 }}>
+            No credit card required. Pay $99/month to keep going.
           </p>
           <AutoSeoSignupForm />
           <p style={{ fontSize: 12, color: "rgba(255,255,255,.3)", marginTop: 20 }}>
-            We'll contact you within 24 hours to set up your account.
+            No credit card required · Cancel anytime · Your article is live within minutes
           </p>
         </div>
       </section>
