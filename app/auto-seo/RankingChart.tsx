@@ -116,10 +116,10 @@ export function RankingChart() {
 
       if (points.length < 2) return;
 
-      // Area fill (gradient green)
+      // Area fill (gradient indigo)
       const grad = ctx!.createLinearGradient(0, PAD_T, 0, PAD_T + plotH);
-      grad.addColorStop(0, "rgba(22,163,74,0.22)");
-      grad.addColorStop(1, "rgba(22,163,74,0.02)");
+      grad.addColorStop(0, "rgba(79,70,229,0.22)");
+      grad.addColorStop(1, "rgba(79,70,229,0.02)");
       ctx!.beginPath();
       ctx!.moveTo(points[0].x, PAD_T + plotH);
       points.forEach((p) => ctx!.lineTo(p.x, p.y));
@@ -132,7 +132,7 @@ export function RankingChart() {
       ctx!.beginPath();
       ctx!.moveTo(points[0].x, points[0].y);
       points.forEach((p, i) => { if (i > 0) ctx!.lineTo(p.x, p.y); });
-      ctx!.strokeStyle = "#16a34a";
+      ctx!.strokeStyle = "#4f46e5";
       ctx!.lineWidth = 2.5;
       ctx!.lineJoin = "round";
       ctx!.lineCap = "round";
@@ -148,10 +148,10 @@ export function RankingChart() {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, isLast ? 6 : 3.5, 0, Math.PI * 2);
-        ctx!.fillStyle = isLast ? "#16a34a" : "rgba(22,163,74,0.6)";
+        ctx!.fillStyle = isLast ? "#4f46e5" : "rgba(79,70,229,0.6)";
         ctx!.fill();
         if (isLast) {
-          ctx!.strokeStyle = "rgba(22,163,74,0.3)";
+          ctx!.strokeStyle = "rgba(79,70,229,0.3)";
           ctx!.lineWidth = 6;
           ctx!.stroke();
         }
@@ -164,7 +164,7 @@ export function RankingChart() {
 
         ctx!.globalAlpha = badgeAlpha;
         const bW = 56, bH = 24, bX = last.x - bW / 2, bY = last.y - bH - 14;
-        ctx!.fillStyle = "#16a34a";
+        ctx!.fillStyle = "#4f46e5";
         ctx!.beginPath();
         ctx!.roundRect(bX, bY, bW, bH, 6);
         ctx!.fill();
@@ -226,7 +226,7 @@ export function CostCompareChart() {
   const bars = [
     { label: "SEO Agency", amount: "$3,000+/mo", pct: 100, color: "#ef4444", subtext: "Average monthly retainer", delay: "0ms" },
     { label: "Content Writer", amount: "$1,500/mo", pct: 50, color: "#f97316", subtext: "1–2 articles per month", delay: "150ms" },
-    { label: "Auto SEO", amount: "$99/mo", pct: 3.3, color: "#16a34a", subtext: "Unlimited articles weekly", delay: "300ms" },
+    { label: "Auto SEO", amount: "$99/mo", pct: 3.3, color: "#818cf8", subtext: "Unlimited articles weekly", delay: "300ms" },
   ];
 
   return (

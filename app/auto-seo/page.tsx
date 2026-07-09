@@ -126,13 +126,13 @@ export default function AutoSeoPage() {
 
             {/* Left: copy */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(22,163,74,0.12)", border: "1px solid rgba(22,163,74,0.25)", borderRadius: 40, padding: "5px 14px", fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 28 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16a34a", display: "inline-block", animation: "pulse-dot 2s infinite" }} />
-                Free first article — no credit card
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(79,70,229,0.1)", border: "1px solid rgba(99,102,241,0.22)", borderRadius: 40, padding: "5px 14px 5px 10px", fontSize: 12, fontWeight: 600, color: "#818cf8", letterSpacing: "0.01em", marginBottom: 28 }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4f46e5", display: "inline-block", animation: "pulse-dot 2s infinite" }} />
+                1 free article · No credit card required
               </div>
 
               <h1 style={{ fontSize: "clamp(42px, 5.5vw, 72px)", fontWeight: 900, lineHeight: 1.0, letterSpacing: "-0.03em", margin: "0 0 20px", textWrap: "balance" }}>
-                Rank <span style={{ color: "#4ade80" }}>#1</span><br />
+                Rank <span style={{ color: "#818cf8" }}>#1</span><br />
                 on Google.
               </h1>
 
@@ -140,11 +140,11 @@ export default function AutoSeoPage() {
                 Stop paying <strong style={{ color: "#f1f5f9" }}>$3,000 a month</strong> for an agency that takes 6 months to show results.
               </p>
               <p style={{ fontSize: "clamp(16px, 2vw, 20px)", color: "#94a3b8", lineHeight: 1.65, margin: "0 0 40px", maxWidth: 480 }}>
-                For <strong style={{ color: "#4ade80" }}>$99/month</strong> you get the equivalent of 5 dedicated SEO employees — writing, publishing and ranking your business on autopilot.
+                For <strong style={{ color: "#818cf8" }}>$99/month</strong> you get the equivalent of 5 dedicated SEO employees — writing, publishing and ranking your business on autopilot.
               </p>
 
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#16a34a", color: "white", fontWeight: 700, fontSize: 16, padding: "15px 32px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 28px rgba(22,163,74,.35)", letterSpacing: "-0.01em" }}>
+                <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 16, padding: "15px 32px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 28px rgba(79,70,229,.35)", letterSpacing: "-0.01em" }}>
                   Get 1 Free Article →
                 </a>
                 <a href="#how-it-works" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.06)", color: "#94a3b8", fontWeight: 600, fontSize: 15, padding: "15px 28px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -176,40 +176,40 @@ export default function AutoSeoPage() {
 
                   {/* Result 1 — competitor (faded) */}
                   <div className="serp-row" style={{ marginBottom: 16, opacity: 0.35 }}>
-                    <div style={{ fontSize: 11, color: "#4ade80", marginBottom: 2 }}>sydneydentist.com.au ›</div>
+                    <div style={{ fontSize: 11, color: "#818cf8", marginBottom: 2 }}>sydneydentist.com.au ›</div>
                     <div style={{ fontSize: 14, color: "#8ab4f8", fontWeight: 500, marginBottom: 3 }}>Best Dental Clinic Sydney | Awards 2023</div>
                     <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5 }}>Voted Sydney's best dental practice. Book online today.</div>
                   </div>
 
                   {/* Result 2 — competitor (faded) */}
                   <div className="serp-row" style={{ marginBottom: 16, opacity: 0.35 }}>
-                    <div style={{ fontSize: 11, color: "#4ade80", marginBottom: 2 }}>perfectsmilesdental.com.au ›</div>
+                    <div style={{ fontSize: 11, color: "#818cf8", marginBottom: 2 }}>perfectsmilesdental.com.au ›</div>
                     <div style={{ fontSize: 14, color: "#8ab4f8", fontWeight: 500, marginBottom: 3 }}>Sydney CBD Dentist — Affordable, Central</div>
                     <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5 }}>Quality dental care in the heart of Sydney CBD.</div>
                   </div>
 
                   {/* Result 3 — YOUR client, highlighted */}
-                  <div className="serp-row" style={{ marginBottom: 12, background: "rgba(22,163,74,0.07)", border: "1px solid rgba(22,163,74,0.2)", borderRadius: 8, padding: "10px 12px", position: "relative" }}>
-                    <div className="rank-badge" style={{ position: "absolute", top: -10, right: 10, background: "#16a34a", color: "white", fontSize: 10, fontWeight: 800, borderRadius: 20, padding: "3px 10px", letterSpacing: "0.05em" }}>
+                  <div className="serp-row" style={{ marginBottom: 12, background: "rgba(79,70,229,0.07)", border: "1px solid rgba(99,102,241,0.25)", borderRadius: 8, padding: "10px 12px", position: "relative" }}>
+                    <div className="rank-badge" style={{ position: "absolute", top: -10, right: 10, background: "#4f46e5", color: "white", fontSize: 10, fontWeight: 800, borderRadius: 20, padding: "3px 10px", letterSpacing: "0.05em" }}>
                       YOUR BUSINESS
                     </div>
-                    <div style={{ fontSize: 11, color: "#4ade80", marginBottom: 2 }}>yourdentalpractice.com.au ›</div>
+                    <div style={{ fontSize: 11, color: "#818cf8", marginBottom: 2 }}>yourdentalpractice.com.au ›</div>
                     <div style={{ fontSize: 14, color: "#8ab4f8", fontWeight: 600, marginBottom: 3 }}>Best Family Dentist Sydney — Gentle, Trusted</div>
                     <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.5 }}>Award-winning family dental care. New patients welcome. Book online.</div>
                   </div>
 
                   {/* Result 4 — competitor (faded) */}
                   <div className="serp-row" style={{ opacity: 0.25 }}>
-                    <div style={{ fontSize: 11, color: "#4ade80", marginBottom: 2 }}>dentistsnearme.com.au ›</div>
+                    <div style={{ fontSize: 11, color: "#818cf8", marginBottom: 2 }}>dentistsnearme.com.au ›</div>
                     <div style={{ fontSize: 14, color: "#8ab4f8", fontWeight: 500 }}>Find a Dentist Near You in Sydney</div>
                   </div>
                 </div>
               </div>
 
               {/* Position badge overlay */}
-              <div style={{ position: "absolute", bottom: -16, left: -16, background: "#0d1729", border: "1px solid rgba(22,163,74,0.3)", borderRadius: 12, padding: "10px 18px", boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }}>
-                <div style={{ fontSize: 10, color: "#4ade80", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>Google Position</div>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#4ade80", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>#1</div>
+              <div style={{ position: "absolute", bottom: -16, left: -16, background: "#0d1729", border: "1px solid rgba(79,70,229,0.3)", borderRadius: 12, padding: "10px 18px", boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }}>
+                <div style={{ fontSize: 10, color: "#818cf8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>Google Position</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: "#818cf8", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>#1</div>
               </div>
             </div>
 
@@ -242,25 +242,25 @@ export default function AutoSeoPage() {
               <div style={{ background: "#0d1729", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "28px 20px 16px", boxShadow: "0 16px 48px rgba(0,0,0,0.3)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, paddingLeft: 8, paddingRight: 8 }}>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: "#4ade80", textTransform: "uppercase", letterSpacing: "0.08em" }}>Google Position</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: "#818cf8", textTransform: "uppercase", letterSpacing: "0.08em" }}>Google Position</div>
                     <div style={{ fontSize: 11, color: "#475569", marginTop: 2 }}>Jan – Jul 2026</div>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(22,163,74,0.1)", border: "1px solid rgba(22,163,74,0.2)", borderRadius: 6, padding: "4px 10px" }}>
-                    <span style={{ fontSize: 12, color: "#4ade80" }}>↑</span>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: "#4ade80" }}>+47 positions</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(79,70,229,0.1)", border: "1px solid rgba(79,70,229,0.2)", borderRadius: 6, padding: "4px 10px" }}>
+                    <span style={{ fontSize: 12, color: "#818cf8" }}>↑</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "#818cf8" }}>+47 positions</span>
                   </div>
                 </div>
                 <RankingChart />
                 <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: 48, paddingRight: 8, marginTop: 4 }}>
                   <div style={{ fontSize: 11, color: "#475569" }}>Before Auto SEO</div>
-                  <div style={{ fontSize: 11, color: "#4ade80", fontWeight: 700 }}>After Auto SEO →</div>
+                  <div style={{ fontSize: 11, color: "#818cf8", fontWeight: 700 }}>After Auto SEO →</div>
                 </div>
               </div>
             </div>
 
             {/* Copy */}
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Real Results</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Real Results</div>
               <h2 style={{ fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 20, textWrap: "balance" }}>
                 Watch your rankings<br />climb every month.
               </h2>
@@ -275,7 +275,7 @@ export default function AutoSeoPage() {
                   { label: "Month 6+", text: "Consistent #1–3 rankings, organic traffic compounds" },
                 ].map(({ label, text }) => (
                   <div key={label} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                    <div style={{ minWidth: 64, fontSize: 11, fontWeight: 700, color: "#4ade80", paddingTop: 1 }}>{label}</div>
+                    <div style={{ minWidth: 64, fontSize: 11, fontWeight: 700, color: "#818cf8", paddingTop: 1 }}>{label}</div>
                     <div style={{ fontSize: 14, color: "#94a3b8", lineHeight: 1.5 }}>{text}</div>
                   </div>
                 ))}
@@ -291,7 +291,7 @@ export default function AutoSeoPage() {
 
             {/* Copy */}
             <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>The Cost of SEO</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>The Cost of SEO</div>
               <h2 style={{ fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 20, textWrap: "balance" }}>
                 Stop paying<br /><span style={{ color: "#ef4444" }}>thousands</span> a month<br />for the same result.
               </h2>
@@ -299,9 +299,9 @@ export default function AutoSeoPage() {
                 The average Australian business spends <strong style={{ color: "#f1f5f9" }}>$2,000–$5,000/month</strong> on an SEO agency — and waits 6–12 months to see any movement.
               </p>
               <p style={{ fontSize: 16, color: "#64748b", lineHeight: 1.7, marginBottom: 32 }}>
-                Auto SEO delivers the <strong style={{ color: "#f1f5f9" }}>same work</strong> — keyword research, content strategy, article writing, publishing, rank tracking — for <strong style={{ color: "#4ade80" }}>$99 a month.</strong>
+                Auto SEO delivers the <strong style={{ color: "#f1f5f9" }}>same work</strong> — keyword research, content strategy, article writing, publishing, rank tracking — for <strong style={{ color: "#818cf8" }}>$99 a month.</strong>
               </p>
-              <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#16a34a", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 28px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 24px rgba(22,163,74,.3)" }}>
+              <a href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 28px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 24px rgba(79,70,229,.3)" }}>
                 Start Free — $0 Today →
               </a>
             </div>
@@ -320,9 +320,9 @@ export default function AutoSeoPage() {
 
         {/* ── 5 EMPLOYEES SECTION ── */}
         <section style={{ padding: "88px 24px", maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>What You Get</div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>What You Get</div>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 16, textWrap: "balance" }}>
-            The equivalent of<br /><span style={{ color: "#4ade80" }}>5 dedicated employees</span><br />for $99 a month.
+            The equivalent of<br /><span style={{ color: "#818cf8" }}>5 dedicated employees</span><br />for $99 a month.
           </h2>
           <p style={{ fontSize: 17, color: "#64748b", lineHeight: 1.7, marginBottom: 56, maxWidth: 600, margin: "0 auto 56px" }}>
             Building an in-house SEO team costs $25,000+/month in salaries. Auto SEO replaces every one of them.
@@ -345,14 +345,14 @@ export default function AutoSeoPage() {
           <div style={{ marginTop: 32, display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
             <div style={{ fontSize: 14, color: "#475569", textDecoration: "line-through", fontVariantNumeric: "tabular-nums" }}>$21,000/month in salaries</div>
             <div style={{ fontSize: 13, color: "#475569" }}>vs</div>
-            <div style={{ fontSize: 20, fontWeight: 900, color: "#4ade80", fontVariantNumeric: "tabular-nums" }}>$99/month with Auto SEO</div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: "#818cf8", fontVariantNumeric: "tabular-nums" }}>$99/month with Auto SEO</div>
           </div>
         </section>
 
         {/* ── HOW IT WORKS ── */}
         <section id="how-it-works" style={{ background: "#0a1020", padding: "80px 24px" }}>
           <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>How It Works</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>How It Works</div>
             <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, marginBottom: 56, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
               Set it once. Rank forever.
             </h2>
@@ -382,7 +382,7 @@ export default function AutoSeoPage() {
         <section style={{ padding: "80px 24px" }}>
           <div style={{ maxWidth: 1060, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Features</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Features</div>
               <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
                 Everything you need to<br />dominate search rankings.
               </h2>
@@ -402,13 +402,13 @@ export default function AutoSeoPage() {
         {/* ── INDUSTRIES ── */}
         <section style={{ padding: "64px 24px", background: "#0a1020", textAlign: "center" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Who It's For</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Who It's For</div>
             <h2 style={{ fontSize: "clamp(24px, 3.5vw, 36px)", fontWeight: 800, marginBottom: 36, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
               Works for any service business
             </h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
               {INDUSTRIES.map((ind) => (
-                <span key={ind} style={{ background: "rgba(22,163,74,0.07)", border: "1px solid rgba(22,163,74,0.15)", borderRadius: 40, padding: "8px 18px", fontSize: 13, fontWeight: 600, color: "#4ade80" }}>
+                <span key={ind} style={{ background: "rgba(79,70,229,0.07)", border: "1px solid rgba(79,70,229,0.18)", borderRadius: 40, padding: "8px 18px", fontSize: 13, fontWeight: 600, color: "#818cf8" }}>
                   {ind}
                 </span>
               ))}
@@ -419,17 +419,17 @@ export default function AutoSeoPage() {
         {/* ── PRICING ── */}
         <section id="pricing" style={{ padding: "88px 24px" }}>
           <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Pricing</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Pricing</div>
             <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, marginBottom: 8, lineHeight: 1.1, letterSpacing: "-0.02em" }}>Start free. Pay when you see results.</h2>
             <p style={{ fontSize: 16, color: "#64748b", marginBottom: 52 }}>Your first article is on us. No credit card required to start.</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
               {/* Standalone */}
-              <div style={{ background: "#0d1729", border: "1px solid rgba(22,163,74,0.35)", borderRadius: 18, padding: 36, textAlign: "left", position: "relative" }}>
-                <div style={{ position: "absolute", top: 16, right: 16, background: "#16a34a", color: "white", fontSize: 10, fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 40, padding: "4px 12px" }}>
+              <div style={{ background: "#0d1729", border: "1px solid rgba(79,70,229,0.4)", borderRadius: 18, padding: 36, textAlign: "left", position: "relative" }}>
+                <div style={{ position: "absolute", top: 16, right: 16, background: "#4f46e5", color: "white", fontSize: 10, fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 40, padding: "4px 12px" }}>
                   Free to start
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Standalone</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Standalone</div>
                 <div style={{ fontSize: 13, color: "#64748b", marginBottom: 20, lineHeight: 1.5 }}>Try it free with 1 article. Then $99/month for weekly articles.</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
                   <span style={{ fontSize: 42, fontWeight: 900, color: "#f1f5f9", fontVariantNumeric: "tabular-nums" }}>$0</span>
@@ -438,11 +438,11 @@ export default function AutoSeoPage() {
                 <div style={{ fontSize: 12, color: "#64748b", marginBottom: 24 }}>then $99/month — cancel anytime</div>
                 {["1 free article to start", "Weekly AI-written articles", "Keyword research & tracking", "Auto-publish via API/Webhook", "Rank tracking dashboard", "Email support"].map(f => (
                   <div key={f} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, fontSize: 14, color: "#94a3b8" }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                     {f}
                   </div>
                 ))}
-                <a href="#get-started" style={{ display: "block", marginTop: 28, background: "#16a34a", color: "white", fontWeight: 700, fontSize: 15, padding: "13px 0", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
+                <a href="#get-started" style={{ display: "block", marginTop: 28, background: "linear-gradient(135deg, #4f46e5, #7c3aed)", color: "white", fontWeight: 700, fontSize: 15, padding: "13px 0", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
                   Get 1 Free Article →
                 </a>
               </div>
@@ -477,7 +477,7 @@ export default function AutoSeoPage() {
         <section style={{ background: "#0a1020", padding: "80px 24px" }}>
           <div style={{ maxWidth: 960, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 52 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Results</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Results</div>
               <h2 style={{ fontSize: "clamp(26px, 3.5vw, 38px)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.02em" }}>What our clients say</h2>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
@@ -517,7 +517,7 @@ export default function AutoSeoPage() {
         <section style={{ padding: "80px 24px" }}>
           <div style={{ maxWidth: 720, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>FAQ</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>FAQ</div>
               <h2 style={{ fontSize: "clamp(26px, 3.5vw, 36px)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.02em" }}>Common questions</h2>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -525,7 +525,7 @@ export default function AutoSeoPage() {
                 <details key={q} className="faq-item" style={{ background: "#0d1729", border: "1px solid rgba(255,255,255,0.06)" }}>
                   <summary style={{ padding: "18px 24px", fontSize: 15, fontWeight: 600, color: "#f1f5f9", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
                     {q}
-                    <span style={{ color: "#4ade80", fontSize: 18, flexShrink: 0 }}>+</span>
+                    <span style={{ color: "#818cf8", fontSize: 18, flexShrink: 0 }}>+</span>
                   </summary>
                   <div style={{ padding: "0 24px 18px", fontSize: 14, color: "#64748b", lineHeight: 1.75 }}>{a}</div>
                 </details>
@@ -535,9 +535,9 @@ export default function AutoSeoPage() {
         </section>
 
         {/* ── SIGNUP FORM ── */}
-        <section id="get-started" style={{ padding: "88px 24px", background: "#0a1020", borderTop: "1px solid rgba(22,163,74,0.15)" }}>
+        <section id="get-started" style={{ padding: "88px 24px", background: "#0a1020", borderTop: "1px solid rgba(79,70,229,0.2)" }}>
           <div style={{ maxWidth: 540, margin: "0 auto", textAlign: "center" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#4ade80", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Get Started</div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#818cf8", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>Get Started</div>
             <h2 style={{ fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 900, color: "#f1f5f9", marginBottom: 12, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
               Your first article<br />is on us.
             </h2>
