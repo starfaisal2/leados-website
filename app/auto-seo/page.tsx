@@ -80,6 +80,10 @@ const FAQS = [
     q: "Can I use this without the LeadOS CRM?",
     a: "Yes — that's exactly what the Standalone plan is for. You get the Auto SEO dashboard and API publishing without needing a CRM subscription.",
   },
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes — cancel anytime with one click from Settings → Billing in your Auto SEO dashboard. No contracts, no lock-in. On a paid plan, you keep full access until the end of your current billing period. No charges after that.",
+  },
 ];
 
 export default function AutoSeoPage() {

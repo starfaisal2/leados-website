@@ -90,6 +90,10 @@ const FAQS = [
     q: "Can I use this without the LeadOS CRM?",
     a: "Yes — the Standalone plan gives you Company Brain as an independent product at $39/month. If you're already a LeadOS CRM customer, Company Brain is completely free — included in your subscription.",
   },
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes — cancel anytime with one click from Settings → Billing inside your Company Brain dashboard. There are no lock-in contracts. If you're on a paid plan, you keep full access until the end of your current billing period. After cancellation you can still log in to download or delete your documents for privacy.",
+  },
 ];
 
 export default function CompanyBrainPage() {
@@ -298,7 +302,7 @@ export default function CompanyBrainPage() {
         <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>Pricing</div>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 800, marginBottom: 8, lineHeight: 1.2 }}>Simple, Transparent Pricing</h2>
-          <p style={{ fontSize: 16, color: "#64748b", marginBottom: 52 }}>No setup fees. Cancel anytime.</p>
+          <p style={{ fontSize: 16, color: "#64748b", marginBottom: 52 }}>No setup fees. No contracts. Cancel anytime in one click.</p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
             {/* Standalone */}
