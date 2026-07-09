@@ -29,7 +29,7 @@ async function getPublishedArticles() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://leadoscrm.com";
+  const baseUrl = "https://www.leadoscrm.com";
   const articles = await getPublishedArticles();
 
   const staticPages: MetadataRoute.Sitemap = [
