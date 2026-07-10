@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "product": "Ürün",
     "voiceAi": "Sesli AI",
@@ -350,8 +350,19 @@
     "emailCta": "E-posta Gönder",
     "demoTitle": "Demo Rezervasyonu",
     "demoDesc": "LeadOS'u kişiselleştirilmiş bir tanıtımla görün.",
-    "demoCta": "Demo Rezervasyonu"
-  },
+    "demoCta": "Demo Rezervasyonu",
+    "eyebrow": "İletişime geçin",
+    "h1": "Bize ulaşın",
+    "intro": "Yardım için buradayız. WhatsApp'tan yazın, arayın veya e-posta gönderin — ya da canlı demo rezervasyonu yapın.",
+    "bookDemoTitle": "Demo Rezervasyonu",
+    "bookDemoDesc": "İşletmenize özel kişiselleştirilmiş bir sunumla LeadOS'u görün.",
+    "bookDemoCta": "WhatsApp'tan rezervasyon yap →",
+    "phoneTitle": "Telefon",
+    "phoneMuted": "Pzt–Cum, 9:00–18:00 GST saatleri arasında",
+    "emailMuted": "Bir iş günü içinde yanıtlarız",
+    "businessTitle": "İş Sorguları",
+    "businessDesc": "Ortaklıklar, kurumsal planlar veya bayi fırsatları için — hello@leadoscrm.com adresine e-posta gönderin"
+  }
   "getStarted": {
     "title": "Ücretsiz Deneme Başlat",
     "subtitle": "AI CRM'inizi 48 saatte kurun.",

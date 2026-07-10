@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "product": "Producto",
     "voiceAi": "IA de Voz",
@@ -350,8 +350,19 @@
     "emailCta": "Enviar email",
     "demoTitle": "Reservar una demo",
     "demoDesc": "Ve LeadOS en acción con una presentación personalizada.",
-    "demoCta": "Reservar demo"
-  },
+    "demoCta": "Reservar demo",
+    "eyebrow": "Ponte en contacto",
+    "h1": "Contáctanos",
+    "intro": "Estamos aquí para ayudarte. Escríbenos por WhatsApp, llámanos o envía un email — o reserva una demo en vivo.",
+    "bookDemoTitle": "Reservar una Demo",
+    "bookDemoDesc": "Ve LeadOS en acción con una presentación personalizada para tu negocio.",
+    "bookDemoCta": "Reservar por WhatsApp →",
+    "phoneTitle": "Teléfono",
+    "phoneMuted": "Disponible lun–vie, 9h–18h GST",
+    "emailMuted": "Respondemos en un día hábil",
+    "businessTitle": "Consultas Empresariales",
+    "businessDesc": "Para asociaciones, planes empresariales u oportunidades de reventa — escríbenos a hello@leadoscrm.com"
+  }
   "getStarted": {
     "title": "Comenzar prueba gratuita",
     "subtitle": "Configura tu CRM IA en 48h. Sin contrato.",

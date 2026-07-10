@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "product": "Produkt",
     "voiceAi": "Sprach-KI",
@@ -350,8 +350,19 @@
     "emailCta": "E-Mail senden",
     "demoTitle": "Demo buchen",
     "demoDesc": "Sehen Sie LeadOS in Aktion mit einer personalisierten Tour.",
-    "demoCta": "Demo buchen"
-  },
+    "demoCta": "Demo buchen",
+    "eyebrow": "Kontakt aufnehmen",
+    "h1": "Kontaktieren Sie uns",
+    "intro": "Wir sind für Sie da. Schreiben Sie uns auf WhatsApp, rufen Sie an oder senden Sie eine E-Mail — oder buchen Sie eine Live-Demo.",
+    "bookDemoTitle": "Demo buchen",
+    "bookDemoDesc": "Sehen Sie LeadOS in Aktion mit einer personalisierten Präsentation für Ihr Unternehmen.",
+    "bookDemoCta": "Per WhatsApp buchen →",
+    "phoneTitle": "Telefon",
+    "phoneMuted": "Verfügbar Mo–Fr, 9–18 Uhr GST",
+    "emailMuted": "Wir antworten innerhalb eines Werktages",
+    "businessTitle": "Geschäftsanfragen",
+    "businessDesc": "Für Partnerschaften, Enterprise-Pläne oder Reseller-Möglichkeiten — E-Mail an hello@leadoscrm.com"
+  }
   "getStarted": {
     "title": "Kostenlose Testversion starten",
     "subtitle": "Richten Sie Ihr KI-CRM in 48 Stunden ein. Kein Vertrag.",

@@ -350,7 +350,18 @@
     "emailCta": "Send Email",
     "demoTitle": "Book a Demo",
     "demoDesc": "See LeadOS in action with a personalised walkthrough.",
-    "demoCta": "Book Demo"
+    "demoCta": "Book Demo",
+    "eyebrow": "Get in touch",
+    "h1": "Contact us",
+    "intro": "We're here to help. Reach out via WhatsApp, call, or email — or book a live demo.",
+    "bookDemoTitle": "Book a Demo",
+    "bookDemoDesc": "See LeadOS in action with a personalised walkthrough tailored to your business.",
+    "bookDemoCta": "Book on WhatsApp →",
+    "phoneTitle": "Phone",
+    "phoneMuted": "Available Mon–Fri, 9am–6pm GST",
+    "emailMuted": "We reply within one business day",
+    "businessTitle": "Business Enquiries",
+    "businessDesc": "For partnerships, enterprise plans, or reseller opportunities — email us at hello@leadoscrm.com"
   },
   "getStarted": {
     "title": "Start Your Free Trial",

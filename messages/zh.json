@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "product": "产品",
     "voiceAi": "语音AI",
@@ -350,8 +350,19 @@
     "emailCta": "发送邮件",
     "demoTitle": "预约演示",
     "demoDesc": "通过个性化演示了解LeadOS。",
-    "demoCta": "预约演示"
-  },
+    "demoCta": "预约演示",
+    "eyebrow": "联系我们",
+    "h1": "与我们联系",
+    "intro": "我们随时为您提供帮助。通过WhatsApp留言、致电或发送电子邮件 — 或预约现场演示。",
+    "bookDemoTitle": "预约演示",
+    "bookDemoDesc": "通过为您业务量身定制的个性化演示了解LeadOS。",
+    "bookDemoCta": "通过WhatsApp预约 →",
+    "phoneTitle": "电话",
+    "phoneMuted": "周一至周五 上午9时至下午6时（GST）",
+    "emailMuted": "我们在一个工作日内回复",
+    "businessTitle": "商务咨询",
+    "businessDesc": "有关合作、企业计划或经销商机会，请发邮件至 hello@leadoscrm.com"
+  }
   "getStarted": {
     "title": "开始免费试用",
     "subtitle": "48小时内设置您的AI CRM。无合同锁定。",
