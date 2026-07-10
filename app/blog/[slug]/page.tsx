@@ -3,6 +3,31 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const revalidate = 3600;
+export const dynamicParams = true;
+
+// Pre-render all known published articles at build time → true ISR, not dynamic rendering.
+// This produces Cache-Control: s-maxage=3600 instead of private/no-store, making pages
+// indexable by Googlebot. dynamicParams=true lets new articles render on first request.
+export async function generateStaticParams() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+
+  const businessId = process.env.LEADOS_BUSINESS_ID;
+  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
+
+  try {
+    const res = await fetch(
+      `${url}/rest/v1/seo_articles?status=eq.published${businessFilter}&select=slug&order=published_at.desc&limit=500`,
+      { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+    );
+    if (!res.ok) return [];
+    const articles = await res.json();
+    return (articles ?? []).map((a: { slug: string }) => ({ slug: a.slug }));
+  } catch {
+    return [];
+  }
+}
 
 async function getArticle(slug: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

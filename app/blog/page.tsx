@@ -6,6 +6,7 @@ function isArabic(text: string) {
 }
 
 export const revalidate = 3600;
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Blog | LeadOS — AI CRM Insights",
