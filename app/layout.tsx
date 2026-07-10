@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,15 +20,13 @@ export const metadata: Metadata = {
   },
 };
 
-const RTL_LOCALES = ['ar'];
-
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const headersList = await headers();
-  const locale = headersList.get('x-next-intl-locale') ?? 'en';
-  const dir = RTL_LOCALES.includes(locale) ? 'rtl' : 'ltr';
-
+// Root layout serves /blog/* routes (English-only SEO content).
+// Do NOT read request headers here — any call to headers() makes every
+// page dynamic, killing ISR and producing Cache-Control: private/no-store
+// which prevents Googlebot from indexing.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={locale} dir={dir}>
+    <html lang="en" dir="ltr">
       <body>{children}</body>
     </html>
   );
