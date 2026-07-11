@@ -1,0 +1,17 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" rx="60" fill="white"/>
+  <defs>
+    <linearGradient id="mark" x1="60" y1="60" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00C8F0"/>
+      <stop offset="55%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <!-- Bold L mark, centered and large -->
+  <rect x="75" y="60" width="52" height="210" rx="26" fill="url(#mark)"/>
+  <rect x="75" y="218" width="175" height="52" rx="26" fill="url(#mark)"/>
+  <!-- Signal dot + rings top right of L -->
+  <circle cx="228" cy="82" r="22" fill="#00C8F0"/>
+  <circle cx="228" cy="82" r="38" fill="none" stroke="#2563EB" stroke-width="7" opacity="0.4"/>
+  <circle cx="228" cy="82" r="55" fill="none" stroke="#7C3AED" stroke-width="4" opacity="0.2"/>
+</svg>
