@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextIntlClientProvider } from 'next-intl';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
