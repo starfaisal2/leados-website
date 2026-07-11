@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "product": "Ürün",
     "voiceAi": "Sesli AI",
@@ -362,7 +362,7 @@
     "emailMuted": "Bir iş günü içinde yanıtlarız",
     "businessTitle": "İş Sorguları",
     "businessDesc": "Ortaklıklar, kurumsal planlar veya bayi fırsatları için — hello@leadoscrm.com adresine e-posta gönderin"
-  }
+  },
   "getStarted": {
     "title": "Ücretsiz Deneme Başlat",
     "subtitle": "AI CRM'inizi 48 saatte kurun.",

@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "product": "Produit",
     "voiceAi": "IA Vocale",
@@ -362,7 +362,7 @@
     "emailMuted": "Nous répondons sous un jour ouvrable",
     "businessTitle": "Demandes Commerciales",
     "businessDesc": "Pour les partenariats, les plans entreprise ou les opportunités de revendeur — écrivez à hello@leadoscrm.com"
-  }
+  },
   "getStarted": {
     "title": "Commencer l'essai gratuit",
     "subtitle": "Configurez votre CRM IA en 48h. Sans engagement.",

@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "product": "产品",
     "voiceAi": "语音AI",
@@ -362,7 +362,7 @@
     "emailMuted": "我们在一个工作日内回复",
     "businessTitle": "商务咨询",
     "businessDesc": "有关合作、企业计划或经销商机会，请发邮件至 hello@leadoscrm.com"
-  }
+  },
   "getStarted": {
     "title": "开始免费试用",
     "subtitle": "48小时内设置您的AI CRM。无合同锁定。",

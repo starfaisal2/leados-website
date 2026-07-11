@@ -1,4 +1,4 @@
-﻿{
+{
   "nav": {
     "product": "Produkt",
     "voiceAi": "Sprach-KI",
@@ -362,7 +362,7 @@
     "emailMuted": "Wir antworten innerhalb eines Werktages",
     "businessTitle": "Geschäftsanfragen",
     "businessDesc": "Für Partnerschaften, Enterprise-Pläne oder Reseller-Möglichkeiten — E-Mail an hello@leadoscrm.com"
-  }
+  },
   "getStarted": {
     "title": "Kostenlose Testversion starten",
     "subtitle": "Richten Sie Ihr KI-CRM in 48 Stunden ein. Kein Vertrag.",
