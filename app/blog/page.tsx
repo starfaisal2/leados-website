@@ -34,7 +34,10 @@ async function getArticles() {
   };
 
   const businessId = process.env.LEADOS_BUSINESS_ID;
-  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
+  // Safety: if LEADOS_BUSINESS_ID is not configured we must NOT query all
+  // tenants and expose other customers' articles on this site.
+  if (!businessId) return [];
+  const businessFilter = `&business_id=eq.${businessId}`;
 
   const res = await fetch(
     `${url}/rest/v1/seo_articles?status=eq.published${businessFilter}&select=id,title,slug,excerpt,meta_description,target_keyword,word_count,reading_time_mins,published_at,created_at&order=published_at.desc&limit=50`,

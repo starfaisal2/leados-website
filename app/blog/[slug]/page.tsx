@@ -14,7 +14,8 @@ export async function generateStaticParams() {
   if (!url || !key) return [];
 
   const businessId = process.env.LEADOS_BUSINESS_ID;
-  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
+  if (!businessId) return [];
+  const businessFilter = `&business_id=eq.${businessId}`;
 
   try {
     const res = await fetch(
@@ -43,7 +44,10 @@ async function getArticle(slug: string) {
   };
 
   const businessId = process.env.LEADOS_BUSINESS_ID;
-  const businessFilter = businessId ? `&business_id=eq.${businessId}` : "";
+  // Safety: if LEADOS_BUSINESS_ID is not configured, never return articles
+  // (returning cross-tenant articles would be a data-privacy violation).
+  if (!businessId) return null;
+  const businessFilter = `&business_id=eq.${businessId}`;
 
   const res = await fetch(
     `${url}/rest/v1/seo_articles?slug=eq.${encodeURIComponent(slug)}&status=eq.published${businessFilter}&limit=1`,
