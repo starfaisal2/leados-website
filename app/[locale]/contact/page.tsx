@@ -43,6 +43,16 @@ export default function ContactPage() {
             <h3>{t('businessTitle')}</h3>
             <p>{t('businessDesc')}</p>
           </div>
+
+          <div className="legal-card">
+            <h3>Our Address</h3>
+            <p style={{ lineHeight: 1.7 }}>
+              <strong>LeadOS Technologies FZC</strong><br />
+              Sharjah Research Technology and Innovation Park<br />
+              Block B-B58-069<br />
+              Sharjah, UAE 23227
+            </p>
+          </div>
         </div>
       </div>
     </section>
