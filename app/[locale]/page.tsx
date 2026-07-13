@@ -979,8 +979,6 @@ export default function HomePage() {
           <div className="final-contact-links">
             <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
             <span>•</span>
-            <a href="tel:+61451095700">🇦🇺 +61 451 095 700</a>
-            <span>•</span>
             <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
           </div>
         </div>
