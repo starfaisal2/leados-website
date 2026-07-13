@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  other: {
+    "facebook-domain-verification": "ghrfd8jf6ffskc6mwdldbm865ulkfi",
+  },
 };
 
 // Root layout serves /blog/* routes (English-only SEO content).
