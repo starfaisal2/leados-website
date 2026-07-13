@@ -31,6 +31,7 @@ export default function Footer() {
               <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
               <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
               <span style={{ fontSize: 12, color: "rgba(255,255,255,.35)", lineHeight: 1.5 }}>
+                LeadOS Technologies FZC<br />
                 🇦🇪 Sharjah Research Technology and Innovation Park,<br />
                 Block B-B58-069, Sharjah, UAE 23227
               </span>
