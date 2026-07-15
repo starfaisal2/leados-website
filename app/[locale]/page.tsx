@@ -175,10 +175,12 @@ function ProductShowcase() {
   const [kpis, setKpis] = useState({l:0,b:0,r:0,v:0});
   const [appts, setAppts] = useState<number[]>([]);
   const [chartOn, setChartOn] = useState(false);
-  const scMsgsEnd = useRef<HTMLDivElement>(null);
+  const scMsgsContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scMsgsEnd.current) scMsgsEnd.current.scrollIntoView({ behavior: "smooth" });
+    if (scMsgsContainer.current) {
+      scMsgsContainer.current.scrollTop = scMsgsContainer.current.scrollHeight;
+    }
   }, [msgs, isTyping]);
 
   useEffect(() => {
@@ -338,7 +340,7 @@ function ProductShowcase() {
                       </div>
                     )}
                   </div>
-                  <div style={{flex:1,padding:"14px 16px",display:"flex",flexDirection:"column",gap:10,overflowY:"auto",maxHeight:320}}>
+                  <div ref={scMsgsContainer} style={{flex:1,padding:"14px 16px",display:"flex",flexDirection:"column",gap:10,overflowY:"auto",maxHeight:320}}>
                     {msgs.map((m,i) => (
                       <div key={i} style={{display:"flex",gap:8,alignItems:"flex-end",flexDirection:m.f==="u"?"row-reverse":"row",animation:"fadeInUp 0.3s ease"}}>
                         <div style={{width:22,height:22,borderRadius:"50%",background:m.f==="a"?"linear-gradient(135deg,#2563eb,#4f46e5)":"var(--surface-2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,flexShrink:0,color:m.f==="a"?"white":"var(--ink-3)"}}>
@@ -357,7 +359,6 @@ function ProductShowcase() {
                         </div>
                       </div>
                     )}
-                    <div ref={scMsgsEnd}/>
                   </div>
                 </div>
               </div>
