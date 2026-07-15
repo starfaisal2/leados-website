@@ -4522,119 +4522,19 @@ iframe[src*="/api/widget/embed"] {
    glow, onboarding grid, counter animations
 ═══════════════════════════════════════ */
 
-/* ── Dark Hero ── */
-.hero {
-  background: #07090f !important;
-}
-.hero::before {
-  background:
-    radial-gradient(ellipse 75% 65% at 12% -5%, rgba(37,99,235,.55) 0%, transparent 52%),
-    radial-gradient(ellipse 55% 50% at 88% 85%, rgba(124,58,237,.45) 0%, transparent 52%),
-    radial-gradient(ellipse 45% 35% at 68% 10%, rgba(0,200,240,.22) 0%, transparent 46%) !important;
-}
-.hero::after {
-  background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px) !important;
-  opacity: 1 !important;
-}
-.hero-heading {
-  color: #ffffff !important;
-}
-.hero-heading em {
-  color: #93c5fd !important;
-}
-.hero-sub {
-  color: rgba(255,255,255,.58) !important;
-}
-.hero-eyebrow-pill {
-  background: rgba(37,99,235,.18) !important;
-  border: 1px solid rgba(37,99,235,.42) !important;
-  color: #93c5fd !important;
-}
-.hero-eyebrow-pill .dot {
-  background: #60a5fa !important;
-}
-.hero-channel-pill {
-  background: rgba(255,255,255,.07) !important;
-  border: 1px solid rgba(255,255,255,.11) !important;
-  color: rgba(255,255,255,.65) !important;
-}
-
-/* ── Hero trust metrics strip — dark ── */
-.hero-trust-metrics {
-  background: #0b0e18 !important;
-  border-bottom: 1px solid rgba(255,255,255,.06) !important;
-}
-.hero-metric-card {
-  background: rgba(255,255,255,.045) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  box-shadow: none !important;
-}
-.hero-metric-card:hover {
-  background: rgba(255,255,255,.075) !important;
-  border-color: rgba(255,255,255,.14) !important;
-  box-shadow: 0 8px 32px rgba(37,99,235,.2) !important;
-  transform: translateY(-3px);
-}
-.hero-metric-card strong {
-  color: #ffffff !important;
-}
-.hero-metric-card span {
-  color: #93c5fd !important;
-}
-.hero-metric-card p {
-  color: rgba(255,255,255,.38) !important;
-}
-
-/* ── Transparent nav on dark hero pages ── */
-body.has-dark-hero .nav:not(.scrolled) {
-  background: transparent !important;
-  border-bottom: 1px solid rgba(255,255,255,.07) !important;
-  box-shadow: none !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-link {
-  color: rgba(255,255,255,.68) !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-link:hover {
-  color: white !important;
-  background: rgba(255,255,255,.08) !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-login {
-  color: rgba(255,255,255,.6) !important;
-  border-color: rgba(255,255,255,.16) !important;
-  background: rgba(255,255,255,.05) !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-login:hover {
-  background: rgba(255,255,255,.1) !important;
-  border-color: rgba(255,255,255,.24) !important;
-  color: white !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-hamburger {
-  background: rgba(255,255,255,.1) !important;
-  border-color: rgba(255,255,255,.16) !important;
-}
-body.has-dark-hero .nav:not(.scrolled) .nav-hamburger span {
-  background: white !important;
-}
-/* Keep lang dropdown visible on dark nav */
-body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
-  color: rgba(255,255,255,.65) !important;
-  border-color: rgba(255,255,255,.16) !important;
-}
-
-/* ── Ghost-white button for dark hero CTA ── */
+/* ── Ghost-white button (kept for reference, not used on light hero) ── */
 .btn-ghost-white {
-  background: rgba(255,255,255,.09);
-  color: rgba(255,255,255,.82);
-  border: 1.5px solid rgba(255,255,255,.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: white;
+  color: var(--ink-2);
+  border: 1.5px solid var(--border-2);
+  box-shadow: var(--shadow-sm);
 }
 .btn-ghost-white:hover {
-  background: rgba(255,255,255,.15) !important;
-  border-color: rgba(255,255,255,.28) !important;
-  color: white !important;
+  background: var(--off-white) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--ink) !important;
   transform: translateY(-2px) scale(1.01) !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,.3) !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 /* ── Module card glow-on-hover ── */
@@ -4695,8 +4595,9 @@ body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
    SCROLLING CLIENT LOGOS MARQUEE
 ═══════════════════════════════════════ */
 .clients-marquee-section {
-  background: #0b0e18;
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   padding: 32px 0;
   overflow: hidden;
 }
@@ -4706,15 +4607,15 @@ body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255,255,255,.22);
+  color: var(--ink-4);
   margin-bottom: 22px;
 }
 .clients-marquee-wrap {
   overflow: hidden;
   position: relative;
   /* fade edges */
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 .clients-marquee-track {
   display: flex;
@@ -4733,17 +4634,18 @@ body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.08);
+  background: white;
+  border: 1px solid var(--border-2);
   border-radius: 14px;
   padding: 10px 18px;
   white-space: nowrap;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
   flex-shrink: 0;
+  box-shadow: var(--shadow-xs);
 }
 .clients-logo-pill:hover {
-  background: rgba(255,255,255,.09);
-  border-color: rgba(255,255,255,.16);
+  border-color: rgba(37,99,235,.18);
+  box-shadow: var(--shadow-md);
 }
 .clients-logo-icon {
   font-size: 20px;
@@ -4753,12 +4655,12 @@ body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
 .clients-logo-name {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255,255,255,.8);
+  color: var(--ink-2);
   line-height: 1.2;
 }
 .clients-logo-sub {
   font-size: 10.5px;
-  color: rgba(255,255,255,.3);
+  color: var(--ink-4);
   font-weight: 500;
   margin-top: 1px;
 }

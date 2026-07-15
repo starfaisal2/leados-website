@@ -263,13 +263,7 @@ export default function HomePage() {
   const [annual, setAnnual] = useState(false);
   const msgsRef = useRef<HTMLDivElement>(null);
 
-  // Dark hero body class — makes nav transparent over dark hero
-  useEffect(() => {
-    document.body.classList.add('has-dark-hero');
-    return () => document.body.classList.remove('has-dark-hero');
-  }, []);
-
-  useEffect(() => {
+useEffect(() => {
     if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
   }, [demoMsgs, typing]);
 
@@ -330,7 +324,7 @@ export default function HomePage() {
                 {t('heroCta2')}
               </a>
             </div>
-            <p className="hero-small-print" style={{ fontSize: 12, marginTop: 14, fontWeight: 400 }}>
+            <p style={{ fontSize: 12, color: "var(--ink-4)", marginTop: 14, fontWeight: 400 }}>
               {t('heroBadge')}
             </p>
           </div>
