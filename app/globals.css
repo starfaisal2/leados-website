@@ -4691,3 +4691,75 @@ body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
   color: rgba(255,255,255,.3) !important;
 }
 
+/* ═══════════════════════════════════════
+   SCROLLING CLIENT LOGOS MARQUEE
+═══════════════════════════════════════ */
+.clients-marquee-section {
+  background: #0b0e18;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 32px 0;
+  overflow: hidden;
+}
+.clients-marquee-label {
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.22);
+  margin-bottom: 22px;
+}
+.clients-marquee-wrap {
+  overflow: hidden;
+  position: relative;
+  /* fade edges */
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.clients-marquee-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+.clients-marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.clients-logo-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 10px 18px;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.clients-logo-pill:hover {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.16);
+}
+.clients-logo-icon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.clients-logo-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.8);
+  line-height: 1.2;
+}
+.clients-logo-sub {
+  font-size: 10.5px;
+  color: rgba(255,255,255,.3);
+  font-weight: 500;
+  margin-top: 1px;
+}
+

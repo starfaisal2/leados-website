@@ -438,6 +438,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ══ SCROLLING CLIENT LOGOS ══ */}
+      <section className="clients-marquee-section">
+        <div className="clients-marquee-label">Trusted by clinics, agencies & service businesses</div>
+        <div className="clients-marquee-wrap">
+          <div className="clients-marquee-track">
+            {[
+              { name: "Enfield Royal", icon: "👑", sub: "Hair & Aesthetics · UAE" },
+              { name: "Visage Sydney", icon: "✨", sub: "Skin Clinic · Australia" },
+              { name: "Royal Khalifa", icon: "🏆", sub: "Medical Centre · Abu Dhabi" },
+              { name: "Glow Aesthetics", icon: "💎", sub: "Aesthetic Clinic · Dubai" },
+              { name: "Palm Property", icon: "🏡", sub: "Real Estate · Dubai" },
+              { name: "Smile Dental", icon: "🦷", sub: "Dental Clinic · Sydney" },
+              { name: "Aria Wellness", icon: "🌿", sub: "Wellness Spa · Abu Dhabi" },
+              { name: "Nova Hair Clinic", icon: "💇", sub: "Hair Restoration · London" },
+              { name: "Enfield Royal", icon: "👑", sub: "Hair & Aesthetics · UAE" },
+              { name: "Visage Sydney", icon: "✨", sub: "Skin Clinic · Australia" },
+              { name: "Royal Khalifa", icon: "🏆", sub: "Medical Centre · Abu Dhabi" },
+              { name: "Glow Aesthetics", icon: "💎", sub: "Aesthetic Clinic · Dubai" },
+              { name: "Palm Property", icon: "🏡", sub: "Real Estate · Dubai" },
+              { name: "Smile Dental", icon: "🦷", sub: "Dental Clinic · Sydney" },
+              { name: "Aria Wellness", icon: "🌿", sub: "Wellness Spa · Abu Dhabi" },
+              { name: "Nova Hair Clinic", icon: "💇", sub: "Hair Restoration · London" },
+            ].map((client, i) => (
+              <div key={i} className="clients-logo-pill">
+                <span className="clients-logo-icon">{client.icon}</span>
+                <div>
+                  <div className="clients-logo-name">{client.name}</div>
+                  <div className="clients-logo-sub">{client.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ HOW LEADOS WORKS (Animated CRM Flow) ══ */}
       <section id="how-it-works" style={{ padding: "88px 0", background: "white" }}>
         <div className="container">
