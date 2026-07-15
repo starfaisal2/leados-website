@@ -27,6 +27,62 @@ function Logo({ size = 32 }: { size?: number }) {
   );
 }
 
+/* ── Brand SVG Icons ── */
+const WHATSAPP_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.303A9.954 9.954 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="#25D366"/>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/>
+  </svg>
+);
+
+const INSTAGRAM_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <linearGradient id="ig-g" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#F58529"/>
+        <stop offset="50%" stopColor="#DD2A7B"/>
+        <stop offset="100%" stopColor="#8134AF"/>
+      </linearGradient>
+    </defs>
+    <rect width="24" height="24" rx="6" fill="url(#ig-g)"/>
+    <circle cx="12" cy="12" r="4.5" stroke="white" strokeWidth="1.8" fill="none"/>
+    <circle cx="17.2" cy="6.8" r="1.1" fill="white"/>
+  </svg>
+);
+
+const MESSENGER_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" fill="#0084FF"/>
+    <path d="M12 6C8.686 6 6 8.507 6 11.6c0 1.638.707 3.104 1.838 4.135V18l1.987-1.09A6.5 6.5 0 0012 17.2c3.314 0 6-2.507 6-5.6S15.314 6 12 6z" fill="white"/>
+    <path d="M11 13.5l-2.5-2.5 4.8-2.5-2.3 2.5 2.5 2.5-4.8 2.5 2.3-2.5z" fill="#0084FF"/>
+  </svg>
+);
+
+const WEBCHAT_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" fill="#4f46e5"/>
+    <path d="M7 9h10M7 12h7M7 15h5" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+  </svg>
+);
+
+const VOICEAI_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" fill="#f97316"/>
+    <path d="M9 8a3 3 0 016 0v4a3 3 0 01-6 0V8z" fill="white"/>
+    <path d="M7 13a5 5 0 0010 0" stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+    <line x1="12" y1="18" x2="12" y2="20" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="9" y1="20" x2="15" y2="20" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+  </svg>
+);
+
+const CHANNEL_PILLS = [
+  { icon: WHATSAPP_ICON, label: "WhatsApp" },
+  { icon: INSTAGRAM_ICON, label: "Instagram" },
+  { icon: MESSENGER_ICON, label: "Messenger" },
+  { icon: WEBCHAT_ICON, label: "Web Chat" },
+  { icon: VOICEAI_ICON, label: "Voice AI" },
+];
+
 /* ── Animated CRM Flow Diagram ── */
 function CrmFlowDiagram() {
   const W = 820, H = 300;
@@ -253,8 +309,8 @@ export default function HomePage() {
             </h1>
             <p className="hero-sub">{t('heroSub')}</p>
             <div className="hero-channels">
-              {[["💚", "WhatsApp"], ["🟣", "Instagram"], ["🔵", "Messenger"], ["🌐", "Web Chat"], ["📞", "Voice AI"]].map(([ic, l]) => (
-                <div key={l} className="hero-channel-pill"><span>{ic}</span>{l}</div>
+              {CHANNEL_PILLS.map(({ icon, label }) => (
+                <div key={label} className="hero-channel-pill">{icon}{label}</div>
               ))}
             </div>
             <div className="hero-ctas" style={{ marginTop: 32 }}>
@@ -386,7 +442,7 @@ export default function HomePage() {
               Every message from any channel hits your AI in milliseconds. It qualifies, replies, books, and tracks revenue — automatically, while you focus on delivering.
             </p>
           </div>
-          <CrmFlowDiagram />
+          <div className="leados-crm-wrap"><CrmFlowDiagram /></div>
         </div>
       </section>
 
@@ -397,7 +453,7 @@ export default function HomePage() {
             <span className="eyebrow">The full system</span>
             <h2 className="display-lg">Six modules.<br /><span className="text-serif-em" style={{ color: "var(--ink-3)" }}>One platform.</span></h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          <div className="leados-modules-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
             {[
               {
                 icon: "📥", color: "#22c55e", metric: "28s",
@@ -512,7 +568,7 @@ export default function HomePage() {
       <section style={{ padding: "88px 0", background: "white" }}>
         <div className="container">
           {/* Stats */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: "var(--border)", borderRadius: 20, overflow: "hidden", marginBottom: 60 }}>
+          <div className="leados-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: "var(--border)", borderRadius: 20, overflow: "hidden", marginBottom: 60 }}>
             {[
               ["3×", "More Appointments Booked", "Instant 24/7 AI responses convert more leads from the same spend."],
               ["94%", "Faster First Response", "Average reply drops from hours to 28 seconds. First to respond wins."],
@@ -528,7 +584,7 @@ export default function HomePage() {
           </div>
 
           {/* Testimonials */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="leados-testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {[
               { quote: "We used to miss leads every night after closing time. Now LeadOS handles all our WhatsApp enquiries 24/7 and books consultations automatically. 40% jump in confirmed appointments in the first month.", name: "Dr. Nour Al-Hassan", role: "Medical Director, Glow Aesthetics", city: "Sydney, Australia", avatar: "👩‍⚕️" },
               { quote: "The Meta Brain feature is what sold me. I can finally see which Facebook ad actually led to a booking. We cut our cost per booking by 35% in 6 weeks.", name: "Ahmed Al-Mansoori", role: "Founder, Palm Property Group", city: "Dubai, UAE", avatar: "🏠" },

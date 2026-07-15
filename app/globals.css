@@ -1531,6 +1531,27 @@ ul { list-style: none; }
   .leak-flow { flex-direction: column; }
   .leak-arrow { transform: rotate(90deg); }
   .leak-solution { grid-template-columns: 1fr; }
+  /* hero channel pills — single row on small screens */
+  .hero-channels { gap: 6px; }
+  .hero-channel-pill { font-size: 11px; padding: 6px 10px; gap: 5px; }
+}
+
+/* ── New homepage grids — mobile responsive ── */
+@media (max-width: 900px) {
+  /* Product modules: 3-col → 2-col */
+  .leados-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Stats: 4-col → 2-col */
+  .leados-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Testimonials: 3-col → 1-col */
+  .leados-testimonials-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 560px) {
+  /* Product modules: 2-col → 1-col */
+  .leados-modules-grid { grid-template-columns: 1fr !important; }
+  /* Stats: 2-col → 2-col (fine at 560) */
+  /* CRM diagram — scale down on mobile */
+  .leados-crm-wrap { overflow-x: auto; }
+  /* Pricing: already 1-col below 640 */
 }
 
 /* ─────────────────────────────────────────────
