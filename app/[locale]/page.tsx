@@ -263,6 +263,12 @@ export default function HomePage() {
   const [annual, setAnnual] = useState(false);
   const msgsRef = useRef<HTMLDivElement>(null);
 
+  // Dark hero body class — makes nav transparent over dark hero
+  useEffect(() => {
+    document.body.classList.add('has-dark-hero');
+    return () => document.body.classList.remove('has-dark-hero');
+  }, []);
+
   useEffect(() => {
     if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
   }, [demoMsgs, typing]);
@@ -320,11 +326,11 @@ export default function HomePage() {
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
-              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-lg">
+              <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-white btn-lg">
                 {t('heroCta2')}
               </a>
             </div>
-            <p style={{ fontSize: 12, color: "var(--ink-4)", marginTop: 14, fontWeight: 400 }}>
+            <p className="hero-small-print" style={{ fontSize: 12, marginTop: 14, fontWeight: 400 }}>
               {t('heroBadge')}
             </p>
           </div>
@@ -492,10 +498,10 @@ export default function HomePage() {
                 tags: ["Google Reviews", "Pipeline", "Follow-up Sequences"],
               },
             ].map(mod => (
-              <div key={mod.title} style={{
+              <div key={mod.title} className="leados-module-card" style={{
                 background: "white", borderRadius: 18, padding: "28px 26px",
                 border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 14,
-                transition: "box-shadow 0.2s", cursor: "default",
+                cursor: "default", ["--card-accent" as string]: mod.color,
               }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{
@@ -621,6 +627,56 @@ export default function HomePage() {
             <div className={`toggle-track${annual ? " on" : ""}`} onClick={() => setAnnual(!annual)}><div className="toggle-thumb" /></div>
             <span className={`pricing-toggle-label${annual ? " active" : ""}`}>{t('pricingAnnual')}</span>
             {annual && <span className="save-badge">{t('pricingSave20')}</span>}
+          </div>
+
+          {/* ── Onboarding Choice ── */}
+          <div className="onboarding-grid">
+            {/* Self-serve */}
+            <div style={{ background: "white", border: "1.5px solid var(--border-2)", borderRadius: 18, padding: "22px 24px", display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--green-50)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>⚡</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--ink)" }}>Self-Onboarding</div>
+                  <div style={{ fontSize: 11, color: "var(--ink-4)" }}>Set up yourself</div>
+                </div>
+                <div style={{ marginLeft: "auto", fontSize: 22, fontWeight: 900, color: "var(--green)", letterSpacing: "-1px" }}>$0</div>
+              </div>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 6, marginTop: 4 }}>
+                {["Step-by-step AI wizard", "Video tutorial library", "Live chat support"].map(f => (
+                  <li key={f} style={{ display: "flex", gap: 7, fontSize: 12.5, color: "var(--ink-3)", alignItems: "center" }}>
+                    <span style={{ color: "var(--green)", fontWeight: 700 }}>✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Assisted */}
+            <div style={{ background: "linear-gradient(135deg, #0f172a, #1e1b4b)", border: "1.5px solid rgba(124,58,237,.35)", borderRadius: 18, padding: "22px 24px", display: "flex", flexDirection: "column", gap: 10, position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: 0, right: 0, background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", fontSize: 9.5, fontWeight: 700, padding: "4px 14px", borderRadius: "0 18px 0 12px", letterSpacing: "0.06em" }}>MOST POPULAR</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 38, height: 38, borderRadius: 10, background: "rgba(124,58,237,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🚀</div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "white" }}>Assisted Onboarding</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)" }}>We build everything for you</div>
+                </div>
+                <div style={{ marginLeft: "auto", textAlign: "right" }}>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: "#c4b5fd", letterSpacing: "-1px" }}>$1,500</div>
+                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)" }}>one-time</div>
+                </div>
+              </div>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 6, marginTop: 4 }}>
+                {[
+                  { text: "1 month free subscription included", highlight: true },
+                  { text: "Full AI training on your services", highlight: false },
+                  { text: "All channels connected & tested", highlight: false },
+                  { text: "48-hour go-live guarantee", highlight: false },
+                ].map(f => (
+                  <li key={f.text} style={{ display: "flex", gap: 7, fontSize: 12.5, color: f.highlight ? "#86efac" : "rgba(255,255,255,.45)", alignItems: "center" }}>
+                    <span style={{ color: f.highlight ? "#4ade80" : "rgba(255,255,255,.3)", fontWeight: 700 }}>✓</span>{f.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="pricing-grid">

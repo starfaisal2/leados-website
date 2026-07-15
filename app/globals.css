@@ -4515,3 +4515,179 @@ iframe[src*="/api/widget/embed"] {
 [dir="rtl"] .btn-arrow {
   transform: scaleX(-1);
 }
+
+/* ═══════════════════════════════════════
+   BILLION-DOLLAR UPGRADE PASS
+   Dark hero, transparent nav, module card
+   glow, onboarding grid, counter animations
+═══════════════════════════════════════ */
+
+/* ── Dark Hero ── */
+.hero {
+  background: #07090f !important;
+}
+.hero::before {
+  background:
+    radial-gradient(ellipse 75% 65% at 12% -5%, rgba(37,99,235,.55) 0%, transparent 52%),
+    radial-gradient(ellipse 55% 50% at 88% 85%, rgba(124,58,237,.45) 0%, transparent 52%),
+    radial-gradient(ellipse 45% 35% at 68% 10%, rgba(0,200,240,.22) 0%, transparent 46%) !important;
+}
+.hero::after {
+  background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px) !important;
+  opacity: 1 !important;
+}
+.hero-heading {
+  color: #ffffff !important;
+}
+.hero-heading em {
+  color: #93c5fd !important;
+}
+.hero-sub {
+  color: rgba(255,255,255,.58) !important;
+}
+.hero-eyebrow-pill {
+  background: rgba(37,99,235,.18) !important;
+  border: 1px solid rgba(37,99,235,.42) !important;
+  color: #93c5fd !important;
+}
+.hero-eyebrow-pill .dot {
+  background: #60a5fa !important;
+}
+.hero-channel-pill {
+  background: rgba(255,255,255,.07) !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  color: rgba(255,255,255,.65) !important;
+}
+
+/* ── Hero trust metrics strip — dark ── */
+.hero-trust-metrics {
+  background: #0b0e18 !important;
+  border-bottom: 1px solid rgba(255,255,255,.06) !important;
+}
+.hero-metric-card {
+  background: rgba(255,255,255,.045) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: none !important;
+}
+.hero-metric-card:hover {
+  background: rgba(255,255,255,.075) !important;
+  border-color: rgba(255,255,255,.14) !important;
+  box-shadow: 0 8px 32px rgba(37,99,235,.2) !important;
+  transform: translateY(-3px);
+}
+.hero-metric-card strong {
+  color: #ffffff !important;
+}
+.hero-metric-card span {
+  color: #93c5fd !important;
+}
+.hero-metric-card p {
+  color: rgba(255,255,255,.38) !important;
+}
+
+/* ── Transparent nav on dark hero pages ── */
+body.has-dark-hero .nav:not(.scrolled) {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,.07) !important;
+  box-shadow: none !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-link {
+  color: rgba(255,255,255,.68) !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-link:hover {
+  color: white !important;
+  background: rgba(255,255,255,.08) !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-login {
+  color: rgba(255,255,255,.6) !important;
+  border-color: rgba(255,255,255,.16) !important;
+  background: rgba(255,255,255,.05) !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-login:hover {
+  background: rgba(255,255,255,.1) !important;
+  border-color: rgba(255,255,255,.24) !important;
+  color: white !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-hamburger {
+  background: rgba(255,255,255,.1) !important;
+  border-color: rgba(255,255,255,.16) !important;
+}
+body.has-dark-hero .nav:not(.scrolled) .nav-hamburger span {
+  background: white !important;
+}
+/* Keep lang dropdown visible on dark nav */
+body.has-dark-hero .nav:not(.scrolled) [aria-label="Switch language"] {
+  color: rgba(255,255,255,.65) !important;
+  border-color: rgba(255,255,255,.16) !important;
+}
+
+/* ── Ghost-white button for dark hero CTA ── */
+.btn-ghost-white {
+  background: rgba(255,255,255,.09);
+  color: rgba(255,255,255,.82);
+  border: 1.5px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.btn-ghost-white:hover {
+  background: rgba(255,255,255,.15) !important;
+  border-color: rgba(255,255,255,.28) !important;
+  color: white !important;
+  transform: translateY(-2px) scale(1.01) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.3) !important;
+}
+
+/* ── Module card glow-on-hover ── */
+.leados-module-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+.leados-module-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-accent, var(--blue));
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  border-radius: 2px 2px 0 0;
+}
+.leados-module-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 48px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.06) !important;
+  border-color: rgba(37,99,235,.14) !important;
+}
+.leados-module-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Pricing onboarding grid ── */
+.onboarding-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 780px;
+  margin: 0 auto 44px;
+}
+@media (max-width: 640px) {
+  .onboarding-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Animated counter ── */
+@keyframes count-pop {
+  0% { transform: scale(0.8) translateY(6px); opacity: 0; }
+  60% { transform: scale(1.05) translateY(-2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.stat-counter-animate {
+  animation: count-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Hero small print on dark bg ── */
+.hero-small-print {
+  color: rgba(255,255,255,.3) !important;
+}
+

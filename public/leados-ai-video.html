@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LeadOS AI — Video Export</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:20px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+canvas { display:block; border-radius:4px; }
+.controls { display:flex; gap:12px; align-items:center; }
+button { background:#4B6BFB; color:white; border:none; padding:14px 32px; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; letter-spacing:0.02em; }
+button:hover { background:#3a5ae8; }
+button.rec { background:#ef4444; }
+#status { color:#64748b; font-size:13px; }
+</style>
+</head>
+<body>
+
+<canvas id="c" width="1080" height="1080" style="width:620px;height:620px;"></canvas>
+<div class="controls">
+  <button id="btn" onclick="startRec()">⏺ Record 15s Video</button>
+  <span id="status">Click record to export · loops every 14s</span>
+</div>
+
+<script>
+const LOGO_IMG = new Image();
+LOGO_IMG.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIHJ4PSI2MCIgZmlsbD0id2hpdGUiLz4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibWFyayIgeDE9IjYwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSIyNDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwQzhGMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjU1JSIgc3RvcC1jb2xvcj0iIzI1NjNFQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3QzNBRUQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQm9sZCBMIG1hcmssIGNlbnRlcmVkIGFuZCBsYXJnZSAtLT4KICA8cmVjdCB4PSI3NSIgeT0iNjAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyMTAiIHJ4PSIyNiIgZmlsbD0idXJsKCNtYXJrKSIvPgogIDxyZWN0IHg9Ijc1IiB5PSIyMTgiIHdpZHRoPSIxNzUiIGhlaWdodD0iNTIiIHJ4PSIyNiIgZmlsbD0idXJsKCNtYXJrKSIvPgogIDwhLS0gU2lnbmFsIGRvdCArIHJpbmdzIHRvcCByaWdodCBvZiBMIC0tPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSIyMiIgZmlsbD0iIzAwQzhGMCIvPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjU2M0VCIiBzdHJva2Utd2lkdGg9IjciIG9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSI1NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN0MzQUVEIiBzdHJva2Utd2lkdGg9IjQiIG9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4K';
+const C = document.getElementById('c');
+const X = C.getContext('2d');
+const W = 1080, H = 1080;
+
+// ─── EASING ───
+const eOut  = t => 1 - Math.pow(1-t,3);
+const clamp = (v,a,b) => Math.min(Math.max(v,a),b);
+const prg   = (t,s,e) => clamp((t-s)/(e-s),0,1);
+const fIn   = (t,s,e) => eOut(prg(t,s,e));
+const fOut  = (t,s,e) => eOut(1-prg(t,s,e));
+const lerp  = (a,b,t) => a+(b-a)*t;
+const pulse = (t,f=1) => 0.7+0.3*Math.sin(t*f*Math.PI*2);
+const blink = (t,f=2) => 0.5+0.5*Math.sin(t*f*Math.PI*2);
+
+// ─── ROUND RECT ───
+function rr(x,y,w,h,r){
+  X.beginPath();
+  X.moveTo(x+r,y); X.lineTo(x+w-r,y);
+  X.quadraticCurveTo(x+w,y,x+w,y+r);
+  X.lineTo(x+w,y+h-r);
+  X.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  X.lineTo(x+r,y+h);
+  X.quadraticCurveTo(x,y+h,x,y+h-r);
+  X.lineTo(x,y+r);
+  X.quadraticCurveTo(x,y,x+r,y);
+  X.closePath();
+}
+
+// ─── BG ───
+function drawBG(t){
+  X.fillStyle='#050c1a'; X.fillRect(0,0,W,H);
+  X.strokeStyle='rgba(75,107,251,0.055)'; X.lineWidth=1;
+  for(let x=0;x<W;x+=60){ X.beginPath(); X.moveTo(x,0); X.lineTo(x,H); X.stroke(); }
+  for(let y=0;y<H;y+=60){ X.beginPath(); X.moveTo(0,y); X.lineTo(W,y); X.stroke(); }
+  // vignette
+  let g=X.createRadialGradient(W/2,H/2,180,W/2,H/2,680);
+  g.addColorStop(0,'transparent'); g.addColorStop(1,'rgba(5,12,26,0.88)');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+  // centre glow
+  g=X.createRadialGradient(W/2,430,0,W/2,430,380);
+  g.addColorStop(0,`rgba(75,107,251,${0.12*pulse(t,0.35)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+  // corner glow amber
+  g=X.createRadialGradient(W,H,0,W,H,400);
+  g.addColorStop(0,`rgba(74,222,128,${0.06*pulse(t,0.5)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+}
+
+// ─── LOGO ───
+function drawLogo(t){
+  const a=fIn(t,0.2,0.9); X.globalAlpha=a;
+  if(LOGO_IMG.complete) X.drawImage(LOGO_IMG,56,42,62,62);
+  X.font='700 27px sans-serif'; X.fillStyle='#fff'; X.textAlign='left'; X.fillText('LeadOS',130,82);
+  X.font='600 12px sans-serif'; X.fillStyle='#4B6BFB'; X.textAlign='right';
+  X.fillText('AI OPERATING SYSTEM', W-56, 80);
+  X.globalAlpha=1;
+}
+
+// ─── DASHBOARD SHELL ───
+function dashShell(t){
+  const a=fIn(t,0.7,1.7), dy=lerp(28,0,eOut(prg(t,0.7,1.7)));
+  X.globalAlpha=a; X.save(); X.translate(0,dy);
+  const px=58,py=134,pw=W-116,ph=755;
+  rr(px,py,pw,ph,22); X.fillStyle='rgba(9,17,38,0.97)'; X.fill();
+  rr(px,py,pw,ph,22); X.strokeStyle='rgba(75,107,251,0.28)'; X.lineWidth=1.5; X.stroke();
+  // top shine
+  rr(px+1,py+1,pw-2,1,0); X.fillStyle='rgba(255,255,255,0.04)'; X.fill();
+  // traffic dots
+  [[0,'#ff5f57'],[18,'#febc2e'],[36,'#28c840']].forEach(([dx,c])=>{
+    X.beginPath(); X.arc(px+22+dx,py+25,6,0,Math.PI*2); X.fillStyle=c; X.fill();
+  });
+  X.font='500 13px sans-serif'; X.fillStyle='rgba(255,255,255,0.38)';
+  X.textAlign='center'; X.fillText('LeadOS · Command Center',W/2,py+30);
+  // LIVE badge
+  rr(px+pw-96,py+12,84,26,13); X.fillStyle='rgba(75,107,251,0.12)'; X.fill();
+  rr(px+pw-96,py+12,84,26,13); X.strokeStyle='rgba(75,107,251,0.38)'; X.lineWidth=1; X.stroke();
+  X.beginPath(); X.arc(px+pw-80,py+25,4,0,Math.PI*2);
+  X.fillStyle=`rgba(74,222,128,${blink(t)})`; X.fill();
+  X.font='600 11px sans-serif'; X.fillStyle='#4B6BFB'; X.textAlign='left'; X.fillText('Live',px+pw-70,py+30);
+  // separator
+  X.beginPath(); X.moveTo(px+14,py+50); X.lineTo(px+pw-14,py+50);
+  X.strokeStyle='rgba(255,255,255,0.06)'; X.lineWidth=1; X.stroke();
+  X.restore(); X.globalAlpha=1;
+  return {px,py,pw,ph,a,dy};
+}
+
+// ─── STAT CARDS ───
+function drawStats(t,py,dy){
+  const a=fIn(t,1.4,2.4);
+  X.globalAlpha=a; X.save(); X.translate(0,dy);
+  const sy=py+62, cw=214, gap=14, startX=72;
+  const stats=[
+    {lbl:'LEADS TODAY',     val:47,    clr:'#4B6BFB', sub:'↑ 34% vs yesterday',  pfx:''},
+    {lbl:'AI REPLIES SENT', val:183,   clr:'#4ade80', sub:'avg 4s response time', pfx:''},
+    {lbl:'BOOKINGS MADE',   val:26,    clr:'#fbbf24', sub:'↑ 62% this month',     pfx:''},
+    {lbl:'REVENUE PIPELINE',val:18400, clr:'#c084fc', sub:'tracked automatically',pfx:'$'},
+  ];
+  const ct=eOut(prg(t,1.4,3.4));
+  stats.forEach((s,i)=>{
+    const cx=startX+i*(cw+gap), cy=sy;
+    rr(cx,cy,cw,92,13); X.fillStyle='rgba(255,255,255,0.027)'; X.fill();
+    rr(cx,cy,cw,92,13); X.strokeStyle='rgba(255,255,255,0.065)'; X.lineWidth=1; X.stroke();
+    X.font='600 10px sans-serif'; X.fillStyle='rgba(255,255,255,0.32)';
+    X.textAlign='left'; X.fillText(s.lbl,cx+14,cy+22);
+    const v=Math.floor(ct*s.val);
+    X.font='bold 27px sans-serif'; X.fillStyle=s.clr;
+    X.fillText(s.pfx+(s.pfx?v.toLocaleString():v),cx+14,cy+60);
+    X.font='11px sans-serif'; X.fillStyle='rgba(255,255,255,0.22)'; X.fillText(s.sub,cx+14,cy+80);
+  });
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── LEADS PANEL ───
+const LEADS=[
+  {n:'Sara Al Mansouri',  src:'WhatsApp · Aesthetic Clinic', ch:'S', bg:'#25d366', st:'AI Replied ✓', sc:'#4ade80', at:3.0},
+  {n:'Mohammed Hassan',   src:'Instagram · Real Estate',    ch:'M', bg:'#e1306c', st:'Booked ✓',     sc:'#fbbf24', at:4.0},
+  {n:'Priya Nair',        src:'Website · Salon',            ch:'P', bg:'#4B6BFB', st:'Responding...', sc:'#4B6BFB', at:5.2},
+  {n:'Khalid Al Rashid',  src:'Facebook · Dental Clinic',   ch:'K', bg:'#1877f2', st:'AI Replied ✓', sc:'#4ade80', at:6.4},
+];
+
+function drawLeads(t,px,py,dy){
+  const pa=fIn(t,1.4,2.2);
+  X.globalAlpha=pa; X.save(); X.translate(0,dy);
+  const lx=px+14, ly=py+168, lw=(W-116-30)/2, lh=530;
+  rr(lx,ly,lw,lh,14); X.fillStyle='rgba(255,255,255,0.018)'; X.fill();
+  rr(lx,ly,lw,lh,14); X.strokeStyle='rgba(255,255,255,0.058)'; X.lineWidth=1; X.stroke();
+  X.font='600 11px sans-serif'; X.fillStyle='rgba(255,255,255,0.32)';
+  X.textAlign='left'; X.fillText('INCOMING LEADS',lx+14,ly+24);
+  X.beginPath(); X.arc(lx+lw-20,ly+18,5,0,Math.PI*2);
+  X.fillStyle=`rgba(74,222,128,${blink(t)})`; X.fill();
+
+  LEADS.forEach((ld,i)=>{
+    const a=fIn(t,ld.at,ld.at+0.55), sx=lerp(-24,0,eOut(prg(t,ld.at,ld.at+0.4)));
+    if(a<=0.01) return;
+    X.globalAlpha=pa*a;
+    X.save(); X.translate(sx,0);
+    const ry=ly+42+i*114;
+    rr(lx+10,ry,lw-20,100,11); X.fillStyle='rgba(255,255,255,0.028)'; X.fill();
+    rr(lx+10,ry,lw-20,100,11); X.strokeStyle='rgba(255,255,255,0.05)'; X.lineWidth=1; X.stroke();
+    // avatar
+    X.beginPath(); X.arc(lx+50,ry+50,26,0,Math.PI*2); X.fillStyle=ld.bg+'28'; X.fill();
+    X.beginPath(); X.arc(lx+50,ry+50,26,0,Math.PI*2); X.strokeStyle=ld.bg+'55'; X.lineWidth=1.5; X.stroke();
+    X.font='bold 16px sans-serif'; X.fillStyle=ld.bg; X.textAlign='center'; X.fillText(ld.ch,lx+50,ry+56);
+    X.font='600 14px sans-serif'; X.fillStyle='rgba(255,255,255,0.85)'; X.textAlign='left'; X.fillText(ld.n,lx+86,ry+38);
+    X.font='12px sans-serif'; X.fillStyle='rgba(255,255,255,0.35)'; X.fillText(ld.src,lx+86,ry+57);
+    // badge
+    const bw=ctx_measure(ld.st,X,'600 11px sans-serif')+22;
+    rr(lx+lw-18-bw,ry+36,bw,26,13); X.fillStyle=ld.sc+'20'; X.fill();
+    rr(lx+lw-18-bw,ry+36,bw,26,13); X.strokeStyle=ld.sc+'45'; X.lineWidth=1; X.stroke();
+    X.font='600 11px sans-serif'; X.fillStyle=ld.sc; X.textAlign='center';
+    X.fillText(ld.st,lx+lw-18-bw/2,ry+53);
+    X.restore(); X.globalAlpha=pa;
+  });
+  X.restore(); X.globalAlpha=1;
+}
+
+function ctx_measure(txt,ctx,font){ ctx.font=font; return ctx.measureText(txt).width; }
+
+// ─── AI PANEL ───
+function drawAI(t,px,py,pw,dy){
+  const pa=fIn(t,1.4,2.2);
+  X.globalAlpha=pa; X.save(); X.translate(0,dy);
+  const lw=(W-116-30)/2;
+  const ax=px+14+lw+16, ay=py+168, aw=lw, ah=530;
+  rr(ax,ay,aw,ah,14); X.fillStyle='rgba(255,255,255,0.018)'; X.fill();
+  rr(ax,ay,aw,ah,14); X.strokeStyle='rgba(255,255,255,0.058)'; X.lineWidth=1; X.stroke();
+  X.font='600 11px sans-serif'; X.fillStyle='rgba(255,255,255,0.32)';
+  X.textAlign='left'; X.fillText('AI BRAIN · WORKING NOW',ax+14,ay+24);
+
+  // thinking box
+  const ta=fIn(t,3.2,4.0);
+  if(ta>0.01){
+    X.globalAlpha=pa*ta;
+    rr(ax+10,ay+42,aw-20,118,11); X.fillStyle='rgba(75,107,251,0.065)'; X.fill();
+    rr(ax+10,ay+42,aw-20,118,11); X.strokeStyle='rgba(75,107,251,0.22)'; X.lineWidth=1; X.stroke();
+    X.font='600 10px sans-serif'; X.fillStyle='#4B6BFB';
+    X.textAlign='left'; X.fillText("PROCESSING · SARA'S ENQUIRY",ax+20,ay+62);
+    X.font='12px sans-serif'; X.fillStyle='rgba(255,255,255,0.5)';
+    ["\"Hi, I'm interested in a lip","filler appointment next week...\""].forEach((l,i)=>X.fillText(l,ax+20,ay+82+i*19));
+    // typing dots
+    const da=fIn(t,3.8,4.4)*fOut(t,8.0,8.6);
+    if(da>0.01){
+      X.globalAlpha=pa*ta*da;
+      [0,1,2].forEach(i=>{
+        const bounce=Math.sin((t*3.5-i*0.28)*Math.PI*2)*5;
+        X.beginPath(); X.arc(ax+24+i*16,ay+134+bounce,4.5,0,Math.PI*2);
+        X.fillStyle='#4B6BFB'; X.fill();
+      });
+      X.font='11px sans-serif'; X.fillStyle='rgba(255,255,255,0.28)';
+      X.textAlign='left'; X.fillText('AI composing reply...',ax+66,ay+136);
+    }
+    X.globalAlpha=pa*ta;
+  }
+
+  // reply box
+  const ra=fIn(t,8.2,9.0);
+  if(ra>0.01){
+    X.globalAlpha=pa*ra;
+    rr(ax+10,ay+172,aw-20,128,11); X.fillStyle='rgba(74,222,128,0.05)'; X.fill();
+    rr(ax+10,ay+172,aw-20,128,11); X.strokeStyle='rgba(74,222,128,0.22)'; X.lineWidth=1; X.stroke();
+    X.font='600 10px sans-serif'; X.fillStyle='#4ade80';
+    X.textAlign='left'; X.fillText('✦  AI REPLY SENT · 3 SECONDS',ax+20,ay+192);
+    X.font='12px sans-serif'; X.fillStyle='rgba(255,255,255,0.65)';
+    ['"Hi Sara! 😊 We have availability',
+     'Tuesday 2pm or Thursday 11am.',
+     'Shall I book you in?"'].forEach((l,i)=>X.fillText(l,ax+20,ay+214+i*20));
+  }
+
+  // booking card
+  const ba=fIn(t,10.0,10.8);
+  if(ba>0.01){
+    X.globalAlpha=pa*ba;
+    rr(ax+10,ay+312,aw-20,130,11); X.fillStyle='rgba(251,191,36,0.05)'; X.fill();
+    rr(ax+10,ay+312,aw-20,130,11); X.strokeStyle='rgba(251,191,36,0.26)'; X.lineWidth=1; X.stroke();
+    X.font='600 10px sans-serif'; X.fillStyle='#fbbf24';
+    X.textAlign='left'; X.fillText('APPOINTMENT BOOKED AUTOMATICALLY',ax+20,ay+332);
+    X.font='13px sans-serif'; X.fillStyle='rgba(255,255,255,0.62)';
+    ['👤  Sara Al Mansouri',
+     '📅  Tuesday, 2:00pm · Lip Filler',
+     '✅  Confirmation sent via WhatsApp'].forEach((l,i)=>X.fillText(l,ax+20,ay+358+i*25));
+  }
+
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── NOTIFICATIONS ───
+const NOTIFS=[
+  {x:56,  y:60,  t1:'New WhatsApp Lead',     t2:"Sara · \"I want to book...\"",       ic:'💬', c:'#25d366', on:2.6,  off:6.5},
+  {x:690, y:60,  t1:'Instagram DM Lead',      t2:"Mohammed · \"How much?\"",           ic:'📸', c:'#e1306c', on:3.8,  off:7.5},
+  {x:56,  y:870, t1:'AI Reply Delivered',     t2:'Response time: 3 seconds ✓',         ic:'🤖', c:'#4ade80', on:9.0,  off:12.5},
+  {x:690, y:870, t1:'Appointment Booked!',    t2:'Sara · Tuesday 2pm · Auto ✓',        ic:'📅', c:'#fbbf24', on:10.5, off:13.5},
+];
+
+function drawNotifs(t){
+  NOTIFS.forEach(n=>{
+    const a=fIn(t,n.on,n.on+0.5)*fOut(t,n.off,n.off+0.5);
+    if(a<0.01) return;
+    const sy=lerp(-18,0,eOut(prg(t,n.on,n.on+0.4)));
+    X.globalAlpha=a; X.save(); X.translate(0,sy);
+    rr(n.x,n.y,294,68,14); X.fillStyle='rgba(8,14,32,0.98)'; X.fill();
+    rr(n.x,n.y,294,68,14); X.strokeStyle=n.c+'60'; X.lineWidth=1.5; X.stroke();
+    X.beginPath(); X.arc(n.x+36,n.y+34,20,0,Math.PI*2); X.fillStyle=n.c+'22'; X.fill();
+    X.font='17px sans-serif'; X.textAlign='center'; X.fillText(n.ic,n.x+36,n.y+41);
+    X.font='600 13px sans-serif'; X.fillStyle='rgba(255,255,255,0.9)';
+    X.textAlign='left'; X.fillText(n.t1,n.x+64,n.y+27);
+    X.font='11px sans-serif'; X.fillStyle='rgba(255,255,255,0.38)'; X.fillText(n.t2,n.x+64,n.y+46);
+    X.restore(); X.globalAlpha=1;
+  });
+}
+
+// ─── AI BRAIN ───
+function drawBrain(t){
+  const a=fIn(t,2.0,3.0); if(a<0.01) return;
+  X.globalAlpha=a;
+  const bx=W-98, by=H-108;
+  // glow
+  let g=X.createRadialGradient(bx,by,0,bx,by,55+pulse(t)*8);
+  g.addColorStop(0,`rgba(75,107,251,${0.18*pulse(t)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.beginPath(); X.arc(bx,by,70,0,Math.PI*2); X.fill();
+  // outer ring spinning
+  X.save(); X.translate(bx,by); X.rotate(t*0.6);
+  X.beginPath(); X.arc(0,0,44,0,Math.PI*2);
+  X.setLineDash([9,7]); X.strokeStyle='rgba(75,107,251,0.35)'; X.lineWidth=2; X.stroke();
+  X.setLineDash([]); X.restore();
+  // inner ring reverse
+  X.save(); X.translate(bx,by); X.rotate(-t*0.9);
+  X.beginPath(); X.arc(0,0,32,0,Math.PI*2);
+  X.setLineDash([5,5]); X.strokeStyle='rgba(75,107,251,0.55)'; X.lineWidth=1.5; X.stroke();
+  X.setLineDash([]); X.restore();
+  // core
+  X.beginPath(); X.arc(bx,by,19,0,Math.PI*2); X.fillStyle='rgba(75,107,251,0.14)'; X.fill();
+  X.beginPath(); X.arc(bx,by,19,0,Math.PI*2); X.strokeStyle='#4B6BFB'; X.lineWidth=2; X.stroke();
+  X.font='17px sans-serif'; X.textAlign='center'; X.fillText('🧠',bx,by+6);
+  X.globalAlpha=1;
+}
+
+// ─── SEO TICKER ───
+let tickX=0;
+const TICKERS=[
+  '✦  "Best Aesthetic Clinic in Dubai 2025" — Published',
+  '✦  "lip filler dubai" — Ranking: Top 3',
+  '✦  "How to Choose a Real Estate Agent in UAE" — Published',
+  '✦  "hair salon dubai marina" — Ranking: Top 5',
+  '✦  "dental clinic abu dhabi" — Page 1 Google',
+  '✦  "real estate agent dubai" — Ranking: Top 4',
+];
+const TICKSTR = TICKERS.join('          ');
+
+function drawTicker(t,dt){
+  const a=fIn(t,2.5,3.2); if(a<0.01) return;
+  X.globalAlpha=a;
+  const tx=56,ty=H-66,tw=W-112,th=50;
+  rr(tx,ty,tw,th,12); X.fillStyle='rgba(8,15,34,0.96)'; X.fill();
+  rr(tx,ty,tw,th,12); X.strokeStyle='rgba(75,107,251,0.2)'; X.lineWidth=1; X.stroke();
+  // label
+  X.font='700 10px sans-serif'; X.fillStyle='#4B6BFB';
+  X.textAlign='left'; X.fillText('AUTO SEO',tx+16,ty+29);
+  X.beginPath(); X.moveTo(tx+88,ty+10); X.lineTo(tx+88,ty+th-10);
+  X.strokeStyle='rgba(255,255,255,0.09)'; X.lineWidth=1; X.stroke();
+  // scrolling
+  tickX += dt*55;
+  X.save(); X.beginPath(); X.rect(tx+96,ty,tw-100,th); X.clip();
+  X.font='12px sans-serif'; X.textAlign='left';
+  const fullW = ctx_measure(TICKSTR,X,'12px sans-serif')+60;
+  const xo = tx+104 - (tickX % fullW);
+  for(let r=0;r<3;r++){
+    const sx=xo+r*fullW;
+    // draw with green highlight on ✦
+    let cx=sx;
+    TICKERS.forEach((item,i)=>{
+      const parts=item.split('—');
+      X.fillStyle='#4ade80';
+      X.fillText(parts[0].trim(),cx,ty+29);
+      const p0w=ctx_measure(parts[0].trim(),X,'12px sans-serif');
+      cx+=p0w+8;
+      if(parts[1]){
+        X.fillStyle='rgba(255,255,255,0.45)';
+        X.fillText('— '+parts[1].trim(),cx,ty+29);
+        cx+=ctx_measure('— '+parts[1].trim(),X,'12px sans-serif');
+      }
+      cx+=60;
+    });
+  }
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── URL ───
+function drawURL(t){
+  X.globalAlpha=fIn(t,1.2,2.2)*0.38;
+  X.font='12px sans-serif'; X.fillStyle='rgba(255,255,255,0.55)';
+  X.textAlign='center'; X.fillText('www.leadoscrm.com',W/2,H-20);
+  X.globalAlpha=1;
+}
+
+// ─── MAIN LOOP ───
+const LOOP=14;
+let T0=null, last=null;
+function frame(now){
+  if(!T0) T0=now;
+  const elapsed=(now-T0)/1000;
+  const t=elapsed%LOOP;
+  const dt=last?(now-last)/1000:0;
+  last=now;
+  X.clearRect(0,0,W,H);
+  drawBG(t);
+  drawLogo(t);
+  const {px,py,pw,ph,a,dy}=dashShell(t);
+  drawStats(t,py,dy);
+  drawLeads(t,px,py,dy);
+  drawAI(t,px,py,pw,dy);
+  drawNotifs(t);
+  drawBrain(t);
+  drawTicker(t,dt);
+  drawURL(t);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ─── RECORD ───
+let recording=false;
+async function startRec(){
+  if(recording) return;
+  recording=true;
+  const btn=document.getElementById('btn');
+  const status=document.getElementById('status');
+  btn.className='rec'; btn.textContent='⏺ Recording...';
+  // reset animation
+  T0=performance.now(); tickX=0;
+  const chunks=[];
+  const stream=C.captureStream(30);
+  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+    ?'video/webm;codecs=vp9':'video/webm';
+  const mr=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:10000000});
+  mr.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  mr.onstop=()=>{
+    const blob=new Blob(chunks,{type:'video/webm'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='leados-ai-demo.webm'; a.click();
+    URL.revokeObjectURL(url);
+    btn.className=''; btn.textContent='⏺ Record Again';
+    status.textContent='✅ Saved as leados-ai-demo.webm — open in VLC or convert to MP4 with Handbrake (free)';
+    recording=false;
+  };
+  mr.start(100);
+  let s=15;
+  status.textContent=`Recording... ${s}s remaining`;
+  const iv=setInterval(()=>{
+    s--;
+    status.textContent=s>0?`Recording... ${s}s remaining`:'Finishing...';
+    if(s<=0){clearInterval(iv);mr.stop();}
+  },1000);
+}
+</script>
+</body>
+</html>

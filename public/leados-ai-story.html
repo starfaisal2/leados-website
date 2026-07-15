@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LeadOS AI — Story/Reel 9:16</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:16px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+canvas { display:block; border-radius:6px; }
+.ctrl { display:flex; gap:12px; align-items:center; }
+button { background:#4B6BFB; color:#fff; border:none; padding:13px 30px; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+button:hover { background:#3a5ae8; }
+button.rec { background:#ef4444; }
+#status { color:#64748b; font-size:12px; text-align:center; max-width:360px; }
+</style>
+</head>
+<body>
+
+<canvas id="c" width="1080" height="1920" style="width:340px;height:604px;"></canvas>
+<div class="ctrl">
+  <button id="btn" onclick="startRec()">⏺ Record 15s Video</button>
+</div>
+<div id="status">9:16 vertical format · LinkedIn Stories, Instagram Reels, TikTok</div>
+
+<script>
+const LOGO_IMG = new Image();
+LOGO_IMG.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIHJ4PSI2MCIgZmlsbD0id2hpdGUiLz4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibWFyayIgeDE9IjYwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSIyNDAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwQzhGMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjU1JSIgc3RvcC1jb2xvcj0iIzI1NjNFQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3QzNBRUQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDwhLS0gQm9sZCBMIG1hcmssIGNlbnRlcmVkIGFuZCBsYXJnZSAtLT4KICA8cmVjdCB4PSI3NSIgeT0iNjAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyMTAiIHJ4PSIyNiIgZmlsbD0idXJsKCNtYXJrKSIvPgogIDxyZWN0IHg9Ijc1IiB5PSIyMTgiIHdpZHRoPSIxNzUiIGhlaWdodD0iNTIiIHJ4PSIyNiIgZmlsbD0idXJsKCNtYXJrKSIvPgogIDwhLS0gU2lnbmFsIGRvdCArIHJpbmdzIHRvcCByaWdodCBvZiBMIC0tPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSIyMiIgZmlsbD0iIzAwQzhGMCIvPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjU2M0VCIiBzdHJva2Utd2lkdGg9IjciIG9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjIyOCIgY3k9IjgyIiByPSI1NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN0MzQUVEIiBzdHJva2Utd2lkdGg9IjQiIG9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4K';
+const C = document.getElementById('c');
+const X = C.getContext('2d');
+const W = 1080, H = 1920;
+
+// ─── UTILS ───
+const eOut  = t => 1 - Math.pow(1-t,3);
+const eInOut= t => t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const clamp = (v,a,b) => Math.min(Math.max(v,a),b);
+const prg   = (t,s,e) => clamp((t-s)/(e-s),0,1);
+const fIn   = (t,s,e) => eOut(prg(t,s,e));
+const fOut  = (t,s,e) => eOut(1-prg(t,s,e));
+const lerp  = (a,b,t) => a+(b-a)*t;
+const pulse = (t,f=1) => 0.7+0.3*Math.sin(t*f*Math.PI*2);
+const blink = (t,f=2) => 0.5+0.5*Math.sin(t*f*Math.PI*2);
+function rr(x,y,w,h,r){
+  X.beginPath();
+  X.moveTo(x+r,y); X.lineTo(x+w-r,y);
+  X.quadraticCurveTo(x+w,y,x+w,y+r); X.lineTo(x+w,y+h-r);
+  X.quadraticCurveTo(x+w,y+h,x+w-r,y+h); X.lineTo(x+r,y+h);
+  X.quadraticCurveTo(x,y+h,x,y+h-r); X.lineTo(x,y+r);
+  X.quadraticCurveTo(x,y,x+r,y); X.closePath();
+}
+function mw(txt,font){ X.font=font; return X.measureText(txt).width; }
+
+// ─── BACKGROUND ───
+function drawBG(t){
+  X.fillStyle='#050c1a'; X.fillRect(0,0,W,H);
+  // grid
+  X.strokeStyle='rgba(75,107,251,0.055)'; X.lineWidth=1;
+  for(let x=0;x<W;x+=70){ X.beginPath(); X.moveTo(x,0); X.lineTo(x,H); X.stroke(); }
+  for(let y=0;y<H;y+=70){ X.beginPath(); X.moveTo(0,y); X.lineTo(W,y); X.stroke(); }
+  // vignette
+  let g=X.createRadialGradient(W/2,H/2,300,W/2,H/2,1100);
+  g.addColorStop(0,'transparent'); g.addColorStop(1,'rgba(5,12,26,0.9)');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+  // top glow
+  g=X.createRadialGradient(W/2,400,0,W/2,400,500);
+  g.addColorStop(0,`rgba(75,107,251,${0.14*pulse(t,0.3)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+  // bottom glow green
+  g=X.createRadialGradient(W/2,H-300,0,W/2,H-300,450);
+  g.addColorStop(0,`rgba(74,222,128,${0.07*pulse(t,0.45)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+}
+
+// ─── TOP SECTION ───
+function drawTop(t){
+  const a=fIn(t,0.2,1.0);
+  X.globalAlpha=a;
+  // logo box
+  if(LOGO_IMG.complete) X.drawImage(LOGO_IMG,56,66,74,74);
+  // brand
+  X.font='700 34px sans-serif'; X.fillStyle='#fff'; X.textAlign='left'; X.fillText('LeadOS',144,107);
+  // tag top right
+  X.font='600 14px sans-serif'; X.fillStyle='rgba(75,107,251,0.9)'; X.textAlign='right';
+  X.fillText('AI OPERATING SYSTEM', W-56, 107);
+  X.globalAlpha=1;
+}
+
+// ─── HERO HEADLINE ───
+function drawHero(t){
+  const a=fIn(t,0.5,1.4);
+  const dy=lerp(30,0,eOut(prg(t,0.5,1.4)));
+  X.globalAlpha=a; X.save(); X.translate(0,dy);
+
+  // eyebrow badge
+  const badgeW=480, badgeH=48, badgeX=(W-badgeW)/2, badgeY=188;
+  rr(badgeX,badgeY,badgeW,badgeH,24);
+  X.fillStyle='rgba(75,107,251,0.12)'; X.fill();
+  rr(badgeX,badgeY,badgeW,badgeH,24);
+  X.strokeStyle='rgba(75,107,251,0.35)'; X.lineWidth=1.5; X.stroke();
+  // dot
+  X.beginPath(); X.arc(badgeX+24,badgeY+24,6,0,Math.PI*2);
+  X.fillStyle=`rgba(74,222,128,${blink(t)})`; X.fill();
+  X.font='600 15px sans-serif'; X.fillStyle='rgba(75,107,251,0.95)';
+  X.textAlign='center'; X.fillText('AI-Powered · 24/7 Automated · Live',W/2,badgeY+31);
+
+  // BIG headline
+  X.font='bold 86px sans-serif'; X.fillStyle='#fff'; X.textAlign='center';
+  X.fillText('Most CRMs',W/2,316);
+  X.fillText('Store Data.',W/2,412);
+
+  // italic blue line
+  X.font='italic bold 78px sans-serif'; X.fillStyle='#4B6BFB';
+  X.fillText('LeadOS Learns.',W/2,508);
+
+  // sub
+  X.font='400 28px sans-serif'; X.fillStyle='rgba(255,255,255,0.5)';
+  const sub='Capture leads · Reply in seconds · Book appointments · Rank on Google';
+  // wrap at 900px
+  const words=sub.split('·');
+  X.fillText(words[0].trim()+' ·  '+words[1].trim(),W/2,576);
+  X.fillText(words[2].trim()+' ·  '+words[3].trim(),W/2,618);
+
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── STAT STRIP ───
+function drawStatStrip(t){
+  const a=fIn(t,1.4,2.2);
+  X.globalAlpha=a;
+  const sy=680, sh=120, gap=12, sw=(W-112-gap*3)/4, sx=56;
+  const stats=[
+    {l:'Leads Today',v:47,  c:'#4B6BFB'},
+    {l:'AI Replies', v:183, c:'#4ade80'},
+    {l:'Bookings',   v:26,  c:'#fbbf24'},
+    {l:'Pipeline',   v:'$18K',c:'#c084fc',raw:true},
+  ];
+  const ct=eOut(prg(t,1.4,3.2));
+  stats.forEach((s,i)=>{
+    const cx=sx+i*(sw+gap);
+    rr(cx,sy,sw,sh,14); X.fillStyle='rgba(255,255,255,0.03)'; X.fill();
+    rr(cx,sy,sw,sh,14); X.strokeStyle='rgba(255,255,255,0.07)'; X.lineWidth=1; X.stroke();
+    X.font='600 12px sans-serif'; X.fillStyle='rgba(255,255,255,0.35)';
+    X.textAlign='center'; X.fillText(s.l,cx+sw/2,sy+26);
+    const val=s.raw?s.v:Math.floor(ct*s.v).toString();
+    X.font='bold 38px sans-serif'; X.fillStyle=s.c;
+    X.fillText(val,cx+sw/2,sy+80);
+  });
+  X.globalAlpha=1;
+}
+
+// ─── DASHBOARD PANEL ───
+function drawDash(t){
+  const a=fIn(t,1.6,2.4), dy=lerp(30,0,eOut(prg(t,1.6,2.4)));
+  X.globalAlpha=a; X.save(); X.translate(0,dy);
+  const px=46, py=830, pw=W-92, ph=680;
+  rr(px,py,pw,ph,24); X.fillStyle='rgba(9,17,38,0.97)'; X.fill();
+  rr(px,py,pw,ph,24); X.strokeStyle='rgba(75,107,251,0.28)'; X.lineWidth=1.5; X.stroke();
+  rr(px+1,py+1,pw-2,1,0); X.fillStyle='rgba(255,255,255,0.04)'; X.fill();
+  // dots
+  [[0,'#ff5f57'],[22,'#febc2e'],[44,'#28c840']].forEach(([dx,c])=>{
+    X.beginPath(); X.arc(px+26+dx,py+30,8,0,Math.PI*2); X.fillStyle=c; X.fill();
+  });
+  X.font='500 16px sans-serif'; X.fillStyle='rgba(255,255,255,0.35)';
+  X.textAlign='center'; X.fillText('LeadOS · Command Center',W/2,py+36);
+  // LIVE
+  rr(px+pw-106,py+16,94,30,15); X.fillStyle='rgba(75,107,251,0.12)'; X.fill();
+  rr(px+pw-106,py+16,94,30,15); X.strokeStyle='rgba(75,107,251,0.4)'; X.lineWidth=1; X.stroke();
+  X.beginPath(); X.arc(px+pw-90,py+31,5,0,Math.PI*2);
+  X.fillStyle=`rgba(74,222,128,${blink(t)})`; X.fill();
+  X.font='600 13px sans-serif'; X.fillStyle='#4B6BFB'; X.textAlign='left';
+  X.fillText('Live',px+pw-79,py+36);
+  // separator
+  X.beginPath(); X.moveTo(px+16,py+60); X.lineTo(px+pw-16,py+60);
+  X.strokeStyle='rgba(255,255,255,0.07)'; X.lineWidth=1; X.stroke();
+  // panel title
+  X.font='600 14px sans-serif'; X.fillStyle='rgba(255,255,255,0.3)';
+  X.textAlign='left'; X.fillText('INCOMING LEADS',px+20,py+92);
+  X.beginPath(); X.arc(px+pw-24,py+86,6,0,Math.PI*2);
+  X.fillStyle=`rgba(74,222,128,${blink(t)})`; X.fill();
+  X.restore(); X.globalAlpha=1;
+
+  drawLeads(t,px,py,a,dy);
+}
+
+// ─── LEADS ───
+const LEADS=[
+  {n:'Sara Al Mansouri',  src:'WhatsApp · Aesthetic Clinic', bg:'#25d366', st:'AI Replied ✓',  sc:'#4ade80', at:3.0},
+  {n:'Mohammed Hassan',   src:'Instagram · Real Estate',     bg:'#e1306c', st:'Booked ✓',      sc:'#fbbf24', at:4.2},
+  {n:'Priya Nair',        src:'Website · Salon',             bg:'#4B6BFB', st:'Responding...', sc:'#4B6BFB', at:5.4},
+  {n:'Khalid Al Rashid',  src:'Facebook · Dental Clinic',    bg:'#1877f2', st:'AI Replied ✓',  sc:'#4ade80', at:6.6},
+];
+function drawLeads(t,px,py,pa,dy){
+  X.save(); X.translate(0,dy);
+  LEADS.forEach((ld,i)=>{
+    const a=fIn(t,ld.at,ld.at+0.55), sx=lerp(-28,0,eOut(prg(t,ld.at,ld.at+0.4)));
+    if(a<0.01) return;
+    X.globalAlpha=pa*a; X.save(); X.translate(sx,0);
+    const ry=py+108+i*134, rh=116, rw=pw-32;
+    rr(px+16,ry,rw,rh,14); X.fillStyle='rgba(255,255,255,0.027)'; X.fill();
+    rr(px+16,ry,rw,rh,14); X.strokeStyle='rgba(255,255,255,0.055)'; X.lineWidth=1; X.stroke();
+    // avatar
+    X.beginPath(); X.arc(px+62,ry+rh/2,32,0,Math.PI*2); X.fillStyle=ld.bg+'28'; X.fill();
+    X.beginPath(); X.arc(px+62,ry+rh/2,32,0,Math.PI*2); X.strokeStyle=ld.bg+'55'; X.lineWidth=1.5; X.stroke();
+    X.font='bold 20px sans-serif'; X.fillStyle=ld.bg; X.textAlign='center'; X.fillText(ld.n[0],px+62,ry+rh/2+7);
+    X.font='600 18px sans-serif'; X.fillStyle='rgba(255,255,255,0.85)'; X.textAlign='left'; X.fillText(ld.n,px+108,ry+44);
+    X.font='14px sans-serif'; X.fillStyle='rgba(255,255,255,0.35)'; X.fillText(ld.src,px+108,ry+68);
+    // badge
+    const bw=mw(ld.st,'600 13px sans-serif')+24;
+    rr(px+rw-bw+4,ry+40,bw,30,15); X.fillStyle=ld.sc+'20'; X.fill();
+    rr(px+rw-bw+4,ry+40,bw,30,15); X.strokeStyle=ld.sc+'45'; X.lineWidth=1; X.stroke();
+    X.font='600 13px sans-serif'; X.fillStyle=ld.sc; X.textAlign='center';
+    X.fillText(ld.st,px+rw-bw/2+4,ry+60);
+    X.restore();
+  });
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── AI REPLY SECTION ───
+function drawAISection(t){
+  const a=fIn(t,8.0,9.0), dy=lerp(20,0,eOut(prg(t,8.0,9.0)));
+  if(a<0.01) return;
+  X.globalAlpha=a; X.save(); X.translate(0,dy);
+  const ax=46, ay=1540, aw=W-92;
+
+  // reply card
+  rr(ax,ay,aw,140,18); X.fillStyle='rgba(74,222,128,0.05)'; X.fill();
+  rr(ax,ay,aw,140,18); X.strokeStyle='rgba(74,222,128,0.22)'; X.lineWidth=1.5; X.stroke();
+  X.font='600 13px sans-serif'; X.fillStyle='#4ade80'; X.textAlign='left';
+  X.fillText('✦  AI REPLY SENT · 3 SECONDS',ax+20,ay+28);
+  X.font='15px sans-serif'; X.fillStyle='rgba(255,255,255,0.65)';
+  ['"Hi Sara! 😊 We have slots Tuesday 2pm',
+   'or Thursday 11am. Book you in?"'].forEach((l,i)=>X.fillText(l,ax+20,ay+56+i*26));
+  // typing dots behind (if still thinking)
+  const da=fOut(t,7.8,8.4);
+  if(da>0.01){
+    X.globalAlpha=a*da;
+    [0,1,2].forEach(i=>{
+      const b=Math.sin((t*3.5-i*0.3)*Math.PI*2)*6;
+      X.beginPath(); X.arc(ax+24+i*20,ay+112+b,6,0,Math.PI*2);
+      X.fillStyle='#4B6BFB'; X.fill();
+    });
+    X.globalAlpha=a;
+  }
+  X.font='600 13px sans-serif'; X.fillStyle='rgba(255,255,255,0.28)';
+  X.fillText('AI composing reply...',ax+90,ay+115);
+
+  // booking strip
+  const ba=fIn(t,10.0,10.8);
+  if(ba>0.01){
+    X.globalAlpha=a*ba;
+    rr(ax,ay+152,aw,130,18); X.fillStyle='rgba(251,191,36,0.05)'; X.fill();
+    rr(ax,ay+152,aw,130,18); X.strokeStyle='rgba(251,191,36,0.26)'; X.lineWidth=1.5; X.stroke();
+    X.font='600 13px sans-serif'; X.fillStyle='#fbbf24'; X.textAlign='left';
+    X.fillText('📅  APPOINTMENT BOOKED AUTOMATICALLY',ax+20,ay+180);
+    X.font='15px sans-serif'; X.fillStyle='rgba(255,255,255,0.62)';
+    ['👤  Sara Al Mansouri','📅  Tuesday, 2:00pm · Lip Filler','✅  Confirmation sent via WhatsApp']
+      .forEach((l,i)=>X.fillText(l,ax+20,ay+210+i*26));
+    X.globalAlpha=a;
+  }
+
+  X.restore(); X.globalAlpha=1;
+}
+
+// ─── NOTIFICATIONS ───
+const NOTIFS=[
+  {x:46,  t1:'New WhatsApp Lead',   t2:"Sara · \"I want to book...\"",       ic:'💬', c:'#25d366', on:2.6,  off:6.5},
+  {x:W/2+10,t1:'Instagram DM',     t2:"Mohammed · \"How much?\"",            ic:'📸', c:'#e1306c', on:3.8,  off:7.5},
+  {x:46,  t1:'AI Reply Delivered',  t2:'Response time: 3 seconds ✓',          ic:'🤖', c:'#4ade80', on:9.0,  off:12.5},
+  {x:W/2+10,t1:'Booking Confirmed!',t2:'Sara · Tuesday 2pm · Auto ✓',         ic:'📅', c:'#fbbf24', on:10.5, off:13.5},
+];
+function drawNotifs(t){
+  NOTIFS.forEach(n=>{
+    const a=fIn(t,n.on,n.on+0.5)*fOut(t,n.off,n.off+0.5);
+    if(a<0.01) return;
+    const sy=lerp(-20,0,eOut(prg(t,n.on,n.on+0.4)));
+    const nw=W/2-56, ny=750;
+    X.globalAlpha=a; X.save(); X.translate(0,sy);
+    rr(n.x,ny,nw,70,14); X.fillStyle='rgba(8,14,32,0.98)'; X.fill();
+    rr(n.x,ny,nw,70,14); X.strokeStyle=n.c+'60'; X.lineWidth=1.5; X.stroke();
+    X.beginPath(); X.arc(n.x+36,ny+35,22,0,Math.PI*2); X.fillStyle=n.c+'22'; X.fill();
+    X.font='20px sans-serif'; X.textAlign='center'; X.fillText(n.ic,n.x+36,ny+43);
+    X.font='600 14px sans-serif'; X.fillStyle='rgba(255,255,255,0.9)';
+    X.textAlign='left'; X.fillText(n.t1,n.x+66,ny+28);
+    X.font='12px sans-serif'; X.fillStyle='rgba(255,255,255,0.38)'; X.fillText(n.t2,n.x+66,ny+48);
+    X.restore(); X.globalAlpha=1;
+  });
+}
+
+// ─── AI BRAIN ───
+function drawBrain(t){
+  const a=fIn(t,2.0,3.0); if(a<0.01) return;
+  X.globalAlpha=a;
+  const bx=W-100, by=H-180;
+  let g=X.createRadialGradient(bx,by,0,bx,by,70+pulse(t)*10);
+  g.addColorStop(0,`rgba(75,107,251,${0.2*pulse(t)})`); g.addColorStop(1,'transparent');
+  X.fillStyle=g; X.beginPath(); X.arc(bx,by,90,0,Math.PI*2); X.fill();
+  X.save(); X.translate(bx,by); X.rotate(t*0.55);
+  X.beginPath(); X.arc(0,0,50,0,Math.PI*2);
+  X.setLineDash([10,8]); X.strokeStyle='rgba(75,107,251,0.35)'; X.lineWidth=2.5; X.stroke();
+  X.setLineDash([]); X.restore();
+  X.save(); X.translate(bx,by); X.rotate(-t*0.85);
+  X.beginPath(); X.arc(0,0,36,0,Math.PI*2);
+  X.setLineDash([6,5]); X.strokeStyle='rgba(75,107,251,0.55)'; X.lineWidth=2; X.stroke();
+  X.setLineDash([]); X.restore();
+  X.beginPath(); X.arc(bx,by,22,0,Math.PI*2); X.fillStyle='rgba(75,107,251,0.14)'; X.fill();
+  X.beginPath(); X.arc(bx,by,22,0,Math.PI*2); X.strokeStyle='#4B6BFB'; X.lineWidth=2.5; X.stroke();
+  X.font='22px sans-serif'; X.textAlign='center'; X.fillText('🧠',bx,by+8);
+  X.globalAlpha=1;
+}
+
+// ─── SEO TICKER ───
+let tickX=0;
+const TICKS=[
+  '✦  "Best Aesthetic Clinic Dubai" — Ranked Top 3',
+  '✦  "lip filler dubai" — Page 1 Google',
+  '✦  "Real Estate Agent UAE" — Published & Ranking',
+  '✦  "hair salon dubai marina" — Top 5',
+  '✦  "dental clinic abu dhabi" — Page 1',
+];
+const TICKSTR=TICKS.join('          ');
+
+function drawTicker(t,dt){
+  const a=fIn(t,2.5,3.2); if(a<0.01) return;
+  X.globalAlpha=a;
+  const tx=46, ty=H-118, tw=W-92, th=56;
+  rr(tx,ty,tw,th,14); X.fillStyle='rgba(8,15,34,0.96)'; X.fill();
+  rr(tx,ty,tw,th,14); X.strokeStyle='rgba(75,107,251,0.2)'; X.lineWidth=1; X.stroke();
+  X.font='700 12px sans-serif'; X.fillStyle='#4B6BFB'; X.textAlign='left';
+  X.fillText('AUTO SEO',tx+18,ty+33);
+  X.beginPath(); X.moveTo(tx+102,ty+12); X.lineTo(tx+102,ty+th-12);
+  X.strokeStyle='rgba(255,255,255,0.09)'; X.lineWidth=1; X.stroke();
+  tickX+=dt*58;
+  X.save(); X.beginPath(); X.rect(tx+110,ty,tw-114,th); X.clip();
+  X.font='14px sans-serif';
+  const fw=mw(TICKSTR,'14px sans-serif')+80;
+  const xo=tx+116-(tickX%fw);
+  for(let r=0;r<3;r++){
+    let cx=xo+r*fw;
+    TICKS.forEach(item=>{
+      const pts=item.split('—');
+      X.fillStyle='#4ade80'; X.textAlign='left'; X.fillText(pts[0].trim(),cx,ty+33);
+      cx+=mw(pts[0].trim(),'14px sans-serif')+8;
+      if(pts[1]){ X.fillStyle='rgba(255,255,255,0.42)'; X.fillText('— '+pts[1].trim(),cx,ty+33); cx+=mw('— '+pts[1].trim(),'14px sans-serif'); }
+      cx+=80;
+    });
+  }
+  X.restore();
+  X.globalAlpha=1;
+}
+
+// ─── URL / BOTTOM ───
+function drawBottom(t){
+  const a=fIn(t,1.5,2.5)*0.45;
+  X.globalAlpha=a;
+  X.font='600 18px sans-serif'; X.fillStyle='rgba(255,255,255,0.5)';
+  X.textAlign='center'; X.fillText('www.leadoscrm.com',W/2,H-28);
+  X.globalAlpha=1;
+}
+
+// ─── CTA BANNER ───
+function drawCTA(t){
+  const a=fIn(t,11.0,12.0); if(a<0.01) return;
+  X.globalAlpha=a;
+  const cx=46, cy=1820, cw=W-92, ch=66;
+  rr(cx,cy,cw,ch,16); X.fillStyle='#4B6BFB'; X.fill();
+  X.font='bold 22px sans-serif'; X.fillStyle='#fff'; X.textAlign='center';
+  X.fillText('Start Free · No Contract · Setup in 48h',W/2,cy+40);
+  X.globalAlpha=1;
+}
+
+// ─── LOOP ───
+const LOOP=14;
+let T0=null, last=null;
+function frame(now){
+  if(!T0) T0=now;
+  const t=((now-T0)/1000)%LOOP;
+  const dt=last?(now-last)/1000:0;
+  last=now;
+  X.clearRect(0,0,W,H);
+  drawBG(t);
+  drawTop(t);
+  drawHero(t);
+  drawStatStrip(t);
+  drawDash(t);
+  drawAISection(t);
+  drawNotifs(t);
+  drawBrain(t);
+  drawTicker(t,dt);
+  drawCTA(t);
+  drawBottom(t);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ─── RECORD ───
+let recording=false;
+function startRec(){
+  if(recording) return;
+  recording=true;
+  const btn=document.getElementById('btn');
+  const status=document.getElementById('status');
+  btn.className='rec'; btn.textContent='⏺ Recording...';
+  T0=performance.now(); tickX=0;
+  const chunks=[];
+  const stream=C.captureStream(30);
+  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+    ?'video/webm;codecs=vp9':'video/webm';
+  const mr=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:12000000});
+  mr.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  mr.onstop=()=>{
+    const blob=new Blob(chunks,{type:'video/webm'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='leados-story-vertical.webm'; a.click();
+    URL.revokeObjectURL(url);
+    btn.className=''; btn.textContent='⏺ Record Again';
+    status.textContent='✅ Saved as leados-story-vertical.webm — ready for LinkedIn Stories, Instagram Reels & TikTok';
+    recording=false;
+  };
+  mr.start(100);
+  let s=15;
+  status.textContent=`Recording... ${s}s remaining`;
+  const iv=setInterval(()=>{
+    s--;
+    status.textContent=s>0?`Recording... ${s}s remaining`:'Finishing...';
+    if(s<=0){clearInterval(iv);mr.stop();}
+  },1000);
+}
+</script>
+</body>
+</html>

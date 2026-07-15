@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LeadOS AI Animation</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+#canvas-wrap {
+  width: 1080px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: #050c1a;
+  flex-shrink: 0;
+}
+
+/* ── grid bg ── */
+#canvas-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(75,107,251,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75,107,251,0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+#canvas-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, #050c1a 100%);
+  z-index: 1;
+}
+
+/* ── glow orb ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+.orb1 { width: 500px; height: 500px; background: rgba(75,107,251,0.18); top: 200px; left: 50%; transform: translateX(-50%); animation: orbPulse 4s ease-in-out infinite; }
+.orb2 { width: 300px; height: 300px; background: rgba(99,240,180,0.1); bottom: 100px; right: 100px; animation: orbPulse 5s ease-in-out infinite reverse; }
+
+@keyframes orbPulse { 0%,100%{opacity:.6;transform:translateX(-50%) scale(1)} 50%{opacity:1;transform:translateX(-50%) scale(1.15)} }
+
+/* ── LOGO ── */
+#logo {
+  position: absolute;
+  top: 52px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.logo-box {
+  width: 48px; height: 48px;
+  background: #4B6BFB;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 800; color: white;
+}
+.logo-text { font-size: 26px; font-weight: 700; color: white; letter-spacing: -0.5px; }
+
+/* ── HEADLINE ── */
+#headline {
+  position: absolute;
+  top: 52px;
+  right: 60px;
+  z-index: 10;
+  text-align: right;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+#headline .tag {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4B6BFB;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── CRM DASHBOARD ── */
+#dashboard {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  background: rgba(10,18,40,0.95);
+  border: 1px solid rgba(75,107,251,0.3);
+  border-radius: 20px;
+  padding: 24px;
+  z-index: 5;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+  box-shadow: 0 0 60px rgba(75,107,251,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* dashboard top bar */
+.db-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.db-dots { display: flex; gap: 7px; }
+.db-dot { width: 11px; height: 11px; border-radius: 50%; }
+.db-dot.r { background: #ff5f57; }
+.db-dot.y { background: #febc2e; }
+.db-dot.g { background: #28c840; }
+.db-title { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.05em; }
+.db-badge { background: rgba(75,107,251,0.2); border: 1px solid rgba(75,107,251,0.4); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #4B6BFB; font-weight: 600; }
+
+/* stat cards row */
+.db-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px;
+}
+.stat-card .s-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-card .s-num { font-size: 24px; font-weight: 700; color: white; }
+.stat-card .s-num.blue { color: #4B6BFB; }
+.stat-card .s-num.green { color: #4ade80; }
+.stat-card .s-num.amber { color: #fbbf24; }
+.stat-card .s-sub { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 3px; }
+
+/* main two-col */
+.db-main { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* leads panel */
+.panel {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 16px;
+}
+.panel-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.panel-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* lead row */
+.lead-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.lead-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.lead-info { flex: 1; min-width: 0; }
+.lead-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.lead-src { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+.lead-status {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 20px;
+  flex-shrink: 0;
+}
+.status-new { background: rgba(75,107,251,0.2); color: #4B6BFB; border: 1px solid rgba(75,107,251,0.3); }
+.status-reply { background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+.status-booked { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+
+/* channel icons */
+.ch-wa { background: rgba(37,211,102,0.15); color: #25d366; }
+.ch-ig { background: rgba(225,48,108,0.15); color: #e1306c; }
+.ch-web { background: rgba(75,107,251,0.15); color: #4B6BFB; }
+.ch-fb { background: rgba(24,119,242,0.15); color: #1877f2; }
+
+/* AI panel */
+.ai-panel { }
+.ai-thinking {
+  background: rgba(75,107,251,0.06);
+  border: 1px solid rgba(75,107,251,0.2);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+.ai-typing { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.typing-dot { width: 6px; height: 6px; border-radius: 50%; background: #4B6BFB; animation: typingAnim 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingAnim { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-5px);opacity:1} }
+
+.ai-reply {
+  background: rgba(74,222,128,0.06);
+  border: 1px solid rgba(74,222,128,0.2);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  opacity: 0;
+}
+.ai-tag { font-size: 10px; color: #4ade80; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+
+.booking-card {
+  background: rgba(251,191,36,0.06);
+  border: 1px solid rgba(251,191,36,0.2);
+  border-radius: 10px;
+  padding: 12px;
+  opacity: 0;
+}
+.booking-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+.booking-row:last-child { margin-bottom: 0; }
+.booking-icon { width: 20px; height: 20px; background: rgba(251,191,36,0.15); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+
+/* ── INCOMING LEAD NOTIFICATIONS ── */
+.notif {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10,18,40,0.97);
+  border: 1px solid rgba(75,107,251,0.4);
+  border-radius: 14px;
+  padding: 12px 16px;
+  z-index: 20;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  opacity: 0;
+  min-width: 220px;
+}
+.notif-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.notif-text .n-title { font-size: 12px; font-weight: 700; color: white; }
+.notif-text .n-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* ── SEO TICKER ── */
+#seo-ticker {
+  position: absolute;
+  bottom: 52px;
+  left: 60px;
+  right: 60px;
+  background: rgba(10,18,40,0.95);
+  border: 1px solid rgba(75,107,251,0.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeUp 0.8s 2.5s forwards;
+}
+.seo-label { font-size: 11px; font-weight: 700; color: #4B6BFB; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+.seo-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.1); }
+.seo-scroll { flex: 1; overflow: hidden; }
+.seo-inner { display: flex; gap: 48px; white-space: nowrap; animation: scrollTicker 18s linear infinite; }
+.seo-item { font-size: 12px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 8px; }
+.seo-item span { color: #4ade80; }
+@keyframes scrollTicker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ── AI BRAIN VISUAL ── */
+#ai-brain {
+  position: absolute;
+  right: 60px;
+  bottom: 110px;
+  width: 90px;
+  height: 90px;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 1s 2s forwards;
+}
+.brain-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(75,107,251,0.3);
+  animation: brainSpin 8s linear infinite;
+}
+.brain-ring.r2 {
+  inset: 10px;
+  border-color: rgba(75,107,251,0.5);
+  animation-duration: 5s;
+  animation-direction: reverse;
+}
+.brain-core {
+  position: absolute;
+  inset: 22px;
+  background: rgba(75,107,251,0.15);
+  border-radius: 50%;
+  border: 2px solid rgba(75,107,251,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  animation: corePulse 2s ease-in-out infinite;
+}
+@keyframes brainSpin { to{transform:rotate(360deg)} }
+@keyframes corePulse { 0%,100%{box-shadow:0 0 0 0 rgba(75,107,251,0.4)} 50%{box-shadow:0 0 0 12px rgba(75,107,251,0)} }
+
+/* ── PARTICLE LINES ── */
+.pulse-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4B6BFB, transparent);
+  z-index: 3;
+  opacity: 0;
+  border-radius: 1px;
+}
+
+/* ── COUNTER ANIMATION ── */
+.counter { display: inline-block; }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes slideInLeft { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+@keyframes slideInRight { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+@keyframes notifIn { 0%{opacity:0;transform:translateY(-20px) scale(0.9)} 15%{opacity:1;transform:translateY(0) scale(1)} 75%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-10px)} }
+@keyframes pulseLineAnim { 0%{opacity:0;width:0} 30%{opacity:0.8} 100%{opacity:0;width:200px} }
+</style>
+</head>
+<body>
+<div id="canvas-wrap">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <!-- LOGO -->
+  <div id="logo">
+    <div class="logo-box">L</div>
+    <span class="logo-text">LeadOS</span>
+  </div>
+
+  <!-- TOP RIGHT TAG -->
+  <div id="headline">
+    <div class="tag">AI Operating System</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <div class="db-topbar">
+      <div class="db-dots">
+        <div class="db-dot r"></div>
+        <div class="db-dot y"></div>
+        <div class="db-dot g"></div>
+      </div>
+      <div class="db-title">LeadOS · Command Center</div>
+      <div class="db-badge">● Live</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="db-stats">
+      <div class="stat-card">
+        <div class="s-label">Leads Today</div>
+        <div class="s-num blue" id="cnt-leads">0</div>
+        <div class="s-sub">↑ 34% vs yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">AI Replies Sent</div>
+        <div class="s-num green" id="cnt-replies">0</div>
+        <div class="s-sub">avg 4s response time</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Bookings Made</div>
+        <div class="s-num amber" id="cnt-bookings">0</div>
+        <div class="s-sub">↑ 62% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Revenue Pipeline</div>
+        <div class="s-num" style="color:#c084fc;" id="cnt-revenue">$0</div>
+        <div class="s-sub">tracked automatically</div>
+      </div>
+    </div>
+
+    <!-- MAIN PANELS -->
+    <div class="db-main">
+      <!-- LEADS -->
+      <div class="panel">
+        <div class="panel-title">
+          Incoming Leads
+          <div class="panel-dot"></div>
+        </div>
+        <div class="lead-row" id="lead1">
+          <div class="lead-avatar ch-wa">S</div>
+          <div class="lead-info">
+            <div class="lead-name">Sara Al Mansouri</div>
+            <div class="lead-src">WhatsApp · Aesthetic Clinic</div>
+          </div>
+          <div class="lead-status status-reply">AI Replied ✓</div>
+        </div>
+        <div class="lead-row" id="lead2">
+          <div class="lead-avatar ch-ig">M</div>
+          <div class="lead-info">
+            <div class="lead-name">Mohammed Hassan</div>
+            <div class="lead-src">Instagram · Real Estate</div>
+          </div>
+          <div class="lead-status status-booked">Booked ✓</div>
+        </div>
+        <div class="lead-row" id="lead3">
+          <div class="lead-avatar ch-web">P</div>
+          <div class="lead-info">
+            <div class="lead-name">Priya Nair</div>
+            <div class="lead-src">Website · Salon</div>
+          </div>
+          <div class="lead-status status-new">Responding...</div>
+        </div>
+        <div class="lead-row" id="lead4">
+          <div class="lead-avatar ch-fb">K</div>
+          <div class="lead-info">
+            <div class="lead-name">Khalid Al Rashid</div>
+            <div class="lead-src">Facebook · Dental Clinic</div>
+          </div>
+          <div class="lead-status status-reply">AI Replied ✓</div>
+        </div>
+      </div>
+
+      <!-- AI PANEL -->
+      <div class="panel ai-panel">
+        <div class="panel-title">AI Brain · Working Now</div>
+
+        <div class="ai-thinking" id="ai-thinking">
+          <div style="font-size:11px;color:#4B6BFB;font-weight:600;margin-bottom:6px;">PROCESSING · SARA'S ENQUIRY</div>
+          "Hi, I'm interested in a lip filler appointment next week..."
+          <div class="ai-typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <span style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:4px;">AI composing reply</span>
+          </div>
+        </div>
+
+        <div class="ai-reply" id="ai-reply">
+          <div class="ai-tag">✦ AI Reply Sent · 3 seconds</div>
+          "Hi Sara! Thanks for reaching out 😊 We have availability next Tuesday at 2pm or Thursday at 11am. Shall I book you in? Which treatment are you considering?"
+        </div>
+
+        <div class="booking-card" id="booking-card">
+          <div class="ai-tag" style="color:#fbbf24;">📅 Appointment Booked Automatically</div>
+          <div class="booking-row"><div class="booking-icon">👤</div>Sara Al Mansouri</div>
+          <div class="booking-row"><div class="booking-icon">📅</div>Tuesday, 2:00pm · Lip Filler</div>
+          <div class="booking-row"><div class="booking-icon">✅</div>Confirmation sent via WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="notif" id="notif1" style="top:148px;left:60px;">
+    <div class="notif-icon ch-wa" style="background:rgba(37,211,102,0.15);">💬</div>
+    <div class="notif-text">
+      <div class="n-title">New WhatsApp Lead</div>
+      <div class="n-sub">Sara · "I want to book an appointment"</div>
+    </div>
+  </div>
+  <div class="notif" id="notif2" style="top:148px;right:60px;">
+    <div class="notif-icon" style="background:rgba(225,48,108,0.15);">📸</div>
+    <div class="notif-text">
+      <div class="n-title">Instagram DM Lead</div>
+      <div class="n-sub">Mohammed · "How much for a studio?"</div>
+    </div>
+  </div>
+  <div class="notif" id="notif3" style="top:700px;left:60px;">
+    <div class="notif-icon" style="background:rgba(74,222,128,0.15);">🤖</div>
+    <div class="notif-text">
+      <div class="n-title">AI Reply Delivered</div>
+      <div class="n-sub">Response time: 3 seconds ✓</div>
+    </div>
+  </div>
+  <div class="notif" id="notif4" style="top:700px;right:60px;">
+    <div class="notif-icon" style="background:rgba(251,191,36,0.15);">📅</div>
+    <div class="notif-text">
+      <div class="n-title">Appointment Booked</div>
+      <div class="n-sub">Sara · Tuesday 2pm · Auto confirmed</div>
+    </div>
+  </div>
+
+  <!-- AI BRAIN -->
+  <div id="ai-brain">
+    <div class="brain-ring"></div>
+    <div class="brain-ring r2"></div>
+    <div class="brain-core">🧠</div>
+  </div>
+
+  <!-- SEO TICKER -->
+  <div id="seo-ticker">
+    <div class="seo-label">Auto SEO</div>
+    <div class="seo-divider"></div>
+    <div class="seo-scroll">
+      <div class="seo-inner">
+        <div class="seo-item">✦ <span>Published:</span> "Best Aesthetic Clinic in Dubai 2025"</div>
+        <div class="seo-item">✦ <span>Ranking:</span> Top 3 · "lip filler dubai"</div>
+        <div class="seo-item">✦ <span>Published:</span> "How to Choose a Real Estate Agent in UAE"</div>
+        <div class="seo-item">✦ <span>Ranking:</span> Top 5 · "hair salon dubai marina"</div>
+        <div class="seo-item">✦ <span>Published:</span> "Best Aesthetic Clinic in Dubai 2025"</div>
+        <div class="seo-item">✦ <span>Ranking:</span> Top 3 · "lip filler dubai"</div>
+        <div class="seo-item">✦ <span>Published:</span> "How to Choose a Real Estate Agent in UAE"</div>
+        <div class="seo-item">✦ <span>Ranking:</span> Top 5 · "hair salon dubai marina"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target, duration, prefix, suffix) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { start = target; clearInterval(timer); }
+    el.textContent = prefix + Math.floor(start).toLocaleString() + suffix;
+  }, 16);
+}
+
+// ── LEAD ROW ANIMATIONS ──
+function showLead(id, delay) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    el.style.animation = `slideInLeft 0.5s forwards`;
+  }, delay);
+}
+
+// ── NOTIFICATION ANIMATIONS ──
+function showNotif(id, delay, duration) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    el.style.animation = `notifIn ${duration}ms forwards`;
+  }, delay);
+}
+
+// ── AI REPLY SEQUENCE ──
+function showAiReply(delay) {
+  setTimeout(() => {
+    const reply = document.getElementById('ai-reply');
+    reply.style.animation = 'fadeUp 0.6s forwards';
+  }, delay);
+}
+
+function showBooking(delay) {
+  setTimeout(() => {
+    const card = document.getElementById('booking-card');
+    card.style.animation = 'fadeUp 0.6s forwards';
+  }, delay);
+}
+
+// ── MAIN SEQUENCE ──
+function runSequence() {
+  // Counters start at 1.5s
+  setTimeout(() => {
+    animateCounter(document.getElementById('cnt-leads'), 47, 1500, '', '');
+    animateCounter(document.getElementById('cnt-replies'), 183, 1500, '', '');
+    animateCounter(document.getElementById('cnt-bookings'), 26, 1500, '', '');
+    animateCounter(document.getElementById('cnt-revenue'), 18400, 2000, '$', '');
+  }, 1500);
+
+  // Leads appear one by one
+  showLead('lead1', 2000);
+  showLead('lead2', 2600);
+  showLead('lead3', 3200);
+  showLead('lead4', 3800);
+
+  // Notifications
+  showNotif('notif1', 1500, 4000);
+  showNotif('notif2', 2500, 4000);
+  showNotif('notif3', 6000, 4000);
+  showNotif('notif4', 7500, 4000);
+
+  // AI reply sequence
+  showAiReply(5500);
+  showBooking(7000);
+}
+
+// ── LOOP every 14s ──
+function resetAndLoop() {
+  // Reset counters
+  ['cnt-leads','cnt-replies','cnt-bookings','cnt-revenue'].forEach(id => {
+    const el = document.getElementById(id);
+    if(id === 'cnt-revenue') el.textContent = '$0';
+    else el.textContent = '0';
+  });
+
+  // Reset leads
+  ['lead1','lead2','lead3','lead4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.animation = 'none';
+    el.style.opacity = '0';
+    void el.offsetWidth;
+  });
+
+  // Reset AI panels
+  document.getElementById('ai-reply').style.animation = 'none';
+  document.getElementById('ai-reply').style.opacity = '0';
+  document.getElementById('booking-card').style.animation = 'none';
+  document.getElementById('booking-card').style.opacity = '0';
+
+  // Reset notifs
+  ['notif1','notif2','notif3','notif4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.animation = 'none';
+    el.style.opacity = '0';
+    void el.offsetWidth;
+  });
+
+  runSequence();
+}
+
+// Start
+runSequence();
+setInterval(resetAndLoop, 14000);
+</script>
+</body>
+</html>
