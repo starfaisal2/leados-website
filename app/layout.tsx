@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   other: {
-    "facebook-domain-verification": "ghrfd8jf6ffskc6mwdldbm865ulkfi",
+    "facebook-domain-verification": "hidaso00wkq7hv2m9zkmut7qorzaai",
   },
 };
 
