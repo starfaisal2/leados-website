@@ -243,6 +243,345 @@ const DEMOS: Record<string, Array<{ f: string; t: string }>> = {
   ],
 };
 
+/* ── Animated Product Showcase ── */
+function ProductShowcase() {
+  const TABS = [
+    { label: "Inbox",      icon: "📥", color: "#22c55e" },
+    { label: "Dashboard",  icon: "📊", color: "#2563eb" },
+    { label: "Bookings",   icon: "📅", color: "#f97316" },
+    { label: "Meta Brain", icon: "🧠", color: "#7c3aed" },
+  ];
+  const SIDEBAR: [string, string][] = [
+    ["📥","Inbox"],["🤖","AI Brain"],["📞","Voice AI"],
+    ["📅","Bookings"],["👥","Contacts"],["📊","Reports"],["🧠","Meta Brain"],["⚙️","Settings"],
+  ];
+  const SIDEBAR_ACTIVE = ["Inbox","Reports","Bookings","Meta Brain"];
+
+  const [tab, setTab] = useState(0);
+  const [msgs, setMsgs] = useState<{f:string;t:string}[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [booked, setBooked] = useState(false);
+  const [kpis, setKpis] = useState({l:0,b:0,r:0,v:0});
+  const [appts, setAppts] = useState<number[]>([]);
+  const [chartOn, setChartOn] = useState(false);
+  const scMsgsEnd = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scMsgsEnd.current) scMsgsEnd.current.scrollIntoView({ behavior: "smooth" });
+  }, [msgs, isTyping]);
+
+  useEffect(() => {
+    setMsgs([]); setIsTyping(false); setBooked(false);
+    setKpis({l:0,b:0,r:0,v:0}); setAppts([]); setChartOn(false);
+    const T: ReturnType<typeof setTimeout>[] = [];
+
+    if (tab === 0) {
+      const seq: Array<{f:string;t:string}|null> = [
+        {f:"u",t:"Hi, I want a lip filler consultation please"},
+        null,
+        {f:"a",t:"Hi Layla! 👋 We have Thu 3pm or Fri 11am with Dr. Sarah — which works?"},
+        {f:"u",t:"Thursday 3pm!"},
+        null,
+        {f:"a",t:"Booked! ✅ Thu 3pm with Dr. Sarah. Reminder sent to your WhatsApp."},
+      ];
+      let d = 500;
+      for (const m of seq) {
+        if (!m) {
+          T.push(setTimeout(() => setIsTyping(true), d)); d += 1100;
+          T.push(setTimeout(() => setIsTyping(false), d));
+        } else {
+          const cap = m;
+          T.push(setTimeout(() => { setIsTyping(false); setMsgs(c => [...c, cap]); }, d));
+          d += cap.f === "u" ? 700 : 900;
+        }
+      }
+      T.push(setTimeout(() => setBooked(true), d + 300));
+    }
+
+    if (tab === 1) {
+      const tgt = {l:47,b:18,r:28,v:8400};
+      for (let i = 1; i <= 50; i++) {
+        const p = 1 - Math.pow(1 - i/50, 3);
+        T.push(setTimeout(() => setKpis({
+          l:Math.round(tgt.l*p), b:Math.round(tgt.b*p),
+          r:Math.round(tgt.r*p), v:Math.round(tgt.v*p),
+        }), i * 36));
+      }
+    }
+
+    if (tab === 2) {
+      for (let i = 0; i < 8; i++) T.push(setTimeout(() => setAppts(c => [...c, i]), 200 + i * 200));
+    }
+
+    if (tab === 3) T.push(setTimeout(() => setChartOn(true), 400));
+
+    return () => T.forEach(clearTimeout);
+  }, [tab]);
+
+  const CONVS = [
+    {name:"Layla H.", preview:"Hi, I want a lip filler…", ch:"💬", active:true,  time:"now"},
+    {name:"Ahmed K.", preview:"What's the price for…",   ch:"🟣", active:false, time:"2m"},
+    {name:"Sara M.",  preview:"Can I reschedule my…",    ch:"📞", active:false, time:"8m"},
+    {name:"David L.", preview:"Do you offer payment…",   ch:"📘", active:false, time:"15m"},
+  ];
+  const APPT_DATA = [
+    {name:"Layla H.",  svc:"Lip Filler Consultation",  time:"9:00",  col:"#22c55e"},
+    {name:"Ahmed K.",  svc:"Rhinoplasty Consult",       time:"10:30", col:"#3b82f6"},
+    {name:"Sara M.",   svc:"Skin Booster Session",      time:"11:00", col:"#a855f7"},
+    {name:"David L.",  svc:"Hair Analysis",             time:"13:00", col:"#f97316"},
+    {name:"Nour A.",   svc:"Filler Touch-up",           time:"14:30", col:"#ec4899"},
+    {name:"James K.",  svc:"PRP Treatment",             time:"15:00", col:"#14b8a6"},
+    {name:"Emily R.",  svc:"Laser Session",             time:"16:30", col:"#f59e0b"},
+    {name:"Omar F.",   svc:"Initial Consultation",      time:"17:00", col:"#6366f1"},
+  ];
+
+  return (
+    <div style={{ maxWidth: 980, margin: "0 auto" }}>
+      {/* Tab selector */}
+      <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:28, flexWrap:"wrap" }}>
+        {TABS.map((tb, i) => (
+          <button key={i} onClick={() => setTab(i)} style={{
+            display:"flex", alignItems:"center", gap:7,
+            padding:"9px 20px", borderRadius:10, fontSize:13.5, fontWeight:600,
+            fontFamily:"inherit", cursor:"pointer", transition:"all 0.2s",
+            background: tab===i ? tb.color : "white",
+            color: tab===i ? "white" : "var(--ink-3)",
+            border: tab===i ? `1.5px solid ${tb.color}` : "1.5px solid var(--border-2)",
+            boxShadow: tab===i ? `0 4px 14px ${tb.color}40` : "var(--shadow-xs)",
+          }}>
+            <span style={{fontSize:15}}>{tb.icon}</span>{tb.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Browser frame */}
+      <div style={{
+        background:"white", border:"1px solid var(--border-2)", borderRadius:18, overflow:"hidden",
+        boxShadow:"0 0 0 1px rgba(0,0,0,.03), 0 32px 64px rgba(0,0,0,.09), 0 8px 20px rgba(0,0,0,.05)",
+      }}>
+        {/* Title bar */}
+        <div style={{background:"var(--surface-2)",borderBottom:"1px solid var(--border)",padding:"10px 18px",display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:11,height:11,borderRadius:"50%",background:"#ff5f57"}}/>
+          <div style={{width:11,height:11,borderRadius:"50%",background:"#febc2e"}}/>
+          <div style={{width:11,height:11,borderRadius:"50%",background:"#28c840"}}/>
+          <div style={{flex:1,textAlign:"center",fontSize:11,color:"var(--ink-4)",background:"rgba(0,0,0,.04)",border:"1px solid var(--border)",borderRadius:6,padding:"3px 0",margin:"0 12px"}}>
+            app.myleados.ai — {TABS[tab].label}
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:5,fontSize:11,color:"var(--green)",fontWeight:600}}>
+            <div style={{width:6,height:6,borderRadius:"50%",background:"var(--green)",animation:"blink 2s infinite"}}/>Live
+          </div>
+        </div>
+
+        {/* Sidebar + content */}
+        <div style={{display:"grid",gridTemplateColumns:"185px 1fr",minHeight:400}}>
+          {/* Sidebar */}
+          <div style={{background:"var(--surface-2)",borderRight:"1px solid var(--border)",padding:"14px 10px"}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,padding:"4px 6px 14px",borderBottom:"1px solid var(--border)",marginBottom:10}}>
+              <Logo size={18}/>
+              <span style={{fontSize:12,fontWeight:700,letterSpacing:"1.5px",textTransform:"uppercase",background:"linear-gradient(90deg,var(--ink),var(--blue))",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>LeadOS</span>
+            </div>
+            {SIDEBAR.map(([ic, lb]) => {
+              const on = lb === SIDEBAR_ACTIVE[tab];
+              return (
+                <div key={lb} style={{display:"flex",alignItems:"center",gap:8,padding:"7px 9px",borderRadius:8,fontSize:12,marginBottom:2,background:on?"white":"transparent",color:on?"var(--ink)":"var(--ink-3)",fontWeight:on?600:400,boxShadow:on?"var(--shadow-xs)":"none"}}>
+                  <span style={{fontSize:12}}>{ic}</span>{lb}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Content */}
+          <div style={{overflow:"hidden",position:"relative"}}>
+
+            {/* INBOX */}
+            {tab === 0 && (
+              <div style={{display:"grid",gridTemplateColumns:"220px 1fr",height:"100%"}}>
+                <div style={{borderRight:"1px solid var(--border)",display:"flex",flexDirection:"column"}}>
+                  <div style={{padding:"12px 14px",borderBottom:"1px solid var(--border)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                    <span style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>All Conversations</span>
+                    <span style={{fontSize:10,background:"var(--blue)",color:"white",borderRadius:10,padding:"1px 7px",fontWeight:700}}>12</span>
+                  </div>
+                  {CONVS.map(c => (
+                    <div key={c.name} style={{display:"flex",alignItems:"center",gap:9,padding:"10px 14px",borderBottom:"1px solid var(--border)",background:c.active?"var(--blue-50)":"white"}}>
+                      <div style={{width:30,height:30,borderRadius:"50%",background:c.active?"rgba(37,99,235,.15)":"var(--surface-2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>{c.ch}</div>
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                          <span style={{fontSize:12,fontWeight:700,color:c.active?"var(--blue)":"var(--ink-2)"}}>{c.name}</span>
+                          <span style={{fontSize:10,color:"var(--ink-4)"}}>{c.time}</span>
+                        </div>
+                        <div style={{fontSize:11,color:"var(--ink-4)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.preview}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{display:"flex",flexDirection:"column",height:"100%"}}>
+                  <div style={{padding:"12px 16px",borderBottom:"1px solid var(--border)",display:"flex",alignItems:"center",gap:10}}>
+                    <div style={{width:28,height:28,borderRadius:"50%",background:"rgba(37,99,235,.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>💬</div>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>Layla Hassan</div>
+                      <div style={{fontSize:10,color:"var(--green)"}}>● WhatsApp · Active now</div>
+                    </div>
+                    {booked && (
+                      <div style={{marginLeft:"auto",background:"var(--green-50)",border:"1px solid rgba(22,163,74,.15)",borderRadius:20,padding:"3px 12px",fontSize:11,fontWeight:700,color:"var(--green)",animation:"fadeInUp 0.3s ease"}}>
+                        ✓ Booking Confirmed
+                      </div>
+                    )}
+                  </div>
+                  <div style={{flex:1,padding:"14px 16px",display:"flex",flexDirection:"column",gap:10,overflowY:"auto",maxHeight:320}}>
+                    {msgs.map((m,i) => (
+                      <div key={i} style={{display:"flex",gap:8,alignItems:"flex-end",flexDirection:m.f==="u"?"row-reverse":"row",animation:"fadeInUp 0.3s ease"}}>
+                        <div style={{width:22,height:22,borderRadius:"50%",background:m.f==="a"?"linear-gradient(135deg,#2563eb,#4f46e5)":"var(--surface-2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,flexShrink:0,color:m.f==="a"?"white":"var(--ink-3)"}}>
+                          {m.f==="a"?"🤖":"👤"}
+                        </div>
+                        <div style={{fontSize:12.5,padding:"8px 12px",borderRadius:m.f==="a"?"12px 12px 12px 3px":"12px 12px 3px 12px",background:m.f==="a"?"var(--surface-2)":"linear-gradient(135deg,#2563eb,#4f46e5)",color:m.f==="a"?"var(--ink-2)":"white",maxWidth:"75%",lineHeight:1.45}}>
+                          {m.t}
+                        </div>
+                      </div>
+                    ))}
+                    {isTyping && (
+                      <div style={{display:"flex",gap:8,alignItems:"flex-end"}}>
+                        <div style={{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#2563eb,#4f46e5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10}}>🤖</div>
+                        <div style={{display:"flex",gap:4,padding:"10px 14px",background:"var(--surface-2)",borderRadius:"12px 12px 12px 3px"}}>
+                          {[0,1,2].map(di => <div key={di} style={{width:5,height:5,borderRadius:"50%",background:"var(--ink-4)",animation:"tda 1.2s infinite",animationDelay:`${di*0.2}s`}}/>)}
+                        </div>
+                      </div>
+                    )}
+                    <div ref={scMsgsEnd}/>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* DASHBOARD */}
+            {tab === 1 && (
+              <div style={{padding:20}}>
+                <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:16}}>
+                  {[
+                    {l:"Leads Today",   v:String(kpis.l),              s:"↑ 23%", c:"var(--blue)"},
+                    {l:"Bookings",      v:String(kpis.b),              s:"↑ 31%", c:"var(--green)"},
+                    {l:"Avg Response",  v:`${kpis.r}s`,                s:"↓ 94%", c:"var(--ink)"},
+                    {l:"Revenue Est.",  v:`$${kpis.v.toLocaleString()}`, s:"↑ 18%", c:"var(--purple)"},
+                  ].map(k => (
+                    <div key={k.l} style={{background:"var(--surface-2)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px"}}>
+                      <div style={{fontSize:9.5,color:"var(--ink-4)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:5}}>{k.l}</div>
+                      <div style={{fontSize:24,fontWeight:800,color:k.c,letterSpacing:"-1px",fontVariantNumeric:"tabular-nums"}}>{k.v}</div>
+                      <div style={{fontSize:10.5,color:"var(--green)",fontWeight:700,marginTop:2}}>{k.s} today</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                  <div style={{background:"var(--surface-2)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px"}}>
+                    <div style={{fontSize:10,fontWeight:700,color:"var(--ink-3)",textTransform:"uppercase",letterSpacing:".5px",marginBottom:10}}>Leads This Week</div>
+                    <div style={{display:"flex",alignItems:"flex-end",gap:5,height:72}}>
+                      {[35,52,41,67,48,71,47].map((h,bi) => (
+                        <div key={bi} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3}}>
+                          <div style={{width:"100%",borderRadius:"3px 3px 0 0",background:"linear-gradient(180deg,#2563eb,#4f46e5)",height:kpis.l>0?`${(h/71)*72}px`:"0px",transition:`height 0.7s cubic-bezier(0.34,1.56,0.64,1)`,transitionDelay:`${bi*70}ms`}}/>
+                          <div style={{fontSize:8.5,color:"var(--ink-4)"}}>{"SMTWTFS"[bi]}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{background:"var(--surface-2)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px"}}>
+                    <div style={{fontSize:10,fontWeight:700,color:"var(--ink-3)",textTransform:"uppercase",letterSpacing:".5px",marginBottom:10}}>Lead Sources</div>
+                    {[
+                      {src:"WhatsApp", pct:34,c:"#22c55e"},
+                      {src:"Instagram",pct:28,c:"#a855f7"},
+                      {src:"Facebook", pct:19,c:"#3b82f6"},
+                      {src:"Voice AI", pct:12,c:"#f97316"},
+                      {src:"Website",  pct:7, c:"#64748b"},
+                    ].map(s => (
+                      <div key={s.src} style={{display:"flex",alignItems:"center",gap:7,marginBottom:7}}>
+                        <div style={{fontSize:11,color:"var(--ink-3)",width:66,flexShrink:0}}>{s.src}</div>
+                        <div style={{flex:1,height:5,background:"var(--border)",borderRadius:3,overflow:"hidden"}}>
+                          <div style={{height:"100%",borderRadius:3,background:s.c,width:kpis.l>0?`${s.pct}%`:"0%",transition:"width 1s ease",transitionDelay:"400ms"}}/>
+                        </div>
+                        <div style={{fontSize:10.5,fontWeight:700,color:"var(--ink-2)",width:24,textAlign:"right"}}>{s.pct}%</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* BOOKINGS */}
+            {tab === 2 && (
+              <div style={{padding:16}}>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
+                  <div style={{fontSize:13,fontWeight:700,color:"var(--ink)"}}>Today — Wednesday 16 Jul</div>
+                  <div style={{display:"flex",alignItems:"center",gap:6,background:"var(--green-50)",border:"1px solid rgba(22,163,74,.15)",borderRadius:20,padding:"4px 12px",fontSize:11,fontWeight:700,color:"var(--green)"}}>
+                    <div style={{width:6,height:6,borderRadius:"50%",background:"var(--green)",animation:"blink 2s infinite"}}/>{appts.length} bookings today
+                  </div>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                  {APPT_DATA.map((a,ai) => (
+                    <div key={ai} style={{display:"flex",alignItems:"center",gap:10,background:appts.includes(ai)?"white":"transparent",border:appts.includes(ai)?`1px solid ${a.col}22`:"1px solid transparent",borderLeft:appts.includes(ai)?`3px solid ${a.col}`:"3px solid transparent",borderRadius:10,padding:"8px 12px",transform:appts.includes(ai)?"translateX(0)":"translateX(-18px)",opacity:appts.includes(ai)?1:0,transition:"all 0.4s cubic-bezier(0.34,1.56,0.64,1)",boxShadow:appts.includes(ai)?"var(--shadow-xs)":"none"}}>
+                      <div style={{fontSize:10.5,fontWeight:700,color:"var(--ink-3)",width:32,flexShrink:0}}>{a.time}</div>
+                      <div style={{width:26,height:26,borderRadius:"50%",background:`${a.col}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,flexShrink:0}}>👤</div>
+                      <div style={{flex:1}}>
+                        <div style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>{a.name}</div>
+                        <div style={{fontSize:10.5,color:"var(--ink-4)"}}>{a.svc}</div>
+                      </div>
+                      <div style={{fontSize:9.5,fontWeight:700,padding:"2px 8px",borderRadius:20,background:`${a.col}15`,color:a.col,flexShrink:0}}>Confirmed</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* META BRAIN */}
+            {tab === 3 && (
+              <div style={{padding:20}}>
+                <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:14}}>
+                  {[
+                    {l:"Total Ad Spend",     v:"$2,400",  s:"This month",           c:"var(--ink)"},
+                    {l:"Revenue Attributed", v:"$19,200", s:"From tracked ads",      c:"var(--green)"},
+                    {l:"ROAS",               v:"8×",      s:"vs 2.1× industry avg", c:"var(--purple)"},
+                    {l:"Cost Per Booking",   v:"$48",     s:"↓ 35% vs last month",  c:"var(--blue)"},
+                  ].map((k,ki) => (
+                    <div key={k.l} style={{background:"var(--surface-2)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px",opacity:chartOn?1:0,transform:chartOn?"translateY(0)":"translateY(8px)",transition:`all 0.5s ease ${ki*80}ms`}}>
+                      <div style={{fontSize:9.5,color:"var(--ink-4)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:5}}>{k.l}</div>
+                      <div style={{fontSize:22,fontWeight:800,color:k.c,letterSpacing:"-1px"}}>{k.v}</div>
+                      <div style={{fontSize:10,color:"var(--ink-4)",marginTop:2}}>{k.s}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{background:"var(--surface-2)",border:"1px solid var(--border)",borderRadius:12,padding:"14px 16px",opacity:chartOn?1:0,transition:"opacity 0.5s ease 0.35s"}}>
+                  <div style={{fontSize:10,fontWeight:700,color:"var(--ink-3)",textTransform:"uppercase",letterSpacing:".5px",marginBottom:12}}>Revenue vs Ad Spend — Last 7 Days</div>
+                  <div style={{position:"relative",height:88}}>
+                    <svg width="100%" height="88" viewBox="0 0 500 88" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="sc-rev-g" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#22c55e" stopOpacity=".25"/>
+                          <stop offset="100%" stopColor="#22c55e" stopOpacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,72 C80,62 160,50 240,40 C320,28 400,18 500,8" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round"
+                        style={{strokeDasharray:700,strokeDashoffset:chartOn?0:700,transition:"stroke-dashoffset 1.2s ease 0.4s"}}/>
+                      <path d="M0,72 C80,62 160,50 240,40 C320,28 400,18 500,8 L500,88 L0,88Z" fill="url(#sc-rev-g)"
+                        style={{opacity:chartOn?1:0,transition:"opacity 0.5s ease 1.2s"}}/>
+                      <path d="M0,82 C80,78 160,74 240,70 C320,66 400,62 500,58" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"
+                        style={{strokeDasharray:700,strokeDashoffset:chartOn?0:700,transition:"stroke-dashoffset 1.2s ease 0.7s"}}/>
+                    </svg>
+                  </div>
+                  <div style={{display:"flex",gap:16,marginTop:8}}>
+                    <div style={{display:"flex",alignItems:"center",gap:5,fontSize:11,color:"var(--ink-3)"}}>
+                      <div style={{width:12,height:2.5,background:"#22c55e",borderRadius:2}}/> Revenue
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:5,fontSize:11,color:"var(--ink-3)"}}>
+                      <div style={{width:12,height:2.5,background:"#3b82f6",borderRadius:2}}/> Ad Spend
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const FAQS = [
   { q: "Do I need technical knowledge to use LeadOS?", a: "Not at all. LeadOS is built for business owners, not developers. Our team handles every aspect of setup — after a guided onboarding and testing process, you go live in 48 hours." },
   { q: "Which channels does LeadOS connect to?", a: "WhatsApp Business, Instagram DMs, Facebook Messenger, and your website live chat — all unified in one inbox. Voice AI handles inbound and outbound calls." },
@@ -481,74 +820,29 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ══ PRODUCT MODULES ══ */}
+      {/* ══ PRODUCT SHOWCASE ══ */}
       <section id="features" style={{ padding: "88px 0", background: "var(--surface-2)" }}>
         <div className="container">
           <div className="section-header center" style={{ marginBottom: 48 }}>
-            <span className="eyebrow">The full system</span>
-            <h2 className="display-lg">Six modules.<br /><span className="text-serif-em" style={{ color: "var(--ink-3)" }}>One platform.</span></h2>
+            <span className="eyebrow">See it in action</span>
+            <h2 className="display-lg">The real LeadOS platform,<br /><span className="text-serif-em" style={{ color: "var(--blue)" }}>live in your browser.</span></h2>
+            <p className="body-md" style={{ marginTop: 14, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+              Switch between modules to see exactly what your team sees — from AI-handled conversations to real-time bookings and ad attribution.
+            </p>
           </div>
-          <div className="leados-modules-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          <ProductShowcase />
+          {/* Feature pills */}
+          <div style={{ display:"flex", flexWrap:"wrap", justifyContent:"center", gap:10, marginTop:40 }}>
             {[
-              {
-                icon: "📥", color: "#22c55e", metric: "28s",
-                title: "Omni Inbox",
-                desc: "WhatsApp, Instagram, Messenger, and Web Chat — one unified inbox. AI handles every conversation 24/7, escalates when needed.",
-                tags: ["WhatsApp", "Instagram", "Messenger", "Live Chat"],
-              },
-              {
-                icon: "📞", color: "#f97316", metric: "24/7",
-                title: "Voice AI",
-                desc: "A real AI receptionist that answers calls, books appointments, and logs transcripts in English, Arabic, Hindi, and Urdu.",
-                tags: ["Inbound Calls", "Outbound Follow-up", "4 Languages"],
-              },
-              {
-                icon: "📅", color: "#3b82f6", metric: "3×",
-                title: "Smart Bookings",
-                desc: "AI checks your live calendar, confirms appointments, sends reminders, and reduces no-shows — no human in the loop.",
-                tags: ["Calendar Sync", "Auto-Reminders", "No-Show Recovery"],
-              },
-              {
-                icon: "🧠", color: "#7c3aed", metric: "8× ROAS",
-                title: "Meta Brain",
-                desc: "Connect your ad campaigns. See exactly which ads generate bookings and revenue — not just clicks — in one dashboard.",
-                tags: ["ROI Tracking", "Source Attribution", "Ad Insights"],
-              },
-              {
-                icon: "🚀", color: "#4f46e5", metric: "+31%",
-                title: "Auto SEO",
-                desc: "AI generates SEO-optimised articles for your clinic daily and publishes them directly to your website. Rank without writing.",
-                tags: ["Daily Articles", "Auto-Publish", "Google Indexing"],
-              },
-              {
-                icon: "⭐", color: "#f59e0b", metric: "4.9★",
-                title: "Reviews & Pipeline",
-                desc: "Automated review requests after each visit. Full lead pipeline from first contact to booked, arrived, and reviewed.",
-                tags: ["Google Reviews", "Pipeline", "Follow-up Sequences"],
-              },
-            ].map(mod => (
-              <div key={mod.title} className="leados-module-card" style={{
-                background: "white", borderRadius: 18, padding: "28px 26px",
-                border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 14,
-                cursor: "default", ["--card-accent" as string]: mod.color,
-              }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div style={{
-                    width: 44, height: 44, borderRadius: 12, fontSize: 22,
-                    background: `${mod.color}18`, display: "flex", alignItems: "center", justifyContent: "center"
-                  }}>{mod.icon}</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: mod.color }}>{mod.metric}</div>
-                </div>
-                <div style={{ fontSize: 16, fontWeight: 800, color: "#0f172a" }}>{mod.title}</div>
-                <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.65, flex: 1 }}>{mod.desc}</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {mod.tags.map(tag => (
-                    <span key={tag} style={{
-                      fontSize: 10, fontWeight: 700, padding: "3px 9px", borderRadius: 20,
-                      background: `${mod.color}12`, color: mod.color, letterSpacing: "0.04em"
-                    }}>{tag}</span>
-                  ))}
-                </div>
+              {icon:"📥",label:"Omni Inbox",    color:"#22c55e"},
+              {icon:"📞",label:"Voice AI",       color:"#f97316"},
+              {icon:"📅",label:"Smart Bookings", color:"#3b82f6"},
+              {icon:"🧠",label:"Meta Brain",     color:"#7c3aed"},
+              {icon:"🚀",label:"Auto SEO",       color:"#4f46e5"},
+              {icon:"⭐",label:"Reviews & Pipeline",color:"#f59e0b"},
+            ].map(f => (
+              <div key={f.label} style={{display:"flex",alignItems:"center",gap:7,padding:"8px 16px",borderRadius:10,background:"white",border:"1px solid var(--border-2)",fontSize:13,fontWeight:600,color:"var(--ink-2)",boxShadow:"var(--shadow-xs)"}}>
+                <span>{f.icon}</span>{f.label}
               </div>
             ))}
           </div>
