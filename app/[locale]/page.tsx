@@ -83,135 +83,46 @@ const CHANNEL_PILLS = [
   { icon: VOICEAI_ICON, label: "Voice AI" },
 ];
 
-/* ── Animated CRM Flow Diagram ── */
-function CrmFlowDiagram() {
-  const W = 820, H = 300;
-  const HUB_X = W / 2, HUB_Y = H / 2;
-  const LEFT_X = 100, RIGHT_X = W - 100;
-
-  const channels = [
-    { label: "WhatsApp", color: "#22c55e", y: 54 },
-    { label: "Instagram", color: "#a855f7", y: 118 },
-    { label: "Phone", color: "#f97316", y: 182 },
-    { label: "Website", color: "#3b82f6", y: 246 },
+/* ── How It Works — 3 Steps ── */
+function HowItWorksSteps() {
+  const steps = [
+    {
+      num: "01", icon: "📲", color: "#22c55e",
+      title: "Lead arrives from any channel",
+      desc: "WhatsApp, Instagram, Facebook, your website, or a phone call — every lead hits one unified inbox. Nothing falls through the cracks.",
+      tags: ["WhatsApp", "Instagram", "Voice AI", "Web Chat", "Facebook"],
+    },
+    {
+      num: "02", icon: "🤖", color: "#2563eb",
+      title: "AI qualifies & replies in 28 seconds",
+      desc: "Your AI reads context, qualifies intent, answers questions in their language, and books the appointment — automatically, 24/7.",
+      tags: ["Instant reply", "Multilingual", "Smart booking", "Escalation"],
+    },
+    {
+      num: "03", icon: "📊", color: "#7c3aed",
+      title: "Booking confirmed. Revenue tracked.",
+      desc: "Every booking, every ad source, every outcome — attributed and tracked in one dashboard. Know exactly what's growing your business.",
+      tags: ["Calendar sync", "Meta attribution", "Revenue report", "Reviews"],
+    },
   ];
-  const outcomes = [
-    { label: "Replied in 28s", color: "#22c55e", y: 54 },
-    { label: "Booking Confirmed", color: "#3b82f6", y: 118 },
-    { label: "Revenue Tracked", color: "#7c3aed", y: 182 },
-    { label: "Review Sent", color: "#f59e0b", y: 246 },
-  ];
-
   return (
-    <div style={{ position: "relative", width: "100%", maxWidth: 820, margin: "0 auto" }}>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "auto", display: "block", overflow: "visible" }}>
-        <defs>
-          <linearGradient id="hub-g" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
-
-        {/* Lines: channels → hub */}
-        {channels.map(ch => (
-          <line key={ch.label + "-li"}
-            x1={LEFT_X} y1={ch.y} x2={HUB_X} y2={HUB_Y}
-            stroke={ch.color} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.3" />
-        ))}
-
-        {/* Lines: hub → outcomes */}
-        {outcomes.map(out => (
-          <line key={out.label + "-lo"}
-            x1={HUB_X} y1={HUB_Y} x2={RIGHT_X} y2={out.y}
-            stroke={out.color} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.3" />
-        ))}
-
-        {/* Particles: channels → hub */}
-        {channels.map((ch, i) => (
-          <circle key={ch.label + "-p"} r="5" fill={ch.color} filter="url(#glow)">
-            <animateMotion
-              dur="2.6s" repeatCount="indefinite" begin={`${i * 0.65}s`}
-              path={`M ${LEFT_X} ${ch.y} L ${HUB_X} ${HUB_Y}`} />
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.85;1"
-              dur="2.6s" repeatCount="indefinite" begin={`${i * 0.65}s`} />
-          </circle>
-        ))}
-
-        {/* Particles: hub → outcomes */}
-        {outcomes.map((out, i) => (
-          <circle key={out.label + "-p"} r="5" fill={out.color} filter="url(#glow)">
-            <animateMotion
-              dur="2.6s" repeatCount="indefinite" begin={`${i * 0.65 + 0.35}s`}
-              path={`M ${HUB_X} ${HUB_Y} L ${RIGHT_X} ${out.y}`} />
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.85;1"
-              dur="2.6s" repeatCount="indefinite" begin={`${i * 0.65 + 0.35}s`} />
-          </circle>
-        ))}
-
-        {/* Hub pulse rings */}
-        <circle cx={HUB_X} cy={HUB_Y} r="52" fill="none" stroke="rgba(79,70,229,0.15)" strokeWidth="1">
-          <animate attributeName="r" values="48;60;48" dur="2.2s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.3;0;0.3" dur="2.2s" repeatCount="indefinite" />
-        </circle>
-        <circle cx={HUB_X} cy={HUB_Y} r="42" fill="rgba(79,70,229,0.07)" />
-
-        {/* Hub circle */}
-        <circle cx={HUB_X} cy={HUB_Y} r="34" fill="url(#hub-g)" />
-        <text x={HUB_X} y={HUB_Y - 7} textAnchor="middle" fontSize="22" dominantBaseline="middle">🤖</text>
-        <text x={HUB_X} y={HUB_Y + 16} textAnchor="middle" fontSize="8.5" fill="white" fontWeight="700" letterSpacing="0.06em" dominantBaseline="middle">LeadOS AI</text>
-
-        {/* Channel nodes */}
-        {channels.map(ch => (
-          <g key={ch.label + "-n"}>
-            <circle cx={LEFT_X} cy={ch.y} r="22" fill={ch.color} opacity="0.1" />
-            <circle cx={LEFT_X} cy={ch.y} r="15" fill={ch.color} />
-            {/* Label pill */}
-            <rect x={LEFT_X - 72} y={ch.y - 12} width="52" height="24" rx="12"
-              fill="white" stroke={ch.color} strokeWidth="1.2" opacity="0.9" />
-            <text x={LEFT_X - 46} y={ch.y} textAnchor="middle" fontSize="10" fill={ch.color}
-              fontWeight="700" dominantBaseline="middle">{ch.label}</text>
-          </g>
-        ))}
-
-        {/* Outcome nodes */}
-        {outcomes.map(out => (
-          <g key={out.label + "-n"}>
-            <circle cx={RIGHT_X} cy={out.y} r="22" fill={out.color} opacity="0.1" />
-            <circle cx={RIGHT_X} cy={out.y} r="15" fill={out.color} />
-            {/* Label pill */}
-            <rect x={RIGHT_X + 20} y={out.y - 12} width={out.label.length * 6.2 + 12} height="24" rx="12"
-              fill="white" stroke={out.color} strokeWidth="1.2" opacity="0.9" />
-            <text x={RIGHT_X + 26 + out.label.length * 3.1} y={out.y} textAnchor="middle" fontSize="10"
-              fill={out.color} fontWeight="700" dominantBaseline="middle">{out.label}</text>
-          </g>
-        ))}
-
-        {/* Channel icons (text in circles) */}
-        <text x={LEFT_X} y={channels[0].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">💬</text>
-        <text x={LEFT_X} y={channels[1].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">📷</text>
-        <text x={LEFT_X} y={channels[2].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">📞</text>
-        <text x={LEFT_X} y={channels[3].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">🌐</text>
-
-        {/* Outcome icons */}
-        <text x={RIGHT_X} y={outcomes[0].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">⚡</text>
-        <text x={RIGHT_X} y={outcomes[1].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">📅</text>
-        <text x={RIGHT_X} y={outcomes[2].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">💰</text>
-        <text x={RIGHT_X} y={outcomes[3].y} textAnchor="middle" dominantBaseline="middle" fontSize="13">⭐</text>
-      </svg>
-
-      {/* Stat strip below diagram */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 40, marginTop: 28, flexWrap: "wrap" }}>
-        {[["28s", "Avg AI response"], ["3×", "More bookings"], ["24/7", "Always on"], ["8×", "ROAS tracked"]].map(([v, l]) => (
-          <div key={l} style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 22, fontWeight: 900, color: "#2563eb", lineHeight: 1 }}>{v}</div>
-            <div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500, marginTop: 4 }}>{l}</div>
+    <div className="how-steps-wrap">
+      {steps.map((s, i) => (
+        <>
+          <div key={s.num} className="how-step">
+            <div className="how-step-num" style={{ color: s.color }}>{s.num}</div>
+            <div className="how-step-icon" style={{ background: `${s.color}14` }}>{s.icon}</div>
+            <h3 className="how-step-title">{s.title}</h3>
+            <p className="how-step-desc">{s.desc}</p>
+            <div className="how-step-tags">
+              {s.tags.map(tag => (
+                <span key={tag} className="how-step-tag" style={{ background: `${s.color}10`, color: s.color }}>{tag}</span>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
+          {i < steps.length - 1 && <div key={`div-${i}`} className="how-step-divider">→</div>}
+        </>
+      ))}
     </div>
   );
 }
@@ -373,9 +284,9 @@ function ProductShowcase() {
         </div>
 
         {/* Sidebar + content */}
-        <div style={{display:"grid",gridTemplateColumns:"185px 1fr",minHeight:400}}>
+        <div className="sc-frame-grid" style={{display:"grid",gridTemplateColumns:"185px 1fr",minHeight:400}}>
           {/* Sidebar */}
-          <div style={{background:"var(--surface-2)",borderRight:"1px solid var(--border)",padding:"14px 10px"}}>
+          <div className="sc-sidebar" style={{background:"var(--surface-2)",borderRight:"1px solid var(--border)",padding:"14px 10px"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,padding:"4px 6px 14px",borderBottom:"1px solid var(--border)",marginBottom:10}}>
               <Logo size={18}/>
               <span style={{fontSize:12,fontWeight:700,letterSpacing:"1.5px",textTransform:"uppercase",background:"linear-gradient(90deg,var(--ink),var(--blue))",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>LeadOS</span>
@@ -395,8 +306,8 @@ function ProductShowcase() {
 
             {/* INBOX */}
             {tab === 0 && (
-              <div style={{display:"grid",gridTemplateColumns:"220px 1fr",height:"100%"}}>
-                <div style={{borderRight:"1px solid var(--border)",display:"flex",flexDirection:"column"}}>
+              <div className="sc-inbox-grid" style={{display:"grid",gridTemplateColumns:"220px 1fr",height:"100%"}}>
+                <div className="sc-conv-list" style={{borderRight:"1px solid var(--border)",display:"flex",flexDirection:"column"}}>
                   <div style={{padding:"12px 14px",borderBottom:"1px solid var(--border)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                     <span style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>All Conversations</span>
                     <span style={{fontSize:10,background:"var(--blue)",color:"white",borderRadius:10,padding:"1px 7px",fontWeight:700}}>12</span>
@@ -702,46 +613,86 @@ useEffect(() => {
             <div className="hero-dash-wrap" style={{ position: "relative" }}>
               <div className="dash-titlebar">
                 <div className="dash-dot dash-dot-r" /><div className="dash-dot dash-dot-y" /><div className="dash-dot dash-dot-g" />
-                <div className="dash-url">app.myleados.ai — Revenue Dashboard</div>
+                <div className="dash-url">app.myleados.ai — Omni Inbox</div>
               </div>
               <div className="dash-body">
                 <div className="dash-sb">
                   <div className="dash-sb-logo"><Logo size={20} /><span className="dash-sb-wm">LeadOS</span></div>
-                  {[["📥", "Inbox", true], ["🤖", "AI Brain"], ["📞", "Voice AI"], ["📅", "Bookings"], ["👥", "Contacts"], ["📊", "Reports"], ["🧠", "Meta Brain"], ["⚙️", "Settings"]].map(([ic, lb, on]) => (
-                    <div key={lb as string} className={`dash-sbitem${on ? " active" : ""}`}>
-                      <span style={{ fontSize: 13 }}>{ic}</span> {lb}
+                  {[["📥","Inbox",true],["🤖","AI Brain"],["📞","Voice AI"],["📅","Bookings"],["👥","Contacts"],["📊","Reports"],["🧠","Meta Brain"],["⚙️","Settings"]].map(([ic,lb,on]) => (
+                    <div key={lb as string} className={`dash-sbitem${on?" active":""}`}>
+                      <span style={{fontSize:13}}>{ic}</span> {lb}
                     </div>
                   ))}
                 </div>
-                <div className="dash-content">
-                  <div className="dash-kpis">
-                    {[["Leads Today", "47", "↑ 23%"], ["Bookings", "18", "↑ 31%"], ["Avg Response", "28s", "↓ 94%"], ["Revenue Est.", "$8.4k", "↑ 18%"]].map(([l, v, c]) => (
-                      <div key={l as string} className="dash-kpi">
-                        <div className="dash-kpi-l">{l}</div>
-                        <div className="dash-kpi-v">{v}</div>
-                        <div className="dash-kpi-c">{c} today</div>
+                {/* Omni Inbox: conversation list + active chat */}
+                <div className="hero-omni-wrap">
+                  {/* Conversation list */}
+                  <div className="hero-omni-convlist">
+                    <div className="hero-omni-convlist-hdr">
+                      <div className="hero-omni-convlist-title">
+                        <span style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>Omni Inbox</span>
+                        <span style={{background:"var(--blue)",color:"white",fontSize:9,fontWeight:700,padding:"1px 6px",borderRadius:10}}>35</span>
+                      </div>
+                      <div className="hero-omni-filters">
+                        {[{l:"All",on:true},{l:"WhatsApp",on:false},{l:"IG",on:false},{l:"Calls",on:false}].map(f=>(
+                          <div key={f.l} className={`hero-omni-filter${f.on?" on":" off"}`}>{f.l}</div>
+                        ))}
+                      </div>
+                    </div>
+                    {[
+                      {name:"Layla H.",   msg:"Hi, I want a lip filler…",      ch:"💬", col:"#22c55e", time:"now", active:true,  badge:"AI"},
+                      {name:"Ahmed K.",   msg:"What's the price for…",          ch:"🟣", col:"#a855f7", time:"2m",  active:false, badge:"AI"},
+                      {name:"Inbound Call",msg:"AI answered · booking…",       ch:"📞", col:"#f97316", time:"5m",  active:false, badge:"Voice"},
+                      {name:"Sara M.",    msg:"Can I reschedule my appt…",      ch:"📘", col:"#3b82f6", time:"12m", active:false, badge:"AI"},
+                      {name:"David L.",   msg:"Do you offer payment plans?",    ch:"💬", col:"#22c55e", time:"18m", active:false, badge:"AI"},
+                    ].map(c=>(
+                      <div key={c.name} className={`hero-omni-conv-row${c.active?" active":""}`}>
+                        <div style={{width:28,height:28,borderRadius:"50%",background:`${c.col}18`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,flexShrink:0}}>{c.ch}</div>
+                        <div style={{flex:1,minWidth:0}}>
+                          <div style={{display:"flex",justifyContent:"space-between",marginBottom:2}}>
+                            <span style={{fontSize:11.5,fontWeight:c.active?700:600,color:c.active?"var(--blue)":"var(--ink-2)"}}>{c.name}</span>
+                            <span style={{fontSize:9.5,color:"var(--ink-4)"}}>{c.time}</span>
+                          </div>
+                          <div style={{fontSize:10.5,color:"var(--ink-4)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.msg}</div>
+                        </div>
+                        <div style={{fontSize:9,fontWeight:700,padding:"2px 6px",borderRadius:10,background:c.active?"rgba(37,99,235,.12)":"rgba(0,0,0,.04)",color:c.active?"var(--blue)":"var(--ink-4)",flexShrink:0,marginLeft:4}}>{c.badge}</div>
                       </div>
                     ))}
                   </div>
-                  <div className="dash-conv">
-                    <div className="dash-conv-hdr">
-                      <div className="dash-conv-title">Live Conversations</div>
-                      <div className="dash-conv-live"><span className="live-dot" />AI handling 12 now</div>
-                    </div>
-                    {[
-                      { bg: "rgba(34,197,94,.1)", ch: "💚", n: "Sarah M.", p: "Thursday 3pm available?", b: "Booking", bc: "cbadge-blue" },
-                      { bg: "rgba(168,85,247,.1)", ch: "🟣", n: "James K.", p: "How much for a full set?", b: "Replied", bc: "cbadge-green" },
-                      { bg: "rgba(59,130,246,.1)", ch: "📞", n: "Inbound Call", p: "AI answered — booking in progress", b: "Voice AI", bc: "cbadge-purple" },
-                    ].map((c) => (
-                      <div key={c.n} className="dash-conv-row">
-                        <div className="dash-conv-ico" style={{ background: c.bg }}>{c.ch}</div>
-                        <div style={{ flex: 1 }}>
-                          <div className="dash-conv-name">{c.n}</div>
-                          <div className="dash-conv-preview">{c.p}</div>
+                  {/* Active chat */}
+                  <div className="hero-omni-chat">
+                    <div className="hero-omni-chat-hdr">
+                      <div style={{width:28,height:28,borderRadius:"50%",background:"rgba(34,197,94,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12}}>💬</div>
+                      <div style={{flex:1}}>
+                        <div style={{fontSize:12,fontWeight:700,color:"var(--ink)"}}>Layla Hassan</div>
+                        <div style={{fontSize:10,color:"var(--green)",display:"flex",alignItems:"center",gap:4}}>
+                          <div style={{width:5,height:5,borderRadius:"50%",background:"var(--green)",animation:"blink 2s infinite"}}/> AI Handling · WhatsApp
                         </div>
-                        <div className={`dash-conv-badge ${c.bc}`}>{c.b}</div>
                       </div>
-                    ))}
+                      <div style={{fontSize:10,fontWeight:700,padding:"3px 10px",borderRadius:20,background:"rgba(37,99,235,.08)",color:"var(--blue)"}}>HIGH INTENT · 82%</div>
+                    </div>
+                    <div className="hero-omni-msgs">
+                      <div className="hero-omni-bubble">
+                        <div className="hero-omni-av" style={{background:"var(--surface-2)"}}>👤</div>
+                        <div className="hero-omni-msg user">Hi, I want a lip filler consultation</div>
+                      </div>
+                      <div className="hero-omni-bubble ai">
+                        <div className="hero-omni-av" style={{background:"linear-gradient(135deg,#2563eb,#7c3aed)"}}>🤖</div>
+                        <div className="hero-omni-msg ai-msg">Hi Layla! 👋 We have Thu 3pm or Fri 11am with Dr. Sarah — which works?</div>
+                      </div>
+                      <div className="hero-omni-bubble">
+                        <div className="hero-omni-av" style={{background:"var(--surface-2)"}}>👤</div>
+                        <div className="hero-omni-msg user">Thursday 3pm!</div>
+                      </div>
+                      <div className="hero-omni-bubble ai">
+                        <div className="hero-omni-av" style={{background:"linear-gradient(135deg,#2563eb,#7c3aed)"}}>🤖</div>
+                        <div className="hero-omni-msg ai-msg">Confirmed! ✅ Thu 3pm with Dr. Sarah. Reminder sent to your WhatsApp.</div>
+                      </div>
+                    </div>
+                    <div className="hero-omni-input-bar">
+                      <div style={{flex:1,background:"white",border:"1px solid var(--border-2)",borderRadius:8,padding:"6px 10px",fontSize:11,color:"var(--ink-4)"}}>Reply here or let AI handle it…</div>
+                      <div style={{fontSize:9.5,fontWeight:700,padding:"5px 10px",borderRadius:8,background:"linear-gradient(135deg,#2563eb,#4f46e5)",color:"white",whiteSpace:"nowrap"}}>AI On</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -806,17 +757,17 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ══ HOW LEADOS WORKS (Animated CRM Flow) ══ */}
+      {/* ══ HOW IT WORKS — 3 STEPS ══ */}
       <section id="how-it-works" style={{ padding: "88px 0", background: "white" }}>
         <div className="container">
-          <div className="section-header center" style={{ marginBottom: 52 }}>
+          <div className="section-header center" style={{ marginBottom: 56 }}>
             <span className="eyebrow">How it works</span>
-            <h2 className="display-lg">Your AI employee,<br /><span className="text-serif-em" style={{ color: "var(--blue)" }}>working right now</span></h2>
-            <p className="body-lg" style={{ marginTop: 14, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
-              Every message from any channel hits your AI in milliseconds. It qualifies, replies, books, and tracks revenue — automatically, while you focus on delivering.
+            <h2 className="display-lg">Three steps.<br /><span className="text-serif-em" style={{ color: "var(--blue)" }}>Zero manual work.</span></h2>
+            <p className="body-lg" style={{ marginTop: 14, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+              From first message to confirmed booking to revenue tracked — your AI handles every step, on every channel, around the clock.
             </p>
           </div>
-          <div className="leados-crm-wrap"><CrmFlowDiagram /></div>
+          <HowItWorksSteps />
         </div>
       </section>
 
@@ -913,21 +864,39 @@ useEffect(() => {
           </div>
 
           {/* Testimonials */}
-          <div className="leados-testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="testi-v2-grid">
             {[
-              { quote: "We used to miss leads every night after closing time. Now LeadOS handles all our WhatsApp enquiries 24/7 and books consultations automatically. 40% jump in confirmed appointments in the first month.", name: "Dr. Nour Al-Hassan", role: "Medical Director, Glow Aesthetics", city: "Sydney, Australia", avatar: "👩‍⚕️" },
-              { quote: "The Meta Brain feature is what sold me. I can finally see which Facebook ad actually led to a booking. We cut our cost per booking by 35% in 6 weeks.", name: "Ahmed Al-Mansoori", role: "Founder, Palm Property Group", city: "Dubai, UAE", avatar: "🏠" },
-              { quote: "Our reception team was overwhelmed with calls and WhatsApp messages. LeadOS now handles the first reply, qualifies the patient, and books them in.", name: "Sarah Mitchell", role: "Practice Manager, Smile Dental", city: "Sydney, Australia", avatar: "🦷" },
+              {
+                metric: "+40%", metricLbl: "more appointments in 30 days",
+                metricBg: "rgba(34,197,94,.07)", metricColor: "#16a34a",
+                quote: "We used to miss leads every night after closing. Now LeadOS handles all our WhatsApp enquiries 24/7 and books consultations automatically. The difference was immediate.",
+                name: "Dr. Nour Al-Hassan", role: "Medical Director, Glow Aesthetics · Sydney", initials: "NA", avatarBg: "linear-gradient(135deg,#16a34a,#059669)",
+              },
+              {
+                metric: "−35%", metricLbl: "cost per booking in 6 weeks",
+                metricBg: "rgba(37,99,235,.07)", metricColor: "#2563eb",
+                quote: "Meta Brain is what sold me. I can finally see which Facebook ad actually led to a booking — not just a click. We reallocated budget and results jumped immediately.",
+                name: "Ahmed Al-Mansoori", role: "Founder, Palm Property Group · Dubai", initials: "AA", avatarBg: "linear-gradient(135deg,#2563eb,#4f46e5)",
+              },
+              {
+                metric: "28s", metricLbl: "avg first response (was 4 hours)",
+                metricBg: "rgba(124,58,237,.07)", metricColor: "#7c3aed",
+                quote: "Our reception team was drowning in WhatsApp messages. LeadOS handles the first reply, qualifies the patient, and books them in — before our team even sees the message.",
+                name: "Sarah Mitchell", role: "Practice Manager, Smile Dental · Sydney", initials: "SM", avatarBg: "linear-gradient(135deg,#7c3aed,#a855f7)",
+              },
             ].map((t) => (
-              <div key={t.name} style={{ background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column", gap: 18 }}>
-                <div style={{ display: "flex", gap: 2 }}>{[1,2,3,4,5].map(i => <span key={i} style={{ color: "#f59e0b", fontSize: 14 }}>★</span>)}</div>
-                <p style={{ fontSize: 14, lineHeight: 1.7, color: "#475569", fontStyle: "italic", flex: 1 }}>&ldquo;{t.quote}&rdquo;</p>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg, rgba(37,99,235,.12), rgba(124,58,237,.12))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{t.avatar}</div>
+              <div key={t.name} className="testi-v2-card">
+                <div className="testi-v2-metric-wrap" style={{ background: t.metricBg }}>
+                  <div className="testi-v2-metric" style={{ color: t.metricColor }}>{t.metric}</div>
+                  <div className="testi-v2-metric-lbl" style={{ color: t.metricColor }}>{t.metricLbl}</div>
+                </div>
+                <div className="testi-v2-stars">★★★★★</div>
+                <p className="testi-v2-quote">&ldquo;{t.quote}&rdquo;</p>
+                <div className="testi-v2-person">
+                  <div className="testi-v2-avatar" style={{ background: t.avatarBg }}>{t.initials}</div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700 }}>{t.name}</div>
-                    <div style={{ fontSize: 11, color: "#94a3b8" }}>{t.role}</div>
-                    <div style={{ fontSize: 11, color: "#94a3b8" }}>📍 {t.city}</div>
+                    <div className="testi-v2-name">{t.name}</div>
+                    <div className="testi-v2-role">{t.role}</div>
                   </div>
                 </div>
               </div>
