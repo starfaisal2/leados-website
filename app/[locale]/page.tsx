@@ -433,7 +433,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ HOW LEADOS WORKS (Animated CRM Flow) ══ */}
-      <section style={{ padding: "88px 0", background: "white" }}>
+      <section id="how-it-works" style={{ padding: "88px 0", background: "white" }}>
         <div className="container">
           <div className="section-header center" style={{ marginBottom: 52 }}>
             <span className="eyebrow">How it works</span>
@@ -565,7 +565,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ PROOF: NUMBERS + TESTIMONIALS ══ */}
-      <section style={{ padding: "88px 0", background: "white" }}>
+      <section id="proof" style={{ padding: "88px 0", background: "white" }}>
         <div className="container">
           {/* Stats */}
           <div className="leados-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: "var(--border)", borderRadius: 20, overflow: "hidden", marginBottom: 60 }}>

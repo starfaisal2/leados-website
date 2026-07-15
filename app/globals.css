@@ -1536,6 +1536,11 @@ ul { list-style: none; }
   .hero-channel-pill { font-size: 11px; padding: 6px 10px; gap: 5px; }
 }
 
+/* ── CRM diagram: scrollable on any viewport smaller than the SVG ── */
+@media (max-width: 860px) {
+  .leados-crm-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
 /* ── New homepage grids — mobile responsive ── */
 @media (max-width: 900px) {
   /* Product modules: 3-col → 2-col */
