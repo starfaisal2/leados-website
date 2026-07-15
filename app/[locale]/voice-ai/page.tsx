@@ -1,1 +1,1 @@
-export { default, metadata } from "@/app/voice-ai/page";
+export { default } from '@/app/voice-ai/page';
