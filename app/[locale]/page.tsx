@@ -627,8 +627,8 @@ useEffect(() => {
   };
 
   const prices = annual
-    ? { starter: { usd: 399, aed: "1,480" }, growth: { usd: 799, aed: "2,960" } }
-    : { starter: { usd: 499, aed: "1,850" }, growth: { usd: 999, aed: "3,700" } };
+    ? { starter: 399, growth: 799 }
+    : { starter: 499, growth: 999 };
 
   return (
     <>
@@ -1006,8 +1006,8 @@ useEffect(() => {
             <div className="pricing-card">
               <div className="p-tier">{t('pricingStarter')}</div>
               <div className="p-tagline">{t('pricingStarterTagline')}</div>
-              <div className="p-price">USD {prices.starter.usd}<span className="p-per">/month</span></div>
-              <div className="p-sub-price" style={{ opacity: 0.55, fontSize: 12 }}>AED {prices.starter.aed} / month</div>
+              <div className="p-price">${prices.starter}<span className="p-per">/month</span></div>
+              {annual && <div style={{ fontSize: 12, color: "var(--green)", fontWeight: 700, marginTop: -6 }}>↓ Save 20% vs monthly</div>}
               <hr className="p-divider" />
               <ul className="p-feats">{["2 users", "1,000 AI chats / month", "Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
               <Link href="/get-started?plan=starter" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>{t('heroCta1')} →</Link>
@@ -1017,8 +1017,12 @@ useEffect(() => {
               <div className="popular-pill">{t('pricingMostPopular')}</div>
               <div className="p-tier">{t('pricingGrowth')}</div>
               <div className="p-tagline">{t('pricingGrowthTagline')}</div>
-              <div className="p-price">USD {prices.growth.usd}<span className="p-per">/month</span></div>
-              <div className="p-sub-price" style={{ opacity: 0.6, fontSize: 12 }}>AED {prices.growth.aed} / month</div>
+              <div className="p-price">${prices.growth}<span className="p-per">/month</span></div>
+              {annual && <div style={{ fontSize: 12, color: "var(--green)", fontWeight: 700, marginTop: -6 }}>↓ Save 20% vs monthly</div>}
+              <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.08)", border: "1px solid rgba(34,197,94,.2)", borderRadius: 8, padding: "7px 11px", marginBottom: 4 }}>
+                <span style={{ fontSize: 14 }}>🎁</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green)" }}>First month free with Assisted Onboarding</span>
+              </div>
               <hr className="p-divider" />
               <ul className="p-feats">{["10 users", "10,000 AI chats / month", "Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Reviews Foundation", "Revenue Attribution", "Reporting Suite"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
               <Link href="/get-started?plan=growth" className="p-btn pb-solid" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>{t('heroCta1')} →</Link>
