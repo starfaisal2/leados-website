@@ -116,13 +116,22 @@ export default function AutoSeoPage() {
         }
         .faq-item summary { cursor: pointer; list-style: none; }
         .faq-item summary::-webkit-details-marker { display: none; }
+        @media (max-width: 760px) {
+          .seo-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .seo-hero-grid > div:last-child { display: none !important; }
+          .seo-chart-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .seo-cost-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .seo-pricing-grid { grid-template-columns: 1fr !important; }
+          .seo-section-pad { padding: 56px 16px !important; }
+          .seo-hero-pad { padding: 48px 16px 40px !important; }
+        }
       `}</style>
 
       <main style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#060b18", color: "#f1f5f9", margin: 0 }}>
 
         {/* ── HERO ── */}
-        <section style={{ padding: "72px 24px 64px", maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 64, alignItems: "center" }}>
+        <section className="seo-hero-pad" style={{ padding: "72px 24px 64px", maxWidth: 1160, margin: "0 auto" }}>
+          <div className="seo-hero-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 64, alignItems: "center" }}>
 
             {/* Left: copy */}
             <div>
@@ -234,8 +243,8 @@ export default function AutoSeoPage() {
         </div>
 
         {/* ── RANKING CHART SECTION ── */}
-        <section style={{ padding: "88px 24px", maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1.1fr) minmax(0,0.9fr)", gap: 72, alignItems: "center" }}>
+        <section className="seo-section-pad" style={{ padding: "88px 24px", maxWidth: 1100, margin: "0 auto" }}>
+          <div className="seo-chart-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.1fr) minmax(0,0.9fr)", gap: 72, alignItems: "center" }}>
 
             {/* Chart */}
             <div>
@@ -287,7 +296,7 @@ export default function AutoSeoPage() {
 
         {/* ── COST COMPARISON ── */}
         <section style={{ padding: "80px 24px", background: "#0a1020" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 72, alignItems: "center" }}>
+          <div className="seo-cost-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 72, alignItems: "center" }}>
 
             {/* Copy */}
             <div>

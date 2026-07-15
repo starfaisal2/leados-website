@@ -59,7 +59,7 @@ export default function Nav() {
 
   const links = [
     { href: "/#features", label: t("product") },
-    { href: "/#how-it-works", label: t("voiceAi") },
+    { href: "/voice-ai", label: t("voiceAi") },
     { href: "/#proof", label: t("industries") },
     { href: "/auto-seo", label: `${t("autoSeo")} ✨` },
     { href: "/company-brain", label: `${t("companyBrain")} 🧠` },
