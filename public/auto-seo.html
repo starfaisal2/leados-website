@@ -305,7 +305,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 <!-- HERO -->
 <section class="container">
   <div class="hero">
-    <div class="reveal-left">
+    <div class="reveal-left in">
       <div class="hero-badge">
         <div class="hero-badge-dot">⚡</div>
         #1 AI SEO Platform — Trusted by 2,000+ businesses
@@ -324,7 +324,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     </div>
 
     <!-- BOT SCENE -->
-    <div class="bot-scene reveal-right">
+    <div class="bot-scene reveal-right in">
 
       <!-- floating badges -->
       <div class="fbadge fb1">
@@ -1007,12 +1007,12 @@ function setPlan(mode){
   function revealVisible(){
     document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){
       var r=el.getBoundingClientRect();
-      if(r.top < window.innerHeight*0.96 && r.bottom > 0) el.classList.add('in');
+      var h=window.innerHeight||document.documentElement.clientHeight||800; if(r.top < h*0.96 && r.bottom > 0) el.classList.add('in');
     });
   }
   // defer until iframe viewport is sized by parent (innerHeight=0 at parse time)
   function runReveal(){
-    if(window.innerHeight > 0){ revealVisible(); }
+    var vh=window.innerHeight||document.documentElement.clientHeight||800; if(vh > 0){ revealVisible(); }
     else { requestAnimationFrame(runReveal); }
   }
   if(document.readyState==='complete'){ requestAnimationFrame(runReveal); }
