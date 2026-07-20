@@ -3,6 +3,7 @@
 // This component renders it full-bleed with no nav/footer wrapper.
 
 import type { Metadata } from "next";
+import AutoSeoIframe from "./AutoSeoIframe";
 
 export const metadata: Metadata = {
   title: "Auto SEO by LeadOS — Rank #1 on Google, Zero Writing",
@@ -16,19 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function AutoSeoPage() {
-  return (
-    <iframe
-      src="/auto-seo.html"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        border: "none",
-        zIndex: 9999,
-      }}
-      title="Auto SEO by LeadOS"
-    />
-  );
+  return <AutoSeoIframe />;
 }
