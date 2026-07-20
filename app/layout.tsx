@@ -27,9 +27,35 @@ export const metadata: Metadata = {
 // Do NOT read request headers here — any call to headers() makes every
 // page dynamic, killing ISR and producing Cache-Control: private/no-store
 // which prevents Googlebot from indexing.
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "LeadOS",
+  url: "https://www.myleados.ai",
+  logo: "https://www.myleados.ai/icon.svg",
+  sameAs: ["https://www.instagram.com/leados.ai"],
+  description: "AI CRM that learns from conversations, bookings and follow-ups. Capture leads, automate bookings, track revenue and improve over time.",
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "LeadOS",
+  url: "https://www.myleados.ai",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: { "@type": "EntryPoint", urlTemplate: "https://www.myleados.ai/blog?q={search_term_string}" },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" dir="ltr">
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      </head>
       <body>{children}</body>
     </html>
   );

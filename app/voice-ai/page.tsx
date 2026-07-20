@@ -7,6 +7,27 @@ export const metadata: Metadata = {
     "Never miss a call again. LeadOS Voice AI answers every call, qualifies leads, and books appointments automatically — in any language, around the clock.",
 };
 
+const voiceAiSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "LeadOS Voice AI",
+  applicationCategory: "BusinessApplication",
+  description: "AI phone agent that answers every call, qualifies leads, and books appointments automatically — in any language, 24/7.",
+  url: "https://www.myleados.ai/voice-ai",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "Included with LeadOS CRM" },
+  operatingSystem: "Web",
+  provider: { "@type": "Organization", name: "LeadOS", url: "https://www.myleados.ai" },
+};
+
+const voiceAiBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.myleados.ai" },
+    { "@type": "ListItem", position: 2, name: "Voice AI" },
+  ],
+};
+
 const USECASES = [
   {
     icon: "🏥",
@@ -59,6 +80,8 @@ export default function VoiceAiPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(voiceAiSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(voiceAiBreadcrumb) }} />
       <style>{`
         @keyframes voice-ring {
           0%, 100% { transform: scale(1); opacity: 1; }

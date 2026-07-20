@@ -123,8 +123,37 @@ export default async function ArticlePage({
   const rtl = isArabic(article.title || "");
   const dir = rtl ? "rtl" : "ltr";
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.meta_description,
+    datePublished: article.published_at || article.created_at,
+    dateModified: article.updated_at || article.published_at || article.created_at,
+    url: `https://www.myleados.ai/blog/${slug}/`,
+    author: { "@type": "Organization", name: "LeadOS", url: "https://www.myleados.ai" },
+    publisher: {
+      "@type": "Organization",
+      name: "LeadOS",
+      url: "https://www.myleados.ai",
+      logo: { "@type": "ImageObject", url: "https://www.myleados.ai/icon.svg" },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.myleados.ai" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.myleados.ai/blog" },
+      { "@type": "ListItem", position: 3, name: article.title },
+    ],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* ── Hero ── */}
       <section
         dir={dir}

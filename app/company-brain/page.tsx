@@ -96,8 +96,32 @@ const FAQS = [
   },
 ];
 
+const brainSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Company Brain by LeadOS",
+  applicationCategory: "BusinessApplication",
+  description: "Upload contracts, licenses, policies, visa records, HR documents — ask any question and get an instant AI answer with source citations.",
+  url: "https://www.myleados.ai/company-brain",
+  offers: { "@type": "Offer", price: "39", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", billingDuration: "P1M" } },
+  operatingSystem: "Web",
+  provider: { "@type": "Organization", name: "LeadOS", url: "https://www.myleados.ai" },
+};
+
+const brainBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.myleados.ai" },
+    { "@type": "ListItem", position: 2, name: "Company Brain" },
+  ],
+};
+
 export default function CompanyBrainPage() {
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(brainSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(brainBreadcrumb) }} />
     <main style={{ fontFamily: "var(--font-sans, system-ui, sans-serif)", color: "#0f172a" }}>
 
       {/* ── HERO ── */}
@@ -392,5 +416,6 @@ export default function CompanyBrainPage() {
       </section>
 
     </main>
+    </>
   );
 }

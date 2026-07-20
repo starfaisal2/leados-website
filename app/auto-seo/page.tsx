@@ -16,6 +16,33 @@ export const metadata: Metadata = {
   },
 };
 
+const autoSeoSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Auto SEO by LeadOS",
+  applicationCategory: "BusinessApplication",
+  description: "AI writes SEO articles for your business every week, publishes them automatically, and tracks your rankings.",
+  url: "https://www.myleados.ai/auto-seo",
+  offers: { "@type": "Offer", price: "29", priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", billingDuration: "P1M" } },
+  operatingSystem: "Web",
+  provider: { "@type": "Organization", name: "LeadOS", url: "https://www.myleados.ai" },
+};
+
+const autoSeoBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.myleados.ai" },
+    { "@type": "ListItem", position: 2, name: "Auto SEO" },
+  ],
+};
+
 export default function AutoSeoPage() {
-  return <AutoSeoIframe />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(autoSeoSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(autoSeoBreadcrumb) }} />
+      <AutoSeoIframe />
+    </>
+  );
 }
