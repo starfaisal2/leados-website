@@ -1010,7 +1010,13 @@ function setPlan(mode){
       if(r.top < window.innerHeight*0.96 && r.bottom > 0) el.classList.add('in');
     });
   }
-  revealVisible();
+  // defer until iframe viewport is sized by parent (innerHeight=0 at parse time)
+  function runReveal(){
+    if(window.innerHeight > 0){ revealVisible(); }
+    else { requestAnimationFrame(runReveal); }
+  }
+  if(document.readyState==='complete'){ requestAnimationFrame(runReveal); }
+  else { window.addEventListener('load', function(){ requestAnimationFrame(runReveal); }); }
   if('IntersectionObserver' in window){
     var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
