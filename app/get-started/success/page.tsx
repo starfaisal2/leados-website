@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-const STATUS_BASE = "https://app.leadoscrm.com/api/billing/signup-intent";
+const STATUS_BASE = "https://app.myleados.ai/api/billing/signup-intent";
 
 const BOOK_URL =
   "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20would%20like%20to%20book%20a%20demo";

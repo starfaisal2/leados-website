@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 const EFFECTIVE = "2 July 2026";
-const EMAIL = "privacy@leadoscrm.com";
+const EMAIL = "privacy@myleados.ai";
 
 export default function PrivacyPage() {
   return (
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         <ul>
           <li><strong>Business customers</strong> — companies and individuals who subscribe to LeadOS Services.</li>
           <li><strong>End users</strong> — individuals who interact with our customers' businesses through LeadOS-powered channels (e.g. chatbots, booking forms, WhatsApp integrations).</li>
-          <li><strong>Website visitors</strong> — anyone visiting leadoscrm.com or any LeadOS-operated domain.</li>
+          <li><strong>Website visitors</strong> — anyone visiting myleados.ai or any LeadOS-operated domain.</li>
         </ul>
         <p>Our business customers act as independent data controllers for any personal data of their own customers processed through LeadOS. We act as a data processor in those circumstances and process data only on the customer's instructions.</p>
 

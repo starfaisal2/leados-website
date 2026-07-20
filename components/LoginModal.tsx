@@ -79,7 +79,7 @@ export default function LoginModal({ open, onClose }: Props) {
         />
 
         <button
-          onClick={() => window.open("https://app.leadoscrm.com/login", "_blank")}
+          onClick={() => window.open("https://app.myleados.ai/login", "_blank")}
           style={{ width: "100%", padding: 13, borderRadius: 10, fontSize: 14.5, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", border: "none", background: "linear-gradient(135deg,#2563eb,#4f46e5)", color: "white", marginTop: 8, boxShadow: "0 4px 14px rgba(37,99,235,.28)", transition: "all .2s" }}
           onMouseOver={(e) => { e.currentTarget.style.filter = "brightness(1.07)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
           onMouseOut={(e) => { e.currentTarget.style.filter = ""; e.currentTarget.style.transform = ""; }}

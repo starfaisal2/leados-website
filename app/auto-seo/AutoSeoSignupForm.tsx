@@ -14,7 +14,7 @@ export default function AutoSeoSignupForm() {
     setLoading(true);
     setError("");
     try {
-      const appUrl = "https://app.leadoscrm.com";
+      const appUrl = "https://app.myleados.ai";
 
       if (form.plan === "trial" || form.plan === "standalone") {
         // → Free trial: redirect to CRM signup with pre-filled fields + addon_trial param
@@ -133,10 +133,10 @@ export default function AutoSeoSignupForm() {
         />
         <span style={{ fontSize: 12, color: "rgba(255,255,255,.45)", lineHeight: 1.6 }}>
           I agree to LeadOS{" "}
-          <a href="https://leadoscrm.com/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
+          <a href="https://myleados.ai/terms" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
             Terms of Service
           </a>{" "}and{" "}
-          <a href="https://leadoscrm.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
+          <a href="https://myleados.ai/privacy" target="_blank" rel="noopener noreferrer" style={{ color: "#818cf8", textDecoration: "underline" }}>
             Privacy Policy
           </a>. I understand that Auto SEO will publish AI-generated content to my website on my behalf and that I am responsible for reviewing and approving published content.
         </span>

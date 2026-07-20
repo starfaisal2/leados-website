@@ -5,8 +5,8 @@ export const metadata = {
 
 const EFFECTIVE = "2 July 2026";
 const COMPANY = "LeadOS Technologies FZE";
-const EMAIL = "legal@leadoscrm.com";
-const SUPPORT = "hello@leadoscrm.com";
+const EMAIL = "legal@myleados.ai";
+const SUPPORT = "hello@myleados.ai";
 
 export default function TermsPage() {
   return (
@@ -121,7 +121,7 @@ export default function TermsPage() {
         <p>You agree to indemnify, defend, and hold harmless LeadOS and its officers, directors, employees, contractors, and affiliates from and against any and all claims, damages, losses, penalties, liabilities, costs, and expenses (including reasonable legal fees) arising out of or relating to: (a) your use of the Services; (b) content you publish, generate, or distribute using the Services; (c) your violation of these Terms; (d) your violation of any applicable law or third-party right; or (e) any claim by a third party relating to AI-generated content published through your account.</p>
 
         <h2>14. Data protection</h2>
-        <p>Our Privacy Policy (available at leadoscrm.com/privacy) governs the collection, use, and protection of personal data. By using the Services, you acknowledge and agree to our Privacy Policy.</p>
+        <p>Our Privacy Policy (available at myleados.ai/privacy) governs the collection, use, and protection of personal data. By using the Services, you acknowledge and agree to our Privacy Policy.</p>
         <p>Where you use the Services to process personal data of your customers or end users, you act as the data controller and are solely responsible for compliance with applicable data protection laws (including GDPR, UAE PDPL, and any other applicable regulation).</p>
 
         <h2>15. Force majeure</h2>

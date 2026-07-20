@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
-const SIGNUP_ENDPOINT = "https://app.leadoscrm.com/api/auth/signup";
+const SIGNUP_ENDPOINT = "https://app.myleados.ai/api/auth/signup";
 
 const PLAN_OPTIONS = [
   { value: "starter", label: "Starter" },
@@ -98,7 +98,7 @@ export default function SignupPage() {
       }
 
       setSuccess("Account created. Redirecting you to LeadOS...");
-      const redirectUrl = payload?.onboarding_url || payload?.dashboard_url || "https://app.leadoscrm.com/login?created=true";
+      const redirectUrl = payload?.onboarding_url || payload?.dashboard_url || "https://app.myleados.ai/login?created=true";
       window.location.href = redirectUrl;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Signup failed. Please try again.");

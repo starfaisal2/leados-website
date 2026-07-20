@@ -15,7 +15,7 @@ export default function BrainSignupForm() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("https://app.leadoscrm.com/api/auth/brain-signup", {
+      const res = await fetch("https://app.myleados.ai/api/auth/brain-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

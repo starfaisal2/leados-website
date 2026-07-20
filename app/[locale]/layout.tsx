@@ -33,7 +33,7 @@ export default async function LocaleLayout({
         <Footer />
         <Script
           id="leados-crm-widget"
-          src="https://app.leadoscrm.com/api/widget/embed?tenant=leados"
+          src="https://app.myleados.ai/api/widget/embed?tenant=leados"
           strategy="afterInteractive"
         />
       </div>
