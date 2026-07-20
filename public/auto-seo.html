@@ -898,12 +898,24 @@ function startScan(){
     steps.forEach(function(id){document.getElementById(id).className='scan-step done';});
     document.getElementById('progressFill').style.width='100%';
     document.getElementById('scanStatus').textContent='Scan complete ✓';
-    setTimeout(function(){showRealResults(data);},400);
+    if(data.error){
+      document.getElementById('scanProgress').style.display='none';
+      document.getElementById('scanBtn').textContent='Scan My Site →';
+      document.getElementById('scanBtn').disabled=false;
+      var eb=document.getElementById('scanError');
+      if(!eb){eb=document.createElement('div');eb.id='scanError';eb.style='background:#FEF2F2;border:1px solid #FCA5A5;border-radius:12px;padding:16px 20px;margin-top:16px;color:#991B1B;font-size:14px;text-align:center;';document.getElementById('scanProgress').parentNode.appendChild(eb);}
+      eb.style.display='block';eb.textContent='⚠️ '+data.error;
+    } else { setTimeout(function(){showRealResults(data);},400); }
   })
-  .catch(function(){
+  .catch(function(err){
     clearTimeout(stepTimer);
-    document.getElementById('scanStatus').textContent='Scan complete ✓';
-    setTimeout(function(){showFallbackResults();},400);
+    document.getElementById('scanProgress').style.display='none';
+    document.getElementById('scanBtn').textContent='Scan My Site →';
+    document.getElementById('scanBtn').disabled=false;
+    var errBox=document.getElementById('scanError');
+    if(!errBox){errBox=document.createElement('div');errBox.id='scanError';errBox.style='background:#FEF2F2;border:1px solid #FCA5A5;border-radius:12px;padding:16px 20px;margin-top:16px;color:#991B1B;font-size:14px;text-align:center;';document.getElementById('scanProgress').parentNode.appendChild(errBox);}
+    errBox.style.display='block';
+    errBox.textContent='⚠️ Could not complete the scan — please check the URL is correct and try again.';
   });
 }
 
