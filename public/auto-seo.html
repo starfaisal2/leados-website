@@ -297,8 +297,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     <li><a href="#compare">Compare</a></li>
   </ul>
   <div style="display:flex;gap:10px">
-    <a href="#" class="btn btn-out">Log in</a>
-    <a href="#pricing" class="btn btn-p">Start Free Scan ⚡</a>
+    <a href="https://app.myleados.ai" class="btn btn-out">Log in</a>
+    <a href="#scan" class="btn btn-p" onclick="document.getElementById('scanUrl').focus();return false;">Start Free Scan ⚡</a>
   </div>
 </nav>
 
@@ -356,7 +356,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 
 <!-- SCAN SECTION -->
 <section id="scan" class="container">
-  <div class="scan-section reveal">
+  <div id="scan" class="scan-section reveal">
     <div class="scan-header">
       <div class="section-eyebrow">🔍 Free Site Scan</div>
       <h2>See <span class="gt">exactly</span> what's holding your site back</h2>
@@ -1003,10 +1003,25 @@ function setPlan(mode){
 // ========================
 // SCROLL ANIMATIONS
 // ========================
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('in')});
-},{threshold:.12});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+(function(){
+  function revealVisible(){
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < window.innerHeight*0.96 && r.bottom > 0) el.classList.add('in');
+    });
+  }
+  revealVisible();
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+    },{threshold:0.05,rootMargin:'0px 0px -30px 0px'});
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){ obs.observe(el); });
+  }
+  window.addEventListener('scroll',revealVisible,{passive:true});
+  setTimeout(function(){
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){ el.classList.add('in'); });
+  },1500);
+})();
 
 // stat counter
 const statObs=new IntersectionObserver(entries=>{
