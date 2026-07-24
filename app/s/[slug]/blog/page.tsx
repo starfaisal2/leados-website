@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -185,7 +185,7 @@ export default async function TenantBlogPage({ params }: { params: Promise<{ slu
         <Link href={`/s/${slug}`} style={{ fontSize: 13, color: "rgba(255,255,255,.35)", textDecoration: "none" }}>
           ← {biz.name}
         </Link>
-        <a href="https://www.myleados.ai" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "rgba(255,255,255,.2)", textDecoration: "none" }}>
+        <a href="https://myleados.ai" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "rgba(255,255,255,.2)", textDecoration: "none" }}>
           Powered by <span style={{ fontWeight: 700, color: "rgba(255,255,255,.3)" }}>LeadOS</span>
         </a>
       </footer>

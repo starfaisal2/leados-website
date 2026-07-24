@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.myleados.ai'),
+  metadataBase: new URL('https://myleados.ai'),
   title: {
-    default: 'LeadOS — Most CRMs Store Data. LeadOS Learns From It.',
+    default: 'LeadOS â€” Most CRMs Store Data. LeadOS Learns From It.',
     template: '%s | LeadOS',
   },
   description:
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
 };
 
 // Root layout serves /blog/* routes (English-only SEO content).
-// Do NOT read request headers here — any call to headers() makes every
+// Do NOT read request headers here â€” any call to headers() makes every
 // page dynamic, killing ISR and producing Cache-Control: private/no-store
 // which prevents Googlebot from indexing.
 const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "LeadOS",
-  url: "https://www.myleados.ai",
-  logo: "https://www.myleados.ai/icon.svg",
+  url: "https://myleados.ai",
+  logo: "https://myleados.ai/icon.svg",
   sameAs: ["https://www.instagram.com/leados.ai"],
   description: "AI CRM that learns from conversations, bookings and follow-ups. Capture leads, automate bookings, track revenue and improve over time.",
 };
@@ -41,10 +41,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "LeadOS",
-  url: "https://www.myleados.ai",
+  url: "https://myleados.ai",
   potentialAction: {
     "@type": "SearchAction",
-    target: { "@type": "EntryPoint", urlTemplate: "https://www.myleados.ai/blog?q={search_term_string}" },
+    target: { "@type": "EntryPoint", urlTemplate: "https://myleados.ai/blog?q={search_term_string}" },
     "query-input": "required name=search_term_string",
   },
 };
