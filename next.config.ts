@@ -28,14 +28,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/auto-seo",
-        destination: "/auto-seo.html",
-      },
-    ];
-  },
   async headers() {
     return [
       {
