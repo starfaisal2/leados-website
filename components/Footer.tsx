@@ -111,6 +111,11 @@ export default function Footer() {
           </div>
         </div>
 
+        <div className="footer-clients" style={{ borderTop: "1px solid rgba(255,255,255,.06)", padding: "20px 0 0", marginBottom: 20, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 11, color: "rgba(255,255,255,.3)", textTransform: "uppercase", letterSpacing: "0.08em", marginRight: 4 }}>Trusted by</span>
+          <a href="https://enfieldroyalclinics.ae" target="_blank" rel="noopener" style={{ fontSize: 12, color: "rgba(255,255,255,.45)", textDecoration: "none", padding: "3px 10px", border: "1px solid rgba(255,255,255,.1)", borderRadius: 20 }}>Enfield Royal Clinics</a>
+          <a href="https://www.fbcdelivery.ae" target="_blank" rel="noopener" style={{ fontSize: 12, color: "rgba(255,255,255,.45)", textDecoration: "none", padding: "3px 10px", border: "1px solid rgba(255,255,255,.1)", borderRadius: 20 }}>FBC Delivery Services</a>
+        </div>
         <div className="footer-bottom">
           <div className="footer-bot-logo">
             <span className="footer-bot-wm">LeadOS</span>
