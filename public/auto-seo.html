@@ -185,6 +185,7 @@ h1{font-size:clamp(38px,4.5vw,62px);font-weight:900;color:var(--text);letter-spa
 /* typing effect */
 .type-cursor{display:inline-block;width:2px;height:14px;background:var(--blue);vertical-align:middle;margin-left:1px;animation:blink .8s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes lang-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* COMPARE TABLE */
 .compare{padding:100px 0;position:relative;z-index:1;background:var(--white)}
@@ -311,8 +312,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div class="hero-badge-dot">⚡</div>
         #1 AI SEO Platform — Trusted by 2,000+ businesses
       </div>
-      <h1>Rank <span class="gt">#1 on Google.</span><br>Zero Writing.<br>From $29<span style="font-size:.5em;color:var(--muted)">/mo</span></h1>
-      <p class="hero-sub">Your AI SEO teammate writes, publishes and ranks articles for you — automatically. No agency. No writers. No guesswork.</p>
+      <h1>Rank <span class="gt">#1 on Google</span><br>& ChatGPT.<br>Zero Writing.<br>From $29<span style="font-size:.5em;color:var(--muted)">/mo</span></h1>
+      <p class="hero-sub">Your AI SEO teammate writes and publishes SEO articles for you <strong>every day</strong> — automatically. No agency. No writers. No guesswork. Ranks on Google AND ChatGPT.</p>
       <div class="hero-actions">
         <a href="#scan" class="btn btn-p btn-lg">🔍 Free Site Scan — No Signup</a>
         <a href="#how" class="btn btn-out btn-lg">See how it works</a>
@@ -320,7 +321,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
       <div class="hero-trust">
         <div class="hero-trust-item">🛡️ 14-day money back</div>
         <div class="hero-trust-item">⚡ Live in 5 mins</div>
-        <div class="hero-trust-item">🤖 Fully automated</div>
+        <div class="hero-trust-item">🤖 Publishes daily</div>
+        <div class="hero-trust-item">🌍 50+ languages</div>
       </div>
     </div>
 
@@ -425,12 +427,86 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div id="competitorList" style="display:grid;gap:10px"></div>
       </div>
 
-      <div class="cta-result">
-        <div>
-          <h3>🚀 Your site can rank #1 for <span id="kwCount">8</span> keywords</h3>
-          <p>Let our AI write the articles. You get the traffic. Starts at $29/mo.</p>
+      <!-- POST-SCAN PRICING PICKER -->
+      <div id="scan-pricing" style="margin-top:28px;background:linear-gradient(135deg,#0a0f2c 0%,#1a1060 100%);border-radius:20px;padding:32px 28px;color:#fff">
+        <div style="text-align:center;margin-bottom:8px">
+          <span style="background:rgba(99,179,237,0.15);color:#90cdf4;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px">Fix My SEO</span>
         </div>
-        <a href="#pricing" class="btn btn-white btn-lg" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">Start Ranking Now →</a>
+        <h3 style="text-align:center;font-size:22px;font-weight:900;margin:10px 0 4px;color:#fff">Your site can rank #1 for <span id="kwCount">8</span> keywords</h3>
+        <p style="text-align:center;color:#94a3b8;font-size:14px;margin:0 0 24px">Pick a plan. Our AI starts writing &amp; publishing articles for you today.</p>
+
+        <!-- Billing toggle -->
+        <div style="display:flex;justify-content:center;margin-bottom:20px">
+          <div style="background:rgba(255,255,255,0.08);border-radius:100px;padding:4px;display:flex;gap:2px">
+            <button id="scanTabM" onclick="setScanPlan('monthly')" style="background:#fff;color:#0a0f2c;border:none;border-radius:100px;padding:7px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s">Monthly</button>
+            <button id="scanTabA" onclick="setScanPlan('annual')" style="background:transparent;color:#94a3b8;border:none;border-radius:100px;padding:7px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s">Annual <span style="background:#22c55e;color:#fff;font-size:10px;padding:2px 6px;border-radius:100px;margin-left:4px">Save 20%</span></button>
+          </div>
+        </div>
+
+        <!-- 3 plan cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+
+          <!-- Starter -->
+          <div onclick="selectScanPlan('starter',this)" id="scan-plan-starter" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:12px">Starter</div>
+            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
+              <span style="font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-starter">$29</span>
+              <span style="font-size:13px;color:#64748b;font-weight:500;padding-bottom:6px">/mo</span>
+            </div>
+            <div style="font-size:11px;color:#475569;min-height:16px;margin-bottom:18px" id="scanB-starter"></div>
+            <div style="height:1px;background:rgba(255,255,255,0.07);margin-bottom:18px"></div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>15 AI articles / month</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>5 backlinks / month</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Keyword research</li>
+            </ul>
+          </div>
+
+          <!-- Growth (highlighted) -->
+          <div onclick="selectScanPlan('growth',this)" id="scan-plan-growth" style="background:linear-gradient(145deg,rgba(67,97,238,0.35),rgba(114,9,183,0.35));border:1.5px solid rgba(129,140,248,0.5);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative;box-shadow:0 0 40px rgba(67,97,238,0.2)">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;font-size:10px;font-weight:900;padding:4px 14px;border-radius:100px;white-space:nowrap;letter-spacing:.05em">⭐ MOST POPULAR</div>
+            <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#a5b4fc;margin-bottom:12px">Growth</div>
+            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
+              <span style="font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-growth">$49</span>
+              <span style="font-size:13px;color:#818cf8;font-weight:500;padding-bottom:6px">/mo</span>
+            </div>
+            <div style="font-size:11px;color:#6366f1;min-height:16px;margin-bottom:18px" id="scanB-growth"></div>
+            <div style="height:1px;background:rgba(129,140,248,0.2);margin-bottom:18px"></div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+              <li style="font-size:13px;color:#c7d2fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>30 AI articles / month</li>
+              <li style="font-size:13px;color:#c7d2fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>10 backlinks / month</li>
+              <li style="font-size:13px;color:#c7d2fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
+              <li style="font-size:13px;color:#c7d2fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
+              <li style="font-size:13px;color:#c7d2fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Priority support</li>
+            </ul>
+          </div>
+
+          <!-- Scale -->
+          <div onclick="selectScanPlan('scale',this)" id="scan-plan-scale" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:12px">Scale</div>
+            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
+              <span style="font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-scale">$79</span>
+              <span style="font-size:13px;color:#64748b;font-weight:500;padding-bottom:6px">/mo</span>
+            </div>
+            <div style="font-size:11px;color:#475569;min-height:16px;margin-bottom:18px" id="scanB-scale"></div>
+            <div style="height:1px;background:rgba(255,255,255,0.07);margin-bottom:18px"></div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>45 AI articles / month</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>13 backlinks / month</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
+              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Dedicated manager</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Main CTA -->
+        <button id="scanCtaBtn" onclick="launchScanCheckout()" style="width:100%;margin-top:20px;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:14px;padding:18px;font-size:17px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:-0.3px">
+          Fix My SEO — Start Today →
+        </button>
+        <p style="text-align:center;font-size:12px;color:#64748b;margin:10px 0 0">No contract · Cancel anytime · Setup in 48 hours</p>
       </div>
     </div>
   </div>
@@ -442,7 +518,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     <div class="reveal" style="text-align:center">
       <div class="section-eyebrow">How it works</div>
       <div class="section-title">SEO on <span class="gt">autopilot</span> in 3 steps</div>
-      <p class="section-sub" style="margin:0 auto">Connect your site, tell us your business, and our AI does everything else — every week, forever.</p>
+      <p class="section-sub" style="margin:0 auto">Connect your site once. Our AI writes, optimises and publishes fresh SEO articles to your website every single day — automatically, forever.</p>
     </div>
     <div class="how-cards">
       <div class="how-card reveal" style="transition-delay:.1s">
@@ -455,7 +531,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div class="how-num">Step 02</div>
         <div class="how-icon">✍️</div>
         <h3>AI Writes & Publishes</h3>
-        <p>Every week, our AI writes SEO-optimised articles tailored to your business, voice and audience — and publishes them automatically.</p>
+        <p>Every single day, our AI writes SEO-optimised articles in your brand voice and publishes them directly to your website — zero effort from you.</p>
       </div>
       <div class="how-card reveal" style="transition-delay:.3s">
         <div class="how-num">Step 03</div>
@@ -491,6 +567,134 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   </div>
 </div>
 
+<!-- CMS INTEGRATIONS -->
+<section style="padding:72px 0;background:var(--white);position:relative;z-index:1">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px" class="reveal">
+      <div class="section-eyebrow">Works with your website</div>
+      <div class="section-title" style="font-size:clamp(24px,2.8vw,38px)">Publishes directly to your site — <span class="gt">automatically</span></div>
+      <p style="color:var(--text2);font-size:16px;margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto">Connect once. Our AI publishes fresh SEO articles to your website every day, without you touching anything.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/wordpress/21759B" width="22" height="22" alt="WordPress" onerror="this.style.display='none'">WordPress</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/shopify/96BF48" width="22" height="22" alt="Shopify" onerror="this.style.display='none'">Shopify</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/webflow/4353FF" width="22" height="22" alt="Webflow" onerror="this.style.display='none'">Webflow</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/wix/0C6EFC" width="22" height="22" alt="Wix" onerror="this.style.display='none'">Wix</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" width="22" height="22" alt="HubSpot" onerror="this.style.display='none'">HubSpot</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/ghost/15171A" width="22" height="22" alt="Ghost" onerror="this.style.display='none'">Ghost</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)">⚡ Next.js</div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--muted)">+ Any platform via webhook</div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL RESULTS -->
+<section style="padding:100px 0;background:var(--bg);position:relative;z-index:1">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px" class="reveal">
+      <div class="section-eyebrow">Real results</div>
+      <div class="section-title">Businesses ranking higher <span class="gt">every day</span></div>
+      <p style="color:var(--text2);font-size:16px;margin-top:10px">These are real traffic results from businesses using LeadOS Auto SEO.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px" class="reveal">
+      <!-- Result card 1 -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div>
+            <div style="font-weight:800;font-size:15px;color:var(--text)">Real Estate Agency</div>
+            <div style="font-size:12px;color:var(--muted)">Dubai, UAE</div>
+          </div>
+          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:#059669">+340%</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--blue)">47</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--purple)">#1</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
+          </div>
+        </div>
+        <!-- mini chart -->
+        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
+          <defs><linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4361EE" stop-opacity=".2"/><stop offset="100%" stop-color="#4361EE" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,52 L30,48 L60,44 L90,38 L120,30 L150,20 L180,12 L210,6 L240,2" fill="none" stroke="#4361EE" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M0,52 L30,48 L60,44 L90,38 L120,30 L150,20 L180,12 L210,6 L240,2 L240,60 L0,60Z" fill="url(#cg1)"/>
+          <circle cx="240" cy="2" r="4" fill="#4361EE"/>
+        </svg>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
+      </div>
+      <!-- Result card 2 -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div>
+            <div style="font-weight:800;font-size:15px;color:var(--text)">HVAC Business</div>
+            <div style="font-size:12px;color:var(--muted)">Sydney, Australia</div>
+          </div>
+          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:#059669">+215%</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--blue)">120</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--purple)">#2</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
+          </div>
+        </div>
+        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
+          <defs><linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06D6A0" stop-opacity=".2"/><stop offset="100%" stop-color="#06D6A0" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,55 L30,50 L60,46 L90,40 L120,32 L150,22 L180,14 L210,8 L240,3" fill="none" stroke="#06D6A0" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M0,55 L30,50 L60,46 L90,40 L120,32 L150,22 L180,14 L210,8 L240,3 L240,60 L0,60Z" fill="url(#cg2)"/>
+          <circle cx="240" cy="3" r="4" fill="#06D6A0"/>
+        </svg>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
+      </div>
+      <!-- Result card 3 -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div>
+            <div style="font-weight:800;font-size:15px;color:var(--text)">Dental Clinic</div>
+            <div style="font-size:12px;color:var(--muted)">London, UK</div>
+          </div>
+          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:#059669">+350%</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--blue)">89</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
+          </div>
+          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
+            <div style="font-size:20px;font-weight:900;color:var(--purple)">#1</div>
+            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
+          </div>
+        </div>
+        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
+          <defs><linearGradient id="cg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7209B7" stop-opacity=".2"/><stop offset="100%" stop-color="#7209B7" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,54 L30,49 L60,43 L90,35 L120,26 L150,18 L180,10 L210,5 L240,1" fill="none" stroke="#7209B7" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M0,54 L30,49 L60,43 L90,35 L120,26 L150,18 L180,10 L210,5 L240,1 L240,60 L0,60Z" fill="url(#cg3)"/>
+          <circle cx="240" cy="1" r="4" fill="#7209B7"/>
+        </svg>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section id="features" class="features">
   <div class="container">
@@ -505,7 +709,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <span class="feat-tag">AI-Powered</span>
         </div>
         <h3>Automated Article Writing</h3>
-        <p>Our AI writes expert-level, long-form articles in your brand voice every week. No briefs, no editing, no writers needed.</p>
+        <p>Our AI writes expert-level, long-form articles in your brand voice every day. No briefs, no editing, no writers needed.</p>
         <div class="article-preview">
           <div class="article-preview-title">🖊️ Writing: "10 Best Real Estate Tips in Dubai 2025"<span class="type-cursor"></span></div>
           <div class="article-preview-lines">
@@ -557,6 +761,60 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <h3>Live Ranking Dashboard</h3>
         <p>See every keyword position, article performance and traffic trend in one clean dashboard. Updated daily, always current.</p>
       </div>
+      <div class="feat-card reveal feat-card-big" style="transition-delay:.3s;background:linear-gradient(135deg,rgba(67,97,238,0.04),rgba(114,9,183,0.04))">
+        <div class="feat-icon-row">
+          <div class="feat-icon" style="background:rgba(67,97,238,.1)">🤖</div>
+          <span class="feat-tag">New — ChatGPT Ranking</span>
+        </div>
+        <h3>Rank on Google <em>and</em> ChatGPT</h3>
+        <p>Millions of people now search on ChatGPT instead of Google. Our AI-optimised articles are structured to appear in ChatGPT answers and AI overviews — so your business gets found no matter where your customers search.</p>
+        <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">🔍 Google Search ✓</div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">🤖 ChatGPT Answers ✓</div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">✨ Google AI Overview ✓</div>
+        </div>
+      </div>
+      <div class="feat-card reveal" style="transition-delay:.35s">
+        <div class="feat-icon-row">
+          <div class="feat-icon" style="background:rgba(6,214,160,.1)">🌍</div>
+          <span class="feat-tag">Global</span>
+        </div>
+        <h3>50+ Languages</h3>
+        <p>Reach customers in any country. Our AI writes and publishes SEO content in 50+ languages — so you can rank locally or globally without extra cost.</p>
+        <div style="overflow:hidden;margin-top:18px;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%)">
+          <div style="display:flex;gap:8px;width:max-content;animation:lang-scroll 28s linear infinite">
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇺🇸 English</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇦🇪 Arabic</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇪🇸 Spanish</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇫🇷 French</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇩🇪 German</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇯🇵 Japanese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇨🇳 Chinese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇧🇷 Portuguese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇹 Italian</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇰🇷 Korean</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇳🇱 Dutch</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇸🇦 Urdu</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇹🇷 Turkish</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇳 Hindi</span>
+            <!-- duplicate set for seamless loop -->
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇺🇸 English</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇦🇪 Arabic</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇪🇸 Spanish</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇫🇷 French</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇩🇪 German</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇯🇵 Japanese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇨🇳 Chinese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇧🇷 Portuguese</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇹 Italian</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇰🇷 Korean</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇳🇱 Dutch</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇸🇦 Urdu</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇹🇷 Turkish</span>
+            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇳 Hindi</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -585,10 +843,16 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <td>$500–$2,000/mo (tools + time)</td>
         </tr>
         <tr>
-          <td>Weekly AI articles</td>
-          <td class="col-leados"><span class="chk">✓</span> Auto-published</td>
+          <td>Daily AI articles</td>
+          <td class="col-leados"><span class="chk">✓</span> Auto-published daily</td>
           <td>Possible (+ extra $$$)</td>
           <td><span class="cross">✗</span> Manual effort</td>
+        </tr>
+        <tr>
+          <td>Ranks on ChatGPT</td>
+          <td class="col-leados"><span class="chk">✓</span> Yes</td>
+          <td><span class="cross">✗</span> No</td>
+          <td><span class="cross">✗</span> No</td>
         </tr>
         <tr>
           <td>Keyword research</td>
@@ -649,9 +913,10 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div class="pc-desc">Perfect for small businesses ready to start ranking on Google.</div>
         <ul class="pc-features">
           <li>15 AI articles per month</li>
-          <li>50 keyword tracking</li>
-          <li>Basic backlink submissions</li>
-          <li>Google Search Console sync</li>
+          <li>5 backlinks per month</li>
+          <li>1 website</li>
+          <li>Auto-publish daily</li>
+          <li>Keyword research</li>
           <li>Email support</li>
         </ul>
         <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Get Started →</button>
@@ -666,9 +931,9 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div class="pc-desc">For growing businesses that want to dominate their local market.</div>
         <ul class="pc-features">
           <li>30 AI articles per month</li>
-          <li>200 keyword tracking</li>
-          <li>Priority backlink engine</li>
-          <li>WordPress + Webflow auto-publish</li>
+          <li>10 backlinks per month</li>
+          <li>1 website</li>
+          <li>Auto-publish daily</li>
           <li>Competitor gap analysis</li>
           <li>Priority support</li>
         </ul>
@@ -683,9 +948,9 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div class="pc-desc">For agencies and high-growth businesses that need maximum output.</div>
         <ul class="pc-features">
           <li>45 AI articles per month</li>
-          <li>Unlimited keyword tracking</li>
-          <li>Full backlink automation</li>
-          <li>Multi-site management</li>
+          <li>13 backlinks per month</li>
+          <li>1 website</li>
+          <li>Auto-publish daily</li>
           <li>White-label reports</li>
           <li>Dedicated account manager</li>
         </ul>
@@ -874,6 +1139,11 @@ const scanData = {
 
 var _lastScanUrl = '';
 
+// ── Meta Pixel helpers ──────────────────────────────────────────────
+function _fbq(){if(typeof fbq==='function'){fbq.apply(null,arguments);}}
+_fbq('track','ViewContent',{content_name:'Auto SEO Landing Page',content_category:'SaaS'});
+// ─────────────────────────────────────────────────────────────────────
+
 function startScan(){
   var rawUrl = document.getElementById('scanUrl').value.trim();
   if(!rawUrl){ alert('Please enter your website URL first.'); return; }
@@ -983,6 +1253,55 @@ function showFallbackResults(){
 }
 
 // ========================
+// SCAN PRICING PICKER
+// ========================
+var _scanSelectedPlan = 'growth';
+var _scanBillingMode = 'monthly';
+var _scanPrices = {
+  monthly: { starter:'$29', growth:'$49', scale:'$79' },
+  annual:  { starter:'$23', growth:'$39', scale:'$63' }
+};
+var _scanBilled = {
+  monthly: { starter:'/month', growth:'/month', scale:'/month' },
+  annual:  { starter:'$276/yr · save $72', growth:'$468/yr · save $120', scale:'$756/yr · save $192' }
+};
+
+function setScanPlan(mode){
+  _scanBillingMode = mode;
+  document.getElementById('scanTabM').style.background = mode==='monthly'?'#fff':'transparent';
+  document.getElementById('scanTabM').style.color = mode==='monthly'?'#0a0f2c':'#94a3b8';
+  document.getElementById('scanTabA').style.background = mode==='annual'?'#fff':'transparent';
+  document.getElementById('scanTabA').style.color = mode==='annual'?'#0a0f2c':'#94a3b8';
+  ['starter','growth','scale'].forEach(function(p){
+    document.getElementById('scanP-'+p).textContent = _scanPrices[mode][p];
+    document.getElementById('scanB-'+p).textContent = _scanBilled[mode][p];
+  });
+}
+
+function selectScanPlan(planKey, el){
+  _scanSelectedPlan = planKey;
+  ['starter','growth','scale'].forEach(function(p){
+    var card = document.getElementById('scan-plan-'+p);
+    if(p === 'growth'){
+      card.style.border = p===planKey ? '2px solid #a78bfa' : '2px solid #818cf8';
+      card.style.opacity = p===planKey ? '1' : '0.7';
+    } else {
+      card.style.border = p===planKey ? '2px solid #818cf8' : '2px solid rgba(255,255,255,0.12)';
+      card.style.opacity = '1';
+    }
+  });
+  var labels = {starter:'Starter', growth:'Growth', scale:'Scale'};
+  document.getElementById('scanCtaBtn').textContent = 'Get Started with '+labels[planKey]+' →';
+}
+
+function launchScanCheckout(){
+  _fbq('track','Lead');
+  goCheckout(_scanSelectedPlan);
+  // sync billing mode with main pricing toggle
+  if(_scanBillingMode !== planMode){ setPlan(_scanBillingMode); }
+}
+
+// ========================
 // CHECKOUT MODAL
 // ========================
 var _checkoutPlan='growth';
@@ -1011,6 +1330,7 @@ function payWithStripe(){
   var btn=document.getElementById('stripe-btn');
   btn.textContent='Redirecting to Stripe…'; btn.disabled=true;
   document.getElementById('paypal-btn').disabled=true;
+  _fbq('track','InitiateCheckout');
   fetch('https://app.myleados.ai/api/stripe/standalone-checkout',{
     method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||''})
@@ -1030,6 +1350,7 @@ function payWithPayPal(){
   var btn=document.getElementById('paypal-btn');
   btn.textContent='Redirecting to PayPal…'; btn.disabled=true;
   document.getElementById('stripe-btn').disabled=true;
+  _fbq('track','InitiateCheckout');
   fetch('https://app.myleados.ai/api/paypal/create-order',{
     method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||''})
@@ -1059,7 +1380,11 @@ function setPlan(mode){
   });
 }
 
-// Scroll reveals handled by parent page
+// Scroll reveal observer
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revealObs.observe(el));
 
 // stat counter
 const statObs=new IntersectionObserver(entries=>{
