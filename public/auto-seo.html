@@ -268,21 +268,101 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 .reveal-right.in{opacity:1;transform:translateX(0)}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:100px 0 60px}
-  .bot-scene{min-height:380px}
-  .how-cards,.pricing-cards,.testi-cards,.scan-results-grid{grid-template-columns:1fr}
-  .features-grid{grid-template-columns:1fr}
-  .feat-card-big{grid-column:span 1}
-  .compare-table{font-size:12px}
-  nav{padding:0 20px}
+  /* NAV */
+  nav{padding:0 16px;height:58px}
   .nlinks{display:none}
-  .scan-section{padding:36px 20px;margin:40px 0;border-radius:20px}
-  .scan-input-row{flex-direction:column;padding:12px;border-radius:12px;gap:8px}
-  #scanBtn{width:100%;border-radius:8px;padding:14px}
-  .stats-grid{grid-template-columns:1fr 1fr;gap:20px}
-  .cta-inner{padding:48px 24px;border-radius:20px}
-  .cta-result{flex-direction:column;gap:14px}
-  .container{padding:0 16px}
+  .btn{padding:9px 16px;font-size:13px}
+
+  /* CONTAINER */
+  .container{padding:0 18px}
+
+  /* HERO — text-first, bot below, tighter */
+  .hero{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding:80px 0 40px;
+    gap:0;
+    text-align:center;
+  }
+  .hero-badge{font-size:12px;padding:5px 12px 5px 7px;margin-bottom:18px}
+  h1{font-size:36px;margin-bottom:14px;letter-spacing:-0.03em}
+  .hero-sub{font-size:16px;margin-bottom:24px;max-width:100%}
+  .hero-actions{justify-content:center;gap:10px}
+  .hero-actions .btn-lg{padding:14px 24px;font-size:15px;border-radius:12px;width:100%;justify-content:center}
+  .hero-trust{justify-content:center;gap:10px;font-size:12px}
+
+  /* BOT — smaller, no floating badges */
+  .bot-scene{min-height:260px;margin-top:24px}
+  #byteBot{width:220px}
+  .orbit1,.orbit2{display:none}
+  .fb1,.fb2,.fb3,.fb4{font-size:11px;padding:7px 10px;gap:5px}
+  .fb1{top:4%;left:0}
+  .fb2{top:8%;right:0}
+  .fb3{bottom:16%;left:0}
+  .fb4{bottom:4%;right:0}
+  .fbadge-icon{width:22px;height:22px;font-size:11px}
+
+  /* SCAN SECTION */
+  .scan-section{padding:28px 18px;margin:32px 0;border-radius:18px}
+  .scan-header h2{font-size:24px}
+  .scan-input-row{flex-direction:column;padding:10px;border-radius:12px;gap:8px;max-width:100%}
+  #scanUrl{font-size:15px;padding:6px 0}
+  #scanBtn{width:100%;border-radius:10px;padding:14px;font-size:15px}
+  .scan-results-grid{grid-template-columns:1fr}
+  .scan-steps{gap:8px}
+  .scan-step{font-size:12px;padding:6px 10px}
+
+  /* HOW IT WORKS */
+  .how{padding:56px 0}
+  .how-cards{grid-template-columns:1fr;gap:16px;margin-top:32px}
+  .how-card{padding:24px}
+  .section-title{font-size:28px}
+  .section-sub{font-size:15px}
+
+  /* STATS */
+  .stats-strip{padding:40px 0}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .stat-num{font-size:36px}
+  .stat-label{font-size:13px}
+
+  /* FEATURES */
+  .features{padding:56px 0}
+  .features-grid{grid-template-columns:1fr;gap:16px;margin-top:32px}
+  .feat-card-big{grid-column:span 1}
+  .feat-card{padding:24px}
+  .feat-card h3{font-size:18px}
+
+  /* COMPARE */
+  .compare{padding:56px 0}
+  .compare-table{font-size:11px;margin-top:32px}
+  .compare-table th,.compare-table td{padding:10px 10px}
+
+  /* PRICING */
+  .pricing{padding:56px 0}
+  .pricing-cards{grid-template-columns:1fr;gap:16px;margin-top:32px}
+  .pc{padding:24px}
+  .pc-price-num{font-size:40px}
+
+  /* TESTIMONIALS */
+  .testi{padding:56px 0}
+  .testi-cards{grid-template-columns:1fr;gap:16px;margin-top:32px}
+
+  /* FINAL CTA */
+  .final-cta{padding:56px 0}
+  .cta-inner{padding:40px 20px;border-radius:20px}
+  .cta-inner h2{font-size:28px}
+  .cta-inner p{font-size:15px;margin-bottom:28px}
+  .cta-actions{flex-direction:column;align-items:stretch}
+  .cta-actions .btn{justify-content:center;width:100%}
+  .cta-result{flex-direction:column;gap:12px;text-align:center}
+
+  /* FOOTER */
+  footer{padding:32px 0}
+  .footer-links{gap:14px}
+
+  /* FLOAT CTA */
+  #floatCta{bottom:16px;right:16px}
+  #floatCta .btn{padding:12px 20px;font-size:14px}
 }
 </style>
 </head>
