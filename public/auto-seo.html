@@ -385,6 +385,90 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   #floatCta{bottom:14px;right:14px}
   #floatCta .btn{padding:12px 18px;font-size:14px}
 }
+
+/* ── PHONE: clean premium look ── */
+@media(max-width:640px){
+  /* Kill the particle canvas — makes the page look cheap on small screens */
+  #bgCanvas{display:none}
+
+  /* Pure white body so sections with transparent bg look clean */
+  body{background:#fff}
+
+  /* Hero gets a soft gradient top to bottom instead of particles */
+  .hero{background:linear-gradient(160deg,rgba(67,97,238,0.06) 0%,#fff 55%);border-radius:0 0 32px 32px;padding:72px 0 32px}
+
+  /* NAV: no wrapping, hide Log in — one CTA only */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px)}
+  .nlogo{white-space:nowrap;font-size:14px;gap:8px}
+  .nicon{width:28px;height:28px}
+  nav>div>.btn-out{display:none}
+  nav>div>.btn-p{font-size:13px;padding:9px 16px;border-radius:9px}
+
+  /* H1 — slightly tighter on smallest screens */
+  h1{font-size:34px;line-height:1.12}
+
+  /* Sub text */
+  .hero-sub{font-size:15px;line-height:1.6;margin-bottom:24px}
+
+  /* Primary CTA: full width, bold, prominent */
+  .hero-actions{gap:10px;margin-bottom:18px}
+  .hero-actions .btn-lg:first-child{
+    background:var(--grad);
+    color:#fff;
+    box-shadow:0 8px 32px rgba(67,97,238,0.35);
+    border:none;
+    font-size:16px;
+    padding:17px 24px;
+    border-radius:14px;
+    letter-spacing:-0.01em;
+  }
+  .hero-actions .btn-lg:last-child{
+    background:transparent;
+    border:1.5px solid rgba(67,97,238,0.25);
+    color:var(--blue);
+    font-size:15px;
+    padding:14px 24px;
+    border-radius:14px;
+  }
+
+  /* Trust row: wrap cleanly, centered */
+  .hero-trust{gap:10px 16px;justify-content:center}
+  .hero-trust-item{font-size:12px;color:var(--text2);font-weight:600}
+
+  /* Bot: contained and clean */
+  .bot-scene{max-width:260px;min-height:auto;padding-bottom:8px}
+  #byteBot{width:190px;filter:drop-shadow(0 20px 40px rgba(67,97,238,0.18)) drop-shadow(0 4px 12px rgba(76,201,240,0.12))}
+
+  /* Scan section */
+  .scan-section{background:#fff;border:1.5px solid rgba(67,97,238,0.12);box-shadow:0 8px 32px rgba(67,97,238,0.08)}
+  .scan-header h2{font-size:22px;font-weight:900}
+
+  /* How / Features / Pricing — white cards stand out on white bg */
+  .how{background:#fff}
+  .features{background:#fff}
+  .pricing{background:#fff}
+  .how-card,.feat-card,.pc{box-shadow:0 2px 16px rgba(67,97,238,0.07);border-color:rgba(67,97,238,0.1)}
+
+  /* Stats strip — keep the gradient, looks great */
+  .stats-strip{border-radius:20px;margin:0 12px}
+
+  /* Compare table — hide on mobile, too complex */
+  .compare{display:none}
+
+  /* Testi bg */
+  .testi{background:#F8F9FF;border-radius:24px;margin:0 12px}
+  .testi-cards{padding:0 4px}
+
+  /* Final CTA */
+  .final-cta{padding:40px 0}
+  .cta-inner{border-radius:24px;margin:0 4px}
+
+  /* Footer */
+  footer{border-radius:20px 20px 0 0}
+
+  /* Section eyebrow / title alignment */
+  .section-title{font-size:26px;letter-spacing:-0.03em}
+}
 </style>
 </head>
 <body>
