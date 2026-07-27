@@ -110,13 +110,16 @@ export default function AboutPage() {
 
                 {/* Avatar */}
                 <div style={{ position: "relative", marginBottom: 24 }}>
-                  <div style={{
-                    width: 72, height: 72, borderRadius: "50%",
-                    background: "linear-gradient(135deg, #2563eb, #4f46e5, #7c3aed)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 28, fontWeight: 900, color: "white",
-                    boxShadow: "0 0 0 3px rgba(255,255,255,.08), 0 8px 32px rgba(37,99,235,.4)",
-                  }}>F</div>
+                  <img
+                    src="/founder.jpg"
+                    alt="M.Faisal — Founder & CEO, LeadOS"
+                    style={{
+                      width: 72, height: 72, borderRadius: "50%",
+                      objectFit: "cover", objectPosition: "center top",
+                      boxShadow: "0 0 0 3px rgba(255,255,255,.12), 0 8px 32px rgba(37,99,235,.4)",
+                      display: "block",
+                    }}
+                  />
                   <div style={{
                     position: "absolute", top: 4, left: 54,
                     width: 20, height: 20, borderRadius: "50%",
