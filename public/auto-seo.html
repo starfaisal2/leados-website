@@ -117,6 +117,7 @@ h1{font-size:clamp(38px,4.5vw,62px);font-weight:900;color:var(--text);letter-spa
 /* SCAN RESULTS */
 #scanResults{display:none;animation:fadeUp .5s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 .scan-results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
 .scan-score-card{background:var(--grad);border-radius:16px;padding:24px;color:#fff;text-align:center}
 .scan-score-num{font-size:52px;font-weight:900;line-height:1;letter-spacing:-0.04em;margin-bottom:4px}
@@ -556,6 +557,11 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
       <div class="section-eyebrow">🔍 Free Site Scan</div>
       <h2>See <span class="gt">exactly</span> what's holding your site back</h2>
       <p>No login needed. Get your SEO score, top keyword opportunities and a priority fix list in 30 seconds.</p>
+      <div id="scanCounterBadge" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:linear-gradient(135deg,rgba(67,97,238,0.08),rgba(114,57,234,0.08));border:1px solid rgba(67,97,238,0.18);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:600;color:#4361ee;">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;flex-shrink:0;animation:pulse 2s infinite;"></span>
+        <span id="scanCounterNum" style="font-size:15px;font-weight:800;color:#4361ee;">—</span>
+        <span style="color:#666;">websites scanned</span>
+      </div>
     </div>
 
     <div class="scan-input-row">
@@ -1335,6 +1341,28 @@ var _lastScanUrl = '';
 function _fbq(){if(typeof fbq==='function'){fbq.apply(null,arguments);}}
 _fbq('track','ViewContent',{content_name:'Auto SEO Landing Page',content_category:'SaaS'});
 // ─────────────────────────────────────────────────────────────────────
+
+// Fetch scan counter on load
+(function(){
+  fetch('https://app.myleados.ai/api/public/seo-scan/count')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var el = document.getElementById('scanCounterNum');
+      if(!el) return;
+      var target = d.count || 100;
+      var current = 0;
+      var step = Math.max(1, Math.floor(target / 40));
+      var id = setInterval(function(){
+        current = Math.min(current + step, target);
+        el.textContent = current.toLocaleString() + '+';
+        if(current >= target) clearInterval(id);
+      }, 30);
+    })
+    .catch(function(){
+      var el = document.getElementById('scanCounterNum');
+      if(el) el.textContent = '100+';
+    });
+})();
 
 function startScan(){
   var rawUrl = document.getElementById('scanUrl').value.trim();
