@@ -1,178 +1,175 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About LeadOS — Built by M.Faisal, Australia",
+  title: "About LeadOS — Founded by M.Faisal, Australia",
   description: "LeadOS was founded in Australia by M.Faisal, a business owner who built the AI CRM he always needed but could never find.",
 };
 
 export default function AboutPage() {
   return (
     <>
-      {/* ── Hero ── */}
+      {/* ── Hero — matches site's light hero style ── */}
       <section style={{
-        background: "linear-gradient(160deg, #06091a 0%, #0d1340 50%, #06091a 100%)",
-        padding: "140px 24px 100px",
+        paddingTop: "calc(68px + 80px)",
+        paddingBottom: 80,
+        paddingLeft: 24,
+        paddingRight: 24,
+        background: "white",
         position: "relative",
         overflow: "hidden",
       }}>
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: 900, height: 500, background: "radial-gradient(ellipse, rgba(37,99,235,.18) 0%, transparent 68%)" }} />
-        </div>
+        {/* Subtle radial glow — same as .hero::before */}
+        <div style={{
+          position: "absolute", inset: 0, pointerEvents: "none",
+          background: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37,99,235,.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(79,70,229,.04) 0%, transparent 60%)",
+        }} />
 
         <div style={{ maxWidth: 860, margin: "0 auto", position: "relative", textAlign: "center" }}>
-          <span style={{
-            display: "inline-block",
-            background: "rgba(37,99,235,.15)",
-            border: "1px solid rgba(37,99,235,.3)",
-            color: "#93c5fd",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            borderRadius: 20,
-            padding: "5px 16px",
-            marginBottom: 32,
-          }}>
+          {/* Badge */}
+          <span className="badge badge-blue" style={{ marginBottom: 24 }}>
             Founder Story
           </span>
 
+          {/* Headline */}
           <h1 style={{
-            fontFamily: "Lora, Georgia, serif",
-            fontSize: "clamp(38px, 5.5vw, 72px)",
+            fontFamily: "var(--font-serif, Lora, Georgia, serif)",
+            fontSize: "clamp(36px, 5vw, 64px)",
             fontWeight: 700,
-            color: "#ffffff",
+            color: "var(--ink, #0f1117)",
             lineHeight: 1.1,
-            letterSpacing: "-1px",
-            marginBottom: 28,
+            letterSpacing: "-1.5px",
+            marginBottom: 24,
+            marginTop: 16,
           }}>
-            I was losing leads in my own business.<br />
-            <span style={{ color: "#93c5fd" }}>So I built the system I wished existed.</span>
+            I was losing leads in my own business.{" "}
+            <span style={{
+              background: "linear-gradient(135deg, var(--blue, #2563eb) 0%, var(--indigo, #4f46e5) 60%, var(--purple, #7c3aed) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              So I built the fix.
+            </span>
           </h1>
 
-          <p style={{
-            fontSize: "clamp(16px, 2vw, 20px)",
-            color: "rgba(255,255,255,.55)",
-            lineHeight: 1.75,
-            maxWidth: 620,
-            margin: "0 auto 44px",
-          }}>
+          <p className="body-lg" style={{ maxWidth: 600, margin: "0 auto 40px", color: "var(--ink-3, #5a5c6e)" }}>
             LeadOS was founded in Australia by M.Faisal — a business owner turned builder, who got tired of watching potential customers slip through the cracks.
           </p>
 
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
+          {/* Founder chip */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 12,
+            background: "var(--blue-50, #eff6ff)",
+            border: "1px solid var(--blue-100, #dbeafe)",
+            borderRadius: 40, padding: "10px 20px 10px 10px",
+          }}>
             <div style={{
-              width: 48, height: 48, borderRadius: "50%",
+              width: 40, height: 40, borderRadius: "50%",
               background: "linear-gradient(135deg, #2563eb, #4f46e5)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              color: "white", fontWeight: 800, fontSize: 18,
-              flexShrink: 0,
+              color: "white", fontWeight: 800, fontSize: 16, flexShrink: 0,
             }}>F</div>
             <div style={{ textAlign: "left" }}>
-              <div style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 15 }}>M.Faisal</div>
-              <div style={{ color: "rgba(255,255,255,.4)", fontSize: 13 }}>Founder & CEO · LeadOS · Australia</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink, #0f1117)", lineHeight: 1.2 }}>M.Faisal</div>
+              <div style={{ fontSize: 12, color: "var(--ink-3, #5a5c6e)" }}>Founder & CEO · LeadOS · 🇦🇺 Australia</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Origin Story ── */}
-      <section style={{ background: "#ffffff", padding: "96px 24px" }}>
+      <section className="section" style={{ background: "var(--bg, #f8f8f6)", paddingLeft: 24, paddingRight: 24 }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
 
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: 20 }}>
-            Where it started
-          </p>
+          <div className="section-header" style={{ marginBottom: 40 }}>
+            <span className="badge badge-purple" style={{ marginBottom: 16 }}>Where it started</span>
+            <h2 style={{
+              fontFamily: "var(--font-serif, Lora, Georgia, serif)",
+              fontSize: "clamp(26px, 3.5vw, 40px)",
+              fontWeight: 700,
+              color: "var(--ink, #0f1117)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.5px",
+            }}>
+              The gap wasn&apos;t in the market.<br />It was in my own business.
+            </h2>
+          </div>
 
-          <h2 style={{
-            fontFamily: "Lora, Georgia, serif",
-            fontSize: "clamp(26px, 3.5vw, 42px)",
-            fontWeight: 700,
-            color: "#0f1117",
-            lineHeight: 1.2,
-            letterSpacing: "-0.5px",
-            marginBottom: 32,
-          }}>
-            The gap I found wasn't in the market. It was in my own business.
-          </h2>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             {[
               "I was running a service business and the same problem kept appearing: a customer would reach out on WhatsApp, we'd be busy, and by the time someone followed up — they'd already booked somewhere else. The lead was gone. The appointment was gone. The revenue was gone.",
-              "I tried every tool I could find. CRMs that needed a full-time admin to operate. Chatbots that couldn't hold a real conversation. Booking systems that lived in isolation from everything else. Nothing was built for the way a real service business actually runs — fast-moving, WhatsApp-first, team-driven.",
+              "I tried every tool I could find. CRMs that needed a full-time admin to operate. Chatbots that couldn't hold a real conversation. Booking systems that lived in isolation from everything else. Nothing was built for the way a real service business runs — fast-moving, WhatsApp-first, team-driven.",
               "So I stopped looking for the right tool and started building it. I wanted one system that could reply the moment a lead arrives, qualify them, book the appointment, follow up if they go quiet, hand off to the right team member, and show me exactly what's driving revenue — all without me having to touch it.",
-              "That system became LeadOS. Built in Australia, by a business owner, for business owners.",
+              "That became LeadOS. Built in Australia, by a business owner, for business owners.",
             ].map((para, i) => (
-              <p key={i} style={{ fontSize: 17, color: "#334155", lineHeight: 1.85, margin: 0 }}>
-                {para}
-              </p>
+              <p key={i} className="body-lg" style={{ margin: 0 }}>{para}</p>
             ))}
           </div>
 
           {/* Pull quote */}
           <blockquote style={{
-            margin: "52px 0 0",
+            margin: "48px 0 0",
             padding: "28px 32px",
-            background: "linear-gradient(135deg, #eff6ff, #f5f3ff)",
-            borderLeft: "4px solid #2563eb",
+            background: "white",
+            border: "1px solid rgba(37,99,235,.12)",
+            borderLeft: "4px solid var(--blue, #2563eb)",
             borderRadius: "0 16px 16px 0",
+            boxShadow: "0 4px 24px rgba(37,99,235,.06)",
           }}>
             <p style={{
-              fontFamily: "Lora, Georgia, serif",
-              fontSize: "clamp(18px, 2.5vw, 24px)",
-              color: "#0f1117",
-              lineHeight: 1.6,
+              fontFamily: "var(--font-serif, Lora, Georgia, serif)",
+              fontSize: "clamp(17px, 2.5vw, 22px)",
+              color: "var(--ink, #0f1117)",
+              lineHeight: 1.65,
               fontStyle: "italic",
               margin: 0,
             }}>
-              "I didn't build LeadOS to compete with software companies. I built it because I was the customer, and nothing out there was good enough."
+              &ldquo;I didn&apos;t build LeadOS to compete with software companies. I built it because I was the customer — and nothing out there was good enough.&rdquo;
             </p>
-            <cite style={{ display: "block", marginTop: 16, fontSize: 13, color: "#6b7280", fontStyle: "normal", fontWeight: 600 }}>
-              — M.Faisal, Founder
+            <cite style={{ display: "block", marginTop: 14, fontSize: 13, color: "var(--ink-3, #5a5c6e)", fontStyle: "normal", fontWeight: 700 }}>
+              — M.Faisal, Founder & CEO
             </cite>
           </blockquote>
         </div>
       </section>
 
       {/* ── What we built ── */}
-      <section style={{ background: "#f8f8f6", padding: "96px 24px" }}>
+      <section className="section" style={{ background: "white", paddingLeft: 24, paddingRight: 24 }}>
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: 14 }}>
-              What we built
-            </p>
+          <div className="section-header center" style={{ marginBottom: 56 }}>
+            <span className="badge badge-blue" style={{ marginBottom: 16 }}>What we built</span>
             <h2 style={{
-              fontFamily: "Lora, Georgia, serif",
-              fontSize: "clamp(28px, 3.5vw, 44px)",
+              fontFamily: "var(--font-serif, Lora, Georgia, serif)",
+              fontSize: "clamp(26px, 3.5vw, 42px)",
               fontWeight: 700,
-              color: "#0f1117",
+              color: "var(--ink, #0f1117)",
               lineHeight: 1.2,
               letterSpacing: "-0.5px",
-              maxWidth: 640,
+              maxWidth: 600,
               margin: "0 auto",
             }}>
               One operating system for every conversation that becomes revenue.
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 20 }}>
             {[
-              { icon: "⚡", title: "Instant AI response", body: "Every WhatsApp, Instagram, and web enquiry gets a reply within seconds — even at 2am. No lead waits, no lead is lost." },
-              { icon: "📅", title: "Automatic booking", body: "The AI qualifies the lead and books the appointment directly into the calendar. No back-and-forth, no missed slots." },
-              { icon: "🔁", title: "Smart follow-up", body: "If someone goes quiet, LeadOS follows up on schedule. If they cancel, it recovers the booking. All on autopilot." },
-              { icon: "🧠", title: "Company Brain", body: "Upload your price list, FAQs, and services. The AI learns your business and answers questions the way your best staff member would." },
-              { icon: "📈", title: "Auto SEO", body: "AI-written articles published to your website every week, targeting the exact keywords your customers search for." },
-              { icon: "📊", title: "Revenue clarity", body: "One dashboard that shows which conversations turned into bookings, which campaigns drove revenue, and where to grow next." },
-            ].map(({ icon, title, body }) => (
-              <div key={title} style={{
-                background: "#ffffff",
-                border: "1px solid rgba(37,99,235,.1)",
-                borderRadius: 20,
-                padding: "28px 26px",
-                boxShadow: "0 4px 24px rgba(37,99,235,.06)",
-              }}>
-                <div style={{ fontSize: 28, marginBottom: 14 }}>{icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: "#0f1117", marginBottom: 10 }}>{title}</h3>
-                <p style={{ fontSize: 14, color: "#5a5c6e", lineHeight: 1.7, margin: 0 }}>{body}</p>
+              { icon: "⚡", color: "#2563eb", title: "Instant AI response", body: "Every WhatsApp, Instagram, and web enquiry gets a reply within seconds — even at 2am. No lead waits, no lead is lost." },
+              { icon: "📅", color: "#7c3aed", title: "Automatic booking", body: "The AI qualifies the lead and books the appointment directly into the calendar. No back-and-forth, no missed slots." },
+              { icon: "🔁", color: "#059669", title: "Smart follow-up", body: "If someone goes quiet, LeadOS follows up on schedule. If they cancel, it recovers the booking. All on autopilot." },
+              { icon: "🧠", color: "#4f46e5", title: "Company Brain", body: "Upload your price list, FAQs, and services. The AI learns your business and answers questions the way your best staff member would." },
+              { icon: "📈", color: "#2563eb", title: "Auto SEO", body: "AI-written articles published to your website every week, targeting the exact keywords your customers search for." },
+              { icon: "📊", color: "#7c3aed", title: "Revenue clarity", body: "One dashboard that shows which conversations turned into bookings, which campaigns drove revenue, and where to grow next." },
+            ].map(({ icon, color, title, body }) => (
+              <div key={title} className="card" style={{ padding: "28px 26px" }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 12, marginBottom: 16,
+                  background: `${color}12`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 22,
+                }}>{icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--ink, #0f1117)", marginBottom: 8 }}>{title}</h3>
+                <p className="body-sm" style={{ margin: 0 }}>{body}</p>
               </div>
             ))}
           </div>
@@ -180,47 +177,53 @@ export default function AboutPage() {
       </section>
 
       {/* ── Australia origin ── */}
-      <section style={{ background: "#ffffff", padding: "80px 24px" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", gap: 40, alignItems: "flex-start", flexWrap: "wrap" }}>
+      <section className="section-sm" style={{ background: "var(--bg, #f8f8f6)", paddingLeft: 24, paddingRight: 24 }}>
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <div style={{
-            flexShrink: 0,
-            width: 64, height: 64, borderRadius: 16,
-            background: "linear-gradient(135deg, #06091a, #1e3a8a)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 30,
-          }}>🇦🇺</div>
-          <div style={{ flex: 1, minWidth: 240 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f1117", marginBottom: 12 }}>
-              Built in Australia
-            </h3>
-            <p style={{ fontSize: 16, color: "#334155", lineHeight: 1.8, margin: 0 }}>
-              LeadOS is proudly Australian-founded. The platform was designed, built, and tested against the real operational challenges of running a service business — not engineered in a lab by people who have never managed a front desk, handled a no-show, or chased an unpaid booking.
-            </p>
-            <p style={{ fontSize: 16, color: "#334155", lineHeight: 1.8, marginTop: 16, marginBottom: 0 }}>
-              We now serve businesses across Australia and the UAE, with more markets opening as LeadOS grows.
-            </p>
+            display: "flex", gap: 28, alignItems: "flex-start", flexWrap: "wrap",
+            background: "white",
+            border: "1px solid rgba(37,99,235,.1)",
+            borderRadius: 20, padding: "32px 36px",
+            boxShadow: "0 4px 24px rgba(37,99,235,.06)",
+          }}>
+            <div style={{ fontSize: 40, flexShrink: 0, lineHeight: 1 }}>🇦🇺</div>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <h3 style={{ fontSize: 19, fontWeight: 700, color: "var(--ink, #0f1117)", marginBottom: 10 }}>
+                Proudly built in Australia
+              </h3>
+              <p className="body-md" style={{ margin: "0 0 12px" }}>
+                LeadOS was designed, built, and tested against the real operational challenges of running a service business — not engineered in a lab by people who have never managed a front desk, handled a no-show, or chased an unpaid booking.
+              </p>
+              <p className="body-md" style={{ margin: 0 }}>
+                We now serve businesses across Australia and the UAE, with more markets opening as LeadOS grows.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{
-        background: "linear-gradient(135deg, #06091a, #0d1340)",
-        padding: "96px 24px",
+      {/* ── CTA — matches site's dark CTA sections ── */}
+      <section className="section" style={{
+        background: "linear-gradient(135deg, var(--ink, #0f1117) 0%, #0d1340 100%)",
+        paddingLeft: 24, paddingRight: 24,
         textAlign: "center",
       }}>
         <div style={{ maxWidth: 560, margin: "0 auto" }}>
+          <span className="badge" style={{ background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.6)", border: "1px solid rgba(255,255,255,.1)", marginBottom: 24 }}>
+            Ready to start?
+          </span>
           <h2 style={{
-            fontFamily: "Lora, Georgia, serif",
+            fontFamily: "var(--font-serif, Lora, Georgia, serif)",
             fontSize: "clamp(28px, 4vw, 44px)",
             fontWeight: 700,
-            color: "#ffffff",
+            color: "white",
             lineHeight: 1.2,
-            marginBottom: 18,
+            letterSpacing: "-0.5px",
+            marginBottom: 16,
           }}>
-            Ready to run your business the way it should run?
+            Run your business the way it should run.
           </h2>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,.5)", marginBottom: 40, lineHeight: 1.7 }}>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,.45)", marginBottom: 40, lineHeight: 1.75 }}>
             Book a demo with the team and see what LeadOS does for your specific business in 20 minutes.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -228,34 +231,11 @@ export default function AboutPage() {
               href="https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%20want%20to%20book%20a%20demo"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-block",
-                background: "linear-gradient(135deg, #2563eb, #4f46e5)",
-                color: "white",
-                fontWeight: 700,
-                fontSize: 15,
-                padding: "15px 34px",
-                borderRadius: 12,
-                textDecoration: "none",
-                boxShadow: "0 4px 18px rgba(37,99,235,.4)",
-              }}
+              className="btn btn-primary btn-lg"
             >
               Book a Demo →
             </a>
-            <Link
-              href="/get-started"
-              style={{
-                display: "inline-block",
-                background: "rgba(255,255,255,.07)",
-                color: "rgba(255,255,255,.8)",
-                fontWeight: 600,
-                fontSize: 15,
-                padding: "15px 34px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,.12)",
-                textDecoration: "none",
-              }}
-            >
+            <Link href="/get-started" className="btn btn-secondary btn-lg" style={{ background: "rgba(255,255,255,.07)", color: "rgba(255,255,255,.75)", border: "1px solid rgba(255,255,255,.12)" }}>
               Get Started
             </Link>
           </div>
