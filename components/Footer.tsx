@@ -28,7 +28,7 @@ export default function Footer() {
               Your AI Revenue Brain. Turn every conversation into a booked appointment and tracked revenue — on autopilot.
             </p>
             <div className="footer-contact-block">
-              <a href="mailto:hello@myleados.ai">hello@myleados.ai</a>
+              <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
               <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
               <span style={{ fontSize: 12, color: "rgba(255,255,255,.35)", lineHeight: 1.5 }}>
                 LeadOS Technologies FZC<br />

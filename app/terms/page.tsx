@@ -6,7 +6,7 @@ export const metadata = {
 const EFFECTIVE = "2 July 2026";
 const COMPANY = "LeadOS Technologies FZE";
 const EMAIL = "legal@myleados.ai";
-const SUPPORT = "hello@myleados.ai";
+const SUPPORT = "hello@leadoscrm.com";
 
 export default function TermsPage() {
   return (

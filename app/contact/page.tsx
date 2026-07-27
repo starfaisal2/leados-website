@@ -34,7 +34,7 @@ export default function ContactPage() {
           <div className="legal-card">
             <h3>Email</h3>
             <p>
-              <a href="mailto:hello@myleados.ai">hello@myleados.ai</a>
+              <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
             </p>
             <p className="legal-muted">Use this email for business, support, billing, privacy, or Meta review enquiries.</p>
           </div>

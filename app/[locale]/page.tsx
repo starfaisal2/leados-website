@@ -1045,7 +1045,7 @@ useEffect(() => {
           </div>
           <p className="final-note">{t('finalNote')}</p>
           <div className="final-contact-links">
-            <a href="mailto:hello@myleados.ai">hello@myleados.ai</a>
+            <a href="mailto:hello@leadoscrm.com">hello@leadoscrm.com</a>
             <span>•</span>
             <a href="tel:+971568350424">🇦🇪 +971 56 835 0424</a>
           </div>
