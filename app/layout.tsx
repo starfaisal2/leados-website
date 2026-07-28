@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     shortcut: '/icon.svg',
     apple: '/icon.svg',
   },
+  alternates: {
+    canonical: 'https://www.myleados.ai',
+  },
   robots: {
     index: true,
     follow: true,
