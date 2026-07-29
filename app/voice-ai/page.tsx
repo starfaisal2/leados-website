@@ -1,10 +1,10 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Voice AI â€” LeadOS | AI Phone Agent That Books Appointments 24/7",
+  title: "Voice AI – LeadOS | AI Phone Agent That Books Appointments 24/7",
   description:
-    "Never miss a call again. LeadOS Voice AI answers every call, qualifies leads, and books appointments automatically â€” in any language, around the clock.",
+    "Never miss a call again. LeadOS Voice AI answers every call, qualifies leads, and books appointments automatically – in any language, around the clock.",
 };
 
 const voiceAiSchema = {
@@ -12,7 +12,7 @@ const voiceAiSchema = {
   "@type": "SoftwareApplication",
   name: "LeadOS Voice AI",
   applicationCategory: "BusinessApplication",
-  description: "AI phone agent that answers every call, qualifies leads, and books appointments automatically â€” in any language, 24/7.",
+  description: "AI phone agent that answers every call, qualifies leads, and books appointments automatically – in any language, 24/7.",
   url: "https://myleados.ai/voice-ai",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "Included with LeadOS CRM" },
   operatingSystem: "Web",
@@ -30,24 +30,24 @@ const voiceAiBreadcrumb = {
 
 const USECASES = [
   {
-    icon: "ðŸ¥",
+    icon: "🏥",
     title: "Medical & Aesthetics",
-    desc: "Patients call after hours. Voice AI answers, collects their concern, checks availability, and books them in â€” all without a receptionist.",
+    desc: "Patients call after hours. Voice AI answers, collects their concern, checks availability, and books them in – all without a receptionist.",
   },
   {
-    icon: "ðŸ ",
+    icon: "🏠",
     title: "Real Estate",
     desc: "Missed calls from property enquiries cost deals. Voice AI qualifies buyer intent, budget, and timeline, then routes warm leads to your agents.",
   },
   {
-    icon: "ðŸ¦·",
+    icon: "🦷",
     title: "Dental Clinics",
     desc: "New patient bookings 24/7. Voice AI handles appointment scheduling, insurance questions, and pre-visit instructions automatically.",
   },
   {
-    icon: "âš–ï¸",
+    icon: "⚖️",
     title: "Law Firms",
-    desc: "Intake calls at any hour. Voice AI gathers case type, jurisdiction, and urgency â€” and books a consultation while the caller is still on the line.",
+    desc: "Intake calls at any hour. Voice AI gathers case type, jurisdiction, and urgency – and books a consultation while the caller is still on the line.",
   },
 ];
 
@@ -55,7 +55,7 @@ const HOW_IT_WORKS = [
   {
     num: "01",
     title: "Call comes in",
-    desc: "A lead calls your business number. Instead of ringing out or hitting voicemail, LeadOS Voice AI picks up instantly â€” in your brand voice.",
+    desc: "A lead calls your business number. Instead of ringing out or hitting voicemail, LeadOS Voice AI picks up instantly – in your brand voice.",
   },
   {
     num: "02",
@@ -70,7 +70,7 @@ const HOW_IT_WORKS = [
   {
     num: "04",
     title: "Lead logged in CRM",
-    desc: "Every call is recorded, transcribed, and logged in LeadOS with source attribution. Your team picks up with full context â€” no handover friction.",
+    desc: "Every call is recorded, transcribed, and logged in LeadOS with source attribution. Your team picks up with full context – no handover friction.",
   },
 ];
 
@@ -123,7 +123,7 @@ export default function VoiceAiPage() {
             <div>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.22)", borderRadius: 40, padding: "5px 14px 5px 10px", fontSize: 12, fontWeight: 600, color: "#22c55e", marginBottom: 28 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", display: "inline-block" }} />
-                Answers every call Â· Books instantly
+                Answers every call · Books instantly
               </div>
 
               <h1 style={{ fontSize: "clamp(38px, 5vw, 68px)", fontWeight: 900, lineHeight: 1.0, letterSpacing: "-0.03em", margin: "0 0 20px", textWrap: "balance" }}>
@@ -133,7 +133,7 @@ export default function VoiceAiPage() {
               </h1>
 
               <p style={{ fontSize: "clamp(16px, 2vw, 19px)", color: "#94a3b8", lineHeight: 1.65, margin: "0 0 16px", maxWidth: 480 }}>
-                Every missed call is a missed booking. LeadOS Voice AI answers <strong style={{ color: "#f1f5f9" }}>instantly</strong>, qualifies the lead, and books the appointment â€” while your team sleeps.
+                Every missed call is a missed booking. LeadOS Voice AI answers <strong style={{ color: "#f1f5f9" }}>instantly</strong>, qualifies the lead, and books the appointment – while your team sleeps.
               </p>
               <p style={{ fontSize: "clamp(16px, 2vw, 19px)", color: "#94a3b8", lineHeight: 1.65, margin: "0 0 40px", maxWidth: 480 }}>
                 Trained on your business. Speaks in your brand voice. Works in <strong style={{ color: "#22c55e" }}>any language</strong>.
@@ -141,7 +141,7 @@ export default function VoiceAiPage() {
 
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #16a34a, #22c55e)", color: "white", fontWeight: 700, fontSize: 16, padding: "15px 32px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 28px rgba(34,197,94,.3)" }}>
-                  Book a Demo â†’
+                  Book a Demo →
                 </a>
                 <a href="/get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.06)", color: "#94a3b8", fontWeight: 600, fontSize: 15, padding: "15px 28px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)" }}>
                   Start Free Trial
@@ -149,7 +149,7 @@ export default function VoiceAiPage() {
               </div>
 
               <p style={{ marginTop: 16, fontSize: 12, color: "#475569" }}>
-                30-day free trial Â· No credit card Â· Setup in minutes
+                30-day free trial · No credit card · Setup in minutes
               </p>
             </div>
 
@@ -183,8 +183,8 @@ export default function VoiceAiPage() {
 
                 {/* Booked bubble */}
                 <div style={{ position: "absolute", bottom: 8, left: -24, background: "#0d1729", border: "1px solid rgba(79,70,229,0.3)", borderRadius: 12, padding: "10px 16px", minWidth: 160, boxShadow: "0 8px 24px rgba(0,0,0,0.4)" }}>
-                  <div style={{ fontSize: 10, color: "#818cf8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>Just booked âœ…</div>
-                  <div style={{ fontSize: 13, color: "#f1f5f9", fontWeight: 600 }}>Thu 3pm Â· Dr. Sarah</div>
+                  <div style={{ fontSize: 10, color: "#818cf8", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>Just booked ✅</div>
+                  <div style={{ fontSize: 13, color: "#f1f5f9", fontWeight: 600 }}>Thu 3pm · Dr. Sarah</div>
                   <div style={{ fontSize: 11, color: "#475569", marginTop: 2 }}>Confirmed via WhatsApp</div>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function VoiceAiPage() {
             {[
               { stat: "28s", label: "average first response time" },
               { stat: "100%", label: "of calls answered, 24/7" },
-              { stat: "3Ã—", label: "more bookings vs missed calls" },
+              { stat: "3×", label: "more bookings vs missed calls" },
               { stat: "12+", label: "languages supported" },
             ].map(({ stat, label }) => (
               <div key={stat} style={{ textAlign: "center" }}>
@@ -226,7 +226,7 @@ export default function VoiceAiPage() {
                   <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9", marginBottom: 8 }}>{title}</div>
                   <div style={{ fontSize: 13, color: "#64748b", lineHeight: 1.65 }}>{desc}</div>
                   {i < HOW_IT_WORKS.length - 1 && (
-                    <div style={{ position: "absolute", right: -14, top: "50%", transform: "translateY(-50%)", color: "#1e2d45", fontSize: 20 }}>â€º</div>
+                    <div style={{ position: "absolute", right: -14, top: "50%", transform: "translateY(-50%)", color: "#1e2d45", fontSize: 20 }}>›</div>
                   )}
                 </div>
               ))}
@@ -244,12 +244,12 @@ export default function VoiceAiPage() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 1 }}>
             {[
-              { icon: "ðŸ—“ï¸", title: "Live calendar booking", desc: "Checks your real-time availability and books the slot during the call. No double-bookings, no manual follow-up." },
-              { icon: "ðŸŒ", title: "Multilingual", desc: "Speaks Arabic, English, French, Spanish, Hindi, and more. Detects the caller's language and switches automatically." },
-              { icon: "ðŸ§ ", title: "Trained on your business", desc: "Upload your services, pricing, FAQs, and scripts. The AI answers as if it's been on your team for years." },
-              { icon: "ðŸ“²", title: "WhatsApp confirmation", desc: "After booking, sends a confirmation to the caller's WhatsApp with appointment details and any prep instructions." },
-              { icon: "ðŸ“‹", title: "Call transcripts & summaries", desc: "Every call is transcribed and summarized in your CRM. Your team knows exactly what was discussed before the patient arrives." },
-              { icon: "ðŸ”€", title: "Smart escalation", desc: "If the AI can't handle a question, it flags it and routes to a human via WhatsApp â€” no caller left hanging." },
+              { icon: "🗓️", title: "Live calendar booking", desc: "Checks your real-time availability and books the slot during the call. No double-bookings, no manual follow-up." },
+              { icon: "🌐", title: "Multilingual", desc: "Speaks Arabic, English, French, Spanish, Hindi, and more. Detects the caller's language and switches automatically." },
+              { icon: "🧠", title: "Trained on your business", desc: "Upload your services, pricing, FAQs, and scripts. The AI answers as if it's been on your team for years." },
+              { icon: "📲", title: "WhatsApp confirmation", desc: "After booking, sends a confirmation to the caller's WhatsApp with appointment details and any prep instructions." },
+              { icon: "📋", title: "Call transcripts & summaries", desc: "Every call is transcribed and summarized in your CRM. Your team knows exactly what was discussed before the patient arrives." },
+              { icon: "🔀", title: "Smart escalation", desc: "If the AI can't handle a question, it flags it and routes to a human via WhatsApp – no caller left hanging." },
             ].map(({ icon, title, desc }) => (
               <div key={title} style={{ background: "#0d1729", border: "1px solid rgba(255,255,255,0.06)", padding: 28 }}>
                 <div style={{ fontSize: 28, marginBottom: 14 }}>{icon}</div>
@@ -291,18 +291,18 @@ export default function VoiceAiPage() {
               Stop missing calls.<br />Start booking more.
             </h2>
             <p style={{ fontSize: 16, color: "#475569", marginBottom: 36, lineHeight: 1.65 }}>
-              Book a 20-minute demo and see Voice AI answer a live call in your business's voice â€” with your services, your calendar, your brand.
+              Book a 20-minute demo and see Voice AI answer a live call in your business's voice – with your services, your calendar, your brand.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #16a34a, #22c55e)", color: "white", fontWeight: 700, fontSize: 16, padding: "16px 36px", borderRadius: 10, textDecoration: "none", boxShadow: "0 8px 28px rgba(34,197,94,.3)" }}>
-                Book a Demo â†’
+                Book a Demo →
               </a>
               <a href="/get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.06)", color: "#94a3b8", fontWeight: 600, fontSize: 15, padding: "16px 28px", borderRadius: 10, textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)" }}>
                 Start Free Trial
               </a>
             </div>
             <p style={{ fontSize: 12, color: "#1e2d45", marginTop: 20 }}>
-              30-day free trial Â· No credit card required Â· Setup in minutes
+              30-day free trial · No credit card required · Setup in minutes
             </p>
           </div>
         </section>
@@ -312,9 +312,9 @@ export default function VoiceAiPage() {
           <div style={{ fontSize: 13, color: "#1e2d45" }}>
             Voice AI by{" "}
             <Link href="/" style={{ color: "#475569", textDecoration: "none", fontWeight: 600 }}>LeadOS</Link>
-            {" "} Â· {" "}
+            {" "} · {" "}
             <Link href="/privacy" style={{ color: "#1e2d45", textDecoration: "none" }}>Privacy</Link>
-            {" "} Â· {" "}
+            {" "} · {" "}
             <Link href="/terms" style={{ color: "#1e2d45", textDecoration: "none" }}>Terms</Link>
           </div>
         </div>
