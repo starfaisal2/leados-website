@@ -906,6 +906,43 @@ useEffect(() => {
         </div>
       </section>
 
+      {/* ══ INDUSTRIES ══ */}
+      <section id="industries" style={{ padding: "88px 0", background: "white" }}>
+        <div className="container">
+          <div className="section-header center" style={{ marginBottom: 56 }}>
+            <span className="eyebrow">Who it's built for</span>
+            <h2 className="display-lg">Works for any <span className="text-serif-em" style={{ color: "var(--blue)" }}>appointment-driven business.</span></h2>
+            <p className="body-md" style={{ marginTop: 14, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+              LeadOS is trained on your industry, your services, and your brand — not a generic chatbot.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {[
+              { icon: "🏥", title: "Medical & Aesthetics", color: "#16a34a", bg: "rgba(22,163,74,.06)", desc: "Lip fillers, Botox, hair restoration — AI books consultations 24/7, sends pre-visit prep, and follows up post-treatment automatically." },
+              { icon: "🏠", title: "Real Estate", color: "#2563eb", bg: "rgba(37,99,235,.06)", desc: "Qualify buyer intent, budget, and timeline from the first WhatsApp. Route warm leads to agents before your competitors even reply." },
+              { icon: "🦷", title: "Dental Clinics", color: "#7c3aed", bg: "rgba(124,58,237,.06)", desc: "New patient enquiries, appointment scheduling, insurance questions, and recall reminders — all handled without lifting a finger." },
+              { icon: "⚖️", title: "Law Firms", color: "#f97316", bg: "rgba(249,115,22,.06)", desc: "AI intake calls at any hour — gathers case type, jurisdiction, and urgency, then books consultations while the caller is still engaged." },
+              { icon: "✂️", title: "Hair & Beauty", color: "#ec4899", bg: "rgba(236,72,153,.06)", desc: "Bookings, rebooking reminders, and product recommendations on WhatsApp and Instagram — automated from first message to repeat visit." },
+              { icon: "🏨", title: "Hospitality & Wellness", color: "#0891b2", bg: "rgba(8,145,178,.06)", desc: "Spa bookings, table reservations, wellness packages — multi-channel AI replies with your menu, availability, and upsell sequences built in." },
+            ].map(({ icon, title, color, bg, desc }) => (
+              <div key={title} style={{ background: "white", border: "1.5px solid var(--border-2)", borderRadius: 18, padding: "28px 26px", transition: "box-shadow .2s" }}>
+                <div style={{ width: 52, height: 52, borderRadius: 14, background: bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 18 }}>{icon}</div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: "var(--ink)", marginBottom: 10 }}>{title}</div>
+                <div style={{ fontSize: 13.5, color: "var(--ink-3)", lineHeight: 1.7 }}>{desc}</div>
+                <div style={{ marginTop: 20, fontSize: 12.5, fontWeight: 700, color, display: "flex", alignItems: "center", gap: 4 }}>
+                  See how it works →
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 52 }}>
+            <a href="https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%27d%20like%20to%20see%20a%20demo%20for%20my%20industry" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg,#2563eb,#4f46e5)", color: "white", fontWeight: 700, fontSize: 15, padding: "14px 32px", borderRadius: 12, textDecoration: "none", boxShadow: "0 8px 24px rgba(37,99,235,.25)" }}>
+              Book a demo for my industry →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ══ PRICING ══ */}
       <section id="pricing" style={{ padding: "88px 0", background: "var(--surface-2)" }}>
         <div className="container">
