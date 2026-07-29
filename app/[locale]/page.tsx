@@ -907,32 +907,45 @@ useEffect(() => {
       </section>
 
       {/* ══ INDUSTRIES ══ */}
-      <section id="industries" style={{ padding: "88px 0", background: "white" }}>
+      <section id="industries" style={{ padding: "88px 0", background: "var(--surface-2)" }}>
         <div className="container">
-          <div className="section-header center" style={{ marginBottom: 56 }}>
-            <span className="eyebrow">Who it's built for</span>
-            <h2 className="display-lg">Works for any <span className="text-serif-em" style={{ color: "var(--blue)" }}>appointment-driven business.</span></h2>
-            <p className="body-md" style={{ marginTop: 14, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
-              LeadOS is trained on your industry, your services, and your brand — not a generic chatbot.
+          <div className="section-header center">
+            <span className="eyebrow">Industries</span>
+            <h2 className="display-lg">Built for businesses that grow through <span className="text-serif-em" style={{ color: "var(--blue)" }}>conversations.</span></h2>
+            <p className="body-lg" style={{ marginTop: 14, maxWidth: 650, marginLeft: "auto", marginRight: "auto" }}>
+              LeadOS adapts to your industry while keeping the same core promise: faster replies, better bookings, smarter follow-up, and clearer revenue.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+          <div className="industries-detail-grid">
             {[
-              { icon: "🏥", title: "Medical & Aesthetics", color: "#16a34a", bg: "rgba(22,163,74,.06)", desc: "Lip fillers, Botox, hair restoration — AI books consultations 24/7, sends pre-visit prep, and follows up post-treatment automatically." },
-              { icon: "🏠", title: "Real Estate", color: "#2563eb", bg: "rgba(37,99,235,.06)", desc: "Qualify buyer intent, budget, and timeline from the first WhatsApp. Route warm leads to agents before your competitors even reply." },
-              { icon: "🦷", title: "Dental Clinics", color: "#7c3aed", bg: "rgba(124,58,237,.06)", desc: "New patient enquiries, appointment scheduling, insurance questions, and recall reminders — all handled without lifting a finger." },
-              { icon: "⚖️", title: "Law Firms", color: "#f97316", bg: "rgba(249,115,22,.06)", desc: "AI intake calls at any hour — gathers case type, jurisdiction, and urgency, then books consultations while the caller is still engaged." },
-              { icon: "✂️", title: "Hair & Beauty", color: "#ec4899", bg: "rgba(236,72,153,.06)", desc: "Bookings, rebooking reminders, and product recommendations on WhatsApp and Instagram — automated from first message to repeat visit." },
-              { icon: "🏨", title: "Hospitality & Wellness", color: "#0891b2", bg: "rgba(8,145,178,.06)", desc: "Spa bookings, table reservations, wellness packages — multi-channel AI replies with your menu, availability, and upsell sequences built in." },
-            ].map(({ icon, title, color, bg, desc }) => (
-              <div key={title} style={{ background: "white", border: "1.5px solid var(--border-2)", borderRadius: 18, padding: "28px 26px", transition: "box-shadow .2s" }}>
-                <div style={{ width: 52, height: 52, borderRadius: 14, background: bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 18 }}>{icon}</div>
-                <div style={{ fontSize: 16, fontWeight: 800, color: "var(--ink)", marginBottom: 10 }}>{title}</div>
-                <div style={{ fontSize: 13.5, color: "var(--ink-3)", lineHeight: 1.7 }}>{desc}</div>
-                <div style={{ marginTop: 20, fontSize: 12.5, fontWeight: 700, color, display: "flex", alignItems: "center", gap: 4 }}>
-                  See how it works →
+              { icon: "💉", name: "Clinics & Aesthetics", desc: "Book consultations, follow up on treatments, collect reviews.", img: "https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["AI answers treatment enquiries instantly", "Books consultations with the right doctor or therapist", "Follows up on missed leads, offers and reviews"] },
+              { icon: "🦷", name: "Dental Clinics", desc: "Reduce no-shows, automate reminders, fill your chair.", img: "https://images.pexels.com/photos/3881449/pexels-photo-3881449.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Handles treatment questions and appointment requests", "Reduces no-shows with automated reminders", "Tracks which campaigns bring booked patients"] },
+              { icon: "🏥", name: "Medical Centers", desc: "Multi-doctor scheduling, patient intake, AI receptionist.", img: "https://images.pexels.com/photos/7088529/pexels-photo-7088529.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Routes enquiries by department, doctor and service", "Captures patient intake before the visit", "Keeps managers aware of response and booking performance"] },
+              { icon: "🏠", name: "Real Estate", desc: "Qualify buyers, schedule viewings, track agent performance.", img: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Qualifies buyers and tenants by budget, area and timeline", "Schedules viewings from WhatsApp or website chat", "Shows which agents and sources convert best"] },
+              { icon: "🍽️", name: "Restaurants & Hospitality", desc: "Take reservations, recover cancellations, generate reviews.", img: "https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Takes reservations from social and website messages", "Recovers cancellations and missed booking requests", "Triggers review and repeat-visit follow-ups"] },
+              { icon: "⚖️", name: "Law Firms", desc: "Capture enquiries, book consultations, handle intake 24/7.", img: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Collects case type, jurisdiction and urgency on first contact", "Routes leads to the right specialist or team", "Books consultations while the caller is still on the line"] },
+              { icon: "🎓", name: "Education", desc: "Student enquiries, enrolment automation, follow-up sequences.", img: "https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Answers course and admission enquiries instantly", "Automates student follow-up and enrolment reminders", "Shows which campaigns generate qualified applicants"] },
+              { icon: "🔧", name: "Home Services", desc: "Capture jobs, photo-quote requests, dispatch faster.", img: "https://images.pexels.com/photos/8961251/pexels-photo-8961251.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Captures job details, location and urgency", "Requests photos or extra details automatically", "Routes jobs and follows up on quotes"] },
+              { icon: "💼", name: "Consulting & Agencies", desc: "Qualify prospects, book discovery calls, nurture pipelines.", img: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Qualifies inbound leads by budget, timeline and fit", "Books discovery calls directly from WhatsApp or web chat", "Nurtures prospects with automated follow-up sequences"] },
+              { icon: "🏭", name: "Manufacturing & B2B", desc: "Handle supplier enquiries, RFQs, and distributor onboarding.", img: "https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Responds to RFQs and product enquiries around the clock", "Routes distributor and partner enquiries to the right team", "Tracks which channels generate qualified B2B leads"] },
+              { icon: "✂️", name: "Hair & Beauty", desc: "Bookings, rebooking reminders, and product recommendations.", img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Books appointments from Instagram and WhatsApp instantly", "Sends automated rebooking reminders before lapse", "Upsells products and treatments through follow-up sequences"] },
+              { icon: "🏋️", name: "Fitness & Wellness", desc: "Class bookings, membership enquiries, and coach scheduling.", img: "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=900", bullets: ["Books classes and personal training sessions 24/7", "Follows up on trial memberships and converts them", "Sends session reminders to reduce no-shows"] },
+            ].map(({ icon, name, desc, img, bullets }) => (
+              <article className="industry-detail-card" key={name}>
+                <div className="industry-image-wrap">
+                  <img src={img} alt={`${name} using LeadOS AI`} />
+                  <span>{icon}</span>
                 </div>
-              </div>
+                <div className="industry-detail-body">
+                  <h3>{name}</h3>
+                  <p>{desc}</p>
+                  <ul>
+                    {bullets.map((item) => (
+                      <li key={item}>✓ {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
             ))}
           </div>
           <div style={{ textAlign: "center", marginTop: 52 }}>
