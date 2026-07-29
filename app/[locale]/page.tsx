@@ -824,17 +824,17 @@ useEffect(() => {
             </div>
             <div className="demo-right" dir="ltr">
               <div className="demo-chat-hdr">
-                <div className="demo-ai-av"><img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}} alt="Aria" /></div>
+                <div className="demo-ai-av"><img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"top center",borderRadius:"50%"}} alt="Aria" /></div>
                 <div><div className="demo-ai-name">{t('demoAiName')}</div><div className="demo-ai-status">{t('demoAiStatus')}</div></div>
               </div>
               <div className="demo-msgs" ref={msgsRef}>
                 {demoMsgs.map((m, i) => (
                   <div key={i} className={`dm${m.f === "u" ? " u" : ""}`}>
-                    <div className={`dm-av ${m.f === "a" ? "a-av" : "u-av"}`}>{m.f === "a" ? <img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}} alt="Aria" /> : "👤"}</div>
+                    <div className={`dm-av ${m.f === "a" ? "a-av" : "u-av"}`}>{m.f === "a" ? <img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"top center",borderRadius:"50%"}} alt="Aria" /> : "👤"}</div>
                     <div className={`dm-b ${m.f === "a" ? "ai-msg" : "user-msg"}`}>{m.t}</div>
                   </div>
                 ))}
-                {typing && <div className="dm"><div className="dm-av a-av"><img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}} alt="Aria" /></div><div className="typing-row"><div className="t-dot" /><div className="t-dot" /><div className="t-dot" /></div></div>}
+                {typing && <div className="dm"><div className="dm-av a-av"><img src="/aria.png" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"top center",borderRadius:"50%"}} alt="Aria" /></div><div className="typing-row"><div className="t-dot" /><div className="t-dot" /><div className="t-dot" /></div></div>}
               </div>
               <div className="demo-input-row">
                 <input className="demo-inp" value={demoInput} onChange={(e) => setDemoInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendDemo()} placeholder={t('demoPlaceholder')} />
