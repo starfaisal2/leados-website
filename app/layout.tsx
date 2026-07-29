@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://myleados.ai'),
   title: {
-    default: 'LeadOS â€” Most CRMs Store Data. LeadOS Learns From It.',
+    default: 'LeadOS — Most CRMs Store Data. LeadOS Learns From It.',
     template: '%s | LeadOS',
   },
   description:
