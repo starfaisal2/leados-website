@@ -476,6 +476,77 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   /* Section eyebrow / title alignment */
   .section-title{font-size:26px;letter-spacing:-0.03em}
 }
+
+/* ─── A57 REPORT SECTIONS ────────────────────────────────────────────── */
+.rpt-score-ring{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#fff;background:var(--grad);box-shadow:0 8px 28px rgba(67,97,238,0.35);letter-spacing:-0.04em;flex-shrink:0}
+.rpt-summary-banner{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.rpt-biz-name{font-size:19px;font-weight:900;color:var(--text);margin:0 0 4px;line-height:1.2}
+.rpt-biz-summary{font-size:14px;color:var(--text2);line-height:1.55;margin:0}
+.rpt-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.rpt-bd-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
+.rpt-bd-val{font-size:24px;font-weight:900;color:var(--blue);letter-spacing:-0.03em;line-height:1}
+.rpt-bd-max{font-size:13px;color:var(--muted);font-weight:600}
+.rpt-bd-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.rpt-section{margin-bottom:16px}
+.rpt-section-title{font-size:14px;font-weight:800;color:var(--text);margin:0 0 10px;display:flex;align-items:center;gap:7px}
+.rpt-issue{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;margin-bottom:6px;background:var(--bg);border-left:3px solid var(--border)}
+.rpt-issue.critical{background:#FEF2F2;border-color:#F87171}
+.rpt-issue.high{background:#FFF7ED;border-color:#FB923C}
+.rpt-issue.medium{background:#FFFBEB;border-color:#FBBF24}
+.rpt-issue-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.rpt-issue-text{font-size:13px;color:var(--text);font-weight:500;line-height:1.45}
+.rpt-quick-wins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.rpt-qw-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.rpt-qw-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.rpt-qw-title{font-size:13px;font-weight:800;color:var(--text)}
+.rpt-qw-chips{display:flex;gap:5px}
+.rpt-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.02em}
+.rpt-chip-impact-high{background:#D1FAE5;color:#059669}
+.rpt-chip-impact-medium{background:#FEF3C7;color:#B45309}
+.rpt-chip-effort-minutes{background:#E0F2FE;color:#0284C7}
+.rpt-chip-effort-hours{background:#F3E8FF;color:#7C3AED}
+.rpt-chip-effort-days{background:#FEE2E2;color:#DC2626}
+.rpt-qw-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.rpt-kw-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.rpt-kw-table th{text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:0 10px 10px;border-bottom:1px solid var(--border)}
+.rpt-kw-table td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.rpt-kw-table tr:last-child td{border-bottom:none}
+.rpt-kw-kw{font-weight:700;color:var(--text)}
+.rpt-intent{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px}
+.rpt-intent-commercial{background:#EDE9FE;color:#5B21B6}
+.rpt-intent-informational{background:#E0F2FE;color:#0369A1}
+.rpt-intent-transactional{background:#D1FAE5;color:#065F46}
+.rpt-intent-navigational{background:#FEF9C3;color:#713F12}
+.rpt-strategic{background:linear-gradient(135deg,rgba(67,97,238,0.06),rgba(114,9,183,0.06));border:1.5px solid rgba(67,97,238,0.18);border-radius:14px;padding:18px 20px;margin-bottom:16px;position:relative}
+.rpt-strategic-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.rpt-strategic-text{font-size:14px;color:var(--text);line-height:1.65;font-style:italic}
+.rpt-traffic{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.rpt-traffic-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.rpt-traffic-val{font-size:18px;font-weight:900;color:var(--green);letter-spacing:-0.02em;margin-bottom:3px}
+.rpt-traffic-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.rpt-comp-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:8px}
+.rpt-comp-icon{width:32px;height:32px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.rpt-comp-domain{font-weight:700;font-size:13px;color:var(--text)}
+.rpt-comp-why{font-size:12px;color:var(--muted);margin-top:2px}
+.rpt-comp-strength{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;flex-shrink:0}
+.rpt-comp-high{background:#FEE2E2;color:#B91C1C}
+.rpt-comp-medium{background:#FEF3C7;color:#92400E}
+.rpt-comp-low{background:#D1FAE5;color:#065F46}
+.rpt-roadmap-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;margin-bottom:6px;background:var(--bg);border:1px solid var(--border)}
+.rpt-roadmap-intent{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;flex-shrink:0}
+.rpt-roadmap-title{font-size:13px;color:var(--text);font-weight:600;flex:1}
+.rpt-action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.rpt-action-col{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+.rpt-action-period{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.rpt-action-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;color:var(--text);line-height:1.45}
+.rpt-action-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px}
+@media(max-width:600px){
+  .rpt-breakdown{grid-template-columns:repeat(3,1fr)}
+  .rpt-quick-wins{grid-template-columns:1fr}
+  .rpt-traffic{grid-template-columns:1fr}
+  .rpt-action-grid{grid-template-columns:1fr}
+  .rpt-summary-banner{flex-direction:column;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -591,45 +662,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     </div>
 
     <div id="scanResults">
-      <div class="scan-results-grid">
-        <div class="scan-score-card">
-          <div class="scan-score-num" id="scoreNum">0</div>
-          <div class="scan-score-label">SEO Score / 100</div>
-        </div>
-        <div style="display:grid;gap:12px">
-          <div class="scan-metric-card">
-            <div class="scan-metric-icon" style="background:#FEF3C7">⚡</div>
-            <div><div class="scan-metric-label">Page Speed</div><div class="scan-metric-val" id="speedVal">—</div></div>
-          </div>
-          <div class="scan-metric-card">
-            <div class="scan-metric-icon" style="background:#D1FAE5">🔗</div>
-            <div><div class="scan-metric-label">Backlinks</div><div class="scan-metric-val" id="backlinkVal">—</div></div>
-          </div>
-          <div class="scan-metric-card">
-            <div class="scan-metric-icon" style="background:#EDE9FE">📝</div>
-            <div><div class="scan-metric-label">Missing Content</div><div class="scan-metric-val" id="contentVal">—</div></div>
-          </div>
-        </div>
-      </div>
-
-      <h3 style="font-size:17px;font-weight:800;margin-bottom:16px;color:var(--text)">🎯 Top Keyword Opportunities</h3>
-      <table class="kw-table">
-        <thead>
-          <tr>
-            <th>Keyword</th>
-            <th>Monthly Searches</th>
-            <th>Difficulty</th>
-            <th>Your Rank</th>
-            <th>Potential</th>
-          </tr>
-        </thead>
-        <tbody id="kwBody"></tbody>
-      </table>
-
-      <div id="competitorSection" style="display:none;margin-bottom:20px">
-        <h3 style="font-size:17px;font-weight:800;margin-bottom:12px;color:var(--text)">⚔️ Competitors Outranking You</h3>
-        <div id="competitorList" style="display:grid;gap:10px"></div>
-      </div>
+      <!-- 11-section report — built dynamically by showRealResults() -->
+      <div id="rpt" style="margin-bottom:24px"></div>
 
       <!-- POST-SCAN PRICING PICKER -->
       <div id="scan-pricing" style="margin-top:28px;background:linear-gradient(135deg,#0a0f2c 0%,#1a1060 100%);border-radius:20px;padding:32px 28px;color:#fff">
@@ -1421,41 +1455,153 @@ function startScan(){
   });
 }
 
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
 function showRealResults(data){
   document.getElementById('scanProgress').style.display='none';
   document.getElementById('scanResults').style.display='block';
   document.getElementById('scanBtn').textContent='Scan My Site →';
   document.getElementById('scanBtn').disabled=false;
-  var target=data.seo_score||42; var s=0;
-  var ticker=setInterval(function(){s+=2;if(s>=target){s=target;clearInterval(ticker);}document.getElementById('scoreNum').textContent=s;},20);
-  document.getElementById('speedVal').textContent='Analysing';
-  document.getElementById('backlinkVal').textContent='Checking';
-  document.getElementById('contentVal').textContent=(data.articles_needed||20)+' articles needed';
-  var tbody=document.getElementById('kwBody'); tbody.innerHTML='';
+
+  var score=data.seo_score||42;
+  var bd=data.score_breakdown||{};
   var kws=data.keyword_opportunities||[];
-  var dc={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
-  kws.slice(0,5).forEach(function(kw,i){
-    var vol=kw.volume==='high'?'2,400+':kw.volume==='medium'?'880':'290';
-    var cls=dc[kw.difficulty]||'diff-med';
-    var diff=(kw.difficulty||'med');
-    tbody.innerHTML+='<tr><td style="text-align:left;font-weight:600;color:var(--text)">'+kw.keyword+'</td><td>'+vol+'</td><td><span class="diff-pill '+cls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td><td>—</td><td style="color:var(--green);font-weight:700">'+['/mo','/mo','/mo','/mo','/mo'][i]+'</td></tr>';
-  });
-  document.getElementById('kwCount').textContent=(data.articles_needed||20);
-  var ctaBtn=document.querySelector('.cta-result a');
-  if(ctaBtn){ctaBtn.href='https://app.myleados.ai/signup?addon_trial=auto_seo&website='+encodeURIComponent(_lastScanUrl);ctaBtn.target='_top';ctaBtn.onclick=null;}
-  // Competitors
-  var compSection=document.getElementById('competitorSection');
-  var compList=document.getElementById('competitorList');
+  var issues=data.technical_issues||[];
+  var qws=data.quick_wins||[];
   var comps=data.competitor_sites||[];
-  if(comps.length){
-    compList.innerHTML='';
-    comps.forEach(function(c){
-      var strengthColor=c.strength==='high'?'#FEE2E2':c.strength==='medium'?'#FEF3C7':'#D1FAE5';
-      var strengthText=c.strength==='high'?'Strong':'Medium';
-      compList.innerHTML+='<div style="display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px"><div style="width:36px;height:36px;background:'+strengthColor+';border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏆</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+c.domain+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+c.why+'</div></div><span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;background:'+strengthColor+';color:var(--text);flex-shrink:0">'+strengthText+'</span></div>';
+  var roadmap=data.content_roadmap||[];
+  var ap=data.action_plan||{week_1:[],month_1:[],month_3:[]};
+  var signupUrl='https://app.myleados.ai/signup?addon_trial=auto_seo&website='+encodeURIComponent(_lastScanUrl);
+
+  // Score ring color
+  var ringBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
+
+  var html='';
+
+  // ── 1. Summary banner ──────────────────────────────────────────────────────
+  html+='<div class="rpt-summary-banner">';
+  html+='<div class="rpt-score-ring" style="background:'+ringBg+'">'+score+'</div>';
+  html+='<div style="flex:1;min-width:0">';
+  if(data.business_name) html+='<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
+  html+='<p class="rpt-biz-summary">'+esc(data.scan_summary||'')+'</p>';
+  html+='</div></div>';
+
+  // ── 2. Score breakdown ─────────────────────────────────────────────────────
+  if(bd.total){
+    html+='<div class="rpt-breakdown">';
+    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.technical_on_page||0))+'</div><div class="rpt-bd-max">/55</div><div class="rpt-bd-label">On-page</div></div>';
+    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.performance||0))+'</div><div class="rpt-bd-max">/20</div><div class="rpt-bd-label">Performance</div></div>';
+    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.content||0))+'</div><div class="rpt-bd-max">/25</div><div class="rpt-bd-label">Content</div></div>';
+    html+='</div>';
+  }
+
+  // ── 3. Technical issues ────────────────────────────────────────────────────
+  var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
+  if(criticalIssues.length){
+    html+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
+    criticalIssues.forEach(function(issue){
+      var sev=issue.severity||'medium';
+      var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
+      html+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-text">'+esc(issue.label)+'</div></div>';
     });
-    compSection.style.display='block';
-  } else { compSection.style.display='none'; }
+    html+='</div>';
+  }
+
+  // ── 4. Quick wins ──────────────────────────────────────────────────────────
+  if(qws.length){
+    html+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
+    qws.slice(0,4).forEach(function(w){
+      var impactCls='rpt-chip-impact-'+(w.impact||'medium');
+      var effortCls='rpt-chip-effort-'+(w.effort||'hours');
+      html+='<div class="rpt-qw-card">';
+      html+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
+      html+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
+      html+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
+    });
+    html+='</div></div>';
+  }
+
+  // ── 5. Keywords ────────────────────────────────────────────────────────────
+  if(kws.length){
+    var volMap={high:'2,400+',medium:'880',low:'290'};
+    var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
+    html+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
+    html+='<table class="rpt-kw-table"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
+    kws.slice(0,8).forEach(function(kw){
+      var vol=volMap[kw.volume]||'—';
+      var diff=kw.difficulty||'medium';
+      var diffCls=diffMap[diff]||'diff-med';
+      var intent=kw.intent||'commercial';
+      html+='<tr>';
+      html+='<td class="rpt-kw-kw">'+esc(kw.keyword)+'</td>';
+      html+='<td style="color:var(--text2);font-weight:600">'+vol+'</td>';
+      html+='<td><span class="diff-pill '+diffCls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td>';
+      html+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
+      html+='</tr>';
+    });
+    html+='</tbody></table></div>';
+  }
+
+  // ── 6. Strategic insight ───────────────────────────────────────────────────
+  if(data.strategic_insight){
+    html+='<div class="rpt-strategic">';
+    html+='<div class="rpt-strategic-label">💡 Strategic Insight</div>';
+    html+='<div class="rpt-strategic-text">'+esc(data.strategic_insight)+'</div>';
+    html+='</div>';
+  }
+
+  // ── 7. Traffic potential ───────────────────────────────────────────────────
+  if(data.monthly_traffic_potential||data.traffic_uplift_estimate){
+    html+='<div class="rpt-traffic">';
+    if(data.monthly_traffic_potential) html+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.monthly_traffic_potential)+'</div><div class="rpt-traffic-label">Monthly traffic potential</div></div>';
+    if(data.traffic_uplift_estimate) html+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.traffic_uplift_estimate)+'</div><div class="rpt-traffic-label">Uplift estimate</div></div>';
+    html+='</div>';
+  }
+
+  // ── 8. Competitors ─────────────────────────────────────────────────────────
+  if(comps.length){
+    html+='<div class="rpt-section"><div class="rpt-section-title">⚔️ Competitors Outranking You</div>';
+    comps.forEach(function(c){
+      var strCls='rpt-comp-'+(c.strength||'medium');
+      var strLabel=(c.strength||'medium').charAt(0).toUpperCase()+(c.strength||'medium').slice(1);
+      html+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🏆</div>';
+      html+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
+      html+='<span class="rpt-comp-strength '+strCls+'">'+strLabel+'</span></div>';
+    });
+    html+='</div>';
+  }
+
+  // ── 9. Content roadmap ─────────────────────────────────────────────────────
+  if(roadmap.length){
+    var intentColors={informational:'rpt-intent-informational',commercial:'rpt-intent-commercial',transactional:'rpt-intent-transactional',navigational:'rpt-intent-navigational'};
+    html+='<div class="rpt-section"><div class="rpt-section-title">📝 Content Roadmap — '+(data.articles_needed||20)+' articles to dominate your niche</div>';
+    roadmap.slice(0,6).forEach(function(a){
+      var ic=intentColors[a.intent]||'rpt-intent-informational';
+      html+='<div class="rpt-roadmap-item"><span class="rpt-intent '+ic+'">'+(a.intent||'info')+'</span><span class="rpt-roadmap-title">'+esc(a.title)+'</span></div>';
+    });
+    html+='</div>';
+  }
+
+  // ── 10. Action plan ────────────────────────────────────────────────────────
+  var hasAP=(ap.week_1&&ap.week_1.length)||(ap.month_1&&ap.month_1.length)||(ap.month_3&&ap.month_3.length);
+  if(hasAP){
+    html+='<div class="rpt-section"><div class="rpt-section-title">🗓️ Your Action Plan</div>';
+    html+='<div class="rpt-action-grid">';
+    var periods=[{key:'week_1',label:'Week 1'},{key:'month_1',label:'Month 1'},{key:'month_3',label:'Month 3'}];
+    periods.forEach(function(p){
+      var items=ap[p.key]||[];
+      html+='<div class="rpt-action-col"><div class="rpt-action-period">'+p.label+'</div>';
+      items.forEach(function(item){html+='<div class="rpt-action-item"><div class="rpt-action-dot"></div><span>'+esc(item)+'</span></div>';});
+      html+='</div>';
+    });
+    html+='</div></div>';
+  }
+
+  document.getElementById('rpt').innerHTML=html;
+  document.getElementById('kwCount').textContent=(data.articles_needed||20);
+
+  // Scroll report into view smoothly
+  document.getElementById('rpt').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function showFallbackResults(){
