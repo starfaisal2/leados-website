@@ -546,7 +546,32 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   .rpt-traffic{grid-template-columns:1fr}
   .rpt-action-grid{grid-template-columns:1fr}
   .rpt-summary-banner{flex-direction:column;text-align:center}
+  .rpt-leados-fix-row{grid-template-columns:1fr}
+  .rpt-leados-fix-problem{border-right:none;border-bottom:1px solid rgba(67,97,238,0.08)}
 }
+/* Auto Fix badges */
+.rpt-fix-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-left:auto}
+.rpt-fix-auto{background:#D1FAE5;color:#065F46}
+.rpt-fix-manual{background:#F3F4F6;color:#6B7280}
+.rpt-issue-row{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+/* How LeadOS Fixes This */
+.rpt-leados-fix{margin-bottom:16px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(67,97,238,0.15);background:linear-gradient(135deg,rgba(67,97,238,0.04),rgba(114,9,183,0.04))}
+.rpt-leados-fix-hdr{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(67,97,238,0.12);font-size:12px;font-weight:800;color:#4361EE;text-transform:uppercase;letter-spacing:.07em}
+.rpt-leados-fix-thead{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(67,97,238,0.1);padding:8px 16px}
+.rpt-leados-fix-th{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.rpt-leados-fix-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(67,97,238,0.07)}
+.rpt-leados-fix-row:last-child{border-bottom:none}
+.rpt-leados-fix-problem{padding:11px 16px;font-size:12px;color:var(--text);font-weight:600;border-right:1px solid rgba(67,97,238,0.07)}
+.rpt-leados-fix-solution{padding:11px 16px;font-size:12px;color:#059669;font-weight:600}
+/* Post-activation timeline */
+.rpt-timeline{position:relative;padding-left:28px;margin:4px 0 8px}
+.rpt-timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#4361EE,#7209B7);border-radius:2px}
+.rpt-tl-item{position:relative;margin-bottom:14px}
+.rpt-tl-item:last-child{margin-bottom:0}
+.rpt-tl-dot{position:absolute;left:-28px;top:3px;width:12px;height:12px;border-radius:50%;border:2px solid #4361EE;background:#fff}
+.rpt-tl-when{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4361EE;margin-bottom:2px}
+.rpt-tl-what{font-size:13px;color:var(--text);font-weight:700;line-height:1.4}
+.rpt-tl-detail{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -670,7 +695,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         <div style="text-align:center;margin-bottom:8px">
           <span style="background:rgba(99,179,237,0.15);color:#90cdf4;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px">Fix My SEO</span>
         </div>
-        <h3 style="text-align:center;font-size:22px;font-weight:900;margin:10px 0 4px;color:#fff">Your site can rank #1 for <span id="kwCount">8</span> keywords</h3>
+        <h3 id="scan-pricing-headline" style="text-align:center;font-size:22px;font-weight:900;margin:10px 0 4px;color:#fff">Your site can rank #1 for <span id="kwCount">8</span> keywords</h3>
         <p style="text-align:center;color:#94a3b8;font-size:14px;margin:0 0 24px">Pick a plan. Our AI starts writing &amp; publishing articles for you today.</p>
 
         <!-- Billing toggle -->
@@ -1473,6 +1498,13 @@ function showRealResults(data){
   var ap=data.action_plan||{week_1:[],month_1:[],month_3:[]};
   var signupUrl='https://app.myleados.ai/signup?addon_trial=auto_seo&website='+encodeURIComponent(_lastScanUrl);
 
+  // Auto-fix detection — issues containing these keywords can be resolved by LeadOS
+  var AUTO_FIX_KW=['meta','description','title','h1','heading','alt text','image alt','content','keyword','article','blog','schema','structured','sitemap','canonical','anchor'];
+  function isAutoFix(label){
+    var l=(label||'').toLowerCase();
+    return AUTO_FIX_KW.some(function(k){return l.indexOf(k)>=0;});
+  }
+
   // Score ring color
   var ringBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
 
@@ -1497,12 +1529,16 @@ function showRealResults(data){
 
   // ── 3. Technical issues ────────────────────────────────────────────────────
   var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
+  var autoFixCount=criticalIssues.filter(function(i){return isAutoFix(i.label);}).length;
   if(criticalIssues.length){
     html+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
     criticalIssues.forEach(function(issue){
       var sev=issue.severity||'medium';
       var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
-      html+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-text">'+esc(issue.label)+'</div></div>';
+      var badge=isAutoFix(issue.label)
+        ?'<span class="rpt-fix-badge rpt-fix-auto">🟢 Auto Fix</span>'
+        :'<span class="rpt-fix-badge rpt-fix-manual">🔧 Manual</span>';
+      html+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
     });
     html+='</div>';
   }
@@ -1520,6 +1556,41 @@ function showRealResults(data){
     });
     html+='</div></div>';
   }
+
+  // ── 4b. How LeadOS Fixes This ──────────────────────────────────────────────
+  var FIX_MAP=[
+    {kw:['meta description','no description','missing description'],problem:'No meta description',solution:'AI writes optimized descriptions for every page'},
+    {kw:['title tag','page title','missing title','weak title'],problem:'Weak or missing title tags',solution:'AI generates keyword-rich titles that rank'},
+    {kw:['h1','heading','no heading','missing heading'],problem:'Missing or duplicate headings',solution:'Publishes articles with correct H1/H2/H3 structure'},
+    {kw:['alt text','image alt','missing alt','no alt'],problem:'Images without alt text',solution:'AI adds descriptive alt text to all published content'},
+    {kw:['content','thin','no blog','blog','article','lacking'],problem:'Thin or missing content',solution:'Publishes 15–45 SEO articles every month automatically'},
+    {kw:['keyword','ranking','not ranking','target keyword'],problem:'Missing keyword coverage',solution:'Targets your top keywords with dedicated content'},
+    {kw:['backlink','link','authority','domain authority'],problem:'Low domain / link authority',solution:'Builds 5–13 quality backlinks per month'},
+    {kw:['schema','structured data','rich result'],problem:'No structured data / schema',solution:'Auto-adds schema markup to every published article'},
+    {kw:['sitemap','xml sitemap'],problem:'Missing or outdated sitemap',solution:'Regenerates sitemap automatically after each publish'},
+    {kw:['canonical','duplicate'],problem:'Duplicate / missing canonical',solution:'Sets canonical tags on all AI articles correctly'},
+  ];
+  var allIssueText=criticalIssues.map(function(i){return (i.label||'').toLowerCase();});
+  if(qws.length) allIssueText=allIssueText.concat(qws.map(function(w){return ((w.title||'')+' '+(w.description||'')).toLowerCase();}));
+  var matchedFixes=[];
+  FIX_MAP.forEach(function(fm){
+    if(matchedFixes.length>=5)return;
+    var hit=fm.kw.some(function(k){return allIssueText.some(function(l){return l.indexOf(k)>=0;});});
+    if(hit) matchedFixes.push(fm);
+  });
+  // Always show at least 3 rows
+  if(matchedFixes.length<3){
+    [FIX_MAP[4],FIX_MAP[5],FIX_MAP[6]].forEach(function(fm){
+      if(matchedFixes.indexOf(fm)<0&&matchedFixes.length<3) matchedFixes.push(fm);
+    });
+  }
+  html+='<div class="rpt-leados-fix">';
+  html+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
+  html+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
+  matchedFixes.forEach(function(fm){
+    html+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
+  });
+  html+='</div>';
 
   // ── 5. Keywords ────────────────────────────────────────────────────────────
   if(kws.length){
@@ -1597,8 +1668,37 @@ function showRealResults(data){
     html+='</div></div>';
   }
 
+  // ── 11. Post-activation timeline ───────────────────────────────────────────
+  html+='<div class="rpt-section"><div class="rpt-section-title">📅 What Happens After You Activate LeadOS?</div>';
+  html+='<div class="rpt-timeline">';
+  var tlItems=[
+    {when:'Day 1–2',what:'Setup & sync',detail:'We connect to your site, audit existing content, and configure your keyword strategy.'},
+    {when:'Day 3',what:'First articles published',detail:'AI writes and publishes your first SEO articles — indexed by Google within 48 hours.'},
+    {when:'Week 2–4',what:'Rankings start moving',detail:'Your target keywords begin climbing. Expect page-2 appearances for long-tail terms.'},
+    {when:'Month 2–3',what:'Organic traffic grows',detail:'Consistent publishing compounds. Traffic climbs 30–80% as your content authority builds.'},
+    {when:'Month 6+',what:'Dominant local ranking',detail:'Your business appears in the top 3 for core keywords — beating the competitors outranking you now.'},
+  ];
+  tlItems.forEach(function(t){
+    html+='<div class="rpt-tl-item"><div class="rpt-tl-dot"></div>';
+    html+='<div class="rpt-tl-when">'+esc(t.when)+'</div>';
+    html+='<div class="rpt-tl-what">'+esc(t.what)+'</div>';
+    html+='<div class="rpt-tl-detail">'+esc(t.detail)+'</div>';
+    html+='</div>';
+  });
+  html+='</div></div>';
+
   document.getElementById('rpt').innerHTML=html;
   document.getElementById('kwCount').textContent=(data.articles_needed||20);
+
+  // Dynamic fix count in pricing CTA headline
+  var ctaHl=document.getElementById('scan-pricing-headline');
+  if(ctaHl){
+    if(autoFixCount>0&&criticalIssues.length>0){
+      ctaHl.innerHTML='LeadOS Can Automatically Fix <span style="color:#4ade80">'+autoFixCount+' of '+criticalIssues.length+'</span> Issues We Found';
+    } else {
+      ctaHl.innerHTML='Your site can rank #1 for <span id="kwCount2">'+(data.articles_needed||20)+'</span> keywords';
+    }
+  }
 
   // Scroll report into view smoothly
   document.getElementById('rpt').scrollIntoView({behavior:'smooth',block:'start'});
