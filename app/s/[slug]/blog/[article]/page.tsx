@@ -88,8 +88,37 @@ export default async function TenantArticlePage({ params }: { params: Promise<{ 
     ? `https://wa.me/${biz.whatsapp.replace(/\D/g, "")}?text=Hi%20${encodeURIComponent(biz.name)}`
     : `mailto:${biz.email}`;
 
+  const pageUrl = `https://myleados.ai/s/${slug}/blog/${articleSlug}/`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.meta_description,
+    datePublished: article.published_at || article.created_at,
+    dateModified: article.updated_at || article.published_at || article.created_at,
+    url: pageUrl,
+    author: { "@type": "Organization", name: biz.name, url: `https://myleados.ai/s/${slug}` },
+    publisher: {
+      "@type": "Organization",
+      name: biz.name,
+      url: `https://myleados.ai/s/${slug}`,
+      ...(biz.logo_url ? { logo: { "@type": "ImageObject", url: biz.logo_url } } : {}),
+    },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `https://myleados.ai/s/${slug}` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `https://myleados.ai/s/${slug}/blog` },
+      { "@type": "ListItem", position: 3, name: article.title },
+    ],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #0a0a0f; color: #f1f5f9; }
