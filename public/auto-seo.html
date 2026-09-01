@@ -1344,11 +1344,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     <div id="modal-error" style="color:#EF4444;font-size:13px;margin-bottom:12px;min-height:18px"></div>
     <button id="stripe-btn" onclick="payWithStripe()" style="width:100%;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="white" fill-opacity=".15"/><path d="M4 9h16M4 15h16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Pay with Card (Stripe)
-    </button>
-    <button id="paypal-btn" onclick="payWithPayPal()" style="width:100%;background:#FFC439;color:#003087;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19a.75.75 0 0 0-.74.63l-.927 5.376zm14.146-14.42c-.028.177-.058.355-.093.537-1.118 5.733-4.923 7.9-9.787 7.9H9.082l-1.28 8.11H2.47L5.998 0h7.46c2.57 0 4.578.543 5.69 1.81.617.701.953 1.56.953 2.63 0 .827-.152 1.714-.879 2.477z" fill="#003087"/></svg>
-      Pay with PayPal
+      Pay with Card
     </button>
     <p style="text-align:center;font-size:12px;color:#6B7280;margin-top:14px">🛡️ 14-day money-back guarantee &nbsp;·&nbsp; Secure payment</p>
   </div>
@@ -1881,7 +1877,6 @@ function payWithStripe(){
   _checkoutEmail=email;
   var btn=document.getElementById('stripe-btn');
   btn.textContent='Redirecting to Stripe…'; btn.disabled=true;
-  document.getElementById('paypal-btn').disabled=true;
   _fbq('track','InitiateCheckout');
   fetch('https://app.myleados.ai/api/stripe/standalone-checkout',{
     method:'POST',headers:{'Content-Type':'application/json'},
@@ -1890,29 +1885,9 @@ function payWithStripe(){
   .then(function(r){return r.json();})
   .then(function(d){
     if(d.url){(window.top||window).location.href=d.url;}
-    else{document.getElementById('modal-error').textContent=d.error||'Stripe checkout failed.';btn.textContent='Pay with Card';btn.disabled=false;document.getElementById('paypal-btn').disabled=false;}
+    else{document.getElementById('modal-error').textContent=d.error||'Checkout failed. Please try again.';btn.textContent='Pay with Card';btn.disabled=false;}
   })
-  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Pay with Card';btn.disabled=false;document.getElementById('paypal-btn').disabled=false;});
-}
-
-function payWithPayPal(){
-  var email=document.getElementById('modal-email').value.trim();
-  if(!email||!email.includes('@')){ document.getElementById('modal-error').textContent='Please enter a valid email.'; return; }
-  _checkoutEmail=email;
-  var btn=document.getElementById('paypal-btn');
-  btn.textContent='Redirecting to PayPal…'; btn.disabled=true;
-  document.getElementById('stripe-btn').disabled=true;
-  _fbq('track','InitiateCheckout');
-  fetch('https://app.myleados.ai/api/paypal/create-order',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||''})
-  })
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.approveUrl){(window.top||window).location.href=d.approveUrl;}
-    else{document.getElementById('modal-error').textContent=d.error||'PayPal checkout failed.';btn.textContent='Pay with PayPal';btn.disabled=false;document.getElementById('stripe-btn').disabled=false;}
-  })
-  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Pay with PayPal';btn.disabled=false;document.getElementById('stripe-btn').disabled=false;});
+  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Pay with Card';btn.disabled=false;});
 }
 
 // ========================
