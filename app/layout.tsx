@@ -95,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           aria-label="Chat on WhatsApp"
           style={{
             position: "fixed",
-            bottom: 24,
+            bottom: 96,
             right: 24,
             zIndex: 9999,
             width: 56,
