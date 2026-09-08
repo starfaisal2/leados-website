@@ -1430,6 +1430,8 @@ const scanData = {
 };
 
 var _lastScanUrl = '';
+var _gateHtmlBelow = '';
+var _gateEmailCaptured = false;
 
 // ── Meta Pixel helpers ──────────────────────────────────────────────
 function _fbq(){if(typeof fbq==='function'){fbq.apply(null,arguments);}}
@@ -1572,7 +1574,7 @@ function showRealResults(data){
   var comps=data.competitor_sites||[];
   var roadmap=data.content_roadmap||[];
   var ap=data.action_plan||{week_1:[],month_1:[],month_3:[]};
-  var signupUrl='https://app.myleados.ai/signup?addon_trial=auto_seo&website='+encodeURIComponent(_lastScanUrl);
+  var signupUrl='https://myleados.ai/auto-seo?website='+encodeURIComponent(_lastScanUrl)+'#pricing';
 
   // Auto-fix detection — issues containing these keywords can be resolved by LeadOS
   var AUTO_FIX_KW=['meta','description','title','h1','heading','alt text','image alt','content','keyword','article','blog','schema','structured','sitemap','canonical','anchor'];
@@ -1668,85 +1670,91 @@ function showRealResults(data){
   });
   html+='</div>';
 
-  // ── 5. Keywords ────────────────────────────────────────────────────────────
-  if(kws.length){
+  // ── EMAIL GATE: blur everything below if no email yet ──────────────────────
+  _gateEmailCaptured = false;
+  _gateHtmlBelow = '';
+
+  function renderBelowGate(){
+    var h='';
+    // ── 5. Keywords ────────────────────────────────────────────────────────────
+    if(kws.length){
     var volMap={high:'2,400+',medium:'880',low:'290'};
     var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
-    html+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
-    html+='<table class="rpt-kw-table"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
+    h+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
+    h+='<table class="rpt-kw-table"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
     kws.slice(0,8).forEach(function(kw){
       var vol=volMap[kw.volume]||'—';
       var diff=kw.difficulty||'medium';
       var diffCls=diffMap[diff]||'diff-med';
       var intent=kw.intent||'commercial';
-      html+='<tr>';
-      html+='<td class="rpt-kw-kw">'+esc(kw.keyword)+'</td>';
-      html+='<td style="color:var(--text2);font-weight:600">'+vol+'</td>';
-      html+='<td><span class="diff-pill '+diffCls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td>';
-      html+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
-      html+='</tr>';
+      h+='<tr>';
+      h+='<td class="rpt-kw-kw">'+esc(kw.keyword)+'</td>';
+      h+='<td style="color:var(--text2);font-weight:600">'+vol+'</td>';
+      h+='<td><span class="diff-pill '+diffCls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td>';
+      h+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
+      h+='</tr>';
     });
-    html+='</tbody></table></div>';
+    h+='</tbody></table></div>';
   }
 
   // ── 6. Strategic insight ───────────────────────────────────────────────────
   if(data.strategic_insight){
-    html+='<div class="rpt-strategic">';
-    html+='<div class="rpt-strategic-label">💡 Strategic Insight</div>';
-    html+='<div class="rpt-strategic-text">'+esc(data.strategic_insight)+'</div>';
-    html+='</div>';
+    h+='<div class="rpt-strategic">';
+    h+='<div class="rpt-strategic-label">💡 Strategic Insight</div>';
+    h+='<div class="rpt-strategic-text">'+esc(data.strategic_insight)+'</div>';
+    h+='</div>';
   }
 
   // ── 7. Traffic potential ───────────────────────────────────────────────────
   if(data.monthly_traffic_potential||data.traffic_uplift_estimate){
-    html+='<div class="rpt-traffic">';
-    if(data.monthly_traffic_potential) html+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.monthly_traffic_potential)+'</div><div class="rpt-traffic-label">Monthly traffic potential</div></div>';
-    if(data.traffic_uplift_estimate) html+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.traffic_uplift_estimate)+'</div><div class="rpt-traffic-label">Uplift estimate</div></div>';
-    html+='</div>';
+    h+='<div class="rpt-traffic">';
+    if(data.monthly_traffic_potential) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.monthly_traffic_potential)+'</div><div class="rpt-traffic-label">Monthly traffic potential</div></div>';
+    if(data.traffic_uplift_estimate) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.traffic_uplift_estimate)+'</div><div class="rpt-traffic-label">Uplift estimate</div></div>';
+    h+='</div>';
   }
 
   // ── 8. Competitors ─────────────────────────────────────────────────────────
   if(comps.length){
-    html+='<div class="rpt-section"><div class="rpt-section-title">⚔️ Competitors Outranking You</div>';
+    h+='<div class="rpt-section"><div class="rpt-section-title">⚔️ Competitors Outranking You</div>';
     comps.forEach(function(c){
       var strCls='rpt-comp-'+(c.strength||'medium');
       var strLabel=(c.strength||'medium').charAt(0).toUpperCase()+(c.strength||'medium').slice(1);
-      html+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🏆</div>';
-      html+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
-      html+='<span class="rpt-comp-strength '+strCls+'">'+strLabel+'</span></div>';
+      h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🏆</div>';
+      h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
+      h+='<span class="rpt-comp-strength '+strCls+'">'+strLabel+'</span></div>';
     });
-    html+='</div>';
+    h+='</div>';
   }
 
   // ── 9. Content roadmap ─────────────────────────────────────────────────────
   if(roadmap.length){
     var intentColors={informational:'rpt-intent-informational',commercial:'rpt-intent-commercial',transactional:'rpt-intent-transactional',navigational:'rpt-intent-navigational'};
-    html+='<div class="rpt-section"><div class="rpt-section-title">📝 Content Roadmap — '+(data.articles_needed||20)+' articles to dominate your niche</div>';
+    h+='<div class="rpt-section"><div class="rpt-section-title">📝 Content Roadmap — '+(data.articles_needed||20)+' articles to dominate your niche</div>';
     roadmap.slice(0,6).forEach(function(a){
       var ic=intentColors[a.intent]||'rpt-intent-informational';
-      html+='<div class="rpt-roadmap-item"><span class="rpt-intent '+ic+'">'+(a.intent||'info')+'</span><span class="rpt-roadmap-title">'+esc(a.title)+'</span></div>';
+      h+='<div class="rpt-roadmap-item"><span class="rpt-intent '+ic+'">'+(a.intent||'info')+'</span><span class="rpt-roadmap-title">'+esc(a.title)+'</span></div>';
     });
-    html+='</div>';
+    h+='</div>';
   }
 
   // ── 10. Action plan ────────────────────────────────────────────────────────
   var hasAP=(ap.week_1&&ap.week_1.length)||(ap.month_1&&ap.month_1.length)||(ap.month_3&&ap.month_3.length);
   if(hasAP){
-    html+='<div class="rpt-section"><div class="rpt-section-title">🗓️ Your Action Plan</div>';
-    html+='<div class="rpt-action-grid">';
+    h+='<div class="rpt-section"><div class="rpt-section-title">🗓️ Your Action Plan</div>';
+    h+='<div class="rpt-action-grid">';
     var periods=[{key:'week_1',label:'Week 1'},{key:'month_1',label:'Month 1'},{key:'month_3',label:'Month 3'}];
     periods.forEach(function(p){
       var items=ap[p.key]||[];
-      html+='<div class="rpt-action-col"><div class="rpt-action-period">'+p.label+'</div>';
-      items.forEach(function(item){html+='<div class="rpt-action-item"><div class="rpt-action-dot"></div><span>'+esc(item)+'</span></div>';});
-      html+='</div>';
+      h+='<div class="rpt-action-col"><div class="rpt-action-period">'+p.label+'</div>';
+      items.forEach(function(item){h+='<div class="rpt-action-item"><div class="rpt-action-dot"></div><span>'+esc(item)+'</span></div>';});
+      h+='</div>';
     });
-    html+='</div></div>';
+    h+='</div></div>';
   }
 
   // ── 11. Post-activation timeline ───────────────────────────────────────────
-  html+='<div class="rpt-section"><div class="rpt-section-title">📅 What Happens After You Activate LeadOS?</div>';
-  html+='<div class="rpt-timeline">';
+  h+='<div class="rpt-section"><div class="rpt-section-title">📅 What Happens After You Activate LeadOS?</div>';
+  h+='<div class="rpt-timeline">';
   var tlItems=[
     {when:'Day 1–2',what:'Setup & sync',detail:'We connect to your site, audit existing content, and configure your keyword strategy.'},
     {when:'Day 3',what:'First articles published',detail:'AI writes and publishes your first SEO articles — indexed by Google within 48 hours.'},
@@ -1755,16 +1763,54 @@ function showRealResults(data){
     {when:'Month 6+',what:'Dominant local ranking',detail:'Your business appears in the top 3 for core keywords — beating the competitors outranking you now.'},
   ];
   tlItems.forEach(function(t){
-    html+='<div class="rpt-tl-item"><div class="rpt-tl-dot"></div>';
-    html+='<div class="rpt-tl-when">'+esc(t.when)+'</div>';
-    html+='<div class="rpt-tl-what">'+esc(t.what)+'</div>';
-    html+='<div class="rpt-tl-detail">'+esc(t.detail)+'</div>';
-    html+='</div>';
+    h+='<div class="rpt-tl-item"><div class="rpt-tl-dot"></div>';
+    h+='<div class="rpt-tl-when">'+esc(t.when)+'</div>';
+    h+='<div class="rpt-tl-what">'+esc(t.what)+'</div>';
+    h+='<div class="rpt-tl-detail">'+esc(t.detail)+'</div>';
+    h+='</div>';
   });
-  html+='</div></div>';
+  h+='</div></div>';
+
+    return h;
+  }
+
+  _gateHtmlBelow = renderBelowGate();
+
+  // Inject email gate between the visible top section and the blurred below section
+  html += '<div id="email-gate-wrap">';
+  html += '<div id="email-gate-blur" style="position:relative;overflow:hidden;border-radius:16px;margin-top:12px">';
+  html += '<div style="filter:blur(5px);pointer-events:none;user-select:none;opacity:0.45">'+_gateHtmlBelow+'</div>';
+  html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.97) 30%);display:flex;align-items:center;justify-content:center">';
+  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:400px;box-shadow:0 20px 60px rgba(79,70,229,0.12)">';
+  html += '<div style="font-size:28px;margin-bottom:12px">🔓</div>';
+  html += '<div style="font-size:18px;font-weight:800;color:#0a0f2c;margin-bottom:8px">Unlock Your Full Report</div>';
+  html += '<div style="font-size:14px;color:#64748b;margin-bottom:20px;line-height:1.6">Enter your email to see your keyword opportunities, content roadmap, competitor analysis, and full action plan — free.</div>';
+  html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
+  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:12px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
+  html += '<button onclick="submitGateEmail()" style="padding:12px 18px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
+  html += '</div>';
+  html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
+  html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime</div>';
+  html += '</div></div>';
+  html += '</div>';
+  html += '</div>';
 
   document.getElementById('rpt').innerHTML=html;
   document.getElementById('kwCount').textContent=(data.articles_needed||20);
+
+  // Store scan data for gate submission
+  window._gateData = {
+    website_url: _lastScanUrl,
+    business_name: data.business_name,
+    seo_score: data.seo_score,
+    articles_needed: data.articles_needed,
+    top_issue: (data.technical_issues||[]).reduce(function(found,i){ return found||(i.severity==='critical'||i.severity==='high'?i.label:null); }, null)
+  };
+  // Allow Enter key in gate email input
+  setTimeout(function(){
+    var gi = document.getElementById('gate-email-input');
+    if(gi) gi.addEventListener('keydown', function(e){ if(e.key==='Enter') submitGateEmail(); });
+  }, 100);
 
   // Dynamic fix count in pricing CTA headline
   var ctaHl=document.getElementById('scan-pricing-headline');
@@ -1778,6 +1824,41 @@ function showRealResults(data){
 
   // Scroll report into view smoothly
   document.getElementById('rpt').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function submitGateEmail(){
+  var input = document.getElementById('gate-email-input');
+  var errEl = document.getElementById('gate-email-error');
+  var email = (input ? input.value : '').trim();
+  if(!email || !email.includes('@')){
+    if(errEl){ errEl.textContent='Please enter a valid email address.'; errEl.style.display='block'; }
+    return;
+  }
+  if(errEl) errEl.style.display='none';
+
+  var btn = document.querySelector('#email-gate-blur button');
+  if(btn){ btn.textContent='Sending…'; btn.disabled=true; }
+
+  var gd = window._gateData || {};
+  fetch('https://app.myleados.ai/api/public/seo-scan/capture-email',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      email: email,
+      website_url: gd.website_url || _lastScanUrl || '',
+      business_name: gd.business_name || '',
+      seo_score: gd.seo_score || 0,
+      top_issue: gd.top_issue || ''
+    })
+  }).catch(function(){});
+
+  // Reveal full report immediately
+  var gateWrap = document.getElementById('email-gate-wrap');
+  if(gateWrap){ gateWrap.innerHTML = _gateHtmlBelow; }
+
+  // Update kwCount in newly revealed content
+  var kwCountEl = document.getElementById('kwCount');
+  if(kwCountEl && window._gateData && window._gateData.articles_needed){ kwCountEl.textContent = window._gateData.articles_needed; }
 }
 
 function showFallbackResults(){
