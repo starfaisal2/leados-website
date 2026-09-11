@@ -114,7 +114,7 @@ export default function SignupPage() {
         <div className="container signup-container">
           <div className="signup-copy">
             <Link href="/" className="signup-back">← Back to LeadOS</Link>
-            <span className="eyebrow">Start Free Trial</span>
+            <span className="eyebrow">Get Started</span>
             <h1 className="display-lg">
               Start your LeadOS trial with the <span className="text-serif-em" style={{ color: "var(--blue)" }}>{selectedPlanLabel}</span> plan.
             </h1>
@@ -198,7 +198,7 @@ export default function SignupPage() {
             {success && <div className="signup-alert signup-success">{success}</div>}
 
             <button className="signup-submit" type="submit" disabled={loading}>
-              {loading ? "Creating workspace..." : "Start Free Trial"}
+              {loading ? "Creating workspace..." : "Get Started"}
             </button>
 
             <p className="signup-smallprint">
