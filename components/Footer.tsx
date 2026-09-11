@@ -36,6 +36,7 @@ export default function Footer() {
               </a>
               <span style={{ fontSize: 12, color: "rgba(255,255,255,.35)", lineHeight: 1.5 }}>
                 LeadOS Technologies FZC<br />
+                🇦🇺 203 Clarence St, Sydney NSW 2000<br />
                 🇦🇪 Sharjah Research Technology and Innovation Park,<br />
                 Block B-B58-069, Sharjah, UAE 23227
               </span>
