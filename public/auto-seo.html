@@ -1770,6 +1770,7 @@ function showRealResults(data){
   _gateHtmlBelow = buildPostEmailReport();
 
   // ── Build the email-first hook shown BEFORE the user gives their email ──────
+  var html = '';
   var issueCount = criticalIssues.length;
   var scoreLabel = score>=70?'Good':'score>=45?\'Needs Work\':\'Poor\'';
   scoreLabel = score>=70?'Good':score>=45?'Needs Work':'Poor';
