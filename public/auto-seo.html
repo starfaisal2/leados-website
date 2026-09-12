@@ -723,8 +723,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
       <!-- 11-section report — built dynamically by showRealResults() -->
       <div id="rpt" style="margin-bottom:24px"></div>
 
-      <!-- POST-SCAN PRICING PICKER -->
-      <div id="scan-pricing" style="margin-top:28px;background:linear-gradient(135deg,#0a0f2c 0%,#1a1060 100%);border-radius:20px;padding:32px 28px;color:#fff">
+      <!-- POST-SCAN PRICING PICKER — hidden until after email gate -->
+      <div id="scan-pricing" style="display:none;margin-top:28px;background:linear-gradient(135deg,#0a0f2c 0%,#1a1060 100%);border-radius:20px;padding:32px 28px;color:#fff">
         <div style="text-align:center;margin-bottom:8px">
           <span style="background:rgba(99,179,237,0.15);color:#90cdf4;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px">Fix My SEO</span>
         </div>
@@ -1851,9 +1851,14 @@ function submitGateEmail(){
     })
   }).catch(function(){});
 
-  // Replace entire rpt with the full report
+  // Replace rpt with the post-email report and reveal pricing
   var rptEl = document.getElementById('rpt');
-  if(rptEl){ rptEl.innerHTML = _gateHtmlBelow; }
+  if(rptEl){
+    rptEl.innerHTML = _gateHtmlBelow;
+    rptEl.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  var pricingEl = document.getElementById('scan-pricing');
+  if(pricingEl) pricingEl.style.display = 'block';
 
   // Wire up kwCount and pricing headline now that full report is in the DOM
   var kwCountEl = document.getElementById('kwCount');
