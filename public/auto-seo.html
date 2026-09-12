@@ -1472,35 +1472,47 @@ function startScan(){
   document.getElementById('scanLiveUrl').textContent = rawUrl.replace(/^https?:\/\//,'');
 
   var SCAN_PHASES = [
-    { id:'step1', prog:12, msgs:[
+    { id:'step1', prog:8, msgs:[
       ['🌐','Reading your homepage…','Fetching HTML, metadata and page structure'],
-      ['🏷️','Checking your meta tags…','Title, description, H1 — the signals Google reads first'],
-      ['📄','Scanning your content…','Measuring word count, headings and page quality'],
+      ['🏷️','Checking your title tag…','Your page title is the #1 on-page ranking signal'],
+      ['📄','Scanning your headings…','H1, H2, H3 structure tells Google what your page is about'],
+      ['🖼️','Auditing image metadata…','Missing alt text is one of the most common fixable issues'],
     ]},
-    { id:'step2', prog:32, msgs:[
+    { id:'step2', prog:28, msgs:[
       ['🔑','Discovering your keywords…','Finding what search terms your site currently targets'],
-      ['📊','Mapping keyword gaps…','Identifying high-value searches you\'re missing'],
-      ['🎯','Analysing search intent…','Commercial vs informational — what actually converts'],
+      ['📊','Mapping keyword gaps…','Identifying high-value searches your competitors rank for'],
+      ['🎯','Analysing search intent…','Commercial vs informational — what actually drives sales'],
+      ['💰','Estimating traffic value…','Calculating what ranking for these keywords is worth'],
     ]},
-    { id:'step3', prog:54, msgs:[
-      ['⚔️','Finding your competitors…','Who\'s outranking you on Google right now'],
-      ['🏆','Comparing domain authority…','Checking their backlink profiles against yours'],
-      ['📝','Reading their content strategy…','What they publish that you don\'t yet'],
+    { id:'step3', prog:50, msgs:[
+      ['⚔️','Identifying your competitors…','Who\'s outranking you on Google right now'],
+      ['🏆','Comparing domain authority…','Checking their backlink profiles vs yours'],
+      ['📝','Reading their content gaps…','Finding topics they rank for that you haven\'t covered'],
+      ['🕵️','Spotting their weaknesses…','Where you can outrank them with the right content'],
     ]},
-    { id:'step4', prog:73, msgs:[
-      ['⚡','Running Google PageSpeed…','Testing real load time from Google\'s servers'],
-      ['📱','Checking mobile performance…','Over 60% of searches happen on mobile'],
-      ['🔬','Measuring Core Web Vitals…','LCP, CLS, FID — Google ranking signals since 2021'],
+    { id:'step4', prog:70, msgs:[
+      ['⚡','Testing page speed…','Real load time from Google\'s servers worldwide'],
+      ['📱','Checking mobile performance…','Over 60% of your visitors are on a phone'],
+      ['🔬','Measuring Core Web Vitals…','LCP, CLS, FID — Google's ranking signals since 2021'],
+      ['🔒','Checking HTTPS & canonicals…','Security and duplicate-content signals'],
     ]},
-    { id:'step5', prog:88, msgs:[
-      ['🤖','AI building your report…','Claude is writing your personalised SEO analysis'],
-      ['📈','Calculating your SEO score…','Scoring on-page, performance and content quality'],
-      ['🗺️','Generating your action plan…','Custom roadmap to rank #1 for your keywords'],
-      ['✨','Almost done…','Finalising competitor gaps and keyword opportunities'],
+    { id:'step5', prog:82, msgs:[
+      ['🤖','AI is writing your report…','Claude is analysing everything we just found'],
+      ['📈','Scoring your SEO health…','On-page, performance and content — weighted by impact'],
+      ['🗺️','Building your content roadmap…','Picking the exact articles that will move your rankings'],
+      ['🎯','Matching keywords to your niche…','Finding searches your buyers actually use'],
+      ['⚡','Prioritising quick wins…','Fixes you can make today that Google rewards fast'],
+      ['🏆','Ranking your competitors…','Deciding which ones are beatable and how'],
+      ['📣','Writing your strategic insight…','The one thing that will move your ranking most'],
+      ['📅','Creating your 90-day plan…','Week 1, Month 1, Month 3 — step by step'],
+      ['🔍','Double-checking keyword volumes…','Confirming real monthly search numbers'],
+      ['✍️','Drafting article titles…','Headlines optimised for clicks AND rankings'],
+      ['📊','Finalising your score breakdown…','On-page · Performance · Content — totalled'],
+      ['🚀','Preparing your report…','Almost ready — pulling it all together now'],
     ]},
   ];
 
-  var si=0, msgTimer, stepTimer;
+  var si=0, msgTimer, stepTimer, aiProgressTimer;
 
   function setCard(icon, msg, sub){
     var iconEl=document.getElementById('scanCardIcon');
@@ -1510,12 +1522,25 @@ function startScan(){
     iconEl.textContent=icon; msgEl.textContent=msg; subEl.textContent=sub;
   }
 
-  function startPhase(phase){
+  function startPhase(phase, isLast){
     var mi=0;
     var m=phase.msgs[mi]; setCard(m[0],m[1],m[2]); mi++;
     msgTimer=setInterval(function(){
       if(mi<phase.msgs.length){ var m=phase.msgs[mi]; setCard(m[0],m[1],m[2]); mi++; }
-    },2200);
+      else if(isLast){
+        // Loop the last few messages so there's always activity
+        mi=phase.msgs.length-3;
+      }
+    },2400);
+
+    // During AI phase: slowly tick progress bar from 82% toward 97%
+    if(isLast){
+      var aiProg=82;
+      aiProgressTimer=setInterval(function(){
+        aiProg=Math.min(aiProg+0.6,97);
+        document.getElementById('progressFill').style.width=aiProg+'%';
+      },800);
+    }
   }
 
   function nextStep(){
@@ -1523,10 +1548,11 @@ function startScan(){
     clearInterval(msgTimer);
     if(si<SCAN_PHASES.length){
       var phase=SCAN_PHASES[si];
+      var isLast=(si===SCAN_PHASES.length-1);
       document.getElementById(phase.id).className='scan-step active';
-      document.getElementById('progressFill').style.width=phase.prog+'%';
-      startPhase(phase);
-      si++; stepTimer=setTimeout(nextStep, si===5 ? 12000 : 3800);
+      if(!isLast) document.getElementById('progressFill').style.width=phase.prog+'%';
+      startPhase(phase, isLast);
+      si++; stepTimer=setTimeout(nextStep, isLast ? 60000 : 4200);
     }
   }
   nextStep();
