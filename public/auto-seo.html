@@ -1646,154 +1646,129 @@ function showRealResults(data){
     var scoreLabel=score>=70?'Good':score>=45?'Needs Work':'Critical';
     var scoreColor=score>=70?'#10b981':score>=45?'#f59e0b':'#ef4444';
     var scoreBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
+    var volMap={high:'2,400+/mo',medium:'880/mo',low:'290/mo'};
 
-    // ── Hero score reveal ──────────────────────────────────────────────────────
-    h+='<div style="text-align:center;padding:40px 24px 32px;background:#fff;border:1px solid var(--border);border-radius:20px;margin-bottom:20px;box-shadow:var(--shadow)">';
-    h+='<div style="font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">SEO HEALTH SCORE</div>';
-    h+='<div style="width:120px;height:120px;border-radius:50%;background:'+scoreBg+';display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)">';
-    h+='<span style="font-size:44px;font-weight:900;color:#fff;line-height:1">'+score+'</span>';
+    // ── 1. Score + summary tiles ───────────────────────────────────────────────
+    h+='<div style="text-align:center;padding:36px 24px 28px;background:#fff;border:1px solid var(--border);border-radius:20px;margin-bottom:16px;box-shadow:var(--shadow)">';
+    h+='<div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">SEO HEALTH SCORE</div>';
+    h+='<div style="width:110px;height:110px;border-radius:50%;background:'+scoreBg+';display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 28px rgba(0,0,0,0.14)">';
+    h+='<span style="font-size:42px;font-weight:900;color:#fff;line-height:1">'+score+'</span>';
     h+='</div>';
-    h+='<div style="font-size:22px;font-weight:900;color:'+scoreColor+';margin-bottom:8px">'+scoreLabel+'</div>';
-    if(data.business_name) h+='<div style="font-size:15px;color:var(--text2);font-weight:600">'+esc(data.business_name)+'</div>';
-    h+='</div>';
-
-    // ── Damage summary tiles ───────────────────────────────────────────────────
-    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">';
-
-    h+='<div style="background:#fff0f0;border:1px solid #fecaca;border-radius:16px;padding:20px;text-align:center">';
-    h+='<div style="font-size:36px;font-weight:900;color:#ef4444;line-height:1;margin-bottom:6px">'+criticalIssues.length+'</div>';
-    h+='<div style="font-size:12px;font-weight:700;color:#b91c1c">Critical Issues</div>';
+    h+='<div style="font-size:20px;font-weight:900;color:'+scoreColor+';margin-bottom:6px">'+scoreLabel+'</div>';
+    if(data.business_name) h+='<div style="font-size:14px;color:var(--muted);font-weight:600">'+esc(data.business_name)+'</div>';
     h+='</div>';
 
-    h+='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:16px;padding:20px;text-align:center">';
-    h+='<div style="font-size:36px;font-weight:900;color:#d97706;line-height:1;margin-bottom:6px">'+(kws.length||0)+'</div>';
-    h+='<div style="font-size:12px;font-weight:700;color:#92400e">Keywords Missed</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">';
+    h+='<div style="background:#fff0f0;border:1px solid #fecaca;border-radius:14px;padding:18px;text-align:center"><div style="font-size:32px;font-weight:900;color:#ef4444;line-height:1;margin-bottom:4px">'+criticalIssues.length+'</div><div style="font-size:11px;font-weight:700;color:#b91c1c">Issues Found</div></div>';
+    h+='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:18px;text-align:center"><div style="font-size:32px;font-weight:900;color:#d97706;line-height:1;margin-bottom:4px">'+(kws.length||0)+'</div><div style="font-size:11px;font-weight:700;color:#92400e">Keywords Missed</div></div>';
+    h+='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:18px;text-align:center"><div style="font-size:32px;font-weight:900;color:#16a34a;line-height:1;margin-bottom:4px">'+autoFixCount+'</div><div style="font-size:11px;font-weight:700;color:#15803d">LeadOS Can Fix</div></div>';
     h+='</div>';
 
-    h+='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:16px;padding:20px;text-align:center">';
-    h+='<div style="font-size:36px;font-weight:900;color:#16a34a;line-height:1;margin-bottom:6px">'+autoFixCount+'</div>';
-    h+='<div style="font-size:12px;font-weight:700;color:#15803d">LeadOS Can Fix</div>';
-    h+='</div>';
-
-    h+='</div>';
-
-    // ── Issues list: show label, hide the solution ─────────────────────────────
+    // ── 2. Issues list — show the problem, honest fix labels ──────────────────
     if(criticalIssues.length){
-      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
-      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:16px">⚠️ What\'s Hurting Your Rankings</div>';
-      criticalIssues.forEach(function(issue){
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px">';
+      h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:14px">⚠️ What\'s Holding Your Site Back</div>';
+      criticalIssues.slice(0,6).forEach(function(issue){
         var sev=issue.severity||'medium';
         var dotColor=sev==='critical'?'#ef4444':sev==='high'?'#f97316':'#fbbf24';
-        var canFix=isAutoFix(issue.label);
-        h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(67,97,238,0.06)">';
-        h+='<div style="display:flex;align-items:center;gap:10px">';
-        h+='<div style="width:8px;height:8px;border-radius:50%;background:'+dotColor+';flex-shrink:0"></div>';
-        h+='<span style="font-size:14px;font-weight:600;color:var(--text)">'+esc(issue.label)+'</span>';
-        h+='</div>';
-        if(canFix){
-          h+='<span style="font-size:11px;font-weight:700;color:#059669;background:#d1fae5;padding:3px 10px;border-radius:100px;white-space:nowrap">✓ Auto Fix</span>';
+        var isContent=isAutoFix(issue.label);
+        // Honest labels: content issues LeadOS genuinely handles; technical ones need a developer
+        var badgeHtml;
+        if(isContent){
+          badgeHtml='<span style="font-size:11px;font-weight:700;color:#059669;background:#d1fae5;padding:3px 10px;border-radius:100px;white-space:nowrap">✓ LeadOS Can Fix</span>';
         } else {
-          h+='<span style="font-size:11px;font-weight:700;color:#d97706;background:#fef3c7;padding:3px 10px;border-radius:100px;white-space:nowrap">Manual</span>';
+          badgeHtml='<span style="font-size:11px;font-weight:700;color:#d97706;background:#fef3c7;padding:3px 10px;border-radius:100px;white-space:nowrap">⚠ Developer Fix</span>';
         }
-        h+='</div>';
+        h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(67,97,238,0.06)">';
+        h+='<div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;margin-right:10px">';
+        h+='<div style="width:7px;height:7px;border-radius:50%;background:'+dotColor+';flex-shrink:0"></div>';
+        h+='<span style="font-size:13px;font-weight:600;color:var(--text)">'+esc(issue.label)+'</span>';
+        h+='</div>'+badgeHtml+'</div>';
       });
-      // Tease: more issues locked
-      h+='<div style="display:flex;align-items:center;gap:10px;padding:12px 0;opacity:.5">';
-      h+='<div style="width:8px;height:8px;border-radius:50%;background:#6b7280;flex-shrink:0"></div>';
-      h+='<span style="font-size:14px;font-weight:600;color:var(--muted)">+ more issues detected — activate LeadOS to see all</span>';
-      h+='</div>';
       h+='</div>';
     }
 
-    // ── Keyword tease: show first 4 clearly, blur the rest ────────────────────
+    // ── 3. Conversion block — right after issues, before keywords ─────────────
+    h+='<div style="background:linear-gradient(135deg,#4361EE 0%,#7209B7 100%);border-radius:18px;padding:30px 28px;color:#fff;margin-bottom:16px">';
+    h+='<div style="font-size:12px;font-weight:700;letter-spacing:.1em;opacity:.75;text-transform:uppercase;margin-bottom:10px">The Solution</div>';
+    h+='<div style="font-size:21px;font-weight:900;line-height:1.25;margin-bottom:6px">We found the problems.<br>LeadOS can start working on them.</div>';
+    h+='<div style="font-size:13px;opacity:.8;margin-bottom:20px">'+autoFixCount+' issues on your website can be addressed with LeadOS Auto SEO</div>';
+    h+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px">';
+    h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Fix SEO titles &amp; descriptions</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Create missing SEO content every month</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Target the '+(kws.length||10)+' keywords you\'re currently missing</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Publish optimised content continuously</div>';
+    h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Optimise for Google + AI Search</div>';
+    h+='</div>';
+    h+='<div style="font-size:11px;opacity:.6;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">SEO from $29/month</div>';
+    h+='<a href="'+signupUrl+'" style="display:inline-block;background:#fff;color:#4361EE;font-size:16px;font-weight:800;padding:14px 36px;border-radius:12px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,0.18)">Start Fixing My SEO →</a>';
+    h+='<div style="font-size:11px;opacity:.55;margin-top:12px">No contract · Cancel anytime</div>';
+    h+='</div>';
+
+    // ── 4. Keywords: show 3-4 real ones, blur the rest ────────────────────────
     if(kws.length){
-      var volMap={high:'2,400+/mo',medium:'880/mo',low:'290/mo'};
-      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
-      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">🎯 '+kws.length+' Keyword Opportunities Found</div>';
-      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:16px">Your competitors rank for these searches. You don\'t appear on page 1.</div>';
-      // Show first 4 keywords clearly
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px">';
+      h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px">🎯 '+kws.length+' Keyword Opportunities Found</div>';
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:14px">Your competitors rank for these searches. You\'re not on page 1.</div>';
       kws.slice(0,4).forEach(function(kw){
-        h+='<div style="padding:12px 16px;background:var(--bg);border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">';
-        h+='<span style="font-size:14px;font-weight:700;color:var(--text)">'+esc(kw.keyword)+'</span>';
-        h+='<span style="font-size:13px;color:var(--blue);font-weight:600">'+(volMap[kw.volume]||'880/mo')+'</span>';
+        h+='<div style="padding:11px 14px;background:var(--bg);border-radius:10px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">';
+        h+='<span style="font-size:14px;font-weight:600;color:var(--text)">'+esc(kw.keyword)+'</span>';
+        h+='<span style="font-size:12px;color:var(--blue);font-weight:700;white-space:nowrap;margin-left:12px">'+(volMap[kw.volume]||'880/mo')+'</span>';
         h+='</div>';
       });
-      // Blur remaining keywords if any
       if(kws.length>4){
-        h+='<div style="position:relative;overflow:hidden;border-radius:10px;margin-top:4px">';
+        h+='<div style="position:relative;overflow:hidden;border-radius:10px;margin-top:2px">';
         h+='<div style="filter:blur(5px);pointer-events:none">';
         kws.slice(4,8).forEach(function(kw){
-          h+='<div style="padding:12px 16px;background:var(--bg);border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between">';
-          h+='<span style="font-size:14px;font-weight:700;color:var(--text)">'+esc(kw.keyword)+'</span>';
-          h+='<span style="font-size:13px;color:var(--blue);font-weight:600">'+(volMap[kw.volume]||'880/mo')+'</span>';
+          h+='<div style="padding:11px 14px;background:var(--bg);border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between">';
+          h+='<span style="font-size:14px;font-weight:600;color:var(--text)">'+esc(kw.keyword)+'</span>';
+          h+='<span style="font-size:12px;color:var(--blue);font-weight:700">'+(volMap[kw.volume]||'880/mo')+'</span>';
           h+='</div>';
         });
         h+='</div>';
-        h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.92) 55%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px">';
-        h+='<a href="'+signupUrl+'" style="font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;border:1.5px solid var(--border2);padding:8px 18px;border-radius:100px;background:#fff">🔓 Unlock All '+kws.length+' Keywords →</a>';
+        h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.94) 50%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px">';
+        h+='<a href="'+signupUrl+'" style="font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;border:1.5px solid var(--border2);padding:8px 20px;border-radius:100px;background:#fff">See All '+kws.length+' Growth Opportunities →</a>';
         h+='</div>';
         h+='</div>';
       }
       h+='</div>';
     }
 
-    // ── Competitor section: show 2 clearly, blur the rest ─────────────────────
+    // ── 5. Competitor teaser ───────────────────────────────────────────────────
     if(comps.length){
-      var rankIcons=['🥇','🥈','🥉','🏆','🏆'];
-      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
-      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ Competitors Beating You Right Now</div>';
-      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:16px">These businesses outrank you on Google in your industry and area.</div>';
-      // Show first 2 competitors clearly
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px">';
+      h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ Your Competitors Are Already Ahead</div>';
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:14px">We found '+comps.length+' competing websites currently appearing for searches relevant to your business.</div>';
       comps.slice(0,2).forEach(function(c,idx){
-        h+='<div style="padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">';
-        h+='<span style="font-size:20px">'+( rankIcons[idx]||'🏆')+'</span>';
-        h+='<div style="flex:1;min-width:0">';
-        h+='<div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(c.domain)+'</div>';
-        h+='<div style="font-size:12px;color:var(--muted)">'+esc(c.why||'Outranking you for your core keywords')+'</div>';
-        h+='</div>';
-        var strLabel=c.strength?((c.strength.charAt(0).toUpperCase()+c.strength.slice(1))):'Strong';
-        var strColor=c.strength==='weak'?'#059669':c.strength==='medium'?'#d97706':'#dc2626';
-        var strBg=c.strength==='weak'?'#d1fae5':c.strength==='medium'?'#fef3c7':'#fee2e2';
-        h+='<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap;color:'+strColor+';background:'+strBg+'">'+strLabel+'</span>';
+        h+='<div style="padding:13px 14px;background:var(--bg);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">';
+        h+='<span style="font-size:18px">'+(idx===0?'🥇':'🥈')+'</span>';
+        h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(c.domain)+'</div>';
+        h+='<div style="font-size:12px;color:var(--muted);margin-top:2px">'+esc(c.why||'Ranking above you for your core search terms')+'</div></div>';
         h+='</div>';
       });
-      // Blur remaining competitors
       if(comps.length>2){
-        h+='<div style="position:relative;border-radius:10px;overflow:hidden;margin-top:4px">';
-        h+='<div style="filter:blur(5px);pointer-events:none">';
-        comps.slice(2,5).forEach(function(c,idx){
-          h+='<div style="padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:12px">';
-          h+='<span style="font-size:20px">'+(rankIcons[idx+2]||'🏆')+'</span>';
-          h+='<div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(c.domain)+'</div></div>';
-        });
-        h+='</div>';
-        h+='<div style="position:absolute;inset:0;background:rgba(255,255,255,0.88);display:flex;align-items:center;justify-content:center">';
-        h+='<span style="font-size:13px;font-weight:700;color:var(--muted)">🔒 '+(comps.length-2)+' more competitors hidden — activate LeadOS to see all</span>';
-        h+='</div>';
+        h+='<div style="padding:12px 14px;background:rgba(67,97,238,0.04);border:1px dashed var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:space-between">';
+        h+='<span style="font-size:13px;color:var(--muted);font-weight:600">🔒 '+(comps.length-2)+' more competitors — see their strategy</span>';
+        h+='<a href="'+signupUrl+'" style="font-size:12px;font-weight:700;color:var(--blue);text-decoration:none;white-space:nowrap">Unlock →</a>';
         h+='</div>';
       }
       h+='</div>';
     }
 
-    // ── Main CTA — the conversion block ───────────────────────────────────────
-    h+='<div style="background:linear-gradient(135deg,#4361EE,#7209B7);border-radius:20px;padding:36px 32px;text-align:center;color:#fff;margin-bottom:20px">';
-    h+='<div style="font-size:13px;font-weight:700;letter-spacing:.08em;opacity:.8;text-transform:uppercase;margin-bottom:12px">THE SOLUTION</div>';
-    h+='<div style="font-size:24px;font-weight:900;line-height:1.2;margin-bottom:10px">LeadOS can fix <span style="color:#4ade80">'+autoFixCount+' of '+criticalIssues.length+' issues</span><br>automatically — every month</div>';
-    h+='<div style="font-size:14px;opacity:.85;margin-bottom:24px;line-height:1.65">AI writes SEO content → optimises your pages → builds keyword coverage → monitors rankings. You do nothing.</div>';
-    h+='<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px">';
-    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ '+( data.articles_needed||20)+' AI articles/month</div>';
-    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Keyword coverage built</div>';
-    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Auto-published to your site</div>';
-    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Ranking tracked monthly</div>';
-    h+='</div>';
-    h+='<a href="'+signupUrl+'" style="display:inline-block;background:#fff;color:#4361EE;font-size:17px;font-weight:800;padding:16px 40px;border-radius:14px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.2)">Start Fixing My SEO — $29/month →</a>';
-    h+='<div style="font-size:12px;opacity:.65;margin-top:14px">No contract · Cancel anytime · Setup in 5 minutes</div>';
-    h+='</div>';
+    // ── 6. Personalised AI insight (one line, high credibility) ───────────────
+    if(data.strategic_insight){
+      h+='<div style="background:#fff;border-left:4px solid var(--blue);border-radius:0 14px 14px 0;padding:18px 20px;margin-bottom:16px;border:1px solid var(--border);border-left:4px solid #4361EE">';
+      h+='<div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">💡 AI Insight for '+esc(data.business_name||'Your Business')+'</div>';
+      h+='<div style="font-size:14px;color:var(--text);line-height:1.6">'+esc(data.strategic_insight)+'</div>';
+      h+='</div>';
+    }
 
-    // ── Social proof nudge ─────────────────────────────────────────────────────
-    h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-bottom:20px">';
-    h+='<div style="font-size:13px;color:var(--muted);margin-bottom:12px">Every month you wait, your competitors publish more content and grow their lead over you.</div>';
-    h+='<div style="font-size:15px;font-weight:800;color:var(--text)">Your competitors are not waiting.</div>';
+    // ── 7. Final CTA ──────────────────────────────────────────────────────────
+    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-bottom:8px">';
+    h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px">Ready to stop losing ground to competitors?</div>';
+    h+='<div style="font-size:13px;color:var(--muted);margin-bottom:18px">LeadOS starts working on your SEO from day one — no writing, no agency, no waiting.</div>';
+    h+='<a href="'+signupUrl+'" style="display:inline-block;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;font-size:15px;font-weight:800;padding:14px 36px;border-radius:12px;text-decoration:none;box-shadow:0 6px 20px rgba(67,97,238,0.35)">Unlock My Full SEO Plan →</a>';
+    h+='<div style="font-size:11px;color:var(--muted);margin-top:10px">From $29/month · No contract · Cancel anytime</div>';
     h+='</div>';
 
     return h;
