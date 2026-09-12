@@ -1740,11 +1740,14 @@ function showRealResults(data){
       h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px">';
       h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ A Competitor Is Ranking Where You\'re Missing Out</div>';
       h+='<div style="font-size:13px;color:var(--muted);margin-bottom:14px">We found '+comps.length+' competitor'+(comps.length!==1?'s':'')+' currently appearing for searches relevant to your business.</div>';
+      var placeholderDomains=['competitor-1.com','competitor-2.com','competitor-3.com'];
       comps.slice(0,2).forEach(function(c,idx){
         h+='<div style="padding:13px 14px;background:var(--bg);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">';
         h+='<span style="font-size:18px">'+(idx===0?'🥇':'🥈')+'</span>';
-        h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(c.domain)+'</div>';
-        h+='<div style="font-size:12px;color:var(--muted);margin-top:2px">'+esc(c.why||'Ranking above you for your core search terms')+'</div></div>';
+        h+='<div style="flex:1;min-width:0">';
+        h+='<div style="font-size:14px;font-weight:700;color:var(--text);filter:blur(5px);user-select:none;pointer-events:none">'+esc(placeholderDomains[idx])+'</div>';
+        h+='<div style="font-size:12px;color:var(--muted);margin-top:2px">'+esc(c.why||'Ranking above you for your core search terms')+'</div>';
+        h+='</div>';
         h+='</div>';
       });
       if(comps.length>2){
