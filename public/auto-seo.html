@@ -1586,53 +1586,56 @@ function showRealResults(data){
   // Score ring color
   var ringBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
 
-  var html='';
+  // ── Build the FULL report (revealed after email) ───────────────────────────
+  var fullHtml='';
 
   // ── 1. Summary banner ──────────────────────────────────────────────────────
-  html+='<div class="rpt-summary-banner">';
-  html+='<div class="rpt-score-ring" style="background:'+ringBg+'">'+score+'</div>';
-  html+='<div style="flex:1;min-width:0">';
-  if(data.business_name) html+='<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
-  html+='<p class="rpt-biz-summary">'+esc(data.scan_summary||'')+'</p>';
-  html+='</div></div>';
+  fullHtml+='<div class="rpt-summary-banner">';
+  fullHtml+='<div class="rpt-score-ring" style="background:'+ringBg+'">'+score+'</div>';
+  fullHtml+='<div style="flex:1;min-width:0">';
+  if(data.business_name) fullHtml+='<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
+  fullHtml+='<p class="rpt-biz-summary">'+esc(data.scan_summary||'')+'</p>';
+  fullHtml+='</div></div>';
+
+  var html='';
 
   // ── 2. Score breakdown ─────────────────────────────────────────────────────
   if(bd.total){
-    html+='<div class="rpt-breakdown">';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.technical_on_page||0))+'</div><div class="rpt-bd-max">/55</div><div class="rpt-bd-label">On-page</div></div>';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.performance||0))+'</div><div class="rpt-bd-max">/20</div><div class="rpt-bd-label">Performance</div></div>';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.content||0))+'</div><div class="rpt-bd-max">/25</div><div class="rpt-bd-label">Content</div></div>';
-    html+='</div>';
+    fullHtml+='<div class="rpt-breakdown">';
+    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.technical_on_page||0))+'</div><div class="rpt-bd-max">/55</div><div class="rpt-bd-label">On-page</div></div>';
+    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.performance||0))+'</div><div class="rpt-bd-max">/20</div><div class="rpt-bd-label">Performance</div></div>';
+    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.content||0))+'</div><div class="rpt-bd-max">/25</div><div class="rpt-bd-label">Content</div></div>';
+    fullHtml+='</div>';
   }
 
   // ── 3. Technical issues ────────────────────────────────────────────────────
   var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
   var autoFixCount=criticalIssues.filter(function(i){return isAutoFix(i.label);}).length;
   if(criticalIssues.length){
-    html+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
+    fullHtml+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
     criticalIssues.forEach(function(issue){
       var sev=issue.severity||'medium';
       var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
       var badge=isAutoFix(issue.label)
         ?'<span class="rpt-fix-badge rpt-fix-auto">🟢 Auto Fix</span>'
         :'<span class="rpt-fix-badge rpt-fix-manual">🔧 Manual</span>';
-      html+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
+      fullHtml+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
     });
-    html+='</div>';
+    fullHtml+='</div>';
   }
 
   // ── 4. Quick wins ──────────────────────────────────────────────────────────
   if(qws.length){
-    html+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
+    fullHtml+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
     qws.slice(0,4).forEach(function(w){
       var impactCls='rpt-chip-impact-'+(w.impact||'medium');
       var effortCls='rpt-chip-effort-'+(w.effort||'hours');
-      html+='<div class="rpt-qw-card">';
-      html+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
-      html+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
-      html+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
+      fullHtml+='<div class="rpt-qw-card">';
+      fullHtml+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
+      fullHtml+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
+      fullHtml+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
     });
-    html+='</div></div>';
+    fullHtml+='</div></div>';
   }
 
   // ── 4b. How LeadOS Fixes This ──────────────────────────────────────────────
@@ -1662,15 +1665,15 @@ function showRealResults(data){
       if(matchedFixes.indexOf(fm)<0&&matchedFixes.length<3) matchedFixes.push(fm);
     });
   }
-  html+='<div class="rpt-leados-fix">';
-  html+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
-  html+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
+  fullHtml+='<div class="rpt-leados-fix">';
+  fullHtml+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
+  fullHtml+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
   matchedFixes.forEach(function(fm){
-    html+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
+    fullHtml+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
   });
-  html+='</div>';
+  fullHtml+='</div>';
 
-  // ── EMAIL GATE: blur everything below if no email yet ──────────────────────
+  // ── Build gated section (keywords, competitors, roadmap, action plan) ──────
   _gateEmailCaptured = false;
   _gateHtmlBelow = '';
 
@@ -1774,29 +1777,43 @@ function showRealResults(data){
     return h;
   }
 
-  _gateHtmlBelow = renderBelowGate();
+  // Store the full report: above-gate sections + below-gate sections
+  _gateHtmlBelow = fullHtml + renderBelowGate();
 
-  // Inject email gate between the visible top section and the blurred below section
+  // ── Build the email-first hook shown BEFORE the user gives their email ──────
+  var issueCount = criticalIssues.length;
+  var scoreLabel = score>=70?'Good':'score>=45?\'Needs Work\':\'Poor\'';
+  scoreLabel = score>=70?'Good':score>=45?'Needs Work':'Poor';
+  var scoreColor = score>=70?'#10b981':score>=45?'#f59e0b':'#ef4444';
+
+  // Top teaser: business name + locked score
+  html += '<div style="display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow)">';
+  // Locked score ring
+  html += '<div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#e0e7ff,#c7d2fe);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:3px solid #c7d2fe">';
+  html += '<span style="font-size:26px">🔒</span>';
+  html += '<span style="font-size:10px;font-weight:700;color:#6366f1;margin-top:2px;letter-spacing:.04em">SCORE</span>';
+  html += '</div>';
+  html += '<div style="flex:1;min-width:0">';
+  if(data.business_name) html += '<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
+  html += '<p style="font-size:14px;color:var(--text2);margin-top:4px;line-height:1.5">Scan complete. We found <strong style="color:'+scoreColor+'">'+issueCount+' issue'+(issueCount!==1?'s':'')+' holding your site back</strong>'+( kws.length?' and <strong>'+kws.length+' keyword opportunities</strong>':'')+'. Enter your email to unlock your full score and report.</p>';
+  html += '</div></div>';
+
+  // Email gate card
   html += '<div id="email-gate-wrap">';
-  html += '<div id="email-gate-blur" style="position:relative;overflow:hidden;border-radius:16px;margin-top:12px;max-height:280px">';
-  html += '<div style="filter:blur(5px);pointer-events:none;user-select:none;opacity:0.45">'+_gateHtmlBelow+'</div>';
-  html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.98) 40%);display:flex;align-items:flex-start;justify-content:center;padding-top:24px">';
-  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:400px;box-shadow:0 20px 60px rgba(79,70,229,0.12)">';
-  html += '<div style="font-size:28px;margin-bottom:12px">🔓</div>';
-  html += '<div style="font-size:18px;font-weight:800;color:#0a0f2c;margin-bottom:8px">Unlock Your Full Report</div>';
-  html += '<div style="font-size:14px;color:#64748b;margin-bottom:20px;line-height:1.6">Enter your email to see your keyword opportunities, content roadmap, competitor analysis, and full action plan — free.</div>';
-  html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
-  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:12px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
-  html += '<button onclick="submitGateEmail()" style="padding:12px 18px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
+  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:36px 32px;text-align:center;box-shadow:0 20px 60px rgba(79,70,229,0.12);max-width:520px;margin:0 auto">';
+  html += '<div style="font-size:32px;margin-bottom:14px">📊</div>';
+  html += '<div style="font-size:20px;font-weight:800;color:#0a0f2c;margin-bottom:10px">Your SEO Report is Ready</div>';
+  html += '<div style="font-size:14px;color:#64748b;margin-bottom:8px;line-height:1.65">Enter your email to instantly unlock your SEO score, keyword opportunities, competitor analysis, and full action plan — sent to your inbox too.</div>';
+  html += '<div style="display:flex;gap:8px;margin:20px 0 10px;max-width:420px;margin-left:auto;margin-right:auto">';
+  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:13px 16px;border:1.5px solid #e0e7ff;border-radius:11px;font-size:15px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
+  html += '<button onclick="submitGateEmail()" style="padding:13px 22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">See My Score →</button>';
   html += '</div>';
   html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
-  html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime</div>';
-  html += '</div></div>';
+  html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime · Free forever</div>';
   html += '</div>';
   html += '</div>';
 
-  document.getElementById('rpt').innerHTML=html;
-  document.getElementById('kwCount').textContent=(data.articles_needed||20);
+  document.getElementById('rpt').innerHTML = html;
 
   // Store scan data for gate submission
   window._gateData = {
@@ -1804,23 +1821,16 @@ function showRealResults(data){
     business_name: data.business_name,
     seo_score: data.seo_score,
     articles_needed: data.articles_needed,
+    autoFixCount: autoFixCount,
+    criticalIssueCount: criticalIssues.length,
     top_issue: (data.technical_issues||[]).reduce(function(found,i){ return found||(i.severity==='critical'||i.severity==='high'?i.label:null); }, null)
   };
+
   // Allow Enter key in gate email input
   setTimeout(function(){
     var gi = document.getElementById('gate-email-input');
     if(gi) gi.addEventListener('keydown', function(e){ if(e.key==='Enter') submitGateEmail(); });
   }, 100);
-
-  // Dynamic fix count in pricing CTA headline
-  var ctaHl=document.getElementById('scan-pricing-headline');
-  if(ctaHl){
-    if(autoFixCount>0&&criticalIssues.length>0){
-      ctaHl.innerHTML='LeadOS Can Automatically Fix <span style="color:#4ade80">'+autoFixCount+' of '+criticalIssues.length+'</span> Issues We Found';
-    } else {
-      ctaHl.innerHTML='Your site can rank #1 for <span id="kwCount2">'+(data.articles_needed||20)+'</span> keywords';
-    }
-  }
 
   // Scroll report into view smoothly
   document.getElementById('rpt').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1836,8 +1846,8 @@ function submitGateEmail(){
   }
   if(errEl) errEl.style.display='none';
 
-  var btn = document.querySelector('#email-gate-blur button');
-  if(btn){ btn.textContent='Sending…'; btn.disabled=true; }
+  var btn = document.querySelector('#email-gate-wrap button');
+  if(btn){ btn.textContent='Unlocking…'; btn.disabled=true; }
 
   var gd = window._gateData || {};
   fetch('https://app.myleados.ai/api/public/seo-scan/capture-email',{
@@ -1852,13 +1862,22 @@ function submitGateEmail(){
     })
   }).catch(function(){});
 
-  // Reveal full report immediately
-  var gateWrap = document.getElementById('email-gate-wrap');
-  if(gateWrap){ gateWrap.innerHTML = _gateHtmlBelow; }
+  // Replace entire rpt with the full report
+  var rptEl = document.getElementById('rpt');
+  if(rptEl){ rptEl.innerHTML = _gateHtmlBelow; }
 
-  // Update kwCount in newly revealed content
+  // Wire up kwCount and pricing headline now that full report is in the DOM
   var kwCountEl = document.getElementById('kwCount');
-  if(kwCountEl && window._gateData && window._gateData.articles_needed){ kwCountEl.textContent = window._gateData.articles_needed; }
+  if(kwCountEl && gd.articles_needed){ kwCountEl.textContent = gd.articles_needed; }
+
+  var ctaHl = document.getElementById('scan-pricing-headline');
+  if(ctaHl){
+    if(gd.autoFixCount>0 && gd.criticalIssueCount>0){
+      ctaHl.innerHTML='LeadOS Can Automatically Fix <span style="color:#4ade80">'+gd.autoFixCount+' of '+gd.criticalIssueCount+'</span> Issues We Found';
+    } else {
+      ctaHl.innerHTML='Your site can rank #1 for <span id="kwCount2">'+(gd.articles_needed||20)+'</span> keywords';
+    }
+  }
 }
 
 function showFallbackResults(){
