@@ -1612,199 +1612,162 @@ function showRealResults(data){
   // Score ring color
   var ringBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
 
-  // ── Build the FULL report (revealed after email) ───────────────────────────
-  var fullHtml='';
-
-  // ── 1. Summary banner ──────────────────────────────────────────────────────
-  fullHtml+='<div class="rpt-summary-banner">';
-  fullHtml+='<div class="rpt-score-ring" style="background:'+ringBg+'">'+score+'</div>';
-  fullHtml+='<div style="flex:1;min-width:0">';
-  if(data.business_name) fullHtml+='<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
-  fullHtml+='<p class="rpt-biz-summary">'+esc(data.scan_summary||'')+'</p>';
-  fullHtml+='</div></div>';
-
-  var html='';
-
-  // ── 2. Score breakdown ─────────────────────────────────────────────────────
-  if(bd.total){
-    fullHtml+='<div class="rpt-breakdown">';
-    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.technical_on_page||0))+'</div><div class="rpt-bd-max">/55</div><div class="rpt-bd-label">On-page</div></div>';
-    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.performance||0))+'</div><div class="rpt-bd-max">/20</div><div class="rpt-bd-label">Performance</div></div>';
-    fullHtml+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.content||0))+'</div><div class="rpt-bd-max">/25</div><div class="rpt-bd-label">Content</div></div>';
-    fullHtml+='</div>';
-  }
-
-  // ── 3. Technical issues ────────────────────────────────────────────────────
-  var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
+  // ── Categorise issues ──────────────────────────────────────────────────────
+  var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,8);
   var autoFixCount=criticalIssues.filter(function(i){return isAutoFix(i.label);}).length;
-  if(criticalIssues.length){
-    fullHtml+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
-    criticalIssues.forEach(function(issue){
-      var sev=issue.severity||'medium';
-      var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
-      var badge=isAutoFix(issue.label)
-        ?'<span class="rpt-fix-badge rpt-fix-auto">🟢 Auto Fix</span>'
-        :'<span class="rpt-fix-badge rpt-fix-manual">🔧 Manual</span>';
-      fullHtml+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
-    });
-    fullHtml+='</div>';
-  }
+  var manualCount=criticalIssues.length-autoFixCount;
 
-  // ── 4. Quick wins ──────────────────────────────────────────────────────────
-  if(qws.length){
-    fullHtml+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
-    qws.slice(0,4).forEach(function(w){
-      var impactCls='rpt-chip-impact-'+(w.impact||'medium');
-      var effortCls='rpt-chip-effort-'+(w.effort||'hours');
-      fullHtml+='<div class="rpt-qw-card">';
-      fullHtml+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
-      fullHtml+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
-      fullHtml+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
-    });
-    fullHtml+='</div></div>';
-  }
-
-  // ── 4b. How LeadOS Fixes This ──────────────────────────────────────────────
-  var FIX_MAP=[
-    {kw:['meta description','no description','missing description'],problem:'No meta description',solution:'AI writes optimized descriptions for every page'},
-    {kw:['title tag','page title','missing title','weak title'],problem:'Weak or missing title tags',solution:'AI generates keyword-rich titles that rank'},
-    {kw:['h1','heading','no heading','missing heading'],problem:'Missing or duplicate headings',solution:'Publishes articles with correct H1/H2/H3 structure'},
-    {kw:['alt text','image alt','missing alt','no alt'],problem:'Images without alt text',solution:'AI adds descriptive alt text to all published content'},
-    {kw:['content','thin','no blog','blog','article','lacking'],problem:'Thin or missing content',solution:'Publishes 15–45 SEO articles every month automatically'},
-    {kw:['keyword','ranking','not ranking','target keyword'],problem:'Missing keyword coverage',solution:'Targets your top keywords with dedicated content'},
-    {kw:['backlink','link','authority','domain authority'],problem:'Low domain / link authority',solution:'Builds 5–13 quality backlinks per month'},
-    {kw:['schema','structured data','rich result'],problem:'No structured data / schema',solution:'Auto-adds schema markup to every published article'},
-    {kw:['sitemap','xml sitemap'],problem:'Missing or outdated sitemap',solution:'Regenerates sitemap automatically after each publish'},
-    {kw:['canonical','duplicate'],problem:'Duplicate / missing canonical',solution:'Sets canonical tags on all AI articles correctly'},
-  ];
-  var allIssueText=criticalIssues.map(function(i){return (i.label||'').toLowerCase();});
-  if(qws.length) allIssueText=allIssueText.concat(qws.map(function(w){return ((w.title||'')+' '+(w.description||'')).toLowerCase();}));
-  var matchedFixes=[];
-  FIX_MAP.forEach(function(fm){
-    if(matchedFixes.length>=5)return;
-    var hit=fm.kw.some(function(k){return allIssueText.some(function(l){return l.indexOf(k)>=0;});});
-    if(hit) matchedFixes.push(fm);
-  });
-  // Always show at least 3 rows
-  if(matchedFixes.length<3){
-    [FIX_MAP[4],FIX_MAP[5],FIX_MAP[6]].forEach(function(fm){
-      if(matchedFixes.indexOf(fm)<0&&matchedFixes.length<3) matchedFixes.push(fm);
-    });
-  }
-  fullHtml+='<div class="rpt-leados-fix">';
-  fullHtml+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
-  fullHtml+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
-  matchedFixes.forEach(function(fm){
-    fullHtml+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
-  });
-  fullHtml+='</div>';
-
-  // ── Build gated section (keywords, competitors, roadmap, action plan) ──────
+  // ── Build post-email report: pain-first, LeadOS as solution, minimal free info ─
   _gateEmailCaptured = false;
   _gateHtmlBelow = '';
 
-  function renderBelowGate(){
+  function buildPostEmailReport(){
     var h='';
-    // ── 5. Keywords ────────────────────────────────────────────────────────────
-    if(kws.length){
-    var volMap={high:'2,400+',medium:'880',low:'290'};
-    var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
-    h+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
-    h+='<table class="rpt-kw-table"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
-    kws.slice(0,8).forEach(function(kw){
-      var vol=volMap[kw.volume]||'—';
-      var diff=kw.difficulty||'medium';
-      var diffCls=diffMap[diff]||'diff-med';
-      var intent=kw.intent||'commercial';
-      h+='<tr>';
-      h+='<td class="rpt-kw-kw">'+esc(kw.keyword)+'</td>';
-      h+='<td style="color:var(--text2);font-weight:600">'+vol+'</td>';
-      h+='<td><span class="diff-pill '+diffCls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td>';
-      h+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
-      h+='</tr>';
-    });
-    h+='</tbody></table></div>';
-  }
+    var scoreLabel=score>=70?'Good':score>=45?'Needs Work':'Critical';
+    var scoreColor=score>=70?'#10b981':score>=45?'#f59e0b':'#ef4444';
+    var scoreBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
 
-  // ── 6. Strategic insight ───────────────────────────────────────────────────
-  if(data.strategic_insight){
-    h+='<div class="rpt-strategic">';
-    h+='<div class="rpt-strategic-label">💡 Strategic Insight</div>';
-    h+='<div class="rpt-strategic-text">'+esc(data.strategic_insight)+'</div>';
+    // ── Hero score reveal ──────────────────────────────────────────────────────
+    h+='<div style="text-align:center;padding:40px 24px 32px;background:#fff;border:1px solid var(--border);border-radius:20px;margin-bottom:20px;box-shadow:var(--shadow)">';
+    h+='<div style="font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">SEO HEALTH SCORE</div>';
+    h+='<div style="width:120px;height:120px;border-radius:50%;background:'+scoreBg+';display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)">';
+    h+='<span style="font-size:44px;font-weight:900;color:#fff;line-height:1">'+score+'</span>';
     h+='</div>';
-  }
-
-  // ── 7. Traffic potential ───────────────────────────────────────────────────
-  if(data.monthly_traffic_potential||data.traffic_uplift_estimate){
-    h+='<div class="rpt-traffic">';
-    if(data.monthly_traffic_potential) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.monthly_traffic_potential)+'</div><div class="rpt-traffic-label">Monthly traffic potential</div></div>';
-    if(data.traffic_uplift_estimate) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.traffic_uplift_estimate)+'</div><div class="rpt-traffic-label">Uplift estimate</div></div>';
+    h+='<div style="font-size:22px;font-weight:900;color:'+scoreColor+';margin-bottom:8px">'+scoreLabel+'</div>';
+    if(data.business_name) h+='<div style="font-size:15px;color:var(--text2);font-weight:600">'+esc(data.business_name)+'</div>';
     h+='</div>';
-  }
 
-  // ── 8. Competitors ─────────────────────────────────────────────────────────
-  if(comps.length){
-    h+='<div class="rpt-section"><div class="rpt-section-title">⚔️ Competitors Outranking You</div>';
-    comps.forEach(function(c){
-      var strCls='rpt-comp-'+(c.strength||'medium');
-      var strLabel=(c.strength||'medium').charAt(0).toUpperCase()+(c.strength||'medium').slice(1);
-      h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🏆</div>';
-      h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
-      h+='<span class="rpt-comp-strength '+strCls+'">'+strLabel+'</span></div>';
-    });
+    // ── Damage summary tiles ───────────────────────────────────────────────────
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">';
+
+    h+='<div style="background:#fff0f0;border:1px solid #fecaca;border-radius:16px;padding:20px;text-align:center">';
+    h+='<div style="font-size:36px;font-weight:900;color:#ef4444;line-height:1;margin-bottom:6px">'+criticalIssues.length+'</div>';
+    h+='<div style="font-size:12px;font-weight:700;color:#b91c1c">Critical Issues</div>';
     h+='</div>';
-  }
 
-  // ── 9. Content roadmap ─────────────────────────────────────────────────────
-  if(roadmap.length){
-    var intentColors={informational:'rpt-intent-informational',commercial:'rpt-intent-commercial',transactional:'rpt-intent-transactional',navigational:'rpt-intent-navigational'};
-    h+='<div class="rpt-section"><div class="rpt-section-title">📝 Content Roadmap — '+(data.articles_needed||20)+' articles to dominate your niche</div>';
-    roadmap.slice(0,6).forEach(function(a){
-      var ic=intentColors[a.intent]||'rpt-intent-informational';
-      h+='<div class="rpt-roadmap-item"><span class="rpt-intent '+ic+'">'+(a.intent||'info')+'</span><span class="rpt-roadmap-title">'+esc(a.title)+'</span></div>';
-    });
+    h+='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:16px;padding:20px;text-align:center">';
+    h+='<div style="font-size:36px;font-weight:900;color:#d97706;line-height:1;margin-bottom:6px">'+(kws.length||0)+'</div>';
+    h+='<div style="font-size:12px;font-weight:700;color:#92400e">Keywords Missed</div>';
     h+='</div>';
-  }
 
-  // ── 10. Action plan ────────────────────────────────────────────────────────
-  var hasAP=(ap.week_1&&ap.week_1.length)||(ap.month_1&&ap.month_1.length)||(ap.month_3&&ap.month_3.length);
-  if(hasAP){
-    h+='<div class="rpt-section"><div class="rpt-section-title">🗓️ Your Action Plan</div>';
-    h+='<div class="rpt-action-grid">';
-    var periods=[{key:'week_1',label:'Week 1'},{key:'month_1',label:'Month 1'},{key:'month_3',label:'Month 3'}];
-    periods.forEach(function(p){
-      var items=ap[p.key]||[];
-      h+='<div class="rpt-action-col"><div class="rpt-action-period">'+p.label+'</div>';
-      items.forEach(function(item){h+='<div class="rpt-action-item"><div class="rpt-action-dot"></div><span>'+esc(item)+'</span></div>';});
+    h+='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:16px;padding:20px;text-align:center">';
+    h+='<div style="font-size:36px;font-weight:900;color:#16a34a;line-height:1;margin-bottom:6px">'+autoFixCount+'</div>';
+    h+='<div style="font-size:12px;font-weight:700;color:#15803d">LeadOS Can Fix</div>';
+    h+='</div>';
+
+    h+='</div>';
+
+    // ── Issues list: show label, hide the solution ─────────────────────────────
+    if(criticalIssues.length){
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
+      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:16px">⚠️ What\'s Hurting Your Rankings</div>';
+      criticalIssues.forEach(function(issue){
+        var sev=issue.severity||'medium';
+        var dotColor=sev==='critical'?'#ef4444':sev==='high'?'#f97316':'#fbbf24';
+        var canFix=isAutoFix(issue.label);
+        h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(67,97,238,0.06)">';
+        h+='<div style="display:flex;align-items:center;gap:10px">';
+        h+='<div style="width:8px;height:8px;border-radius:50%;background:'+dotColor+';flex-shrink:0"></div>';
+        h+='<span style="font-size:14px;font-weight:600;color:var(--text)">'+esc(issue.label)+'</span>';
+        h+='</div>';
+        if(canFix){
+          h+='<span style="font-size:11px;font-weight:700;color:#059669;background:#d1fae5;padding:3px 10px;border-radius:100px;white-space:nowrap">✓ Auto Fix</span>';
+        } else {
+          h+='<span style="font-size:11px;font-weight:700;color:#d97706;background:#fef3c7;padding:3px 10px;border-radius:100px;white-space:nowrap">Manual</span>';
+        }
+        h+='</div>';
+      });
+      // Tease: more issues locked
+      h+='<div style="display:flex;align-items:center;gap:10px;padding:12px 0;opacity:.5">';
+      h+='<div style="width:8px;height:8px;border-radius:50%;background:#6b7280;flex-shrink:0"></div>';
+      h+='<span style="font-size:14px;font-weight:600;color:var(--muted)">+ more issues detected — activate LeadOS to see all</span>';
       h+='</div>';
-    });
-    h+='</div></div>';
-  }
+      h+='</div>';
+    }
 
-  // ── 11. Post-activation timeline ───────────────────────────────────────────
-  h+='<div class="rpt-section"><div class="rpt-section-title">📅 What Happens After You Activate LeadOS?</div>';
-  h+='<div class="rpt-timeline">';
-  var tlItems=[
-    {when:'Day 1–2',what:'Setup & sync',detail:'We connect to your site, audit existing content, and configure your keyword strategy.'},
-    {when:'Day 3',what:'First articles published',detail:'AI writes and publishes your first SEO articles — indexed by Google within 48 hours.'},
-    {when:'Week 2–4',what:'Rankings start moving',detail:'Your target keywords begin climbing. Expect page-2 appearances for long-tail terms.'},
-    {when:'Month 2–3',what:'Organic traffic grows',detail:'Consistent publishing compounds. Traffic climbs 30–80% as your content authority builds.'},
-    {when:'Month 6+',what:'Dominant local ranking',detail:'Your business appears in the top 3 for core keywords — beating the competitors outranking you now.'},
-  ];
-  tlItems.forEach(function(t){
-    h+='<div class="rpt-tl-item"><div class="rpt-tl-dot"></div>';
-    h+='<div class="rpt-tl-when">'+esc(t.when)+'</div>';
-    h+='<div class="rpt-tl-what">'+esc(t.what)+'</div>';
-    h+='<div class="rpt-tl-detail">'+esc(t.detail)+'</div>';
+    // ── Keyword tease: show count + first keyword only ─────────────────────────
+    if(kws.length){
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
+      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">🎯 Keyword Opportunities Found</div>';
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:16px">Your competitors are ranking for these searches. You\'re not.</div>';
+      // Show first keyword clearly
+      var firstKw=kws[0];
+      var volMap={high:'2,400+/mo',medium:'880/mo',low:'290/mo'};
+      h+='<div style="padding:12px 16px;background:var(--bg);border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">';
+      h+='<span style="font-size:14px;font-weight:700;color:var(--text)">'+esc(firstKw.keyword)+'</span>';
+      h+='<span style="font-size:13px;color:var(--blue);font-weight:600">'+( volMap[firstKw.volume]||'—')+'</span>';
+      h+='</div>';
+      // Blur/lock the rest
+      h+='<div style="position:relative;overflow:hidden;border-radius:10px">';
+      h+='<div style="filter:blur(5px);pointer-events:none">';
+      kws.slice(1,5).forEach(function(kw){
+        h+='<div style="padding:12px 16px;background:var(--bg);border-radius:10px;margin-bottom:6px;display:flex;justify-content:space-between">';
+        h+='<span style="font-size:14px;font-weight:700;color:var(--text)">'+esc(kw.keyword)+'</span>';
+        h+='<span style="font-size:13px;color:var(--blue);font-weight:600">'+(volMap[kw.volume]||'—')+'</span>';
+        h+='</div>';
+      });
+      h+='</div>';
+      h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.95) 60%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px">';
+      h+='<a href="'+signupUrl+'" style="font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;border:1.5px solid var(--border2);padding:8px 18px;border-radius:100px;background:#fff">🔓 Unlock All '+kws.length+' Keywords →</a>';
+      h+='</div>';
+      h+='</div>';
+      h+='</div>';
+    }
+
+    // ── Competitor teaser ──────────────────────────────────────────────────────
+    if(comps.length){
+      h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px">';
+      h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ Competitors Beating You Right Now</div>';
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:16px">These businesses are outranking you on Google.</div>';
+      // Show first competitor clearly
+      h+='<div style="padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:10px;display:flex;align-items:center;gap:12px">';
+      h+='<span style="font-size:18px">🏆</span>';
+      h+='<div><div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(comps[0].domain)+'</div>';
+      h+='<div style="font-size:12px;color:var(--muted)">Outranking you for your core keywords</div></div>';
+      h+='</div>';
+      // Lock the rest
+      if(comps.length>1){
+        h+='<div style="position:relative;border-radius:10px;overflow:hidden">';
+        h+='<div style="filter:blur(4px);pointer-events:none">';
+        comps.slice(1,3).forEach(function(c){
+          h+='<div style="padding:14px 16px;background:var(--bg);border-radius:10px;margin-bottom:6px;display:flex;align-items:center;gap:12px">';
+          h+='<span style="font-size:18px">🏆</span>';
+          h+='<div style="font-size:14px;font-weight:700;color:var(--text)">'+esc(c.domain)+'</div></div>';
+        });
+        h+='</div>';
+        h+='<div style="position:absolute;inset:0;background:rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center">';
+        h+='<span style="font-size:13px;font-weight:700;color:var(--muted)">🔒 '+( comps.length-1)+' more competitors hidden</span>';
+        h+='</div>';
+        h+='</div>';
+      }
+      h+='</div>';
+    }
+
+    // ── Main CTA — the conversion block ───────────────────────────────────────
+    h+='<div style="background:linear-gradient(135deg,#4361EE,#7209B7);border-radius:20px;padding:36px 32px;text-align:center;color:#fff;margin-bottom:20px">';
+    h+='<div style="font-size:13px;font-weight:700;letter-spacing:.08em;opacity:.8;text-transform:uppercase;margin-bottom:12px">THE SOLUTION</div>';
+    h+='<div style="font-size:24px;font-weight:900;line-height:1.2;margin-bottom:10px">LeadOS can fix <span style="color:#4ade80">'+autoFixCount+' of '+criticalIssues.length+' issues</span><br>automatically — every month</div>';
+    h+='<div style="font-size:14px;opacity:.85;margin-bottom:24px;line-height:1.65">AI writes SEO content → optimises your pages → builds keyword coverage → monitors rankings. You do nothing.</div>';
+    h+='<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px">';
+    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ '+( data.articles_needed||20)+' AI articles/month</div>';
+    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Keyword coverage built</div>';
+    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Auto-published to your site</div>';
+    h+='<div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700">✓ Ranking tracked monthly</div>';
     h+='</div>';
-  });
-  h+='</div></div>';
+    h+='<a href="'+signupUrl+'" style="display:inline-block;background:#fff;color:#4361EE;font-size:17px;font-weight:800;padding:16px 40px;border-radius:14px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.2)">Start Fixing My SEO — $29/month →</a>';
+    h+='<div style="font-size:12px;opacity:.65;margin-top:14px">No contract · Cancel anytime · Setup in 5 minutes</div>';
+    h+='</div>';
+
+    // ── Social proof nudge ─────────────────────────────────────────────────────
+    h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-bottom:20px">';
+    h+='<div style="font-size:13px;color:var(--muted);margin-bottom:12px">Every month you wait, your competitors publish more content and grow their lead over you.</div>';
+    h+='<div style="font-size:15px;font-weight:800;color:var(--text)">Your competitors are not waiting.</div>';
+    h+='</div>';
 
     return h;
   }
 
-  // Store the full report: above-gate sections + below-gate sections
-  _gateHtmlBelow = fullHtml + renderBelowGate();
+  _gateHtmlBelow = buildPostEmailReport();
 
   // ── Build the email-first hook shown BEFORE the user gives their email ──────
   var issueCount = criticalIssues.length;
