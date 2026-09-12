@@ -1528,10 +1528,9 @@ function startScan(){
     msgTimer=setInterval(function(){
       if(mi<phase.msgs.length){ var m=phase.msgs[mi]; setCard(m[0],m[1],m[2]); mi++; }
       else if(isLast){
-        // Loop the last few messages so there's always activity
         mi=phase.msgs.length-3;
       }
-    },2400);
+    },1800);
 
     // During AI phase: slowly tick progress bar from 82% toward 97%
     if(isLast){
@@ -1552,7 +1551,7 @@ function startScan(){
       document.getElementById(phase.id).className='scan-step active';
       if(!isLast) document.getElementById('progressFill').style.width=phase.prog+'%';
       startPhase(phase, isLast);
-      si++; stepTimer=setTimeout(nextStep, isLast ? 35000 : 2200);
+      si++; stepTimer=setTimeout(nextStep, isLast ? 25000 : 1600);
     }
   }
   nextStep();
@@ -1691,18 +1690,20 @@ function showRealResults(data){
     // ── 3. Conversion block — right after issues, before keywords ─────────────
     h+='<div style="background:linear-gradient(135deg,#4361EE 0%,#7209B7 100%);border-radius:18px;padding:30px 28px;color:#fff;margin-bottom:16px">';
     h+='<div style="font-size:12px;font-weight:700;letter-spacing:.1em;opacity:.75;text-transform:uppercase;margin-bottom:10px">The Solution</div>';
-    h+='<div style="font-size:21px;font-weight:900;line-height:1.25;margin-bottom:6px">We found the problems.<br>LeadOS can start working on them.</div>';
+    h+='<div style="font-size:22px;font-weight:900;line-height:1.25;margin-bottom:6px">We found the problems.<br>LeadOS can start working on them.</div>';
     h+='<div style="font-size:13px;opacity:.8;margin-bottom:20px">'+autoFixCount+' issues on your website can be addressed with LeadOS Auto SEO</div>';
-    h+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px">';
+    h+='<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:26px">';
     h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Fix SEO titles &amp; descriptions</div>';
     h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Create missing SEO content every month</div>';
     h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Target the '+(kws.length||10)+' keywords you\'re currently missing</div>';
     h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Publish optimised content continuously</div>';
     h+='<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><span style="color:#4ade80;font-size:15px">✓</span> Optimise for Google + AI Search</div>';
     h+='</div>';
-    h+='<div style="font-size:11px;opacity:.6;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">SEO from $29/month</div>';
-    h+='<a href="'+signupUrl+'" style="display:inline-block;background:#fff;color:#4361EE;font-size:16px;font-weight:800;padding:14px 36px;border-radius:12px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,0.18)">Start Fixing My SEO →</a>';
-    h+='<div style="font-size:11px;opacity:.55;margin-top:12px">No contract · Cancel anytime</div>';
+    h+='<div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:22px">';
+    h+='<div style="font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.65;text-transform:uppercase;margin-bottom:12px">SEO starts from $29/month</div>';
+    h+='<a href="'+signupUrl+'" style="display:block;background:#fff;color:#4361EE;font-size:17px;font-weight:800;padding:16px 24px;border-radius:12px;text-decoration:none;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.22)">Start Fixing My SEO →</a>';
+    h+='<div style="font-size:12px;opacity:.55;margin-top:12px;text-align:center">No contract · Cancel anytime</div>';
+    h+='</div>';
     h+='</div>';
 
     // ── 4. Keywords: show 3-4 real ones, blur the rest ────────────────────────
@@ -1727,7 +1728,7 @@ function showRealResults(data){
         });
         h+='</div>';
         h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.94) 50%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px">';
-        h+='<a href="'+signupUrl+'" style="font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;border:1.5px solid var(--border2);padding:8px 20px;border-radius:100px;background:#fff">See All '+kws.length+' Growth Opportunities →</a>';
+        h+='<a href="'+signupUrl+'" style="font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;border:1.5px solid var(--border2);padding:8px 20px;border-radius:100px;background:#fff">Unlock All '+kws.length+' Keywords →</a>';
         h+='</div>';
         h+='</div>';
       }
@@ -1737,8 +1738,8 @@ function showRealResults(data){
     // ── 5. Competitor teaser ───────────────────────────────────────────────────
     if(comps.length){
       h+='<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px">';
-      h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ Your Competitors Are Already Ahead</div>';
-      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:14px">We found '+comps.length+' competing websites currently appearing for searches relevant to your business.</div>';
+      h+='<div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px">⚔️ A Competitor Is Ranking Where You\'re Missing Out</div>';
+      h+='<div style="font-size:13px;color:var(--muted);margin-bottom:14px">We found '+comps.length+' competitor'+(comps.length!==1?'s':'')+' currently appearing for searches relevant to your business.</div>';
       comps.slice(0,2).forEach(function(c,idx){
         h+='<div style="padding:13px 14px;background:var(--bg);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">';
         h+='<span style="font-size:18px">'+(idx===0?'🥇':'🥈')+'</span>';
@@ -1755,19 +1756,26 @@ function showRealResults(data){
       h+='</div>';
     }
 
-    // ── 6. Personalised AI insight (one line, high credibility) ───────────────
-    if(data.strategic_insight){
-      h+='<div style="background:#fff;border-left:4px solid var(--blue);border-radius:0 14px 14px 0;padding:18px 20px;margin-bottom:16px;border:1px solid var(--border);border-left:4px solid #4361EE">';
-      h+='<div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">💡 AI Insight for '+esc(data.business_name||'Your Business')+'</div>';
-      h+='<div style="font-size:14px;color:var(--text);line-height:1.6">'+esc(data.strategic_insight)+'</div>';
+    // ── 6. Biggest Opportunity card (one personalised takeaway) ───────────────
+    var insight = data.strategic_insight || '';
+    if(insight || kws.length){
+      h+='<div style="background:#fff;border:1px solid #c7d2fe;border-left:4px solid #4361EE;border-radius:0 14px 14px 0;padding:18px 20px;margin-bottom:16px">';
+      h+='<div style="font-size:11px;font-weight:800;color:#4361EE;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">💡 Biggest Opportunity for '+(data.business_name?esc(data.business_name):'Your Business')+'</div>';
+      if(insight){
+        h+='<div style="font-size:14px;color:var(--text);line-height:1.65">'+esc(insight)+'</div>';
+      } else {
+        h+='<div style="font-size:14px;color:var(--text);line-height:1.65">Your site is missing content around high-intent searches while competitors are already appearing for them. LeadOS can build this keyword coverage automatically.</div>';
+      }
+      h+='<div style="font-size:13px;color:#4361EE;font-weight:700;margin-top:10px">LeadOS can work on this for you automatically.</div>';
       h+='</div>';
     }
 
     // ── 7. Final CTA ──────────────────────────────────────────────────────────
-    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;margin-bottom:8px">';
-    h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px">Ready to stop losing ground to competitors?</div>';
-    h+='<div style="font-size:13px;color:var(--muted);margin-bottom:18px">LeadOS starts working on your SEO from day one — no writing, no agency, no waiting.</div>';
-    h+='<a href="'+signupUrl+'" style="display:inline-block;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;font-size:15px;font-weight:800;padding:14px 36px;border-radius:12px;text-decoration:none;box-shadow:0 6px 20px rgba(67,97,238,0.35)">Unlock My Full SEO Plan →</a>';
+    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px 24px;text-align:center;margin-bottom:8px">';
+    h+='<div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">You\'ve seen what\'s holding your website back.</div>';
+    h+='<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Now let LeadOS work on it.</div>';
+    h+='<div style="font-size:13px;color:var(--muted);margin-bottom:20px">Activate Auto SEO and start addressing the opportunities found in your scan.</div>';
+    h+='<a href="'+signupUrl+'" style="display:inline-block;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;font-size:15px;font-weight:800;padding:15px 40px;border-radius:12px;text-decoration:none;box-shadow:0 6px 20px rgba(67,97,238,0.35)">Unlock My Full SEO Plan →</a>';
     h+='<div style="font-size:11px;color:var(--muted);margin-top:10px">From $29/month · No contract · Cancel anytime</div>';
     h+='</div>';
 
