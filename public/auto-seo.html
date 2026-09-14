@@ -1796,27 +1796,28 @@ function showRealResults(data){
   scoreLabel = score>=70?'Good':score>=45?'Needs Work':'Poor';
   var scoreColor = score>=70?'#10b981':score>=45?'#f59e0b':'#ef4444';
 
-  // Top teaser: business name + locked score
+  // Top teaser: real score shown immediately (score-first gate)
   html += '<div style="display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow)">';
-  // Locked score ring
-  html += '<div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#e0e7ff,#c7d2fe);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:3px solid #c7d2fe">';
-  html += '<span style="font-size:26px">🔒</span>';
-  html += '<span style="font-size:10px;font-weight:700;color:#6366f1;margin-top:2px;letter-spacing:.04em">SCORE</span>';
+  // Real score ring — visible before email
+  html += '<div style="width:100px;height:100px;border-radius:50%;background:'+ringBg+';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 28px rgba(0,0,0,0.14)">';
+  html += '<span style="font-size:36px;font-weight:900;color:#fff;line-height:1">'+score+'</span>';
+  html += '<span style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.75);margin-top:3px;letter-spacing:.04em">/ 100</span>';
   html += '</div>';
   html += '<div style="flex:1;min-width:0">';
   if(data.business_name) html += '<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
-  html += '<p style="font-size:14px;color:var(--text2);margin-top:4px;line-height:1.5">Scan complete. We found <strong style="color:'+scoreColor+'">'+issueCount+' issue'+(issueCount!==1?'s':'')+' holding your site back</strong>'+( kws.length?' and <strong>'+kws.length+' keyword opportunities</strong>':'')+'. Enter your email to unlock your full score and report.</p>';
+  html += '<div style="font-size:16px;font-weight:800;color:'+scoreColor+';margin-top:2px;margin-bottom:6px">'+scoreLabel+' SEO Score</div>';
+  html += '<p style="font-size:14px;color:var(--text2);line-height:1.5">We found <strong style="color:'+scoreColor+'">'+issueCount+' issue'+(issueCount!==1?'s':'')+' holding your site back</strong>'+(kws.length?' and <strong>'+kws.length+' keyword opportunities</strong>':'')+'. Enter your email to unlock the full breakdown.</p>';
   html += '</div></div>';
 
-  // Email gate card
+  // Email gate card — unlocks the full report
   html += '<div id="email-gate-wrap">';
-  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:36px 32px;text-align:center;box-shadow:0 20px 60px rgba(79,70,229,0.12);max-width:520px;margin:0 auto">';
-  html += '<div style="font-size:32px;margin-bottom:14px">📊</div>';
-  html += '<div style="font-size:20px;font-weight:800;color:#0a0f2c;margin-bottom:10px">Your SEO Report is Ready</div>';
-  html += '<div style="font-size:14px;color:#64748b;margin-bottom:8px;line-height:1.65">Enter your email to instantly unlock your SEO score, keyword opportunities, competitor analysis, and full action plan — sent to your inbox too.</div>';
-  html += '<div style="display:flex;gap:8px;margin:20px 0 10px;max-width:420px;margin-left:auto;margin-right:auto">';
+  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;box-shadow:0 20px 60px rgba(79,70,229,0.12);max-width:520px;margin:0 auto">';
+  html += '<div style="font-size:13px;font-weight:700;color:#6366f1;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Full Report Locked</div>';
+  html += '<div style="font-size:20px;font-weight:800;color:#0a0f2c;margin-bottom:8px;line-height:1.3">See exactly what\'s dragging your score to <span style="color:'+scoreColor+'">'+score+'</span></div>';
+  html += '<div style="font-size:14px;color:#64748b;margin-bottom:6px;line-height:1.65">Unlock your keyword opportunities, competitor analysis, and full action plan — delivered to your inbox instantly.</div>';
+  html += '<div style="display:flex;gap:8px;margin:18px 0 10px;max-width:420px;margin-left:auto;margin-right:auto">';
   html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:13px 16px;border:1.5px solid #e0e7ff;border-radius:11px;font-size:15px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
-  html += '<button onclick="submitGateEmail()" style="padding:13px 22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">See My Score →</button>';
+  html += '<button onclick="submitGateEmail()" style="padding:13px 22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">Unlock Report →</button>';
   html += '</div>';
   html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
   html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime · Free forever</div>';
@@ -1857,7 +1858,7 @@ function submitGateEmail(){
   if(errEl) errEl.style.display='none';
 
   var btn = document.querySelector('#email-gate-wrap button');
-  if(btn){ btn.textContent='Unlocking…'; btn.disabled=true; }
+  if(btn){ btn.textContent='Unlocking…'; btn.disabled=true; btn.style.opacity='0.7'; }
 
   var gd = window._gateData || {};
   fetch('https://app.myleados.ai/api/public/seo-scan/capture-email',{
