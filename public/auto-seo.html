@@ -1215,8 +1215,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>Keyword research</li>
           <li>Email support</li>
         </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Start Free Trial →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article free — no credit card needed</p>
+        <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Try for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
       </div>
 
       <!-- GROWTH -->
@@ -1234,8 +1234,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>Competitor gap analysis</li>
           <li>Priority support</li>
         </ul>
-        <button class="pc-btn pc-btn-p" onclick="goCheckout('growth')">Start Free Trial →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article free — no credit card needed</p>
+        <button class="pc-btn pc-btn-p" onclick="goCheckout('growth')">Try for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
       </div>
 
       <!-- SCALE -->
@@ -1252,8 +1252,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>White-label reports</li>
           <li>Dedicated account manager</li>
         </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('scale')">Start Free Trial →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article free — no credit card needed</p>
+        <button class="pc-btn pc-btn-o" onclick="goCheckout('scale')">Try for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
       </div>
     </div>
 
@@ -1337,7 +1337,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     <button onclick="closeModal()" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#6B7280;line-height:1">×</button>
     <div style="text-align:center;margin-bottom:24px">
       <div style="width:48px;height:48px;background:linear-gradient(135deg,#4361EE,#7209B7);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px">🚀</div>
-      <h2 style="font-size:20px;font-weight:800;color:#0A0F2C;margin-bottom:4px">Start your plan</h2>
+      <h2 style="font-size:20px;font-weight:800;color:#0A0F2C;margin-bottom:4px">Start your 7-day trial</h2>
       <div id="modal-plan-label" style="font-size:14px;font-weight:600;color:#4361EE;background:#EEF1FF;border-radius:100px;display:inline-block;padding:4px 14px"></div>
     </div>
     <div style="margin-bottom:18px">
@@ -1347,9 +1347,9 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
     <div id="modal-error" style="color:#EF4444;font-size:13px;margin-bottom:12px;min-height:18px"></div>
     <button id="stripe-btn" onclick="payWithStripe()" style="width:100%;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="white" fill-opacity=".15"/><path d="M4 9h16M4 15h16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Pay with Card
+      Start Trial for $1
     </button>
-    <p style="text-align:center;font-size:12px;color:#6B7280;margin-top:14px">🛡️ 14-day money-back guarantee &nbsp;·&nbsp; Secure payment</p>
+    <p style="text-align:center;font-size:12px;color:#6B7280;margin-top:14px">🔒 $1 charged on day 7 · Cancel anytime before then · Secure payment</p>
   </div>
 </div>
 
@@ -1964,14 +1964,14 @@ function payWithStripe(){
   _fbq('track','InitiateCheckout');
   fetch('https://app.myleados.ai/api/stripe/standalone-checkout',{
     method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||''})
+    body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||'',trial:true})
   })
   .then(function(r){return r.json();})
   .then(function(d){
     if(d.url){(window.top||window).location.href=d.url;}
-    else{document.getElementById('modal-error').textContent=d.error||'Checkout failed. Please try again.';btn.textContent='Pay with Card';btn.disabled=false;}
+    else{document.getElementById('modal-error').textContent=d.error||'Checkout failed. Please try again.';btn.textContent='Start Trial for $1';btn.disabled=false;}
   })
-  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Pay with Card';btn.disabled=false;});
+  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Start Trial for $1';btn.disabled=false;});
 }
 
 // ========================
