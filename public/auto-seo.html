@@ -800,9 +800,9 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 
         <!-- Main CTA -->
         <button id="scanCtaBtn" onclick="launchScanCheckout()" style="width:100%;margin-top:20px;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:14px;padding:18px;font-size:17px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:-0.3px">
-          Fix My SEO — Start Today →
+          Start $1 Trial — Fix My SEO →
         </button>
-        <p style="text-align:center;font-size:12px;color:#64748b;margin:10px 0 0">No contract · Cancel anytime · Setup in 48 hours</p>
+        <p style="text-align:center;font-size:12px;color:#64748b;margin:10px 0 0">$1 today · 7-day trial · full plan starts day 8 · cancel anytime</p>
       </div>
     </div>
   </div>
@@ -1936,7 +1936,7 @@ function selectScanPlan(planKey, el){
     }
   });
   var labels = {starter:'Starter', growth:'Growth', scale:'Scale'};
-  document.getElementById('scanCtaBtn').textContent = 'Get Started with '+labels[planKey]+' →';
+  document.getElementById('scanCtaBtn').textContent = 'Start $1 Trial — '+labels[planKey]+' Plan →';
 }
 
 function launchScanCheckout(){
