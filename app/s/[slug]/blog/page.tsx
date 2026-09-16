@@ -67,10 +67,9 @@ export default async function TenantBlogPage({ params }: { params: Promise<{ slu
   const rest = articles.slice(1);
 
   return (
-    <>
+    <div style={{ background: "#0a0a0f", color: "#f1f5f9", minHeight: "100vh" }}>
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0f; color: #f1f5f9; }
         @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
         .article-card:hover { border-color: ${accent}55 !important; transform: translateY(-3px); }
         .article-card { transition: border-color .3s, transform .3s; }
@@ -189,6 +188,6 @@ export default async function TenantBlogPage({ params }: { params: Promise<{ slu
           Powered by <span style={{ fontWeight: 700, color: "rgba(255,255,255,.3)" }}>LeadOS</span>
         </a>
       </footer>
-    </>
+    </div>
   );
 }

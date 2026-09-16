@@ -116,12 +116,11 @@ export default async function TenantArticlePage({ params }: { params: Promise<{ 
   };
 
   return (
-    <>
+    <div style={{ background: "#0a0a0f", color: "#f1f5f9", minHeight: "100vh" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0f; color: #f1f5f9; }
         .body h1 { font-size: 30px; font-weight: 800; color: #f1f5f9; margin: 48px 0 16px; line-height: 1.25; }
         .body h2 { font-size: 22px; font-weight: 700; color: #e2e8f0; margin: 40px 0 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08); line-height: 1.3; }
         .body h3 { font-size: 17px; font-weight: 700; color: #cbd5e1; margin: 32px 0 10px; }
@@ -229,6 +228,6 @@ export default async function TenantArticlePage({ params }: { params: Promise<{ 
           Powered by <strong style={{ color: "rgba(255,255,255,.28)" }}>LeadOS</strong>
         </a>
       </footer>
-    </>
+    </div>
   );
 }
