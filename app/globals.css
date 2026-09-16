@@ -4354,7 +4354,8 @@ iframe[src*="/api/widget/embed"] {
 }
 
 .signup-card input,
-.signup-card select {
+.signup-card select,
+.signup-card textarea {
   width: 100%;
   padding: 13px 15px;
   font-family: var(--font-sans);
@@ -4370,7 +4371,8 @@ iframe[src*="/api/widget/embed"] {
 }
 .signup-card input::placeholder { color: var(--ink-4); font-weight: 400; }
 .signup-card input:focus,
-.signup-card select:focus {
+.signup-card select:focus,
+.signup-card textarea:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(37,99,235,.14);
 }
