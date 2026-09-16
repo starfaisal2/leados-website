@@ -1215,8 +1215,12 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>Keyword research</li>
           <li>Email support</li>
         </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Try for $1 →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
+        <div style="background:rgba(99,179,237,0.08);border:1px solid rgba(99,179,237,0.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:center">
+          <span style="font-size:20px;font-weight:900;color:#fff">$1 today</span>
+          <span style="font-size:13px;color:#94a3b8;margin-left:6px">then $29/mo after 7 days</span>
+        </div>
+        <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Start 7-Day Trial for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article published · Cancel before day 7, pay nothing more</p>
       </div>
 
       <!-- GROWTH -->
@@ -1234,8 +1238,12 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>Competitor gap analysis</li>
           <li>Priority support</li>
         </ul>
-        <button class="pc-btn pc-btn-p" onclick="goCheckout('growth')">Try for $1 →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
+        <div style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:center">
+          <span style="font-size:20px;font-weight:900;color:#fff">$1 today</span>
+          <span style="font-size:13px;color:#a5b4fc;margin-left:6px">then $49/mo after 7 days</span>
+        </div>
+        <button class="pc-btn pc-btn-p" onclick="goCheckout('growth')">Start 7-Day Trial for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article published · Cancel before day 7, pay nothing more</p>
       </div>
 
       <!-- SCALE -->
@@ -1252,8 +1260,12 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           <li>White-label reports</li>
           <li>Dedicated account manager</li>
         </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('scale')">Try for $1 →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">7-day trial · Cancel before day 7, pay nothing more</p>
+        <div style="background:rgba(99,179,237,0.08);border:1px solid rgba(99,179,237,0.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:center">
+          <span style="font-size:20px;font-weight:900;color:#fff">$1 today</span>
+          <span style="font-size:13px;color:#94a3b8;margin-left:6px">then $79/mo after 7 days</span>
+        </div>
+        <button class="pc-btn pc-btn-o" onclick="goCheckout('scale')">Start 7-Day Trial for $1 →</button>
+        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">1 article published · Cancel before day 7, pay nothing more</p>
       </div>
     </div>
 
@@ -1786,8 +1798,9 @@ function showRealResults(data){
   html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.98) 40%);display:flex;align-items:flex-start;justify-content:center;padding-top:24px">';
   html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:400px;box-shadow:0 20px 60px rgba(79,70,229,0.12)">';
   html += '<div style="font-size:28px;margin-bottom:12px">🔓</div>';
-  html += '<div style="font-size:18px;font-weight:800;color:#0a0f2c;margin-bottom:8px">Unlock Your Full Report</div>';
-  html += '<div style="font-size:14px;color:#64748b;margin-bottom:20px;line-height:1.6">Enter your email to see your keyword opportunities, content roadmap, competitor analysis, and full action plan — free.</div>';
+  html += '<div style="font-size:18px;font-weight:800;color:#0a0f2c;margin-bottom:6px">Unlock Your Full Report</div>';
+  html += '<div style="font-size:13px;color:#64748b;margin-bottom:10px;line-height:1.6">See your keyword opportunities, content roadmap, competitor analysis, and full action plan.</div>';
+  html += '<div style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:7px 14px;margin-bottom:16px;font-size:13px;color:#166534;font-weight:600">✅ Start for <strong style="color:#15803d">$1 today</strong> — 7-day trial · 1 article published · cancel anytime</div>';
   html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
   html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:12px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
   html += '<button onclick="submitGateEmail()" style="padding:12px 18px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
