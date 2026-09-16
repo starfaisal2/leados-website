@@ -76,10 +76,9 @@ export default async function TenantSitePage({ params }: { params: Promise<{ slu
   const hasContact = biz.whatsapp || biz.phone || biz.email;
 
   return (
-    <>
+    <div style={{ background: "#0a0a0f", color: "#f1f5f9", minHeight: "100vh" }}>
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0f; color: #f1f5f9; }
         @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-18px) } }
         @keyframes pulse-ring { 0% { transform: scale(.95); opacity:.7 } 70% { transform: scale(1.15); opacity:0 } 100% { transform: scale(.95); opacity:0 } }
         @keyframes fade-up { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
@@ -362,6 +361,6 @@ export default async function TenantSitePage({ params }: { params: Promise<{ slu
           </a>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
