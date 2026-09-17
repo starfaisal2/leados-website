@@ -1620,34 +1620,42 @@ function showRealResults(data){
     html+='</div>';
   }
 
-  // ── 3. Technical issues ────────────────────────────────────────────────────
+  // ── EMAIL GATE: everything below score tiles is locked ────────────────────
+  _gateEmailCaptured = false;
+  _gateHtmlBelow = '';
+
   var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
   var autoFixCount=criticalIssues.filter(function(i){return isAutoFix(i.label);}).length;
+
+  function renderBelowGate(){
+    var h='';
+
+  // ── 3. Technical issues ────────────────────────────────────────────────────
   if(criticalIssues.length){
-    html+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
+    h+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
     criticalIssues.forEach(function(issue){
       var sev=issue.severity||'medium';
       var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
       var badge=isAutoFix(issue.label)
         ?'<span class="rpt-fix-badge rpt-fix-auto">🟢 Auto Fix</span>'
         :'<span class="rpt-fix-badge rpt-fix-manual">🔧 Manual</span>';
-      html+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
+      h+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
     });
-    html+='</div>';
+    h+='</div>';
   }
 
   // ── 4. Quick wins ──────────────────────────────────────────────────────────
   if(qws.length){
-    html+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
+    h+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
     qws.slice(0,4).forEach(function(w){
       var impactCls='rpt-chip-impact-'+(w.impact||'medium');
       var effortCls='rpt-chip-effort-'+(w.effort||'hours');
-      html+='<div class="rpt-qw-card">';
-      html+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
-      html+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
-      html+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
+      h+='<div class="rpt-qw-card">';
+      h+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
+      h+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
+      h+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
     });
-    html+='</div></div>';
+    h+='</div></div>';
   }
 
   // ── 4b. How LeadOS Fixes This ──────────────────────────────────────────────
@@ -1677,22 +1685,16 @@ function showRealResults(data){
       if(matchedFixes.indexOf(fm)<0&&matchedFixes.length<3) matchedFixes.push(fm);
     });
   }
-  html+='<div class="rpt-leados-fix">';
-  html+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
-  html+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
+  h+='<div class="rpt-leados-fix">';
+  h+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
+  h+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
   matchedFixes.forEach(function(fm){
-    html+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
+    h+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
   });
-  html+='</div>';
+  h+='</div>';
 
-  // ── EMAIL GATE: blur everything below if no email yet ──────────────────────
-  _gateEmailCaptured = false;
-  _gateHtmlBelow = '';
-
-  function renderBelowGate(){
-    var h='';
-    // ── 5. Keywords ────────────────────────────────────────────────────────────
-    if(kws.length){
+  // ── 5. Keywords ────────────────────────────────────────────────────────────
+  if(kws.length){
     var volMap={high:'2,400+',medium:'880',low:'290'};
     var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
     h+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
@@ -1791,19 +1793,19 @@ function showRealResults(data){
 
   _gateHtmlBelow = renderBelowGate();
 
-  // Inject email gate between the visible top section and the blurred below section
+  // Inject email gate immediately after score tiles — blurs all report content
   html += '<div id="email-gate-wrap">';
   html += '<div id="email-gate-blur" style="position:relative;border-radius:16px;margin-top:12px;min-height:420px">';
   html += '<div style="filter:blur(5px);pointer-events:none;user-select:none;opacity:0.45;overflow:hidden;max-height:420px">'+_gateHtmlBelow+'</div>';
-  html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.98) 40%);display:flex;align-items:flex-start;justify-content:center;padding-top:24px">';
-  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:400px;box-shadow:0 20px 60px rgba(79,70,229,0.12)">';
-  html += '<div style="font-size:28px;margin-bottom:12px">🔓</div>';
-  html += '<div style="font-size:18px;font-weight:800;color:#0a0f2c;margin-bottom:6px">Unlock Your Full Report</div>';
-  html += '<div style="font-size:13px;color:#64748b;margin-bottom:10px;line-height:1.6">See your keyword opportunities, content roadmap, competitor analysis, and full action plan.</div>';
-  html += '<div style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:7px 14px;margin-bottom:16px;font-size:13px;color:#166534;font-weight:600">✅ $1 today · 7-day trial · 1 article published · cancel anytime</div>';
-  html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
-  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:12px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
-  html += '<button onclick="submitGateEmail()" style="padding:12px 18px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
+  html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.97) 35%);display:flex;align-items:flex-start;justify-content:center;padding-top:20px">';
+  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(79,70,229,0.14)">';
+  html += '<div style="font-size:28px;margin-bottom:10px">🔓</div>';
+  html += '<div style="font-size:19px;font-weight:800;color:#0a0f2c;margin-bottom:6px">Unlock Your Full Report</div>';
+  html += '<div style="font-size:13px;color:#64748b;margin-bottom:14px;line-height:1.6">See your full issues list, keyword opportunities, competitor analysis, content roadmap and action plan.</div>';
+  html += '<div style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:7px 14px;margin-bottom:18px;font-size:13px;color:#166534;font-weight:600">✅ $1 today · 7-day trial · 1 article published · cancel anytime</div>';
+  html += '<div style="display:flex;gap:8px;margin-bottom:10px">';
+  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:13px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
+  html += '<button onclick="submitGateEmail()" style="padding:13px 20px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
   html += '</div>';
   html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
   html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime</div>';
