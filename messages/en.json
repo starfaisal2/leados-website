@@ -132,7 +132,7 @@
     "pricingEnterpriseSub": "Contact us for a tailored quote",
     "pricingMostPopular": "Most Popular",
     "pricingContactSales": "Contact Sales",
-    "pricingNote": "All prices exclude VAT. One-time $499 implementation fee required. First 30 days included. Annual billing available at 20% discount.",
+    "pricingNote": "All prices exclude VAT. One-time $49 setup fee. 14-day trial included. Annual billing available at 20% discount.",
     "faqEyebrow": "FAQ",
     "faqH2": "Common",
     "faqH2Em": "questions.",
@@ -391,7 +391,7 @@
     "termsLabel": "I agree to the Terms & Conditions and Privacy Policy",
     "submit": "Get Started →",
     "submitting": "Setting up your account…",
-    "smallprint": "$499 implementation fee required. Includes your first 30 days. Our team will contact you within 24 hours.",
+    "smallprint": "$49 setup fee charged at checkout. Your 14-day trial begins immediately after payment.",
     "title": "Get Started with LeadOS",
     "successTitle": "You're on the list!",
     "successDesc": "We'll be in touch within 24 hours to get you set up."

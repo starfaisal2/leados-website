@@ -539,8 +539,8 @@ useEffect(() => {
   };
 
   const prices = annual
-    ? { starter: 399, growth: 799 }
-    : { starter: 499, growth: 999 };
+    ? { starter: 79, growth: 159 }
+    : { starter: 99, growth: 199 };
 
   return (
     <>
@@ -976,12 +976,12 @@ useEffect(() => {
           <div style={{ background: "linear-gradient(135deg, #0f172a, #1e1b4b)", border: "1.5px solid rgba(124,58,237,.35)", borderRadius: 18, padding: "22px 28px", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", maxWidth: 680, margin: "0 auto" }}>
             <div style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(124,58,237,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>🚀</div>
             <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>$499 one-time implementation fee</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>$49 one-time setup fee</div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,.45)", marginTop: 3 }}>Our team sets everything up — AI trained, channels connected, live in 48 hours.</div>
             </div>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 5, flexShrink: 0 }}>
               {[
-                { text: "First 30 days included", highlight: true },
+                { text: "14-day trial included", highlight: true },
                 { text: "Full AI training on your services", highlight: false },
                 { text: "All channels connected & tested", highlight: false },
                 { text: "48-hour go-live guarantee", highlight: false },
@@ -1012,7 +1012,7 @@ useEffect(() => {
               {annual && <div style={{ fontSize: 12, color: "var(--green)", fontWeight: 700, marginTop: -6 }}>↓ Save 20% vs monthly</div>}
               <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.08)", border: "1px solid rgba(34,197,94,.2)", borderRadius: 8, padding: "7px 11px", marginBottom: 4 }}>
                 <span style={{ fontSize: 14 }}>🎁</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green)" }}>First 30 days included with $499 implementation</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green)" }}>14-day trial included with $49 setup fee</span>
               </div>
               <hr className="p-divider" />
               <ul className="p-feats">{["10 users", "10,000 AI chats / month", "Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Reviews Foundation", "Revenue Attribution", "Reporting Suite"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
