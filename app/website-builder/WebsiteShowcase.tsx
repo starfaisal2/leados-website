@@ -138,9 +138,9 @@ export default function WebsiteShowcase() {
             style={{
               padding: "9px 18px",
               borderRadius: 40,
-              border: active === i ? `2px solid ${c.accent}` : "2px solid #e5e7eb",
+              border: active === i ? `2px solid ${c.accent}` : "1.5px solid #e8e5e0",
               background: active === i ? c.accent : "white",
-              color: active === i ? "white" : "#374151",
+              color: active === i ? "white" : "#3d3d3d",
               fontWeight: 700,
               fontSize: 13,
               cursor: "pointer",
