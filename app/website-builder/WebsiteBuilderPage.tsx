@@ -710,7 +710,7 @@ const PAGE_CSS = `
 
 .wb-trust-line { font-size: 13px; color: var(--ink4); }
 
-.wb-hero-right { position: relative; }
+.wb-hero-right { position: relative; min-width: 0; }
 
 /* Prompt bar */
 .wb-prompt-bar {
