@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const BUILDER = "https://sites.myleados.ai/signup";
+const LOGIN = "https://sites.myleados.ai/login";
 const BOOK = "https://wa.me/971568350424?text=Hi%20LeadOS%2C%20I%27d%20love%20to%20see%20a%20demo%20of%20the%20Website%20Builder";
 
 const PROMPTS = [
@@ -242,7 +243,12 @@ export default function WebsiteBuilderPage() {
                 </a>
               </div>
 
-              <p className="wb-trust-line">Start free · No credit card required</p>
+              <p className="wb-trust-line">
+                Start free · No credit card required ·{" "}
+                <a href={LOGIN} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
+                  Already have an account? Log in →
+                </a>
+              </p>
             </div>
 
             {/* RIGHT — browser mockup */}
@@ -625,7 +631,12 @@ export default function WebsiteBuilderPage() {
                 Book a Demo
               </a>
             </div>
-            <p className="wb-final-trust">No credit card required to start</p>
+            <p className="wb-final-trust">
+              No credit card required to start ·{" "}
+              <a href={LOGIN} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
+                Already have an account? Log in →
+              </a>
+            </p>
           </div>
         </section>
 
