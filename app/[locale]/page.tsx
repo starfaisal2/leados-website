@@ -981,7 +981,7 @@ useEffect(() => {
             </div>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 5, flexShrink: 0 }}>
               {[
-                { text: "14-day trial included", highlight: true },
+                { text: "14-day launch period included", highlight: true },
                 { text: "Full AI training on your services", highlight: false },
                 { text: "All channels connected & tested", highlight: false },
                 { text: "48-hour go-live guarantee", highlight: false },
@@ -1000,7 +1000,7 @@ useEffect(() => {
               <div className="p-price">${prices.starter}<span className="p-per">/month</span></div>
               {annual && <div style={{ fontSize: 12, color: "var(--green)", fontWeight: 700, marginTop: -6 }}>↓ Save 20% vs monthly</div>}
               <hr className="p-divider" />
-              <ul className="p-feats">{["2 users", "1,000 AI chats / month", "Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant", "Basic Reporting"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
+              <ul className="p-feats">{["3 users", "1,000 AI conversations / month", "500 WhatsApp conversations", "100 AI voice minutes", "Omni Inbox", "Website Chat", "Contacts", "Pipeline", "AI Assistant"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
               <Link href="/get-started?plan=starter" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>{t('heroCta1')} →</Link>
             </div>
 
@@ -1012,10 +1012,10 @@ useEffect(() => {
               {annual && <div style={{ fontSize: 12, color: "var(--green)", fontWeight: 700, marginTop: -6 }}>↓ Save 20% vs monthly</div>}
               <div style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.08)", border: "1px solid rgba(34,197,94,.2)", borderRadius: 8, padding: "7px 11px", marginBottom: 4 }}>
                 <span style={{ fontSize: 14 }}>🎁</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green)" }}>14-day trial included with $49 setup fee</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green)" }}>14-day launch period · $49 one-time setup & onboarding</span>
               </div>
               <hr className="p-divider" />
-              <ul className="p-feats">{["10 users", "10,000 AI chats / month", "Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Reviews Foundation", "Revenue Attribution", "Reporting Suite"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
+              <ul className="p-feats">{["10 users", "3,000 AI conversations / month", "2,000 WhatsApp conversations", "300 AI voice minutes", "Everything in Starter", "WhatsApp Integration", "AI Sales Assistant", "Customer Memory", "Bookings & Calendar", "Reviews Foundation"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
               <Link href="/get-started?plan=growth" className="p-btn pb-solid" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>{t('heroCta1')} →</Link>
             </div>
 
@@ -1025,7 +1025,7 @@ useEffect(() => {
               <div className="p-price">{t('pricingEnterprisePrice')}</div>
               <div className="p-sub-price">{t('pricingEnterpriseSub')}</div>
               <hr className="p-divider" />
-              <ul className="p-feats">{["Everything in Growth", "Voice AI", "Multi-Location Support", "Advanced Meta Brain", "Custom AI Training", "Priority Support", "Dedicated Onboarding"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
+              <ul className="p-feats">{["25 users", "10,000 AI conversations / month", "7,500 WhatsApp conversations", "1,000 AI voice minutes", "Everything in Growth", "Multi-Location Support", "Advanced Meta Brain", "Custom AI Training", "Priority Support", "Dedicated Onboarding"].map((f) => <li key={f} className="p-feat"><span className="p-check">✓</span>{f}</li>)}</ul>
               <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="p-btn pb-outline" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>{t('pricingContactSales')}</a>
             </div>
           </div>
