@@ -647,8 +647,6 @@ export default function WebsiteBuilderPage() {
    PAGE CSS
 ═══════════════════════════════════════════════════════ */
 const PAGE_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 :root {
   --ink: #0a0a0a;
   --ink2: #3a3a3a;
@@ -664,22 +662,23 @@ const PAGE_CSS = `
 }
 
 .wb * { box-sizing: border-box; margin: 0; padding: 0; }
-.wb { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
-.wb-container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+.wb { font-family: system-ui, -apple-system, 'Inter', sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; width: 100%; }
+.wb-container { max-width: 1240px; margin: 0 auto; padding: 0 32px; width: 100%; }
 
 /* ── HERO ── */
 .wb-hero {
-  padding: 96px 0 80px;
+  padding: 80px 0 72px;
   background: linear-gradient(180deg, #eef4ff 0%, #fafaf9 100%);
   overflow: hidden;
+  width: 100%;
 }
 .wb-hero-inner {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
   align-items: center;
 }
-.wb-hero-left { display: flex; flex-direction: column; gap: 28px; }
+.wb-hero-left { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 
 .wb-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -704,7 +703,7 @@ const PAGE_CSS = `
   color: var(--ink3);
   line-height: 1.7;
   font-weight: 400;
-  max-width: 440px;
+  max-width: min(440px, 100%);
 }
 
 .wb-hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -754,7 +753,7 @@ const PAGE_CSS = `
 }
 
 /* ── GALLERY ── */
-.wb-gallery-section { background: #0a0a0a; padding: 120px 0; overflow: hidden; }
+.wb-gallery-section { background: #0a0a0a; padding: 120px 0; overflow-x: hidden; width: 100%; }
 .wb-gallery-header { margin-bottom: 64px; }
 .wb-gallery-sub { font-size: 16px; color: rgba(255,255,255,0.4); margin-top: 16px; max-width: 480px; }
 
@@ -1079,34 +1078,55 @@ const PAGE_CSS = `
 .wb-footer-sep { width: 1px; height: 12px; background: var(--border); display: inline-block; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .wb-hero-inner { grid-template-columns: 1fr; }
-  .wb-hero-right { max-width: 640px; }
+@media (max-width: 1080px) {
+  .wb-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .wb-hero-right { width: 100%; max-width: 680px; }
   .wb-chip-1, .wb-chip-2 { display: none; }
   .wb-seo-inner { grid-template-columns: 1fr; gap: 48px; }
   .wb-editor-body { grid-template-columns: 160px 1fr; }
   .wb-editor-props { display: none; }
   .wb-steps { grid-template-columns: 1fr; }
   .wb-step-arrow { display: none; }
-  .wb-gallery-grid { grid-template-columns: repeat(3, 260px); }
   .wb-dash-metrics { grid-template-columns: repeat(2,1fr); }
   .wb-pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
 }
 
 @media (max-width: 768px) {
   .wb-container { padding: 0 20px; }
-  .wb-hero { padding: 72px 0 60px; }
-  .wb-gallery-section { padding: 80px 0; }
-  .wb-how, .wb-editor-section, .wb-pricing-section, .wb-seo-section { padding: 80px 0; }
-  .wb-gallery-grid { grid-template-columns: repeat(3, 220px); }
-  .wb-editor-body { grid-template-columns: 1fr; height: auto; }
+  .wb-hero { padding: 60px 0 52px; }
+  .wb-gallery-section, .wb-how, .wb-editor-section, .wb-pricing-section, .wb-seo-section { padding: 72px 0; }
+  .wb-hero-inner { gap: 32px; }
+  .wb-hero-right { max-width: 100%; overflow: hidden; }
+  .wb-prompt-bar { font-size: 13px; }
+  .wb-editor-body { height: auto; }
   .wb-editor-sidebar { display: none; }
-  .wb-canvas-frame { height: 340px; }
+  .wb-canvas-frame { height: 300px; overflow: hidden; }
   .wb-final-ctas { flex-direction: column; align-items: center; }
-  .wb-hero-ctas { flex-direction: column; }
-  .wb-cta-primary, .wb-cta-ghost { text-align: center; justify-content: center; }
-  .wb-seo-dashboard { padding: 20px; }
+  .wb-hero-ctas { flex-direction: column; align-items: flex-start; }
+  .wb-cta-xl { font-size: 16px; padding: 16px 32px; width: 100%; text-align: center; justify-content: center; }
+  .wb-seo-dashboard { padding: 18px; }
   .wb-dash-metrics { grid-template-columns: repeat(2,1fr); }
+  .wb-dash-chart { height: 64px; }
+  .wb-pricing-grid { max-width: 100%; }
+  .wb-steps { gap: 40px; }
+  .wb-step-box { min-height: auto; }
+  .wb-section-h2 { font-size: clamp(28px, 7vw, 40px); }
+  .wb-hero-h1 { font-size: clamp(30px, 8vw, 48px); }
+}
+
+@media (max-width: 480px) {
+  .wb-container { padding: 0 16px; }
+  .wb-hero { padding: 48px 0 44px; }
+  .wb-gallery-grid { padding: 0 16px; grid-template-columns: repeat(6, 200px); }
+  .wb-gallery-card { height: 400px; }
+  .wb-dash-metrics { grid-template-columns: repeat(2,1fr); gap: 8px; }
+  .wb-dash-metric { padding: 10px; }
+  .wb-dash-metric-val { font-size: 18px; }
+  .wb-pricing-card { padding: 28px 22px; }
+  .wb-editor-mockup { border-radius: 12px; }
+  .wb-editor-toolbar { flex-wrap: wrap; height: auto; padding: 10px 12px; gap: 8px; }
+  .wb-editor-body { display: none; }
+  .wb-editor-toolbar-devices { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

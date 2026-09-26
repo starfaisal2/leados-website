@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import WebsiteBuilderPage from "./WebsiteBuilderPage";
+
+const inter = Inter({ subsets: ["latin"], weight: ["400","500","600","700","800","900"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "Website Builder – LeadOS | Build Your Business Website",
@@ -32,9 +35,9 @@ const schema = {
 
 export default function Page() {
   return (
-    <>
+    <div className={inter.className}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <WebsiteBuilderPage />
-    </>
+    </div>
   );
 }
