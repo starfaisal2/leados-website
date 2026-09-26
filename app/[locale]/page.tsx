@@ -789,7 +789,7 @@ useEffect(() => {
               {icon:"📥",label:"Omni Inbox",    color:"#22c55e"},
               {icon:"📞",label:"Voice AI",       color:"#f97316"},
               {icon:"📅",label:"Smart Bookings", color:"#3b82f6"},
-              {icon:"🧠",label:"Meta Brain",     color:"#7c3aed"},
+              {icon:"🌐",label:"Website Builder",color:"#0ea5e9"},
               {icon:"🚀",label:"Auto SEO",       color:"#4f46e5"},
               {icon:"⭐",label:"Reviews & Pipeline",color:"#f59e0b"},
             ].map(f => (
@@ -797,6 +797,49 @@ useEffect(() => {
                 <span>{f.icon}</span>{f.label}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ WEBSITE BUILDER BANNER ══ */}
+      <section style={{ padding: "72px 0", background: "var(--bg)" }}>
+        <div className="container">
+          <div style={{ background: "linear-gradient(135deg, #0c1a3a 0%, #0f2d5e 50%, #0c1a3a 100%)", borderRadius: 24, padding: "48px 52px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", position: "relative", overflow: "hidden" }}>
+            {/* subtle grid pattern */}
+            <div style={{ position:"absolute", inset:0, backgroundImage:"radial-gradient(rgba(14,165,233,.12) 1px, transparent 1px)", backgroundSize:"28px 28px", pointerEvents:"none" }} />
+            <div style={{ position: "relative", flex: 1, minWidth: 260 }}>
+              <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"rgba(14,165,233,.15)", border:"1px solid rgba(14,165,233,.3)", borderRadius:20, padding:"5px 14px", marginBottom:16 }}>
+                <span style={{ fontSize:13 }}>🌐</span>
+                <span style={{ fontSize:12, fontWeight:700, color:"#38bdf8", letterSpacing:"0.04em", textTransform:"uppercase" }}>New — Website Builder</span>
+              </div>
+              <h2 style={{ fontSize:"clamp(22px,3.5vw,34px)", fontWeight:800, color:"white", lineHeight:1.2, margin:"0 0 12px" }}>
+                Your business website,<br />
+                <span style={{ color:"#38bdf8" }}>built by AI in seconds.</span>
+              </h2>
+              <p style={{ fontSize:15, color:"rgba(255,255,255,.6)", lineHeight:1.6, maxWidth:460, margin:"0 0 28px" }}>
+                Describe your business — LeadOS builds a complete, SEO-ready website. No agency. No developer. Publish on your own domain and connect it straight to your CRM.
+              </p>
+              <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
+                <a href="/website-builder" style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#0ea5e9", color:"white", fontWeight:700, fontSize:14, padding:"12px 22px", borderRadius:12, textDecoration:"none" }}>
+                  See how it works →
+                </a>
+                <a href="https://sites.myleados.ai" target="_blank" rel="noopener noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(255,255,255,.08)", border:"1px solid rgba(255,255,255,.15)", color:"white", fontWeight:600, fontSize:14, padding:"12px 22px", borderRadius:12, textDecoration:"none" }}>
+                  Build for free
+                </a>
+              </div>
+            </div>
+            <div style={{ position:"relative", display:"flex", flexDirection:"column", gap:10, flexShrink:0 }}>
+              {[
+                { icon:"⚡", text:"Generate a full website from one sentence" },
+                { icon:"🎨", text:"Custom branding, colors & layout" },
+                { icon:"🔗", text:"Connect to LeadOS CRM & Auto SEO" },
+                { icon:"🌍", text:"Your domain or free leados.site subdomain" },
+              ].map(f => (
+                <div key={f.text} style={{ display:"flex", alignItems:"center", gap:10, background:"rgba(255,255,255,.05)", border:"1px solid rgba(255,255,255,.08)", borderRadius:12, padding:"10px 16px", fontSize:13, color:"rgba(255,255,255,.8)" }}>
+                  <span style={{ fontSize:16, flexShrink:0 }}>{f.icon}</span>{f.text}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
