@@ -200,7 +200,7 @@ export default function WebsiteShowcase() {
           {/* Hero */}
           <div style={{ padding: "48px 28px 52px", textAlign: "center" }}>
             <div style={{ display: "inline-block", background: `${cat.accent}22`, border: `1px solid ${cat.accent}44`, borderRadius: 20, padding: "4px 14px", fontSize: 11, color: cat.accent, fontWeight: 700, marginBottom: 16 }}>
-              AI-generated · {cat.label}
+              Built by LeadOS · {cat.label}
             </div>
             <h2 style={{ color: "white", fontSize: "clamp(22px,4vw,36px)", fontWeight: 900, margin: "0 0 10px", lineHeight: 1.2 }}>{cat.headline}</h2>
             <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, margin: "0 0 28px" }}>{cat.sub}</p>
@@ -228,7 +228,7 @@ export default function WebsiteShowcase() {
       </div>
 
       <p style={{ textAlign: "center", fontSize: 13, color: "#9ca3af", marginTop: 20 }}>
-        Click a category above to preview · Every site is AI-generated and fully editable
+        Click a category above to preview · Every site is built by LeadOS and fully editable
       </p>
     </div>
   );

@@ -3,9 +3,9 @@ import Link from "next/link";
 import WebsiteShowcase from "./WebsiteShowcase";
 
 export const metadata: Metadata = {
-  title: "AI Website Builder – LeadOS | Build Your Business Website Free",
+  title: "Website Builder – LeadOS | Build Your Business Website Free",
   description:
-    "Describe your business in plain English and get a complete, professional website in seconds. No code, no designers. Free to build, publish when you're ready.",
+    "Describe your business and LeadOS builds a complete, professional website in seconds. No code, no designers. Free to build, publish when you're ready.",
 };
 
 const schema = {
@@ -136,7 +136,7 @@ export default function WebsiteBuilderPage() {
               fontSize: 13, fontWeight: 600, color: "#a5b4fc", marginBottom: 40,
             }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e", display: "inline-block", flexShrink: 0 }} />
-              AI Website Builder · Free to start · No credit card
+              LeadOS Website Builder · Free to start · No credit card
             </div>
 
             <h1 className="wb-hero-animate wb-hero-animate-d1" style={{
@@ -148,7 +148,7 @@ export default function WebsiteBuilderPage() {
               marginBottom: 28,
             }}>
               Your business website,<br />
-              <span style={{ color: "#818cf8" }}>built by AI.</span>
+              <span style={{ color: "#818cf8" }}>built by LeadOS.</span>
             </h1>
 
             <p className="wb-hero-animate wb-hero-animate-d2" style={{
@@ -158,7 +158,7 @@ export default function WebsiteBuilderPage() {
               maxWidth: 520,
               margin: "0 auto 52px",
             }}>
-              Describe your business in plain English. LeadOS builds a complete, professional website — copy, images, sections — in under 60 seconds.
+              Describe your business in plain English. LeadOS builds a complete, professional website — copy, images, sections — in under 60 seconds. No code, no agency.
             </p>
 
             {/* Input CTA */}
@@ -207,7 +207,7 @@ export default function WebsiteBuilderPage() {
                 {[1,2,3,4,5].map(i => <span key={i} style={{ color: "#fbbf24", fontSize: 16 }}>★</span>)}
               </div>
               <span style={{ fontSize: 14, color: "rgba(255,255,255,0.4)" }}>
-                <strong style={{ color: "white" }}>4.9/5</strong> from 200+ businesses
+                <strong style={{ color: "white" }}>4.9/5</strong> from 200+ LeadOS customers
               </span>
               <span style={{ width: 1, height: 14, background: "rgba(255,255,255,0.12)", display: "inline-block" }} />
               <span style={{ fontSize: 14, color: "rgba(255,255,255,0.4)" }}>Free forever to build & preview</span>
@@ -240,10 +240,10 @@ export default function WebsiteBuilderPage() {
                 Live Preview
               </p>
               <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 900, color: "white", letterSpacing: "-0.03em", marginBottom: 12 }}>
-                See your industry. Built in seconds.
+                See your industry. Built by LeadOS.
               </h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 480, margin: "0 auto" }}>
-                Pick a category below and see exactly what LeadOS AI generates for that business type.
+                Pick a category below and see exactly what LeadOS builds for that business type.
               </p>
             </div>
             <WebsiteShowcase />
@@ -387,7 +387,7 @@ export default function WebsiteBuilderPage() {
               Your website is<br />60 seconds away.
             </h2>
             <p style={{ fontSize: 18, color: "rgba(255,255,255,0.45)", marginBottom: 48, lineHeight: 1.65 }}>
-              No designers. No code. No templates. Just describe your business and LeadOS builds it — free.
+              No designers. No agency. No code. Just describe your business and LeadOS builds it — free.
             </p>
             <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
               <a href={BUILDER_URL} target="_blank" rel="noopener noreferrer" className="wb-btn-primary">
