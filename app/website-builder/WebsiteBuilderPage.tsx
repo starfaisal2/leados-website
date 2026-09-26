@@ -809,7 +809,7 @@ const PAGE_CSS = `
   align-items: start;
   margin-top: 64px;
 }
-.wb-step { display: flex; flex-direction: column; gap: 16px; }
+.wb-step { display: flex; flex-direction: column; gap: 16px; min-width: 0; overflow: hidden; }
 .wb-step-num { font-size: 11px; font-weight: 800; color: var(--blue); letter-spacing: 0.1em; }
 .wb-step-arrow { font-size: 28px; color: var(--border); align-self: center; margin-top: -80px; flex-shrink: 0; }
 .wb-step-title { font-size: 20px; font-weight: 800; color: var(--ink); }
@@ -935,7 +935,7 @@ const PAGE_CSS = `
 .wb-seo-inner {
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
 }
-.wb-seo-left { display: flex; flex-direction: column; gap: 28px; }
+.wb-seo-left { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
 .wb-seo-sub { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.7; }
 .wb-seo-features { display: flex; flex-direction: column; gap: 20px; }
 .wb-seo-feat { display: flex; gap: 14px; }
@@ -943,7 +943,7 @@ const PAGE_CSS = `
 .wb-seo-feat-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 3px; }
 .wb-seo-feat-desc { font-size: 13.5px; color: rgba(255,255,255,0.4); line-height: 1.6; }
 
-.wb-seo-right {}
+.wb-seo-right { min-width: 0; }
 .wb-seo-dashboard {
   background: #141414; border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 18px;
