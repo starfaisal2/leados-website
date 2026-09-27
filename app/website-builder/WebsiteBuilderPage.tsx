@@ -107,6 +107,69 @@ const PRICING = [
 ];
 
 /* ─── MINI DENTAL SITE rendered inside the hero browser mockup ─── */
+function PromptBox({ builder, login }: { builder: string; login: string }) {
+  const [prompt, setPrompt] = useState("");
+  const placeholders = [
+    "e.g. Luxury dental clinic in Dubai with gold accents...",
+    "e.g. Fine dining restaurant in Downtown Dubai...",
+    "e.g. Real estate agency in Dubai Marina...",
+    "e.g. Wellness spa in JBR, Dubai...",
+  ];
+  const [phIdx, setPhIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 3000);
+    return () => clearInterval(t);
+  }, []);
+
+  function handleBuild() {
+    const dest = prompt.trim()
+      ? `${builder}?prompt=${encodeURIComponent(prompt.trim())}`
+      : builder;
+    window.open(dest, "_blank", "noopener");
+  }
+
+  return (
+    <div style={{ marginTop: 8 }}>
+      <div style={{
+        background: "#fff", border: "1.5px solid #e0e0e0", borderRadius: 14,
+        boxShadow: "0 4px 24px rgba(0,0,0,0.08)", overflow: "hidden",
+        transition: "border-color 0.2s",
+      }}
+        onFocus={() => {}} onBlur={() => {}}
+      >
+        <textarea
+          value={prompt}
+          onChange={e => setPrompt(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleBuild(); }}
+          placeholder={placeholders[phIdx]}
+          rows={3}
+          style={{
+            width: "100%", border: "none", outline: "none", resize: "none",
+            fontSize: 15, lineHeight: 1.6, color: "#111", background: "transparent",
+            padding: "16px 16px 8px", fontFamily: "inherit", boxSizing: "border-box",
+          }}
+        />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px 12px" }}>
+          <span style={{ fontSize: 12, color: "#bbb" }}>⌘↵ to build</span>
+          <button onClick={handleBuild} style={{
+            background: "#111", color: "#fff", border: "none", borderRadius: 9,
+            padding: "10px 22px", fontSize: 14, fontWeight: 700, cursor: "pointer",
+            fontFamily: "inherit", letterSpacing: "-0.01em",
+          }}>
+            Build my website →
+          </button>
+        </div>
+      </div>
+      <p style={{ fontSize: 13, color: "#888", marginTop: 12 }}>
+        Start free · No credit card required ·{" "}
+        <a href={login} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
+          Already have an account? Log in →
+        </a>
+      </p>
+    </div>
+  );
+}
+
 function DentalSiteMockup() {
   return (
     <div style={{ width: 1320, background: "white", fontFamily: "system-ui, sans-serif" }}>
@@ -234,21 +297,7 @@ export default function WebsiteBuilderPage() {
                 Describe your business and LeadOS creates your complete website. Customise with plain English or visually, then publish when you're ready.
               </p>
 
-              <div className="wb-hero-ctas">
-                <a href={BUILDER} target="_blank" rel="noopener noreferrer" className="wb-cta-primary">
-                  Build Your Website Free
-                </a>
-                <a href="#how-it-works" className="wb-cta-ghost">
-                  See How It Works ↓
-                </a>
-              </div>
-
-              <p className="wb-trust-line">
-                Start free · No credit card required ·{" "}
-                <a href={LOGIN} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
-                  Already have an account? Log in →
-                </a>
-              </p>
+              <PromptBox builder={BUILDER} login={LOGIN} />
             </div>
 
             {/* RIGHT — browser mockup */}
@@ -623,20 +672,14 @@ export default function WebsiteBuilderPage() {
             <p className="wb-final-sub">
               No designers. No agency. No code.<br />Just describe your business and LeadOS builds it.
             </p>
-            <div className="wb-final-ctas">
-              <a href={BUILDER} target="_blank" rel="noopener noreferrer" className="wb-cta-primary wb-cta-xl">
-                Build Your Website Free
-              </a>
+            <div style={{ maxWidth: 560, margin: "0 auto" }}>
+              <PromptBox builder={BUILDER} login={LOGIN} />
+            </div>
+            <div style={{ marginTop: 16, textAlign: "center" }}>
               <a href={BOOK} target="_blank" rel="noopener noreferrer" className="wb-cta-ghost wb-cta-xl">
-                Book a Demo
+                Book a Demo instead
               </a>
             </div>
-            <p className="wb-final-trust">
-              No credit card required to start ·{" "}
-              <a href={LOGIN} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
-                Already have an account? Log in →
-              </a>
-            </p>
           </div>
         </section>
 
