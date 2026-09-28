@@ -7,6 +7,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      // Tenant mini-site routes are disabled — disallow so any previously-indexed
+      // /s/ pages are removed from search results.
+      disallow: ["/s/"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
