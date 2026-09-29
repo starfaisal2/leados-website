@@ -1690,10 +1690,11 @@ function showRealResults(data){
     h+='</div></div>';
   }
 
-  // ── C. Content ideas — what LeadOS will write (with per-article traffic) ───
+  // ── C. Content gaps — problem → LeadOS fix ─────────────────────────────────
   if(kws.length){
     var loc=(data.target_locations||[])[0]||'';
     var trafficMap={high:[1200,2400],medium:[500,900],low:[150,420]};
+    var volLabel={high:'High volume',medium:'Medium volume',low:'Low volume'};
     function kwToTitle(kw,intent){
       var k=kw.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();});
       var l=loc?' in '+loc.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();}):'';
@@ -1703,35 +1704,68 @@ function showRealResults(data){
       return k+l+': Complete Guide';
     }
     h+='<div class="rpt-section">';
-    h+='<div class="rpt-section-title">✍️ Content ideas (what LeadOS will write)</div>';
+    h+='<div class="rpt-section-title">📉 Traffic gaps costing you clients</div>';
     kws.slice(0,5).forEach(function(kw){
       var r=trafficMap[kw.volume]||[300,600];
       var mid=Math.round((r[0]+r[1])/2/10)*10;
       var title=kwToTitle(kw.keyword,kw.intent);
-      h+='<div class="rpt-idea-row">';
-      h+='<div class="rpt-idea-title">'+esc(title)+'</div>';
-      h+='<div class="rpt-idea-traffic">+'+mid.toLocaleString()+' visitors/mo</div>';
+      var vl=volLabel[kw.volume]||'';
+      h+='<div style="background:#fff;border:1.5px solid #f1f5f9;border-radius:12px;padding:14px 16px;margin-bottom:10px">';
+      // Problem row
+      h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+      h+='<span style="font-size:15px">❌</span>';
+      h+='<div style="flex:1;min-width:0">';
+      h+='<span style="font-size:13px;font-weight:700;color:#0f172a">Not ranking for </span>';
+      h+='<span style="font-size:13px;font-weight:800;color:#6366f1">"'+esc(kw.keyword)+'"</span>';
+      if(vl) h+=' <span style="font-size:10px;font-weight:700;color:#64748b;background:#f1f5f9;padding:2px 7px;border-radius:100px;vertical-align:middle">'+esc(vl)+'</span>';
+      h+='</div>';
+      h+='<div style="font-size:13px;font-weight:800;color:#ef4444;white-space:nowrap">−'+mid.toLocaleString()+' visitors/mo</div>';
+      h+='</div>';
+      // Fix row
+      h+='<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(109,40,217,0.04));border-radius:9px;border:1px solid rgba(99,102,241,0.15)">';
+      h+='<span style="font-size:13px;font-weight:800;color:#6366f1;white-space:nowrap;padding-top:1px">⚡ LeadOS fix:</span>';
+      h+='<div style="font-size:13px;color:#334155;line-height:1.4;font-style:italic">'+esc(title)+'</div>';
+      h+='<div style="font-size:12px;font-weight:800;color:#10b981;white-space:nowrap;margin-left:auto;padding-top:1px">+'+mid.toLocaleString()+'/mo</div>';
+      h+='</div>';
       h+='</div>';
     });
     h+='</div>';
   }
 
-  // ── D. Competitors ─────────────────────────────────────────────────────────
-  var displayComps=comps.slice(0,3);
+  // ── D. Competitors — show 1 real, lock rest ────────────────────────────────
+  var loc2=((data.target_locations||[])[0]||'your area');
+  var ind2=(data.industry||'your industry');
   h+='<div class="rpt-section"><div class="rpt-section-title">🏆 Competitors stealing your traffic</div>';
-  if(displayComps.length){
-    displayComps.forEach(function(c){
-      var sClass=c.strength==='high'?'rpt-comp-high':c.strength==='medium'?'rpt-comp-medium':'rpt-comp-low';
-      var sLabel=c.strength==='high'?'Strong':'Medium';
-      h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🌐</div>';
-      h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
-      h+='<span class="rpt-comp-strength '+sClass+'">'+sLabel+'</span>';
+  if(comps.length){
+    // Show first competitor (real, verified) — lock the rest
+    var c1=comps[0];
+    var sClass=c1.strength==='high'?'rpt-comp-high':c1.strength==='medium'?'rpt-comp-medium':'rpt-comp-low';
+    var sLabel=c1.strength==='high'?'Strong':'Medium';
+    h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🌐</div>';
+    h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c1.domain)+'</div><div class="rpt-comp-why">'+esc(c1.why)+'</div></div>';
+    h+='<span class="rpt-comp-strength '+sClass+'">'+sLabel+'</span>';
+    h+='</div>';
+    // Locked card for remaining competitors
+    var extraCount=comps.length-1;
+    var lockedCount=Math.max(extraCount,2); // always show at least 2 locked
+    h+='<div style="position:relative;border-radius:12px;overflow:hidden;margin-top:4px">';
+    // Blurred/locked rows
+    for(var li=0;li<lockedCount;li++){
+      h+='<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;margin-bottom:6px;filter:blur(4px);pointer-events:none;user-select:none">';
+      h+='<div style="width:36px;height:36px;border-radius:50%;background:#e2e8f0"></div>';
+      h+='<div style="flex:1"><div style="height:12px;background:#cbd5e1;border-radius:6px;width:60%;margin-bottom:6px"></div><div style="height:10px;background:#e2e8f0;border-radius:6px;width:85%"></div></div>';
+      h+='<div style="width:50px;height:20px;background:#e2e8f0;border-radius:100px"></div>';
       h+='</div>';
-    });
+    }
+    // Lock overlay
+    h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(248,250,252,0.2) 0%,rgba(248,250,252,0.95) 40%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px">';
+    h+='<div style="font-size:22px">🔒</div>';
+    h+='<div style="font-size:13px;font-weight:800;color:#0f172a">'+lockedCount+' more competitors identified</div>';
+    h+='<div style="font-size:12px;color:#64748b;text-align:center;max-width:280px;line-height:1.5">Sign up to see every business outranking you for <strong>'+esc(ind2)+'</strong> searches in '+esc(loc2)+' — and get a plan to beat them.</div>';
+    h+='</div>';
+    h+='</div>';
   } else {
-    // API found competitors but domain verification blocked them — show a locked teaser, never invent names
-    var loc2=((data.target_locations||[])[0]||'your area');
-    var ind2=(data.industry||'your industry');
+    // No competitors verified — full locked teaser
     h+='<div style="background:rgba(79,70,229,0.06);border:1.5px dashed rgba(99,102,241,0.3);border-radius:14px;padding:20px;text-align:center">';
     h+='<div style="font-size:22px;margin-bottom:8px">🔒</div>';
     h+='<div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px">Competitors identified for '+esc(loc2)+'</div>';
