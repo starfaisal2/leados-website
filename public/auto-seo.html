@@ -399,15 +399,9 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   #scan-plan-starter,#scan-plan-growth,#scan-plan-scale{min-width:100%;flex:none;border-radius:16px;margin-right:0}
   #scan-plan-growth{margin-left:0;padding-top:36px}
   #scan-plan-cards > div + div{margin-left:10px}
-  /* Traffic gap cards — mobile stacked layout */
-  .rpt-gap-problem{align-items:flex-start;flex-wrap:wrap}
-  .rpt-gap-problem-body{flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
-  .rpt-gap-keyword{word-break:break-word;white-space:normal}
-  .rpt-gap-traffic{width:100%;padding-left:26px;margin-top:4px;white-space:normal;font-size:12px;color:#64748b;font-weight:700}
-  .rpt-gap-solution{flex-direction:column;gap:5px}
-  .rpt-gap-solution-label{white-space:normal}
-  .rpt-gap-title{word-break:break-word;flex:none;width:100%}
-  .rpt-gap-uplift{white-space:normal;flex-shrink:1}
+  /* Traffic gap cards — mobile fine-tuning */
+  .rpt-gap-traffic-num{font-size:18px}
+  .rpt-gap-fix-title{font-size:12px}
   .scan-card-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
   .scan-card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:.2s}
   .scan-card-dot.active{background:#818cf8;width:18px;border-radius:3px}
@@ -579,19 +573,30 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 .rpt-roadmap-title{font-size:13px;color:var(--text);font-weight:600;flex:1}
 .rpt-action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
 .rpt-action-col{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
-/* Traffic gap cards */
-.rpt-gap-card{background:#fff;border:1.5px solid #f1f5f9;border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.rpt-gap-problem{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.rpt-gap-icon{font-size:15px;flex-shrink:0}
-.rpt-gap-problem-body{flex:1;min-width:0;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.rpt-gap-not-ranking{font-size:13px;font-weight:700;color:#0f172a}
-.rpt-gap-keyword{font-size:13px;font-weight:800;color:#6366f1}
-.rpt-gap-vol-badge{font-size:10px;font-weight:700;color:#64748b;background:#f1f5f9;padding:2px 7px;border-radius:100px}
-.rpt-gap-traffic{font-size:13px;font-weight:800;color:#64748b;white-space:nowrap;flex-shrink:0}
-.rpt-gap-solution{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(109,40,217,0.04));border-radius:9px;border:1px solid rgba(99,102,241,0.15)}
-.rpt-gap-solution-label{font-size:13px;font-weight:800;color:#6366f1;white-space:nowrap;padding-top:1px;flex-shrink:0}
-.rpt-gap-title{font-size:13px;color:#334155;line-height:1.4;font-style:italic;flex:1;min-width:0}
-.rpt-gap-uplift{font-size:12px;font-weight:800;color:#10b981;white-space:nowrap;flex-shrink:0;padding-top:1px}
+/* Traffic gap section header */
+.rpt-gap-hdr{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.rpt-gap-hdr-icon{width:44px;height:44px;border-radius:10px;background:#e0f2fe;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.rpt-gap-hdr-ttl{font-size:17px;font-weight:800;color:#0f172a;line-height:1.3}
+.rpt-gap-hdr-sub{font-size:13px;color:#64748b;line-height:1.5;margin-top:3px}
+/* Traffic gap cards — two-toned */
+.rpt-gap-card{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.08),0 0 0 1px rgba(0,0,0,0.04)}
+.rpt-gap-problem{display:flex;align-items:center;padding:14px 16px;background:rgba(239,68,68,0.06);gap:12px}
+.rpt-gap-xcircle{width:36px;height:36px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-weight:900;font-size:16px;line-height:1}
+.rpt-gap-problem-body{flex:1;min-width:0}
+.rpt-gap-not-ranking{font-size:12px;color:#94a3b8;font-weight:500;display:block}
+.rpt-gap-keyword{font-size:14px;font-weight:800;color:#4f46e5;display:block;line-height:1.3;word-break:break-word}
+.rpt-gap-vol-badge{display:inline-block;margin-top:4px;font-size:11px;font-weight:600;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:100px}
+.rpt-gap-traffic{text-align:right;flex-shrink:0}
+.rpt-gap-traffic-num{font-size:22px;font-weight:900;color:#ef4444;line-height:1;white-space:nowrap}
+.rpt-gap-traffic-unit{font-size:11px;color:#ef4444;font-weight:500;white-space:nowrap}
+.rpt-gap-solution{display:flex;align-items:center;padding:12px 16px;background:rgba(99,102,241,0.06);gap:10px;border-top:1px solid rgba(0,0,0,0.04)}
+.rpt-gap-lightning{font-size:18px;flex-shrink:0}
+.rpt-gap-fix-body{flex:1;min-width:0}
+.rpt-gap-fix-label{font-size:12px;font-weight:800;color:#6366f1;display:block}
+.rpt-gap-fix-title{font-size:13px;font-weight:600;color:#1e293b;line-height:1.4;word-break:break-word;display:block}
+.rpt-gap-fix-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.rpt-gap-uplift{font-size:12px;font-weight:800;color:#059669;background:#d1fae5;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.rpt-gap-arrow{font-size:18px;color:#cbd5e1;line-height:1}
 .rpt-action-period{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
 .rpt-action-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;color:var(--text);line-height:1.45}
 .rpt-action-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px}
@@ -1726,28 +1731,36 @@ function showRealResults(data){
       return k+l+': Complete Guide';
     }
     h+='<div class="rpt-section">';
-    h+='<div class="rpt-section-title">📉 Traffic gaps costing you clients</div>';
+    // Section header with icon box + subtitle
+    h+='<div class="rpt-gap-hdr">';
+    h+='<div class="rpt-gap-hdr-icon">📊</div>';
+    h+='<div><div class="rpt-gap-hdr-ttl">Traffic gaps costing you clients</div>';
+    h+='<div class="rpt-gap-hdr-sub">Find high-value keywords you\'re not ranking for and see how LeadOS can help you capture more traffic.</div></div>';
+    h+='</div>';
     kws.slice(0,5).forEach(function(kw){
       var r=trafficMap[kw.volume]||[300,600];
       var mid=Math.round((r[0]+r[1])/2/10)*10;
       var title=kwToTitle(kw.keyword,kw.intent);
       var vl=volLabel[kw.volume]||'';
       h+='<div class="rpt-gap-card">';
-      // Problem row
+      // Problem half — red tint
       h+='<div class="rpt-gap-problem">';
-      h+='<span class="rpt-gap-icon">❌</span>';
+      h+='<div class="rpt-gap-xcircle">✕</div>';
       h+='<div class="rpt-gap-problem-body">';
-      h+='<span class="rpt-gap-not-ranking">Not ranking for </span>';
+      h+='<span class="rpt-gap-not-ranking">Not ranking for</span>';
       h+='<span class="rpt-gap-keyword">"'+esc(kw.keyword)+'"</span>';
       if(vl) h+='<span class="rpt-gap-vol-badge">'+esc(vl)+'</span>';
       h+='</div>';
-      h+='<div class="rpt-gap-traffic">~'+mid.toLocaleString()+' searches/mo</div>';
+      h+='<div class="rpt-gap-traffic"><div class="rpt-gap-traffic-num">-'+mid.toLocaleString()+'</div><div class="rpt-gap-traffic-unit">visitors/mo</div></div>';
       h+='</div>';
-      // Opportunity row
+      // Solution half — lavender tint
       h+='<div class="rpt-gap-solution">';
-      h+='<span class="rpt-gap-solution-label">⚡ LeadOS opportunity</span>';
-      h+='<div class="rpt-gap-title">'+esc(title)+'</div>';
-      h+='<div class="rpt-gap-uplift">Potential: +~'+mid.toLocaleString()+'/mo</div>';
+      h+='<span class="rpt-gap-lightning">⚡</span>';
+      h+='<div class="rpt-gap-fix-body">';
+      h+='<span class="rpt-gap-fix-label">LeadOS fix:</span>';
+      h+='<span class="rpt-gap-fix-title">'+esc(title)+'</span>';
+      h+='</div>';
+      h+='<div class="rpt-gap-fix-right"><span class="rpt-gap-uplift">+'+mid.toLocaleString()+'/mo</span><span class="rpt-gap-arrow">›</span></div>';
       h+='</div>';
       h+='</div>';
     });
