@@ -399,6 +399,15 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   #scan-plan-starter,#scan-plan-growth,#scan-plan-scale{min-width:100%;flex:none;border-radius:16px;margin-right:0}
   #scan-plan-growth{margin-left:0;padding-top:36px}
   #scan-plan-cards > div + div{margin-left:10px}
+  /* Traffic gap cards — mobile stacked layout */
+  .rpt-gap-problem{align-items:flex-start;flex-wrap:wrap}
+  .rpt-gap-problem-body{flex-direction:column;align-items:flex-start;gap:3px;flex:1;min-width:0}
+  .rpt-gap-keyword{word-break:break-word;white-space:normal}
+  .rpt-gap-traffic{width:100%;padding-left:26px;margin-top:4px;white-space:normal;font-size:12px;color:#64748b;font-weight:700}
+  .rpt-gap-solution{flex-direction:column;gap:5px}
+  .rpt-gap-solution-label{white-space:normal}
+  .rpt-gap-title{word-break:break-word;flex:none;width:100%}
+  .rpt-gap-uplift{white-space:normal;flex-shrink:1}
   .scan-card-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
   .scan-card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:.2s}
   .scan-card-dot.active{background:#818cf8;width:18px;border-radius:3px}
@@ -570,6 +579,19 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 .rpt-roadmap-title{font-size:13px;color:var(--text);font-weight:600;flex:1}
 .rpt-action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
 .rpt-action-col{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+/* Traffic gap cards */
+.rpt-gap-card{background:#fff;border:1.5px solid #f1f5f9;border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.rpt-gap-problem{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rpt-gap-icon{font-size:15px;flex-shrink:0}
+.rpt-gap-problem-body{flex:1;min-width:0;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rpt-gap-not-ranking{font-size:13px;font-weight:700;color:#0f172a}
+.rpt-gap-keyword{font-size:13px;font-weight:800;color:#6366f1}
+.rpt-gap-vol-badge{font-size:10px;font-weight:700;color:#64748b;background:#f1f5f9;padding:2px 7px;border-radius:100px}
+.rpt-gap-traffic{font-size:13px;font-weight:800;color:#64748b;white-space:nowrap;flex-shrink:0}
+.rpt-gap-solution{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(109,40,217,0.04));border-radius:9px;border:1px solid rgba(99,102,241,0.15)}
+.rpt-gap-solution-label{font-size:13px;font-weight:800;color:#6366f1;white-space:nowrap;padding-top:1px;flex-shrink:0}
+.rpt-gap-title{font-size:13px;color:#334155;line-height:1.4;font-style:italic;flex:1;min-width:0}
+.rpt-gap-uplift{font-size:12px;font-weight:800;color:#10b981;white-space:nowrap;flex-shrink:0;padding-top:1px}
 .rpt-action-period{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
 .rpt-action-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;color:var(--text);line-height:1.45}
 .rpt-action-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px}
@@ -1710,22 +1732,22 @@ function showRealResults(data){
       var mid=Math.round((r[0]+r[1])/2/10)*10;
       var title=kwToTitle(kw.keyword,kw.intent);
       var vl=volLabel[kw.volume]||'';
-      h+='<div style="background:#fff;border:1.5px solid #f1f5f9;border-radius:12px;padding:14px 16px;margin-bottom:10px">';
+      h+='<div class="rpt-gap-card">';
       // Problem row
-      h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-      h+='<span style="font-size:15px">❌</span>';
-      h+='<div style="flex:1;min-width:0">';
-      h+='<span style="font-size:13px;font-weight:700;color:#0f172a">Not ranking for </span>';
-      h+='<span style="font-size:13px;font-weight:800;color:#6366f1">"'+esc(kw.keyword)+'"</span>';
-      if(vl) h+=' <span style="font-size:10px;font-weight:700;color:#64748b;background:#f1f5f9;padding:2px 7px;border-radius:100px;vertical-align:middle">'+esc(vl)+'</span>';
+      h+='<div class="rpt-gap-problem">';
+      h+='<span class="rpt-gap-icon">❌</span>';
+      h+='<div class="rpt-gap-problem-body">';
+      h+='<span class="rpt-gap-not-ranking">Not ranking for </span>';
+      h+='<span class="rpt-gap-keyword">"'+esc(kw.keyword)+'"</span>';
+      if(vl) h+='<span class="rpt-gap-vol-badge">'+esc(vl)+'</span>';
       h+='</div>';
-      h+='<div style="font-size:13px;font-weight:800;color:#ef4444;white-space:nowrap">−'+mid.toLocaleString()+' visitors/mo</div>';
+      h+='<div class="rpt-gap-traffic">~'+mid.toLocaleString()+' searches/mo</div>';
       h+='</div>';
-      // Fix row
-      h+='<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(109,40,217,0.04));border-radius:9px;border:1px solid rgba(99,102,241,0.15)">';
-      h+='<span style="font-size:13px;font-weight:800;color:#6366f1;white-space:nowrap;padding-top:1px">⚡ LeadOS fix:</span>';
-      h+='<div style="font-size:13px;color:#334155;line-height:1.4;font-style:italic">'+esc(title)+'</div>';
-      h+='<div style="font-size:12px;font-weight:800;color:#10b981;white-space:nowrap;margin-left:auto;padding-top:1px">+'+mid.toLocaleString()+'/mo</div>';
+      // Opportunity row
+      h+='<div class="rpt-gap-solution">';
+      h+='<span class="rpt-gap-solution-label">⚡ LeadOS opportunity</span>';
+      h+='<div class="rpt-gap-title">'+esc(title)+'</div>';
+      h+='<div class="rpt-gap-uplift">Potential: +~'+mid.toLocaleString()+'/mo</div>';
       h+='</div>';
       h+='</div>';
     });
@@ -1858,6 +1880,17 @@ function submitGateEmail(){
   // Reveal full report immediately
   var gateWrap = document.getElementById('email-gate-wrap');
   if(gateWrap){ gateWrap.innerHTML = _gateHtmlBelow; }
+
+  // On mobile, center Growth card by default
+  if(window.innerWidth < 900){
+    setTimeout(function(){
+      var cards = document.getElementById('scan-plan-cards');
+      var growth = document.getElementById('scan-plan-growth');
+      if(cards && growth){
+        cards.scrollLeft = growth.offsetLeft - (cards.offsetWidth - growth.offsetWidth)/2;
+      }
+    }, 50);
+  }
 
   // Update kwCount in newly revealed content
   var kwCountEl = document.getElementById('kwCount');
