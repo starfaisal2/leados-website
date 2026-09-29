@@ -2070,9 +2070,18 @@ const statObs=new IntersectionObserver(entries=>{
   if(el) statObs.observe(el);
 });
 
-// floating CTA
-window.addEventListener('scroll',()=>{
-  document.getElementById('floatCta').classList.toggle('vis',window.scrollY>600);
+// floating CTA — hide when pricing section is visible so it doesn't cover the plan CTA
+window.addEventListener('scroll',function(){
+  var fCta=document.getElementById('floatCta');
+  if(!fCta) return;
+  var pricing=document.getElementById('scan-pricing');
+  if(pricing){
+    var rect=pricing.getBoundingClientRect();
+    var pricingVisible=rect.top<window.innerHeight&&rect.bottom>0;
+    fCta.classList.toggle('vis',window.scrollY>600&&!pricingVisible);
+  } else {
+    fCta.classList.toggle('vis',window.scrollY>600);
+  }
 });
 
 // type cycling in article preview
