@@ -386,8 +386,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 
   /* PRICING */
   .pricing{padding:52px 0}
-  .pricing-cards{grid-template-columns:1fr;gap:14px;margin-top:28px}
-  .pc{padding:24px}
+  .pricing-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:14px;margin-top:28px;padding-bottom:16px;grid-template-columns:unset}
+  .pc{min-width:260px;max-width:280px;flex-shrink:0;scroll-snap-align:start;padding:24px}
   .pc-price-num{font-size:42px}
 
   /* TESTIMONIALS */
@@ -1528,7 +1528,7 @@ function startScan(){
       document.getElementById(phase.id).className='scan-step active';
       document.getElementById('progressFill').style.width=phase.prog+'%';
       startPhase(phase);
-      si++; stepTimer=setTimeout(nextStep, si===5 ? 12000 : 3800);
+      si++; stepTimer=setTimeout(nextStep, 900);
     }
   }
   nextStep();
@@ -1685,7 +1685,7 @@ function showRealResults(data){
     var volMap={high:'2,400+',medium:'880',low:'290'};
     var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
     h+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
-    h+='<table class="rpt-kw-table"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
+    h+='<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="rpt-kw-table" style="min-width:360px"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
     kws.slice(0,8).forEach(function(kw){
       var vol=volMap[kw.volume]||'—';
       var diff=kw.difficulty||'medium';
@@ -1698,7 +1698,7 @@ function showRealResults(data){
       h+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
       h+='</tr>';
     });
-    h+='</tbody></table></div>';
+    h+='</tbody></table></div></div>';
   }
 
   // ── 6. Strategic insight ───────────────────────────────────────────────────
