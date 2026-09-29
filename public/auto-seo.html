@@ -572,6 +572,22 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 .rpt-fix-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-left:auto}
 .rpt-fix-auto{background:#D1FAE5;color:#065F46}
 .rpt-fix-manual{background:#F3F4F6;color:#6B7280}
+
+/* Traffic boost banner */
+.rpt-boost-banner{background:linear-gradient(135deg,#0a0f2c,#1a1f4c);border-radius:16px;padding:24px 20px;text-align:center;margin-bottom:16px}
+.rpt-boost-arrow{font-size:28px;color:#06D6A0;font-weight:900;line-height:1;margin-bottom:4px}
+.rpt-boost-val{font-size:32px;font-weight:900;color:#06D6A0;letter-spacing:-0.03em;line-height:1.1;margin-bottom:4px}
+.rpt-boost-label{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.rpt-boost-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+/* Content idea rows */
+.rpt-idea-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.rpt-idea-row:last-child{border-bottom:none}
+.rpt-idea-title{font-size:14px;font-weight:600;color:var(--text);flex:1;line-height:1.4}
+.rpt-idea-traffic{font-size:13px;font-weight:800;color:#059669;white-space:nowrap;flex-shrink:0}
+
+/* Issues compact */
+.rpt-issues-compact{margin-bottom:4px}
 .rpt-issue-row{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 /* How LeadOS Fixes This */
 .rpt-leados-fix{margin-bottom:16px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(67,97,238,0.15);background:linear-gradient(135deg,rgba(67,97,238,0.04),rgba(114,9,183,0.04))}
@@ -1617,119 +1633,70 @@ function showRealResults(data){
   function renderBelowGate(){
     var h='';
 
-  // ── 3. Technical issues ────────────────────────────────────────────────────
-  if(criticalIssues.length){
-    h+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Holding You Back</div>';
-    criticalIssues.forEach(function(issue){
-      var sev=issue.severity||'medium';
-      var dotColor=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
-      var badge=isAutoFix(issue.label)
-        ?'<span class="rpt-fix-badge rpt-fix-auto">🟢 Auto Fix</span>'
-        :'<span class="rpt-fix-badge rpt-fix-manual">🔧 Manual</span>';
-      h+='<div class="rpt-issue '+sev+'"><div class="rpt-issue-dot" style="background:'+dotColor+'"></div><div class="rpt-issue-row"><div class="rpt-issue-text">'+esc(issue.label)+'</div>'+badge+'</div></div>';
-    });
+  // ── A. Traffic boost — big hook number ─────────────────────────────────────
+  if(data.monthly_traffic_potential){
+    h+='<div class="rpt-boost-banner">';
+    h+='<div class="rpt-boost-arrow">↗</div>';
+    h+='<div class="rpt-boost-val">'+esc(data.monthly_traffic_potential)+'</div>';
+    h+='<div class="rpt-boost-label">potential visitors / month</div>';
+    if(data.traffic_uplift_estimate) h+='<div class="rpt-boost-sub">'+esc(data.traffic_uplift_estimate)+' within 9 months</div>';
     h+='</div>';
   }
 
-  // ── 4. Quick wins ──────────────────────────────────────────────────────────
-  if(qws.length){
-    h+='<div class="rpt-section"><div class="rpt-section-title">⚡ Quick Wins</div><div class="rpt-quick-wins">';
-    qws.slice(0,4).forEach(function(w){
-      var impactCls='rpt-chip-impact-'+(w.impact||'medium');
-      var effortCls='rpt-chip-effort-'+(w.effort||'hours');
-      h+='<div class="rpt-qw-card">';
-      h+='<div class="rpt-qw-top"><span class="rpt-qw-title">'+esc(w.title)+'</span>';
-      h+='<div class="rpt-qw-chips"><span class="rpt-chip '+impactCls+'">'+(w.impact||'')+'</span><span class="rpt-chip '+effortCls+'">'+(w.effort||'')+'</span></div></div>';
-      h+='<div class="rpt-qw-desc">'+esc(w.description||'')+'</div></div>';
+  // ── B. Issues found — compact pills (our edge over Soro) ───────────────────
+  if(criticalIssues.length){
+    h+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Found on Your Site</div>';
+    h+='<div class="rpt-issues-compact">';
+    criticalIssues.slice(0,5).forEach(function(issue){
+      var sev=issue.severity||'medium';
+      var bg=sev==='critical'?'#FEF2F2':sev==='high'?'#FFF7ED':'#FFFBEB';
+      var col=sev==='critical'?'#DC2626':sev==='high'?'#EA580C':'#CA8A04';
+      var dot=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
+      h+='<div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:'+bg+';margin-bottom:6px">';
+      h+='<div style="width:7px;height:7px;border-radius:50%;background:'+dot+';flex-shrink:0"></div>';
+      h+='<span style="font-size:13px;font-weight:600;color:'+col+';flex:1">'+esc(issue.label)+'</span>';
+      if(isAutoFix(issue.label)) h+='<span style="font-size:10px;font-weight:800;background:#D1FAE5;color:#065F46;padding:2px 7px;border-radius:100px">Auto Fix</span>';
+      h+='</div>';
     });
     h+='</div></div>';
   }
 
-  // ── 4b. How LeadOS Fixes This ──────────────────────────────────────────────
-  var FIX_MAP=[
-    {kw:['meta description','no description','missing description'],problem:'No meta description',solution:'AI writes optimized descriptions for every page'},
-    {kw:['title tag','page title','missing title','weak title'],problem:'Weak or missing title tags',solution:'AI generates keyword-rich titles that rank'},
-    {kw:['h1','heading','no heading','missing heading'],problem:'Missing or duplicate headings',solution:'Publishes articles with correct H1/H2/H3 structure'},
-    {kw:['alt text','image alt','missing alt','no alt'],problem:'Images without alt text',solution:'AI adds descriptive alt text to all published content'},
-    {kw:['content','thin','no blog','blog','article','lacking'],problem:'Thin or missing content',solution:'Publishes 15–45 SEO articles every month automatically'},
-    {kw:['keyword','ranking','not ranking','target keyword'],problem:'Missing keyword coverage',solution:'Targets your top keywords with dedicated content'},
-    {kw:['backlink','link','authority','domain authority'],problem:'Low domain / link authority',solution:'Builds 5–13 quality backlinks per month'},
-    {kw:['schema','structured data','rich result'],problem:'No structured data / schema',solution:'Auto-adds schema markup to every published article'},
-    {kw:['sitemap','xml sitemap'],problem:'Missing or outdated sitemap',solution:'Regenerates sitemap automatically after each publish'},
-    {kw:['canonical','duplicate'],problem:'Duplicate / missing canonical',solution:'Sets canonical tags on all AI articles correctly'},
-  ];
-  var allIssueText=criticalIssues.map(function(i){return (i.label||'').toLowerCase();});
-  if(qws.length) allIssueText=allIssueText.concat(qws.map(function(w){return ((w.title||'')+' '+(w.description||'')).toLowerCase();}));
-  var matchedFixes=[];
-  FIX_MAP.forEach(function(fm){
-    if(matchedFixes.length>=5)return;
-    var hit=fm.kw.some(function(k){return allIssueText.some(function(l){return l.indexOf(k)>=0;});});
-    if(hit) matchedFixes.push(fm);
-  });
-  // Always show at least 3 rows
-  if(matchedFixes.length<3){
-    [FIX_MAP[4],FIX_MAP[5],FIX_MAP[6]].forEach(function(fm){
-      if(matchedFixes.indexOf(fm)<0&&matchedFixes.length<3) matchedFixes.push(fm);
-    });
-  }
-  h+='<div class="rpt-leados-fix">';
-  h+='<div class="rpt-leados-fix-hdr">🚀 How LeadOS Fixes This Automatically</div>';
-  h+='<div class="rpt-leados-fix-thead"><div class="rpt-leados-fix-th">Issue Found</div><div class="rpt-leados-fix-th">LeadOS Solution</div></div>';
-  matchedFixes.forEach(function(fm){
-    h+='<div class="rpt-leados-fix-row"><div class="rpt-leados-fix-problem">'+esc(fm.problem)+'</div><div class="rpt-leados-fix-solution">✓ '+esc(fm.solution)+'</div></div>';
-  });
-  h+='</div>';
-
-  // ── 5. Keywords ────────────────────────────────────────────────────────────
+  // ── C. Content ideas — what LeadOS will write (with per-article traffic) ───
   if(kws.length){
-    var volMap={high:'2,400+',medium:'880',low:'290'};
-    var diffMap={'easy':'diff-easy','medium':'diff-med','hard':'diff-hard'};
-    h+='<div class="rpt-section"><div class="rpt-section-title">🎯 Top Keyword Opportunities</div>';
-    h+='<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="rpt-kw-table" style="min-width:360px"><thead><tr><th>Keyword</th><th>Searches/mo</th><th>Difficulty</th><th>Intent</th></tr></thead><tbody>';
-    kws.slice(0,8).forEach(function(kw){
-      var vol=volMap[kw.volume]||'—';
-      var diff=kw.difficulty||'medium';
-      var diffCls=diffMap[diff]||'diff-med';
-      var intent=kw.intent||'commercial';
-      h+='<tr>';
-      h+='<td class="rpt-kw-kw">'+esc(kw.keyword)+'</td>';
-      h+='<td style="color:var(--text2);font-weight:600">'+vol+'</td>';
-      h+='<td><span class="diff-pill '+diffCls+'">'+diff.charAt(0).toUpperCase()+diff.slice(1)+'</span></td>';
-      h+='<td><span class="rpt-intent rpt-intent-'+intent+'">'+intent.charAt(0).toUpperCase()+intent.slice(1)+'</span></td>';
-      h+='</tr>';
+    var loc=(data.target_locations||[])[0]||'';
+    var trafficMap={high:[1200,2400],medium:[500,900],low:[150,420]};
+    function kwToTitle(kw,intent){
+      var k=kw.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();});
+      var l=loc?' in '+loc.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();}):'';
+      if(intent==='informational') return 'How to Choose the Right '+k+l;
+      if(intent==='transactional') return 'Best '+k+l+' — Full Guide';
+      if(intent==='commercial') return 'Top '+k+l+': What to Know';
+      return k+l+': Complete Guide';
+    }
+    h+='<div class="rpt-section">';
+    h+='<div class="rpt-section-title">✍️ Content ideas (what LeadOS will write)</div>';
+    kws.slice(0,5).forEach(function(kw){
+      var r=trafficMap[kw.volume]||[300,600];
+      var mid=Math.round((r[0]+r[1])/2/10)*10;
+      var title=kwToTitle(kw.keyword,kw.intent);
+      h+='<div class="rpt-idea-row">';
+      h+='<div class="rpt-idea-title">'+esc(title)+'</div>';
+      h+='<div class="rpt-idea-traffic">+'+mid.toLocaleString()+' visitors/mo</div>';
+      h+='</div>';
     });
-    h+='</tbody></table></div></div>';
-  }
-
-  // ── 6. Strategic insight ───────────────────────────────────────────────────
-  if(data.strategic_insight){
-    h+='<div class="rpt-strategic">';
-    h+='<div class="rpt-strategic-label">💡 Strategic Insight</div>';
-    h+='<div class="rpt-strategic-text">'+esc(data.strategic_insight)+'</div>';
     h+='</div>';
   }
 
-  // ── 7. Traffic potential ───────────────────────────────────────────────────
-  if(data.monthly_traffic_potential||data.traffic_uplift_estimate){
-    h+='<div class="rpt-traffic">';
-    if(data.monthly_traffic_potential) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.monthly_traffic_potential)+'</div><div class="rpt-traffic-label">Monthly traffic potential</div></div>';
-    if(data.traffic_uplift_estimate) h+='<div class="rpt-traffic-card"><div class="rpt-traffic-val">'+esc(data.traffic_uplift_estimate)+'</div><div class="rpt-traffic-label">Uplift estimate</div></div>';
-    h+='</div>';
-  }
-
-  // ── 8. Competitors ─────────────────────────────────────────────────────────
+  // ── D. Competitors ─────────────────────────────────────────────────────────
   if(comps.length){
-    h+='<div class="rpt-section"><div class="rpt-section-title">⚔️ Competitors Outranking You</div>';
+    h+='<div class="rpt-section"><div class="rpt-section-title">🏆 Competitors we\'ll outrank</div>';
     comps.forEach(function(c){
-      var strCls='rpt-comp-'+(c.strength||'medium');
-      var strLabel=(c.strength||'medium').charAt(0).toUpperCase()+(c.strength||'medium').slice(1);
-      h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🏆</div>';
+      h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🌐</div>';
       h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c.domain)+'</div><div class="rpt-comp-why">'+esc(c.why)+'</div></div>';
-      h+='<span class="rpt-comp-strength '+strCls+'">'+strLabel+'</span></div>';
+      h+='</div>';
     });
     h+='</div>';
   }
-
 
     return h;
   }
