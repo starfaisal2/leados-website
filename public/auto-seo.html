@@ -1730,50 +1730,6 @@ function showRealResults(data){
     h+='</div>';
   }
 
-  // ── 9. Content roadmap ─────────────────────────────────────────────────────
-  if(roadmap.length){
-    var intentColors={informational:'rpt-intent-informational',commercial:'rpt-intent-commercial',transactional:'rpt-intent-transactional',navigational:'rpt-intent-navigational'};
-    h+='<div class="rpt-section"><div class="rpt-section-title">📝 Content Roadmap — '+(data.articles_needed||20)+' articles to dominate your niche</div>';
-    roadmap.slice(0,6).forEach(function(a){
-      var ic=intentColors[a.intent]||'rpt-intent-informational';
-      h+='<div class="rpt-roadmap-item"><span class="rpt-intent '+ic+'">'+(a.intent||'info')+'</span><span class="rpt-roadmap-title">'+esc(a.title)+'</span></div>';
-    });
-    h+='</div>';
-  }
-
-  // ── 10. Action plan ────────────────────────────────────────────────────────
-  var hasAP=(ap.week_1&&ap.week_1.length)||(ap.month_1&&ap.month_1.length)||(ap.month_3&&ap.month_3.length);
-  if(hasAP){
-    h+='<div class="rpt-section"><div class="rpt-section-title">🗓️ Your Action Plan</div>';
-    h+='<div class="rpt-action-grid">';
-    var periods=[{key:'week_1',label:'Week 1'},{key:'month_1',label:'Month 1'},{key:'month_3',label:'Month 3'}];
-    periods.forEach(function(p){
-      var items=ap[p.key]||[];
-      h+='<div class="rpt-action-col"><div class="rpt-action-period">'+p.label+'</div>';
-      items.forEach(function(item){h+='<div class="rpt-action-item"><div class="rpt-action-dot"></div><span>'+esc(item)+'</span></div>';});
-      h+='</div>';
-    });
-    h+='</div></div>';
-  }
-
-  // ── 11. Post-activation timeline ───────────────────────────────────────────
-  h+='<div class="rpt-section"><div class="rpt-section-title">📅 What Happens After You Activate LeadOS?</div>';
-  h+='<div class="rpt-timeline">';
-  var tlItems=[
-    {when:'Day 1–2',what:'Setup & sync',detail:'We connect to your site, audit existing content, and configure your keyword strategy.'},
-    {when:'Day 3',what:'First articles published',detail:'AI writes and publishes your first SEO articles — indexed by Google within 48 hours.'},
-    {when:'Week 2–4',what:'Rankings start moving',detail:'Your target keywords begin climbing. Expect page-2 appearances for long-tail terms.'},
-    {when:'Month 2–3',what:'Organic traffic grows',detail:'Consistent publishing compounds. Traffic climbs 30–80% as your content authority builds.'},
-    {when:'Month 6+',what:'Dominant local ranking',detail:'Your business appears in the top 3 for core keywords — beating the competitors outranking you now.'},
-  ];
-  tlItems.forEach(function(t){
-    h+='<div class="rpt-tl-item"><div class="rpt-tl-dot"></div>';
-    h+='<div class="rpt-tl-when">'+esc(t.when)+'</div>';
-    h+='<div class="rpt-tl-what">'+esc(t.what)+'</div>';
-    h+='<div class="rpt-tl-detail">'+esc(t.detail)+'</div>';
-    h+='</div>';
-  });
-  h+='</div></div>';
 
     return h;
   }
