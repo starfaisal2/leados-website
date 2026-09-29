@@ -756,10 +756,10 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         </div>
 
         <!-- 3 plan cards -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div id="scan-plan-cards" style="display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px">
 
           <!-- Starter -->
-          <div onclick="selectScanPlan('starter',this)" id="scan-plan-starter" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
+          <div onclick="selectScanPlan('starter',this)" id="scan-plan-starter" style="min-width:220px;flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
             <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:12px">Starter</div>
             <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
               <span style="font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-starter">$29</span>
@@ -777,7 +777,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           </div>
 
           <!-- Growth (highlighted) -->
-          <div onclick="selectScanPlan('growth',this)" id="scan-plan-growth" style="background:linear-gradient(145deg,rgba(67,97,238,0.35),rgba(114,9,183,0.35));border:1.5px solid rgba(129,140,248,0.5);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative;box-shadow:0 0 40px rgba(67,97,238,0.2)">
+          <div onclick="selectScanPlan('growth',this)" id="scan-plan-growth" style="min-width:220px;flex-shrink:0;scroll-snap-align:start;background:linear-gradient(145deg,rgba(67,97,238,0.35),rgba(114,9,183,0.35));border:1.5px solid rgba(129,140,248,0.5);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative;box-shadow:0 0 40px rgba(67,97,238,0.2)">
             <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;font-size:10px;font-weight:900;padding:4px 14px;border-radius:100px;white-space:nowrap;letter-spacing:.05em">⭐ MOST POPULAR</div>
             <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#a5b4fc;margin-bottom:12px">Growth</div>
             <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
@@ -796,7 +796,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
           </div>
 
           <!-- Scale -->
-          <div onclick="selectScanPlan('scale',this)" id="scan-plan-scale" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
+          <div onclick="selectScanPlan('scale',this)" id="scan-plan-scale" style="min-width:220px;flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
             <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:12px">Scale</div>
             <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
               <span style="font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-scale">$79</span>
@@ -1511,7 +1511,7 @@ function startScan(){
       ['🔬','Measuring Core Web Vitals…','LCP, CLS, FID — Google ranking signals since 2021'],
     ]},
     { id:'step5', prog:88, msgs:[
-      ['🤖','AI building your report…','Claude is writing your personalised SEO analysis'],
+      ['🤖','AI building your report…','LeadOS is writing your personalised SEO analysis'],
       ['📈','Calculating your SEO score…','Scoring on-page, performance and content quality'],
       ['🗺️','Generating your action plan…','Custom roadmap to rank #1 for your keywords'],
       ['✨','Almost done…','Finalising competitor gaps and keyword opportunities'],
@@ -1712,9 +1712,9 @@ function showRealResults(data){
   html += '<div style="font-size:28px;margin-bottom:10px">🔓</div>';
   html += '<div style="font-size:19px;font-weight:800;color:#0a0f2c;margin-bottom:6px">Unlock Your Full Report</div>';
   html += '<div style="font-size:13px;color:#64748b;margin-bottom:14px;line-height:1.6">See your full issues list, keyword opportunities, competitor analysis, content roadmap and action plan.</div>';
-  html += '<div style="display:flex;gap:8px;margin-bottom:10px">';
-  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="flex:1;padding:13px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
-  html += '<button onclick="submitGateEmail()" style="padding:13px 20px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">Unlock →</button>';
+  html += '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">';
+  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="width:100%;padding:13px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none;box-sizing:border-box" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
+  html += '<button onclick="submitGateEmail()" style="width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer">Unlock My Report →</button>';
   html += '</div>';
   html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
   html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime</div>';
