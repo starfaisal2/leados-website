@@ -1607,6 +1607,11 @@ function showRealResults(data){
   document.getElementById('scanResults').style.display='block';
   document.getElementById('scanBtn').textContent='Scan My Site →';
   document.getElementById('scanBtn').disabled=false;
+  // Switch floating CTA to point at pricing once results are visible
+  var fCta=document.getElementById('floatCta');
+  if(fCta){
+    fCta.innerHTML='<a href="#scan-pricing" class="btn btn-p" style="box-shadow:0 8px 28px rgba(67,97,238,0.45)">⚡ Fix My SEO — Get Started</a>';
+  }
 
   var score=data.seo_score||42;
   var bd=data.score_breakdown||{};
