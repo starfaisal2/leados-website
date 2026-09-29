@@ -122,8 +122,8 @@ h1{font-size:clamp(38px,4.5vw,62px);font-weight:900;color:var(--text);letter-spa
 @keyframes sBlink{0%,100%{opacity:1}50%{opacity:.15}}
 .scan-live-label{font-size:13px;font-weight:800;color:var(--text);letter-spacing:.01em}
 .scan-live-url{font-size:12px;color:#4361EE;font-weight:600;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(67,97,238,0.08);padding:2px 10px;border-radius:100px}
-/* ── Scan pricing cards — desktop: no scrollbar, all 3 side by side ── */
-#scan-plan-cards{overflow-x:visible;scroll-snap-type:none}
+/* ── Scan pricing cards — desktop: all 3 side by side, no scrollbar ── */
+#scan-plan-cards{overflow-x:visible}
 .scan-card-dots{display:none}
 /* ── Scan status card ── */
 .scan-card{background:var(--surface2);border-radius:18px;padding:22px 24px;margin-bottom:20px;text-align:center;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
@@ -395,7 +395,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
 
   /* SCAN RESULTS PRICING — full-width cards, one at a time */
   #scan-pricing{padding:24px 16px 16px;border-radius:16px}
-  #scan-plan-cards{gap:0;padding-top:28px;padding-bottom:4px}
+  #scan-plan-cards{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;gap:0;padding-top:28px;padding-bottom:4px}
   #scan-plan-starter,#scan-plan-growth,#scan-plan-scale{min-width:100%;flex:none;border-radius:16px;margin-right:0}
   #scan-plan-growth{margin-left:0;padding-top:36px}
   #scan-plan-cards > div + div{margin-left:10px}
@@ -770,7 +770,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
         </div>
 
         <!-- 3 plan cards -->
-        <div id="scan-plan-cards" style="display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px;padding-top:16px">
+        <div id="scan-plan-cards" style="display:flex;gap:12px;padding-bottom:8px;padding-top:16px">
 
           <!-- Starter -->
           <div onclick="selectScanPlan('starter',this)" id="scan-plan-starter" style="min-width:220px;flex:1;flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
