@@ -2084,18 +2084,18 @@ const statObs=new IntersectionObserver(entries=>{
   if(el) statObs.observe(el);
 });
 
-// floating CTA — hide when pricing section is visible so it doesn't cover the plan CTA
+// floating CTA — hide when any pricing section is visible so it doesn't cover plan CTAs
 window.addEventListener('scroll',function(){
   var fCta=document.getElementById('floatCta');
   if(!fCta) return;
-  var pricing=document.getElementById('scan-pricing');
-  if(pricing){
-    var rect=pricing.getBoundingClientRect();
-    var pricingVisible=rect.top<window.innerHeight&&rect.bottom>0;
-    fCta.classList.toggle('vis',window.scrollY>600&&!pricingVisible);
-  } else {
-    fCta.classList.toggle('vis',window.scrollY>600);
+  function inView(id){
+    var el=document.getElementById(id);
+    if(!el) return false;
+    var r=el.getBoundingClientRect();
+    return r.top<window.innerHeight&&r.bottom>0;
   }
+  var pricingVisible=inView('scan-pricing')||inView('pricing');
+  fCta.classList.toggle('vis',window.scrollY>600&&!pricingVisible);
 });
 
 // type cycling in article preview
