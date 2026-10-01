@@ -321,7 +321,7 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
   h1{font-size:38px;margin-bottom:12px;letter-spacing:-0.03em}
   .hero-sub{font-size:16px;margin-bottom:20px;max-width:100%}
   .hero-actions{justify-content:center;gap:10px;flex-direction:column;margin-bottom:20px}
-  .hero-actions .btn-lg{padding:16px 24px;font-size:16px;border-radius:14px;width:100%;justify-content:center;text-align:center}
+  .hero-actions .btn-lg{padding:16px 24px;font-size:16px;border-radius:14px;width:100%;justify-content:center;text-align:center;display:block;box-sizing:border-box}
   .hero-trust{justify-content:center;gap:8px;font-size:12px;flex-wrap:wrap}
 
   /* BOT — contained, no overflow badges */
@@ -686,7 +686,8 @@ footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-ali
       <h1>Rank <span class="gt">#1 on Google</span><br>& ChatGPT.<br>Zero Writing.<br>From $29<span style="font-size:.5em;color:var(--muted)">/mo</span></h1>
       <p class="hero-sub">Your AI SEO teammate writes and publishes SEO articles for you <strong>every day</strong> — automatically. No agency. No writers. No guesswork. Ranks on Google AND ChatGPT.</p>
       <div class="hero-actions">
-        <a href="#scan" class="btn btn-p btn-lg">🔍 Free Site Scan — No Signup</a>
+        <a href="#scan" class="btn btn-p btn-lg" onclick="document.getElementById('scanUrl').focus()">🔍 Free Site Scan — No Signup</a>
+        <a href="#pricing" class="btn btn-lg" style="background:#7209b7;color:#fff;border:none;box-shadow:0 8px 24px rgba(114,9,183,0.35)">🚀 Start Ranking Now</a>
         <a href="#how" class="btn btn-out btn-lg">See how it works</a>
       </div>
       <div class="hero-trust">
