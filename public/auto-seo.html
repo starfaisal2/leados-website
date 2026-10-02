@@ -301,7 +301,7 @@ input::placeholder{color:#94a3b8}
       <div class="metric">
         <div class="metric-icon">🔍</div>
         <div class="metric-n" id="m-keywords">0</div>
-        <div class="metric-l">Missed Search Opportunities</div>
+        <div class="metric-l">Search Gaps</div>
       </div>
       <div class="metric">
         <div class="metric-icon">👥</div>
@@ -549,6 +549,7 @@ input::placeholder{color:#94a3b8}
       <button class="plan-cta" id="cta-scale" onclick="checkout('scale')">Choose Plan</button>
     </div>
 
+    <div class="error-text" id="checkout-err" style="margin-top:10px"></div>
     <div class="sec-note" style="margin-top:16px">🔒 Secure payment by Stripe · Cancel anytime</div>
   </div>
 </div>
@@ -975,7 +976,11 @@ async function checkout(plan) {
       const btn = document.getElementById('cta-' + p);
       if (btn) { btn.disabled = false; btn.textContent = 'Choose Plan'; }
     });
-    alert('Could not start checkout: ' + (e.message || 'Please try again.'));
+    const msg = e.message || 'Please try again.';
+    const friendlyMsg = msg.toLowerCase().includes('price not configured')
+      ? 'Annual billing is not available right now. Please select monthly billing.'
+      : 'Could not start checkout. Please try again.';
+    showErr('checkout-err', friendlyMsg);
   }
 }
 
