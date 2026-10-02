@@ -1,2111 +1,1014 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto SEO by LeadOS — Rank #1 on Google, Zero Writing</title>
-<link rel="icon" type="image/svg+xml" href="/leados-icon.svg">
-<link rel="alternate icon" href="/leados-logo-square.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free SEO Analysis — LeadOS</title>
+<meta name="description" content="Get a free AI analysis of your website and see what's holding you back on Google and AI search.">
+
 <!-- Meta Pixel -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','4661508774081869');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4661508774081869&ev=PageView&noscript=1"/></noscript>
-<!-- End Meta Pixel -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#F5F7FE;
-  --white:#FFFFFF;
-  --surface:#FFFFFF;
-  --surface2:#ECEFFE;
-  --blue:#4361EE;
-  --blue2:#3A0CA3;
-  --purple:#7209B7;
-  --purple2:#560BAD;
-  --cyan:#4CC9F0;
-  --green:#06D6A0;
-  --amber:#FFB703;
-  --red:#EF4444;
-  --text:#0A0F2C;
-  --text2:#3B4370;
-  --muted:#6B7280;
-  --border:rgba(67,97,238,0.13);
-  --border2:rgba(67,97,238,0.22);
-  --shadow:0 4px 24px rgba(67,97,238,0.08);
-  --shadow2:0 16px 56px rgba(67,97,238,0.14);
-  --grad:linear-gradient(135deg,#4361EE,#7209B7);
-  --grad2:linear-gradient(135deg,#4CC9F0,#4361EE);
-}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
-h1,h2,h3,h4{line-height:1.1;letter-spacing:-0.03em;text-wrap:balance}
-.container{max-width:1140px;margin:0 auto;padding:0 28px}
-.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gt2{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0f172a;background:#fff;-webkit-font-smoothing:antialiased;min-height:100vh}
 
-/* CANVAS BACKGROUND */
-#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45}
+/* ── Page shell ── */
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;background:#fff}
+.screen{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;background:#fff}
+.screen[hidden]{display:none!important}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(246,248,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nlogo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-0.03em}
-.nicon{width:32px;height:32px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nlinks{display:flex;align-items:center;gap:2px;list-style:none}
-.nlinks a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;padding:7px 14px;border-radius:8px;transition:.2s}
-.nlinks a:hover{color:var(--blue);background:rgba(67,97,238,0.06)}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-decoration:none;transition:.2s;letter-spacing:-0.01em}
-.btn-p{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(67,97,238,0.35)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(67,97,238,0.45)}
-.btn-out{background:transparent;color:var(--blue);border:1.5px solid var(--border2)}
-.btn-out:hover{background:rgba(67,97,238,0.05)}
-.btn-lg{padding:14px 32px;font-size:16px;border-radius:14px}
-.btn-white{background:#fff;color:var(--blue);box-shadow:0 4px 18px rgba(67,97,238,0.18)}
-.btn-white:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(67,97,238,0.28)}
+/* ── Nav ── */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 0;position:sticky;top:0;background:#fff;z-index:20}
+.logo{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-0.5px;text-decoration:none}
+.logo span{color:#4f46e5}
+.nav-btn{font-size:13px;font-weight:500;color:#64748b;background:none;border:1px solid #e2e8f0;padding:6px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:border-color .15s,color .15s}
+.nav-btn:hover{border-color:#c7d2fe;color:#4f46e5}
+.back-btn{display:flex;align-items:center;gap:4px;font-size:14px;color:#64748b;background:none;border:none;cursor:pointer;padding:0 0 16px;font-family:inherit;font-weight:500}
+.back-btn:hover{color:#0f172a}
 
-/* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:120px 0 80px;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border2);border-radius:100px;padding:6px 14px 6px 8px;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:24px;box-shadow:var(--shadow)}
-.hero-badge-dot{width:22px;height:22px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
-h1{font-size:clamp(38px,4.5vw,62px);font-weight:900;color:var(--text);letter-spacing:-0.04em;margin-bottom:20px}
-.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;margin-bottom:36px;max-width:460px}
-.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:36px}
-.hero-trust{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
-.hero-trust-item{display:flex;align-items:center;gap:5px;font-weight:500}
+/* ── Progress dots ── */
+.wizard-progress{display:flex;gap:6px;padding:14px 20px 0}
+.pdot{flex:1;height:4px;border-radius:2px;background:#e2e8f0;transition:background .3s}
+.pdot.on{background:#4f46e5}
 
-/* BOT SCENE */
-.bot-scene{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px}
-.bot-wrap{position:relative;z-index:2}
-.bot-glow{position:absolute;inset:-60px;background:radial-gradient(circle,rgba(67,97,238,0.15) 0%,transparent 65%);border-radius:50%;animation:pulse-glow 3s ease-in-out infinite}
-@keyframes pulse-glow{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.7}}
-.bot-float{animation:float 4s ease-in-out infinite}
-#byteBot{
-  display:block;
-  width:400px;height:auto;
-  mix-blend-mode:multiply;
-  filter:drop-shadow(0 32px 64px rgba(67,97,238,0.22)) drop-shadow(0 8px 24px rgba(76,201,240,0.2));
+/* ── Content ── */
+.content{padding:24px 20px 32px;flex:1}
+h1{font-size:28px;font-weight:800;line-height:1.2;letter-spacing:-.5px}
+h2{font-size:22px;font-weight:700;line-height:1.25;letter-spacing:-.3px}
+p{font-size:15px;line-height:1.6;color:#64748b}
+
+/* ── Buttons ── */
+.btn{display:block;width:100%;border:none;border-radius:14px;padding:16px 24px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:opacity .2s,transform .1s;text-align:center;text-decoration:none}
+.btn:active{transform:scale(.99)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{background:#f1f5f9;color:#0f172a;margin-top:10px}
+.btn-secondary:hover{background:#e2e8f0}
+.btn-outline{background:#fff;color:#4f46e5;border:1.5px solid #4f46e5;margin-top:10px}
+
+/* ── Inputs ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:#475569;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.input-wrap{position:relative}
+.input-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:17px;pointer-events:none;line-height:1}
+input,select{display:block;width:100%;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:13px 14px 13px 42px;font-size:15px;color:#0f172a;font-family:inherit;outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none}
+input:focus,select:focus{border-color:#4f46e5;background:#fff;box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+select{padding-left:14px;cursor:pointer}
+select.has-icon{padding-left:42px}
+input::placeholder{color:#94a3b8}
+
+/* ── Cards ── */
+.card{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:20px;margin-bottom:12px}
+
+/* ── Trust row ── */
+.trust-row{display:flex;justify-content:center;flex-wrap:wrap;padding:14px 20px;border-top:1px solid #f1f5f9;gap:0}
+.trust-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#94a3b8;padding:4px 10px}
+
+/* ── SCAN RING ── */
+.scan-ring{position:relative;width:148px;height:148px;margin:28px auto 24px}
+.scan-ring svg{width:148px;height:148px}
+.ring-bg{fill:none;stroke:#e2e8f0;stroke-width:9}
+.ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:9;stroke-linecap:round;stroke-dasharray:351.9;stroke-dashoffset:351.9;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s ease}
+.ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.ring-pct{font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-1px;line-height:1}
+.scan-steps{width:100%;max-width:290px;margin:0 auto}
+.sstep{display:flex;align-items:center;gap:12px;padding:9px 0;font-size:13.5px;color:#94a3b8;font-weight:500;transition:color .3s}
+.sstep.done{color:#0f172a}
+.sstep-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid #e2e8f0;background:#f8fafc;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#94a3b8;transition:all .3s;font-weight:700}
+.sstep-icon.done{background:#f0fdf4;border-color:#86efac;color:#16a34a}
+.sstep-icon.active{background:#ede9fe;border-color:#a5b4fc;color:#4f46e5}
+
+/* ── SCORE GAUGE ── */
+.gauge-wrap{position:relative;width:188px;height:108px;margin:0 auto 8px}
+.gauge-wrap svg{width:188px;height:108px;overflow:visible}
+.gauge-num{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center}
+.score-val{font-size:48px;font-weight:800;letter-spacing:-2px;line-height:1;color:#0f172a}
+.score-denom{font-size:13px;color:#94a3b8;font-weight:500}
+
+/* ── Site header ── */
+.site-hdr{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.site-fav{width:38px;height:38px;border-radius:8px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;overflow:hidden}
+.site-fav img{width:38px;height:38px;border-radius:8px;object-fit:cover}
+.site-domain{font-size:14px;font-weight:600;color:#0f172a}
+.site-meta{font-size:11.5px;color:#94a3b8;margin-top:2px}
+
+/* ── Result banner ── */
+.score-banner{display:flex;align-items:flex-start;gap:8px;border-radius:11px;padding:12px 14px;margin:14px 0;font-size:13px;font-weight:500}
+
+/* ── Metrics ── */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}
+.metric{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:14px 10px;text-align:center}
+.metric-icon{font-size:20px;margin-bottom:4px}
+.metric-n{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1;color:#0f172a}
+.metric-l{font-size:10.5px;color:#64748b;margin-top:3px;line-height:1.3;font-weight:500}
+
+/* ── Issue cards ── */
+.issue-card{border-radius:14px;padding:16px;margin-bottom:12px}
+.issue-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+
+/* ── Capability list ── */
+.cap-item{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:14.5px;font-weight:500;color:#0f172a;border-bottom:1px solid #f1f5f9}
+.cap-item:last-child{border-bottom:none}
+.cap-check{width:22px;height:22px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#16a34a;font-size:11px;flex-shrink:0;font-weight:700}
+
+/* ── Service chips ── */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:100px;border:1.5px solid #e2e8f0;background:#fff;font-size:13px;font-weight:500;color:#475569;cursor:pointer;transition:all .15s;user-select:none}
+.chip.on{background:#ede9fe;border-color:#7c3aed;color:#5b21b6}
+.chip-add-wrap{display:flex;gap:8px;margin-bottom:14px}
+.chip-add-wrap input{flex:1;padding:10px 14px;padding-left:14px}
+.chip-add-btn{background:#f1f5f9;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;color:#475569;font-family:inherit;white-space:nowrap;transition:background .15s}
+.chip-add-btn:hover{background:#e2e8f0}
+
+/* ── Plan tabs ── */
+.billing-tabs{display:flex;gap:3px;background:#f1f5f9;border-radius:11px;padding:3px;margin-bottom:18px}
+.btab{flex:1;padding:9px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:600;color:#64748b;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.btab.on{background:#fff;color:#0f172a;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.save-tag{background:#16a34a;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;line-height:1}
+
+/* ── Plan cards ── */
+.plan-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:20px;margin-bottom:12px;position:relative;transition:border-color .15s}
+.plan-card:hover{border-color:#a5b4fc}
+.plan-card.pop{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.pop-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#4f46e5;color:#fff;font-size:11px;font-weight:700;padding:3px 14px;border-radius:100px;white-space:nowrap}
+.plan-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.plan-name{font-size:17px;font-weight:700}
+.plan-price{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1;color:#0f172a}
+.plan-price small{font-size:13px;font-weight:500;color:#64748b;letter-spacing:0}
+.plan-tag{font-size:12.5px;color:#64748b;margin-bottom:14px}
+.plan-feats{list-style:none;margin-bottom:0}
+.plan-feats li{font-size:12.5px;color:#475569;padding:3px 0;display:flex;align-items:center;gap:6px}
+.plan-feats li::before{content:"✓";color:#16a34a;font-weight:700;flex-shrink:0}
+.plan-cta{display:block;width:100%;padding:12px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#4f46e5;cursor:pointer;font-family:inherit;transition:all .15s;margin-top:16px;text-align:center}
+.plan-card.pop .plan-cta{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-color:transparent}
+.plan-cta:disabled{opacity:.6;cursor:not-allowed}
+
+/* ── Misc ── */
+.error-text{color:#ef4444;font-size:13px;text-align:center;margin-top:8px;display:none}
+.sec-note{display:flex;align-items:center;justify-content:center;gap:4px;font-size:12px;color:#94a3b8;margin-top:12px}
+.pill-tag{display:inline-flex;align-items:center;gap:5px;background:#ede9fe;border-radius:100px;padding:5px 12px;font-size:12px;font-weight:600;color:#5b21b6;margin-bottom:20px}
+.trust-logos{display:flex;gap:14px;align-items:center;justify-content:center;padding:10px 20px 20px;flex-wrap:wrap}
+.trust-logo{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase}
+.divider{width:1px;height:12px;background:#e2e8f0}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
+
+@media(min-width:480px){
+  .page{background:#f1f5f9}
+  .screen{box-shadow:0 4px 24px rgba(0,0,0,.08)}
 }
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-/* orbit rings */
-.orbit{position:absolute;border-radius:50%;border:1.5px dashed rgba(67,97,238,0.18);top:50%;left:50%;transform:translate(-50%,-50%)}
-.orbit1{width:340px;height:340px;animation:spin 18s linear infinite}
-.orbit2{width:460px;height:460px;animation:spin 28s linear infinite reverse}
-@keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-/* floating badge cards */
-.fbadge{position:absolute;background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px 14px;box-shadow:0 8px 28px rgba(67,97,238,0.12);font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;z-index:10;display:flex;align-items:center;gap:8px}
-.fbadge-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.fb1{top:6%;left:-10%;animation:float 5s ease-in-out infinite}
-.fb2{top:12%;right:-8%;animation:float 4.5s ease-in-out infinite .8s}
-.fb3{bottom:18%;left:-14%;animation:float 5.5s ease-in-out infinite .4s}
-.fb4{bottom:8%;right:-6%;animation:float 4s ease-in-out infinite 1.2s}
-
-/* SCAN SECTION */
-.scan-section{background:var(--white);border-radius:28px;padding:56px 48px;box-shadow:0 12px 56px rgba(67,97,238,0.1);border:1px solid var(--border);position:relative;z-index:1;overflow:hidden;margin:80px 0}
-.scan-section::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(67,97,238,0.08) 0%,transparent 65%);border-radius:50%}
-.scan-header{text-align:center;margin-bottom:40px}
-.scan-header h2{font-size:36px;font-weight:900;margin-bottom:10px}
-.scan-header p{font-size:16px;color:var(--text2)}
-.scan-input-row{display:flex;gap:12px;max-width:680px;margin:0 auto 32px;background:#fff;border:2px solid var(--border);border-radius:16px;padding:8px 8px 8px 20px;box-shadow:0 4px 20px rgba(67,97,238,0.08);transition:.3s}
-.scan-input-row:focus-within{border-color:var(--blue);box-shadow:0 4px 28px rgba(67,97,238,0.2)}
-#scanUrl{flex:1;border:none;outline:none;font-size:15px;font-family:inherit;color:var(--text);background:transparent}
-#scanUrl::placeholder{color:var(--muted)}
-#scanBtn{background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:.2s;white-space:nowrap}
-#scanBtn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(67,97,238,0.4)}
-
-/* SCAN PROGRESS */
-#scanProgress{display:none;margin-top:28px;animation:fadeUp .4s ease}
-/* ── Scan live header ── */
-.scan-live-hdr{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
-.scan-pulse-wrap{position:relative;width:14px;height:14px;flex-shrink:0}
-.scan-pulse-ring{position:absolute;inset:0;border-radius:50%;background:rgba(67,97,238,0.5);animation:sPulse 1.6s ease-out infinite}
-.scan-pulse-core{position:absolute;inset:2px;border-radius:50%;background:#4361EE}
-@keyframes sPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.8);opacity:0}}
-.scan-blink-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:sBlink 1s ease-in-out infinite}
-@keyframes sBlink{0%,100%{opacity:1}50%{opacity:.15}}
-.scan-live-label{font-size:13px;font-weight:800;color:var(--text);letter-spacing:.01em}
-.scan-live-url{font-size:12px;color:#4361EE;font-weight:600;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(67,97,238,0.08);padding:2px 10px;border-radius:100px}
-/* ── Scan pricing cards — desktop: all 3 side by side, no scrollbar ── */
-#scan-plan-cards{overflow-x:visible}
-.scan-card-dots{display:none}
-/* ── Scan status card ── */
-.scan-card{background:var(--surface2);border-radius:18px;padding:22px 24px;margin-bottom:20px;text-align:center;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
-.scan-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(67,97,238,0.06),rgba(114,9,183,0.04));pointer-events:none}
-.scan-card-icon{font-size:30px;line-height:1;animation:sIconPop .35s cubic-bezier(.34,1.56,.64,1)}
-@keyframes sIconPop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
-.scan-card-msg{font-size:15px;font-weight:800;color:var(--text)}
-.scan-card-sub{font-size:12px;color:var(--muted);line-height:1.55;max-width:340px}
-/* ── Step pills ── */
-.scan-steps{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
-.scan-step{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;background:var(--surface2);font-size:12px;font-weight:700;color:var(--muted);transition:background .4s,color .4s,transform .2s}
-.scan-step.done{background:#D1FAE5;color:#065F46}
-.scan-step.done .scan-step-icon{filter:none}
-.scan-step.active{background:rgba(67,97,238,0.12);color:#4361EE;transform:scale(1.05)}
-.scan-step-icon{font-size:13px}
-.progress-bar-wrap{height:6px;background:var(--surface2);border-radius:100px;overflow:hidden;margin-bottom:28px}
-.progress-bar-fill{height:100%;width:0%;background:var(--grad);border-radius:100px;transition:width .6s ease}
-
-/* SCAN RESULTS */
-#scanResults{display:none;animation:fadeUp .5s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.scan-results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
-.scan-score-card{background:var(--grad);border-radius:16px;padding:24px;color:#fff;text-align:center}
-.scan-score-num{font-size:52px;font-weight:900;line-height:1;letter-spacing:-0.04em;margin-bottom:4px}
-.scan-score-label{font-size:13px;opacity:.85;font-weight:600}
-.scan-metric-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;align-items:center;gap:14px}
-.scan-metric-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.scan-metric-label{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:2px}
-.scan-metric-val{font-size:18px;font-weight:800;color:var(--text)}
-.kw-table{width:100%;border-collapse:collapse;margin-bottom:24px}
-.kw-table th{text-align:left;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-bottom:1px solid var(--border)}
-.kw-table td{padding:10px 12px;font-size:14px;border-bottom:1px solid rgba(67,97,238,0.06)}
-.kw-table tr:last-child td{border:none}
-.diff-bar{height:6px;border-radius:100px;display:inline-block;min-width:40px}
-.diff-pill{display:inline-block;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:700}
-.diff-easy{background:#D1FAE5;color:#059669}
-.diff-med{background:#FEF3C7;color:#D97706}
-.diff-hard{background:#FEE2E2;color:#DC2626}
-.cta-result{background:var(--grad);border-radius:16px;padding:24px 28px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.cta-result h3{font-size:20px;font-weight:900;margin-bottom:4px}
-.cta-result p{font-size:14px;opacity:.85}
-
-/* STEPS / HOW IT WORKS */
-.how{padding:100px 0;position:relative;z-index:1}
-.section-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(67,97,238,0.08);border:1px solid rgba(67,97,238,0.18);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
-.section-title{font-size:clamp(30px,3.5vw,46px);font-weight:900;color:var(--text);margin-bottom:14px;letter-spacing:-0.03em}
-.section-sub{font-size:17px;color:var(--text2);max-width:560px}
-.how-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
-.how-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:32px;position:relative;overflow:hidden;transition:.3s;cursor:default}
-.how-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:.3s}
-.how-card:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(67,97,238,0.12);border-color:var(--border2)}
-.how-card:hover::after{transform:scaleX(1)}
-.how-num{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
-.how-icon{width:52px;height:52px;border-radius:14px;background:rgba(67,97,238,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;transition:.3s}
-.how-card:hover .how-icon{background:var(--grad);transform:scale(1.05)}
-.how-card h3{font-size:19px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-0.02em}
-.how-card p{font-size:14px;color:var(--text2);line-height:1.65}
-
-/* ANIMATED STATS STRIP */
-.stats-strip{background:var(--grad);padding:64px 0;position:relative;overflow:hidden;z-index:1}
-.stats-strip::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;position:relative}
-.stat-item{color:#fff}
-.stat-num{font-size:52px;font-weight:900;line-height:1;letter-spacing:-0.04em;margin-bottom:6px}
-.stat-label{font-size:14px;opacity:.8;font-weight:600}
-
-/* FEATURES / VISUAL CARDS */
-.features{padding:100px 0;position:relative;z-index:1}
-.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:60px}
-.feat-card{background:var(--white);border:1px solid var(--border);border-radius:22px;padding:36px;transition:.3s;overflow:hidden;position:relative}
-.feat-card:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(67,97,238,0.1);border-color:var(--border2)}
-.feat-card-big{grid-column:span 2}
-.feat-icon-row{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.feat-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.feat-tag{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;background:rgba(67,97,238,0.08);color:var(--blue);margin-bottom:12px}
-.feat-card h3{font-size:21px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em}
-.feat-card p{font-size:14px;color:var(--text2);line-height:1.7}
-/* mini article preview */
-.article-preview{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:24px}
-.article-preview-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
-.article-preview-lines{display:flex;flex-direction:column;gap:5px}
-.apl{height:7px;background:var(--border);border-radius:100px}
-.apl:nth-child(1){width:100%}
-.apl:nth-child(2){width:85%}
-.apl:nth-child(3){width:92%}
-.apl:nth-child(4){width:60%}
-/* typing effect */
-.type-cursor{display:inline-block;width:2px;height:14px;background:var(--blue);vertical-align:middle;margin-left:1px;animation:blink .8s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-@keyframes lang-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* COMPARE TABLE */
-.compare{padding:100px 0;position:relative;z-index:1;background:var(--white)}
-.compare-table{width:100%;border-collapse:collapse;margin-top:56px;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(67,97,238,0.08);border:1px solid var(--border)}
-.compare-table th{padding:20px 24px;text-align:center;font-size:14px;font-weight:800;background:var(--bg);border-bottom:1px solid var(--border)}
-.compare-table th:first-child{text-align:left}
-.compare-table th.col-leados{background:var(--grad);color:#fff;font-size:15px}
-.compare-table td{padding:16px 24px;border-bottom:1px solid rgba(67,97,238,0.07);font-size:14px;color:var(--text2);text-align:center}
-.compare-table td:first-child{text-align:left;font-weight:600;color:var(--text);background:var(--bg)}
-.compare-table tr:last-child td{border:none}
-.compare-table td.col-leados{background:rgba(67,97,238,0.04);font-weight:700;color:var(--blue)}
-.chk{color:#06D6A0;font-size:18px}
-.cross{color:#EF4444;font-size:18px}
-
-/* PRICING */
-.pricing{padding:100px 0;position:relative;z-index:1}
-.pricing-toggle{display:inline-flex;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:100px;padding:4px;gap:4px;margin-top:28px;box-shadow:var(--shadow)}
-.ptab{padding:8px 20px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:.2s;font-family:inherit}
-.ptab.active{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(67,97,238,0.3)}
-.save-pill{display:inline-block;background:#D1FAE5;color:#059669;border-radius:100px;padding:3px 10px;font-size:12px;font-weight:700;margin-left:8px}
-.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
-.pc{background:var(--white);border:1.5px solid var(--border);border-radius:22px;padding:32px;transition:.3s;position:relative}
-.pc:hover{transform:translateY(-5px);box-shadow:0 24px 56px rgba(67,97,238,0.12)}
-.pc.popular{border-color:var(--blue);border-width:2px;box-shadow:0 12px 40px rgba(67,97,238,0.15)}
-.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;border-radius:100px;padding:4px 16px;font-size:12px;font-weight:800;white-space:nowrap}
-.pc-name{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:8px}
-.pc-price{display:flex;align-items:flex-end;gap:4px;margin-bottom:4px}
-.pc-price-num{font-size:48px;font-weight:900;line-height:1;letter-spacing:-0.04em;color:var(--text);transition:.3s}
-.pc-price-per{font-size:14px;color:var(--muted);font-weight:600;padding-bottom:6px}
-.pc-billed{font-size:12px;color:var(--muted);margin-bottom:20px;min-height:16px}
-.pc-desc{font-size:14px;color:var(--text2);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.pc-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.pc-features li{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--text2)}
-.pc-features li::before{content:'✓';color:var(--green);font-weight:900;font-size:13px;flex-shrink:0;margin-top:1px}
-.pc-btn{display:block;text-align:center;width:100%;padding:13px;border-radius:11px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:.2s}
-.pc-btn-p{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(67,97,238,0.3)}
-.pc-btn-p:hover{box-shadow:0 8px 28px rgba(67,97,238,0.45);transform:translateY(-1px)}
-.pc-btn-o{background:rgba(67,97,238,0.06);color:var(--blue);border:1.5px solid var(--border2)}
-.pc-btn-o:hover{background:rgba(67,97,238,0.1)}
-.guarantee{text-align:center;margin-top:28px;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
-
-/* TESTIMONIALS */
-.testi{padding:100px 0;position:relative;z-index:1;background:var(--surface2)}
-.testi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
-.tcard{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:28px;transition:.3s}
-.tcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(67,97,238,0.1)}
-.stars{color:#F59E0B;font-size:15px;margin-bottom:14px;letter-spacing:2px}
-.tcard-text{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:20px}
-.tcard-author{display:flex;align-items:center;gap:12px}
-.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
-.tcard-name{font-weight:700;font-size:14px;color:var(--text)}
-.tcard-role{font-size:12px;color:var(--muted)}
-
-/* FINAL CTA */
-.final-cta{padding:120px 0;position:relative;z-index:1;overflow:hidden}
-.cta-inner{background:var(--grad);border-radius:32px;padding:80px 60px;text-align:center;position:relative;overflow:hidden}
-.cta-inner::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:rgba(255,255,255,.07);border-radius:50%}
-.cta-inner::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:rgba(255,255,255,.05);border-radius:50%}
-.cta-inner h2{font-size:clamp(32px,4vw,54px);font-weight:900;color:#fff;letter-spacing:-0.04em;margin-bottom:16px}
-.cta-inner p{font-size:18px;color:rgba(255,255,255,.8);margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto}
-.cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;position:relative;z-index:1}
-
-/* FOOTER */
-footer{background:var(--text);color:rgba(255,255,255,.6);padding:48px 0;text-align:center;position:relative;z-index:1}
-.footer-logo{font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.03em;margin-bottom:12px}
-.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:20px;flex-wrap:wrap}
-.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:14px;transition:.2s}
-.footer-links a:hover{color:#fff}
-
-/* FLOATING CTA */
-#floatCta{position:fixed;bottom:28px;right:28px;z-index:300;opacity:0;transform:translateY(20px);transition:.4s;pointer-events:none}
-#floatCta.vis{opacity:1;transform:translateY(0);pointer-events:auto}
-
-/* SCROLL ANIMATIONS */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease}
-.reveal-left.in{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .7s ease,transform .7s ease}
-.reveal-right.in{opacity:1;transform:translateX(0)}
-
-@media(max-width:900px){
-  /* ── CRITICAL: kill horizontal overflow ── */
-  html,body{overflow-x:hidden;max-width:100vw}
-  *{box-sizing:border-box}
-
-  /* NAV */
-  nav{padding:0 16px;height:56px}
-  .nlinks{display:none}
-  .btn{padding:9px 16px;font-size:13px}
-
-  /* CONTAINER */
-  .container{padding:0 20px;max-width:100%}
-
-  /* HERO */
-  .hero{
-    grid-template-columns:1fr;
-    min-height:auto;
-    padding:76px 0 0;
-    gap:0;
-    text-align:center;
-  }
-  .hero-badge{font-size:12px;padding:5px 12px 5px 7px;margin-bottom:16px}
-  h1{font-size:38px;margin-bottom:12px;letter-spacing:-0.03em}
-  .hero-sub{font-size:16px;margin-bottom:20px;max-width:100%}
-  .hero-actions{justify-content:center;gap:10px;flex-direction:column;margin-bottom:20px}
-  .hero-actions .btn-lg{padding:16px 24px;font-size:16px;border-radius:14px;width:100%;justify-content:center;text-align:center;display:block;box-sizing:border-box}
-  .hero-trust{justify-content:center;gap:8px;font-size:12px;flex-wrap:wrap}
-
-  /* BOT — contained, no overflow badges */
-  .bot-scene{
-    min-height:auto;
-    margin-top:16px;
-    overflow:hidden;
-    width:100%;
-    max-width:280px;
-    margin-left:auto;
-    margin-right:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-  }
-  #byteBot{width:200px;max-width:100%}
-  .orbit1,.orbit2{display:none}
-  .fb1,.fb2,.fb3,.fb4{display:none}
-  .bot-glow{display:none}
-
-  /* SCAN SECTION */
-  .scan-section{padding:28px 20px;margin:32px 0;border-radius:18px;overflow:hidden}
-  .scan-header h2{font-size:22px}
-  .scan-header p{font-size:14px}
-  .scan-input-row{
-    flex-direction:column;
-    padding:10px;
-    border-radius:12px;
-    gap:8px;
-    max-width:100%;
-    background:#fff;
-  }
-  #scanUrl{font-size:15px;padding:8px 4px}
-  #scanBtn{width:100%;border-radius:10px;padding:15px;font-size:15px;text-align:center}
-  .scan-results-grid{grid-template-columns:1fr}
-  .scan-steps{gap:6px}
-  .scan-step{font-size:12px;padding:6px 10px}
-  .kw-table{font-size:13px}
-
-  /* HOW IT WORKS */
-  .how{padding:52px 0}
-  .how-cards{grid-template-columns:1fr;gap:14px;margin-top:28px}
-  .how-card{padding:22px}
-  .section-title{font-size:26px}
-  .section-sub{font-size:15px}
-
-  /* STATS */
-  .stats-strip{padding:36px 0}
-  .stats-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .stat-num{font-size:34px}
-  .stat-label{font-size:13px}
-
-  /* FEATURES */
-  .features{padding:52px 0}
-  .features-grid{grid-template-columns:1fr;gap:14px;margin-top:28px}
-  .feat-card-big{grid-column:span 1}
-  .feat-card{padding:22px}
-  .feat-card h3{font-size:18px}
-
-  /* COMPARE */
-  .compare{padding:52px 0}
-  .compare-table{font-size:11px;margin-top:28px;display:block;overflow-x:auto}
-  .compare-table th,.compare-table td{padding:10px 8px;white-space:nowrap}
-
-  /* PRICING */
-  .pricing{padding:52px 0}
-  .pricing-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:14px;margin-top:28px;padding-bottom:16px;grid-template-columns:unset}
-  .pc{min-width:260px;max-width:280px;flex-shrink:0;scroll-snap-align:start;padding:24px}
-  .pc-price-num{font-size:42px}
-
-  /* SCAN RESULTS PRICING — full-width cards, one at a time */
-  #scan-pricing{padding:24px 16px 16px;border-radius:16px}
-  #scan-plan-cards{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;gap:0;padding-top:28px;padding-bottom:4px}
-  #scan-plan-starter,#scan-plan-growth,#scan-plan-scale{min-width:100%;flex:none;border-radius:16px;margin-right:0}
-  #scan-plan-growth{margin-left:0;padding-top:36px}
-  #scan-plan-cards > div + div{margin-left:10px}
-  /* Traffic gap cards — mobile fine-tuning */
-  .rpt-gap-traffic-num{font-size:18px}
-  .rpt-gap-fix-title{font-size:12px}
-  .scan-card-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
-  .scan-card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:.2s}
-  .scan-card-dot.active{background:#818cf8;width:18px;border-radius:3px}
-  #scanCtaBtn{margin-top:16px;border-radius:12px;padding:16px;font-size:16px}
-
-  /* TESTIMONIALS */
-  .testi{padding:52px 0}
-  .testi-cards{grid-template-columns:1fr;gap:14px;margin-top:28px}
-
-  /* FINAL CTA */
-  .final-cta{padding:52px 0}
-  .cta-inner{padding:40px 20px;border-radius:20px}
-  .cta-inner h2{font-size:28px}
-  .cta-inner p{font-size:15px;margin-bottom:24px}
-  .cta-actions{flex-direction:column;align-items:stretch;gap:10px}
-  .cta-actions .btn{justify-content:center;width:100%;padding:15px;text-align:center}
-  .cta-result{flex-direction:column;gap:12px;text-align:center}
-
-  /* FOOTER */
-  footer{padding:32px 0}
-  .footer-links{gap:12px;flex-wrap:wrap;justify-content:center}
-
-  /* FLOAT CTA */
-  #floatCta{bottom:14px;right:14px}
-  #floatCta .btn{padding:12px 18px;font-size:14px}
+@media(min-width:900px){
+  .screen{min-height:initial;border-radius:20px;margin:40px auto;box-shadow:0 8px 40px rgba(0,0,0,.1)}
+  .page{padding:40px 0;justify-content:flex-start}
 }
-
-/* ── PHONE: clean premium look ── */
-@media(max-width:640px){
-  /* Kill the particle canvas — makes the page look cheap on small screens */
-  #bgCanvas{display:none}
-
-  /* Pure white body so sections with transparent bg look clean */
-  body{background:#fff}
-
-  /* Hero gets a soft gradient top to bottom instead of particles */
-  .hero{background:linear-gradient(160deg,rgba(67,97,238,0.06) 0%,#fff 55%);border-radius:0 0 32px 32px;padding:72px 0 32px}
-
-  /* NAV: no wrapping, hide Log in — one CTA only */
-  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px)}
-  .nlogo{white-space:nowrap;font-size:14px;gap:8px}
-  .nicon{width:28px;height:28px}
-  nav>div>.btn-out{display:none}
-  nav>div>.btn-p{font-size:13px;padding:9px 16px;border-radius:9px}
-
-  /* H1 — slightly tighter on smallest screens */
-  h1{font-size:34px;line-height:1.12}
-
-  /* Sub text */
-  .hero-sub{font-size:15px;line-height:1.6;margin-bottom:24px}
-
-  /* Primary CTA: full width, bold, prominent */
-  .hero-actions{gap:10px;margin-bottom:18px}
-  .hero-actions .btn-lg:first-child{
-    background:var(--grad);
-    color:#fff;
-    box-shadow:0 8px 32px rgba(67,97,238,0.35);
-    border:none;
-    font-size:16px;
-    padding:17px 24px;
-    border-radius:14px;
-    letter-spacing:-0.01em;
-  }
-  .hero-actions .btn-lg:last-child{
-    background:transparent;
-    border:1.5px solid rgba(67,97,238,0.25);
-    color:var(--blue);
-    font-size:15px;
-    padding:14px 24px;
-    border-radius:14px;
-  }
-
-  /* Trust row: wrap cleanly, centered */
-  .hero-trust{gap:10px 16px;justify-content:center}
-  .hero-trust-item{font-size:12px;color:var(--text2);font-weight:600}
-
-  /* Bot: contained and clean */
-  .bot-scene{max-width:260px;min-height:auto;padding-bottom:8px}
-  #byteBot{width:190px;filter:drop-shadow(0 20px 40px rgba(67,97,238,0.18)) drop-shadow(0 4px 12px rgba(76,201,240,0.12))}
-
-  /* Scan section */
-  .scan-section{background:#fff;border:1.5px solid rgba(67,97,238,0.12);box-shadow:0 8px 32px rgba(67,97,238,0.08)}
-  .scan-header h2{font-size:22px;font-weight:900}
-
-  /* How / Features / Pricing — white cards stand out on white bg */
-  .how{background:#fff}
-  .features{background:#fff}
-  .pricing{background:#fff}
-  .how-card,.feat-card,.pc{box-shadow:0 2px 16px rgba(67,97,238,0.07);border-color:rgba(67,97,238,0.1)}
-
-  /* Stats strip — keep the gradient, looks great */
-  .stats-strip{border-radius:20px;margin:0 12px}
-
-  /* Compare table — hide on mobile, too complex */
-  .compare{display:none}
-
-  /* Testi bg */
-  .testi{background:#F8F9FF;border-radius:24px;margin:0 12px}
-  .testi-cards{padding:0 4px}
-
-  /* Final CTA */
-  .final-cta{padding:40px 0}
-  .cta-inner{border-radius:24px;margin:0 4px}
-
-  /* Footer */
-  footer{border-radius:20px 20px 0 0}
-
-  /* Section eyebrow / title alignment */
-  .section-title{font-size:26px;letter-spacing:-0.03em}
-}
-
-/* ─── A57 REPORT SECTIONS ────────────────────────────────────────────── */
-.rpt-score-ring{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#fff;background:var(--grad);box-shadow:0 8px 28px rgba(67,97,238,0.35);letter-spacing:-0.04em;flex-shrink:0}
-.rpt-summary-banner{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
-.rpt-biz-name{font-size:19px;font-weight:900;color:var(--text);margin:0 0 4px;line-height:1.2}
-.rpt-biz-summary{font-size:14px;color:var(--text2);line-height:1.55;margin:0}
-.rpt-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.rpt-bd-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
-.rpt-bd-val{font-size:24px;font-weight:900;color:var(--blue);letter-spacing:-0.03em;line-height:1}
-.rpt-bd-max{font-size:13px;color:var(--muted);font-weight:600}
-.rpt-bd-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
-.rpt-section{margin-bottom:16px}
-.rpt-section-title{font-size:14px;font-weight:800;color:var(--text);margin:0 0 10px;display:flex;align-items:center;gap:7px}
-.rpt-issue{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;margin-bottom:6px;background:var(--bg);border-left:3px solid var(--border)}
-.rpt-issue.critical{background:#FEF2F2;border-color:#F87171}
-.rpt-issue.high{background:#FFF7ED;border-color:#FB923C}
-.rpt-issue.medium{background:#FFFBEB;border-color:#FBBF24}
-.rpt-issue-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.rpt-issue-text{font-size:13px;color:var(--text);font-weight:500;line-height:1.45}
-.rpt-quick-wins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.rpt-qw-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
-.rpt-qw-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.rpt-qw-title{font-size:13px;font-weight:800;color:var(--text)}
-.rpt-qw-chips{display:flex;gap:5px}
-.rpt-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.02em}
-.rpt-chip-impact-high{background:#D1FAE5;color:#059669}
-.rpt-chip-impact-medium{background:#FEF3C7;color:#B45309}
-.rpt-chip-effort-minutes{background:#E0F2FE;color:#0284C7}
-.rpt-chip-effort-hours{background:#F3E8FF;color:#7C3AED}
-.rpt-chip-effort-days{background:#FEE2E2;color:#DC2626}
-.rpt-qw-desc{font-size:12px;color:var(--text2);line-height:1.5}
-.rpt-kw-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
-.rpt-kw-table th{text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:0 10px 10px;border-bottom:1px solid var(--border)}
-.rpt-kw-table td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
-.rpt-kw-table tr:last-child td{border-bottom:none}
-.rpt-kw-kw{font-weight:700;color:var(--text)}
-.rpt-intent{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px}
-.rpt-intent-commercial{background:#EDE9FE;color:#5B21B6}
-.rpt-intent-informational{background:#E0F2FE;color:#0369A1}
-.rpt-intent-transactional{background:#D1FAE5;color:#065F46}
-.rpt-intent-navigational{background:#FEF9C3;color:#713F12}
-.rpt-strategic{background:linear-gradient(135deg,rgba(67,97,238,0.06),rgba(114,9,183,0.06));border:1.5px solid rgba(67,97,238,0.18);border-radius:14px;padding:18px 20px;margin-bottom:16px;position:relative}
-.rpt-strategic-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
-.rpt-strategic-text{font-size:14px;color:var(--text);line-height:1.65;font-style:italic}
-.rpt-traffic{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.rpt-traffic-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
-.rpt-traffic-val{font-size:18px;font-weight:900;color:var(--green);letter-spacing:-0.02em;margin-bottom:3px}
-.rpt-traffic-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.rpt-comp-card{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px}
-.rpt-comp-icon{width:32px;height:32px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.rpt-comp-domain{font-weight:700;font-size:13px;color:var(--text)}
-.rpt-comp-why{font-size:12px;color:var(--muted);margin-top:2px}
-.rpt-comp-strength{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;flex-shrink:0}
-.rpt-comp-high{background:#FEE2E2;color:#B91C1C}
-.rpt-comp-medium{background:#FEF3C7;color:#92400E}
-.rpt-comp-low{background:#D1FAE5;color:#065F46}
-.rpt-roadmap-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;margin-bottom:6px;background:var(--bg);border:1px solid var(--border)}
-.rpt-roadmap-intent{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;flex-shrink:0}
-.rpt-roadmap-title{font-size:13px;color:var(--text);font-weight:600;flex:1}
-.rpt-action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-.rpt-action-col{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
-/* Traffic gap section header */
-.rpt-gap-hdr{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
-.rpt-gap-hdr-icon{width:44px;height:44px;border-radius:10px;background:#e0f2fe;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.rpt-gap-hdr-ttl{font-size:17px;font-weight:800;color:#0f172a;line-height:1.3}
-.rpt-gap-hdr-sub{font-size:13px;color:#64748b;line-height:1.5;margin-top:3px}
-/* Traffic gap cards — two-toned */
-.rpt-gap-card{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,0.08),0 0 0 1px rgba(0,0,0,0.04)}
-.rpt-gap-problem{display:flex;align-items:center;padding:14px 16px;background:rgba(239,68,68,0.06);gap:12px}
-.rpt-gap-xcircle{width:36px;height:36px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-weight:900;font-size:16px;line-height:1}
-.rpt-gap-problem-body{flex:1;min-width:0}
-.rpt-gap-not-ranking{font-size:12px;color:#94a3b8;font-weight:500;display:block}
-.rpt-gap-keyword{font-size:14px;font-weight:800;color:#4f46e5;display:block;line-height:1.3;word-break:break-word}
-.rpt-gap-vol-badge{display:inline-block;margin-top:4px;font-size:11px;font-weight:600;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:100px}
-.rpt-gap-traffic{text-align:right;flex-shrink:0}
-.rpt-gap-traffic-num{font-size:22px;font-weight:900;color:#ef4444;line-height:1;white-space:nowrap}
-.rpt-gap-traffic-unit{font-size:11px;color:#ef4444;font-weight:500;white-space:nowrap}
-.rpt-gap-solution{display:flex;align-items:center;padding:12px 16px;background:rgba(99,102,241,0.06);gap:10px;border-top:1px solid rgba(0,0,0,0.04)}
-.rpt-gap-lightning{font-size:18px;flex-shrink:0}
-.rpt-gap-fix-body{flex:1;min-width:0}
-.rpt-gap-fix-label{font-size:12px;font-weight:800;color:#6366f1;display:block}
-.rpt-gap-fix-title{font-size:13px;font-weight:600;color:#1e293b;line-height:1.4;word-break:break-word;display:block}
-.rpt-gap-fix-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
-.rpt-gap-uplift{font-size:12px;font-weight:800;color:#059669;background:#d1fae5;padding:3px 9px;border-radius:100px;white-space:nowrap}
-.rpt-gap-arrow{font-size:18px;color:#cbd5e1;line-height:1}
-.rpt-action-period{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
-.rpt-action-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;color:var(--text);line-height:1.45}
-.rpt-action-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px}
-@media(max-width:600px){
-  .rpt-breakdown{grid-template-columns:repeat(3,1fr)}
-  .rpt-quick-wins{grid-template-columns:1fr}
-  .rpt-traffic{grid-template-columns:1fr}
-  .rpt-action-grid{grid-template-columns:1fr}
-  .rpt-summary-banner{flex-direction:column;text-align:center}
-  .rpt-leados-fix-row{grid-template-columns:1fr}
-  .rpt-leados-fix-problem{border-right:none;border-bottom:1px solid rgba(67,97,238,0.08)}
-}
-/* Auto Fix badges */
-.rpt-fix-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-left:auto}
-.rpt-fix-auto{background:#D1FAE5;color:#065F46}
-.rpt-fix-manual{background:#F3F4F6;color:#6B7280}
-
-/* Traffic boost banner */
-.rpt-boost-banner{background:linear-gradient(135deg,#0a0f2c,#1a1f4c);border-radius:16px;padding:24px 20px;text-align:center;margin-bottom:16px}
-.rpt-boost-arrow{font-size:28px;color:#06D6A0;font-weight:900;line-height:1;margin-bottom:4px}
-.rpt-boost-val{font-size:32px;font-weight:900;color:#06D6A0;letter-spacing:-0.03em;line-height:1.1;margin-bottom:4px}
-.rpt-boost-label{font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.rpt-boost-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
-
-/* Content idea rows */
-.rpt-idea-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
-.rpt-idea-row:last-child{border-bottom:none}
-.rpt-idea-title{font-size:14px;font-weight:600;color:var(--text);flex:1;line-height:1.4}
-.rpt-idea-traffic{font-size:13px;font-weight:800;color:#059669;white-space:nowrap;flex-shrink:0}
-
-/* Issues compact */
-.rpt-issues-compact{margin-bottom:4px}
-.rpt-issue-row{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-/* How LeadOS Fixes This */
-.rpt-leados-fix{margin-bottom:16px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(67,97,238,0.15);background:linear-gradient(135deg,rgba(67,97,238,0.04),rgba(114,9,183,0.04))}
-.rpt-leados-fix-hdr{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(67,97,238,0.12);font-size:12px;font-weight:800;color:#4361EE;text-transform:uppercase;letter-spacing:.07em}
-.rpt-leados-fix-thead{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(67,97,238,0.1);padding:8px 16px}
-.rpt-leados-fix-th{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
-.rpt-leados-fix-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(67,97,238,0.07)}
-.rpt-leados-fix-row:last-child{border-bottom:none}
-.rpt-leados-fix-problem{padding:11px 16px;font-size:12px;color:var(--text);font-weight:600;border-right:1px solid rgba(67,97,238,0.07)}
-.rpt-leados-fix-solution{padding:11px 16px;font-size:12px;color:#059669;font-weight:600}
-/* Post-activation timeline */
-.rpt-timeline{position:relative;padding-left:28px;margin:4px 0 8px}
-.rpt-timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#4361EE,#7209B7);border-radius:2px}
-.rpt-tl-item{position:relative;margin-bottom:14px}
-.rpt-tl-item:last-child{margin-bottom:0}
-.rpt-tl-dot{position:absolute;left:-28px;top:3px;width:12px;height:12px;border-radius:50%;border:2px solid #4361EE;background:#fff}
-.rpt-tl-when{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4361EE;margin-bottom:2px}
-.rpt-tl-what{font-size:13px;color:var(--text);font-weight:700;line-height:1.4}
-.rpt-tl-detail{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
 </style>
 </head>
 <body>
+<div class="page">
 
-
-<!-- ANIMATED BACKGROUND CANVAS -->
-<canvas id="bgCanvas"></canvas>
-
-<!-- NAV -->
-<nav>
-  <a href="https://myleados.ai" target="_top" class="nlogo">
-    <div class="nicon"><svg width="18" height="18" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lmark" x1="60" y1="60" x2="240" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00C8F0"/><stop offset="55%" stop-color="#2563EB"/><stop offset="100%" stop-color="#7C3AED"/></linearGradient></defs><rect x="75" y="60" width="52" height="210" rx="26" fill="white"/><rect x="75" y="218" width="175" height="52" rx="26" fill="white"/><circle cx="228" cy="82" r="22" fill="white"/><circle cx="228" cy="82" r="38" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="7"/></svg></div>
-    LeadOS Auto SEO
-  </a>
-  <ul class="nlinks">
-    <li><a href="#how">How it works</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#compare">Compare</a></li>
-    <li><a href="https://myleados.ai" target="_top" style="opacity:.65;font-size:12px">← LeadOS</a></li>
-  </ul>
-  <div style="display:flex;gap:10px">
-    <a href="https://app.myleados.ai/login" target="_top" class="btn btn-out">Log in</a>
-    <a href="#scan" class="btn btn-p" onclick="document.getElementById('scanUrl').focus();return false;">Start Free Scan ⚡</a>
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 1 — LANDING
+══════════════════════════════════════════════════════ -->
+<div id="s-landing" class="screen">
+  <div class="nav">
+    <span class="logo">Lead<span>OS</span></span>
   </div>
-</nav>
+  <div class="content" style="display:flex;flex-direction:column;justify-content:center;padding-top:44px">
+    <div class="pill-tag"><span>✦</span> AI-Powered SEO for Local Businesses</div>
+    <h1 style="margin-bottom:12px">Why isn't your website ranking?</h1>
+    <p style="margin-bottom:32px">Get a free AI analysis of your website and see what's holding you back on Google and AI search.</p>
 
-<!-- HERO -->
-<section class="container">
-  <div class="hero">
-    <div class="reveal-left in">
-      <div class="hero-badge">
-        <div class="hero-badge-dot">⚡</div>
-        #1 AI SEO Platform — Trusted by 2,000+ businesses
-      </div>
-      <h1>Rank <span class="gt">#1 on Google</span><br>& ChatGPT.<br>Zero Writing.<br>From $29<span style="font-size:.5em;color:var(--muted)">/mo</span></h1>
-      <p class="hero-sub">Your AI SEO teammate writes and publishes SEO articles for you <strong>every day</strong> — automatically. No agency. No writers. No guesswork. Ranks on Google AND ChatGPT.</p>
-      <div class="hero-actions">
-        <a href="#scan" class="btn btn-p btn-lg" onclick="document.getElementById('scanUrl').focus()">🔍 Free Site Scan — No Signup</a>
-        <a href="#pricing" class="btn btn-lg" style="background:#7209b7;color:#fff;border:none;box-shadow:0 8px 24px rgba(114,9,183,0.35)">🚀 Start Ranking Now</a>
-        <a href="#how" class="btn btn-out btn-lg">See how it works</a>
-      </div>
-      <div class="hero-trust">
-        <div class="hero-trust-item">🛡️ 14-day money back</div>
-        <div class="hero-trust-item">⚡ Live in 5 mins</div>
-        <div class="hero-trust-item">🤖 Publishes daily</div>
-        <div class="hero-trust-item">🌍 50+ languages</div>
+    <div class="field" style="margin-bottom:12px">
+      <div class="input-wrap">
+        <span class="input-icon">🌐</span>
+        <input type="url" id="url-input" placeholder="yourwebsite.com" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="url">
       </div>
     </div>
 
-    <!-- BOT SCENE -->
-    <div class="bot-scene reveal-right in">
-
-      <!-- floating badges -->
-      <div class="fbadge fb1">
-        <div class="fbadge-icon" style="background:#D1FAE5">📈</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600">Organic Traffic</div>+340% in 90 days</div>
-      </div>
-      <div class="fbadge fb2">
-        <div class="fbadge-icon" style="background:#EDE9FE">🏆</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600">Ranking</div>#1 — Page 1</div>
-      </div>
-      <div class="fbadge fb3">
-        <div class="fbadge-icon" style="background:#FEF3C7">✍️</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600">Articles Written</div>200k+ Published</div>
-      </div>
-      <div class="fbadge fb4">
-        <div class="fbadge-icon" style="background:#DBEAFE">⏱️</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600">Setup Time</div>5 Minutes</div>
-      </div>
-
-      <div class="bot-wrap">
-        <div class="bot-glow"></div>
-        <div class="bot-float">
-                    <img id="byteBot" src="/auto-seo-bot.png" loading="lazy" alt="Byte AI SEO Bot" style="width:380px;height:auto;display:block"/>
-        </div>
-      </div>
-    </div>
+    <button class="btn btn-primary" id="scan-btn" onclick="startScan()">Scan My Website Free →</button>
+    <div class="error-text" id="scan-err"></div>
   </div>
-</section>
 
-<!-- SCAN SECTION -->
-<section id="scan" class="container">
-  <div id="scan" class="scan-section reveal">
-    <div class="scan-header">
-      <div class="section-eyebrow">🔍 Free Site Scan</div>
-      <h2>See <span class="gt">exactly</span> what's holding your site back</h2>
-      <p>No login needed. Get your SEO score, top keyword opportunities and a priority fix list in 30 seconds.</p>
-      <div id="scanCounterBadge" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:linear-gradient(135deg,rgba(67,97,238,0.08),rgba(114,57,234,0.08));border:1px solid rgba(67,97,238,0.18);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:600;color:#4361ee;">
-        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;flex-shrink:0;animation:pulse 2s infinite;"></span>
-        <span id="scanCounterNum" style="font-size:15px;font-weight:800;color:#4361ee;">—</span>
-        <span style="color:#666;">websites scanned</span>
-      </div>
-    </div>
-
-    <div class="scan-input-row">
-      <span style="font-size:20px;margin-right:4px">🌐</span>
-      <input id="scanUrl" type="text" placeholder="https://yourbusiness.com" autocomplete="off"/>
-      <button id="scanBtn" onclick="startScan()">Scan My Site →</button>
-    </div>
-
-    <div id="scanProgress">
-      <!-- Live signal header -->
-      <div class="scan-live-hdr">
-        <div class="scan-pulse-wrap"><div class="scan-pulse-ring"></div><div class="scan-pulse-core"></div></div>
-        <div class="scan-blink-dot"></div>
-        <span class="scan-live-label">LeadOS Scanning</span>
-        <span class="scan-live-url" id="scanLiveUrl"></span>
-      </div>
-      <!-- Dynamic status card -->
-      <div class="scan-card">
-        <div class="scan-card-icon" id="scanCardIcon">🌐</div>
-        <div class="scan-card-msg" id="scanCardMsg">Connecting to your website…</div>
-        <div class="scan-card-sub" id="scanCardSub">Fetching your homepage and reading page structure</div>
-      </div>
-      <!-- Progress bar -->
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progressFill"></div>
-      </div>
-      <!-- Step pills -->
-      <div class="scan-steps">
-        <div class="scan-step" id="step1"><span class="scan-step-icon">🌐</span> Crawling</div>
-        <div class="scan-step" id="step2"><span class="scan-step-icon">🔑</span> Keywords</div>
-        <div class="scan-step" id="step3"><span class="scan-step-icon">⚔️</span> Competitors</div>
-        <div class="scan-step" id="step4"><span class="scan-step-icon">⚡</span> Speed</div>
-        <div class="scan-step" id="step5"><span class="scan-step-icon">🤖</span> AI Report</div>
-      </div>
-    </div>
-
-    <div id="scanResults">
-      <!-- 11-section report — built dynamically by showRealResults() -->
-      <div id="rpt" style="margin-bottom:24px"></div>
-
-      <!-- POST-SCAN PRICING PICKER -->
-      <div id="scan-pricing" style="margin-top:28px;background:linear-gradient(135deg,#0a0f2c 0%,#1a1060 100%);border-radius:20px;padding:32px 28px;color:#fff">
-        <div style="text-align:center;margin-bottom:8px">
-          <span style="background:rgba(99,179,237,0.15);color:#90cdf4;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px">Fix My SEO</span>
-        </div>
-        <h3 id="scan-pricing-headline" style="text-align:center;font-size:22px;font-weight:900;margin:10px 0 4px;color:#fff">Your site can rank #1 for <span id="kwCount">8</span> keywords</h3>
-        <p style="text-align:center;color:#94a3b8;font-size:14px;margin:0 0 24px">Pick a plan. Our AI starts writing &amp; publishing articles for you today.</p>
-
-        <!-- Billing toggle -->
-        <div style="display:flex;justify-content:center;margin-bottom:20px">
-          <div style="background:rgba(255,255,255,0.08);border-radius:100px;padding:4px;display:flex;gap:2px">
-            <button id="scanTabM" onclick="setScanPlan('monthly')" style="background:#fff;color:#0a0f2c;border:none;border-radius:100px;padding:7px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s">Monthly</button>
-            <button id="scanTabA" onclick="setScanPlan('annual')" style="background:transparent;color:#94a3b8;border:none;border-radius:100px;padding:7px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s">Annual <span style="background:#22c55e;color:#fff;font-size:10px;padding:2px 6px;border-radius:100px;margin-left:4px">Save 20%</span></button>
-          </div>
-        </div>
-
-        <!-- 3 plan cards -->
-        <div id="scan-plan-cards" style="display:flex;gap:12px;padding-bottom:8px;padding-top:16px">
-
-          <!-- Starter -->
-          <div onclick="selectScanPlan('starter',this)" id="scan-plan-starter" style="min-width:220px;flex:1;flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
-            <div style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#64748b;margin-bottom:12px">Starter</div>
-            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
-              <span style="font-size:38px;font-weight:900;color:#e2e8f0;line-height:1;letter-spacing:-2px" id="scanP-starter">$29</span>
-              <span style="font-size:13px;color:#64748b;font-weight:500;padding-bottom:6px">/mo</span>
-            </div>
-            <div style="font-size:11px;color:#475569;min-height:16px;margin-bottom:18px" id="scanB-starter"></div>
-            <div style="height:1px;background:rgba(255,255,255,0.07);margin-bottom:18px"></div>
-            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
-              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>15 AI articles / month</li>
-              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>5 backlinks / month</li>
-              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
-              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
-              <li style="font-size:13px;color:#94a3b8;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Keyword research</li>
-            </ul>
-          </div>
-
-          <!-- Growth (highlighted) -->
-          <div onclick="selectScanPlan('growth',this)" id="scan-plan-growth" style="min-width:220px;flex:1.15;flex-shrink:0;scroll-snap-align:start;background:linear-gradient(145deg,#3730a3 0%,#6d28d9 100%);border:2px solid rgba(167,139,250,0.7);border-radius:20px;padding:32px 20px 24px;cursor:pointer;transition:all .2s;position:relative;box-shadow:0 0 60px rgba(99,102,241,0.45),0 20px 40px rgba(67,97,238,0.25)">
-            <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#f59e0b,#f97316);color:#000;font-size:10px;font-weight:900;padding:5px 16px;border-radius:100px;white-space:nowrap;letter-spacing:.05em;z-index:10;box-shadow:0 4px 12px rgba(245,158,11,0.5)">⭐ MOST POPULAR</div>
-            <div style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#a5b4fc;margin-bottom:12px">Growth</div>
-            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
-              <span style="font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px" id="scanP-growth">$49</span>
-              <span style="font-size:13px;color:#c4b5fd;font-weight:500;padding-bottom:8px">/mo</span>
-            </div>
-            <div style="font-size:11px;color:#8b5cf6;min-height:16px;margin-bottom:18px" id="scanB-growth"></div>
-            <div style="height:1px;background:rgba(167,139,250,0.25);margin-bottom:18px"></div>
-            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
-              <li style="font-size:13px;color:#ddd6fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>30 AI articles / month</li>
-              <li style="font-size:13px;color:#ddd6fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>10 backlinks / month</li>
-              <li style="font-size:13px;color:#ddd6fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
-              <li style="font-size:13px;color:#ddd6fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
-              <li style="font-size:13px;color:#ddd6fe;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Priority support</li>
-            </ul>
-          </div>
-
-          <!-- Scale -->
-          <div onclick="selectScanPlan('scale',this)" id="scan-plan-scale" style="min-width:220px;flex:1;flex-shrink:0;scroll-snap-align:start;background:linear-gradient(145deg,rgba(15,23,42,0.95),rgba(30,27,75,0.95));border:1.5px solid rgba(148,163,184,0.2);border-radius:20px;padding:24px 20px;cursor:pointer;transition:all .2s;position:relative">
-            <div style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;margin-bottom:12px">Scale</div>
-            <div style="display:flex;align-items:flex-end;gap:2px;margin-bottom:2px">
-              <span style="font-size:38px;font-weight:900;color:#f1f5f9;line-height:1;letter-spacing:-2px" id="scanP-scale">$79</span>
-              <span style="font-size:13px;color:#64748b;font-weight:500;padding-bottom:6px">/mo</span>
-            </div>
-            <div style="font-size:11px;color:#334155;min-height:16px;margin-bottom:18px" id="scanB-scale"></div>
-            <div style="height:1px;background:rgba(148,163,184,0.12);margin-bottom:18px"></div>
-            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
-              <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>45 AI articles / month</li>
-              <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>13 backlinks / month</li>
-              <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>1 website</li>
-              <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Auto-publish daily</li>
-              <li style="font-size:13px;color:#cbd5e1;display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#4ade80">✓</span>Dedicated manager</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Swipe dots (shown on mobile) -->
-        <div class="scan-card-dots" id="scan-card-dots">
-          <div class="scan-card-dot active" id="dot-0"></div>
-          <div class="scan-card-dot" id="dot-1"></div>
-          <div class="scan-card-dot" id="dot-2"></div>
-        </div>
-
-        <!-- Main CTA -->
-        <div style="margin-top:20px">
-          <button id="scanCtaBtn" onclick="launchScanCheckout()" style="width:100%;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:14px;padding:18px;font-size:17px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:-0.3px;display:block">
-            Fix My SEO — Get Started →
-          </button>
-          <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.35);margin:10px 0 0">14-day money-back guarantee · No long-term contract</p>
-        </div>
-      </div>
-    </div>
+  <div class="trust-row">
+    <div class="trust-item">✓&nbsp;No signup required</div>
+    <div class="trust-item">⚡&nbsp;~30 seconds</div>
+    <div class="trust-item">📊&nbsp;Instant results</div>
   </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how" class="how">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">How it works</div>
-      <div class="section-title">SEO on <span class="gt">autopilot</span> in 3 steps</div>
-      <p class="section-sub" style="margin:0 auto">Connect your site once. Our AI writes, optimises and publishes fresh SEO articles to your website every single day — automatically, forever.</p>
-    </div>
-    <div class="how-cards">
-      <div class="how-card reveal" style="transition-delay:.1s">
-        <div class="how-num">Step 01</div>
-        <div class="how-icon">🔍</div>
-        <h3>Scan & Discover</h3>
-        <p>Paste your URL. Our AI scans your site, finds your best keyword opportunities and maps your competitors' content gaps.</p>
-      </div>
-      <div class="how-card reveal" style="transition-delay:.2s">
-        <div class="how-num">Step 02</div>
-        <div class="how-icon">✍️</div>
-        <h3>AI Writes & Publishes</h3>
-        <p>Every single day, our AI writes SEO-optimised articles in your brand voice and publishes them directly to your website — zero effort from you.</p>
-      </div>
-      <div class="how-card reveal" style="transition-delay:.3s">
-        <div class="how-num">Step 03</div>
-        <div class="how-icon">🏆</div>
-        <h3>Rankings Climb</h3>
-        <p>Watch your position rise on Google. Track every keyword, article and traffic gain from your simple dashboard. Nothing to manage.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ANIMATED STATS -->
-<div class="stats-strip reveal">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-num" data-target="2000" id="stat1">0</div>
-        <div class="stat-label">Businesses Ranking</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-target="200" id="stat2">0</div>
-        <div class="stat-label">K+ Articles Published</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-target="340" id="stat3">0</div>
-        <div class="stat-label">% Avg Traffic Increase</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" data-target="29" id="stat4">0</div>
-        <div class="stat-label">$/mo Starting Price</div>
-      </div>
-    </div>
+  <div style="text-align:center;font-size:11px;color:#94a3b8;font-weight:500;padding:8px 20px 4px;letter-spacing:.3px">TRUSTED BY CLINICS, SALONS &amp; LOCAL BUSINESSES</div>
+  <div class="trust-logos">
+    <span class="trust-logo">Google</span><div class="divider"></div>
+    <span class="trust-logo">OpenAI</span><div class="divider"></div>
+    <span class="trust-logo">Meta</span>
   </div>
 </div>
 
-<!-- CMS INTEGRATIONS -->
-<section style="padding:72px 0;background:var(--white);position:relative;z-index:1">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:40px" class="reveal">
-      <div class="section-eyebrow">Works with your website</div>
-      <div class="section-title" style="font-size:clamp(24px,2.8vw,38px)">Publishes directly to your site — <span class="gt">automatically</span></div>
-      <p style="color:var(--text2);font-size:16px;margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto">Connect once. Our AI publishes fresh SEO articles to your website every day, without you touching anything.</p>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 2 — SCANNING
+══════════════════════════════════════════════════════ -->
+<div id="s-scanning" class="screen" hidden>
+  <div class="nav">
+    <span class="logo">Lead<span>OS</span></span>
+  </div>
+  <div class="content" style="display:flex;flex-direction:column;align-items:center;padding-top:36px;text-align:center">
+    <h2 style="margin-bottom:4px">Analyzing your website…</h2>
+    <p style="font-size:13px;margin-bottom:0">This only takes a few seconds</p>
+
+    <div class="scan-ring">
+      <svg viewBox="0 0 120 120">
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4f46e5"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="60" cy="60" r="56"/>
+        <circle id="ring-fill" class="ring-fill" cx="60" cy="60" r="56"/>
+      </svg>
+      <div class="ring-num">
+        <div class="ring-pct" id="ring-pct">0%</div>
+      </div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px" class="reveal">
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/wordpress/21759B" width="22" height="22" alt="WordPress" onerror="this.style.display='none'">WordPress</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/shopify/96BF48" width="22" height="22" alt="Shopify" onerror="this.style.display='none'">Shopify</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/webflow/4353FF" width="22" height="22" alt="Webflow" onerror="this.style.display='none'">Webflow</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/wix/0C6EFC" width="22" height="22" alt="Wix" onerror="this.style.display='none'">Wix</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/hubspot/FF7A59" width="22" height="22" alt="HubSpot" onerror="this.style.display='none'">HubSpot</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)"><img src="https://cdn.simpleicons.org/ghost/15171A" width="22" height="22" alt="Ghost" onerror="this.style.display='none'">Ghost</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--text)">⚡ Next.js</div>
-      <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;color:var(--muted)">+ Any platform via webhook</div>
+
+    <div class="scan-steps">
+      <div class="sstep" id="ss0"><div class="sstep-icon" id="si0">○</div>Checking website structure</div>
+      <div class="sstep" id="ss1"><div class="sstep-icon" id="si1">○</div>Analyzing search visibility</div>
+      <div class="sstep" id="ss2"><div class="sstep-icon" id="si2">○</div>Finding keyword opportunities</div>
+      <div class="sstep" id="ss3"><div class="sstep-icon" id="si3">○</div>Checking technical SEO</div>
+      <div class="sstep" id="ss4"><div class="sstep-icon" id="si4">○</div>Preparing your report</div>
     </div>
   </div>
-</section>
-
-<!-- REAL RESULTS -->
-<section style="padding:100px 0;background:var(--bg);position:relative;z-index:1">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:56px" class="reveal">
-      <div class="section-eyebrow">Real results</div>
-      <div class="section-title">Businesses ranking higher <span class="gt">every day</span></div>
-      <p style="color:var(--text2);font-size:16px;margin-top:10px">These are real traffic results from businesses using LeadOS Auto SEO.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px" class="reveal">
-      <!-- Result card 1 -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-          <div>
-            <div style="font-weight:800;font-size:15px;color:var(--text)">Real Estate Agency</div>
-            <div style="font-size:12px;color:var(--muted)">Dubai, UAE</div>
-          </div>
-          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:#059669">+340%</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--blue)">47</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--purple)">#1</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
-          </div>
-        </div>
-        <!-- mini chart -->
-        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
-          <defs><linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4361EE" stop-opacity=".2"/><stop offset="100%" stop-color="#4361EE" stop-opacity="0"/></linearGradient></defs>
-          <path d="M0,52 L30,48 L60,44 L90,38 L120,30 L150,20 L180,12 L210,6 L240,2" fill="none" stroke="#4361EE" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M0,52 L30,48 L60,44 L90,38 L120,30 L150,20 L180,12 L210,6 L240,2 L240,60 L0,60Z" fill="url(#cg1)"/>
-          <circle cx="240" cy="2" r="4" fill="#4361EE"/>
-        </svg>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
-      </div>
-      <!-- Result card 2 -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-          <div>
-            <div style="font-weight:800;font-size:15px;color:var(--text)">HVAC Business</div>
-            <div style="font-size:12px;color:var(--muted)">Sydney, Australia</div>
-          </div>
-          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:#059669">+215%</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--blue)">120</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--purple)">#2</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
-          </div>
-        </div>
-        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
-          <defs><linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06D6A0" stop-opacity=".2"/><stop offset="100%" stop-color="#06D6A0" stop-opacity="0"/></linearGradient></defs>
-          <path d="M0,55 L30,50 L60,46 L90,40 L120,32 L150,22 L180,14 L210,8 L240,3" fill="none" stroke="#06D6A0" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M0,55 L30,50 L60,46 L90,40 L120,32 L150,22 L180,14 L210,8 L240,3 L240,60 L0,60Z" fill="url(#cg2)"/>
-          <circle cx="240" cy="3" r="4" fill="#06D6A0"/>
-        </svg>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
-      </div>
-      <!-- Result card 3 -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-          <div>
-            <div style="font-weight:800;font-size:15px;color:var(--text)">Dental Clinic</div>
-            <div style="font-size:12px;color:var(--muted)">London, UK</div>
-          </div>
-          <div style="background:#D1FAE5;color:#059669;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px">Active</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;text-align:center">
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:#059669">+350%</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Traffic</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--blue)">89</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Keywords</div>
-          </div>
-          <div style="background:var(--bg);border-radius:12px;padding:12px 8px">
-            <div style="font-size:20px;font-weight:900;color:var(--purple)">#1</div>
-            <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">Top Rank</div>
-          </div>
-        </div>
-        <svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
-          <defs><linearGradient id="cg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7209B7" stop-opacity=".2"/><stop offset="100%" stop-color="#7209B7" stop-opacity="0"/></linearGradient></defs>
-          <path d="M0,54 L30,49 L60,43 L90,35 L120,26 L150,18 L180,10 L210,5 L240,1" fill="none" stroke="#7209B7" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M0,54 L30,49 L60,43 L90,35 L120,26 L150,18 L180,10 L210,5 L240,1 L240,60 L0,60Z" fill="url(#cg3)"/>
-          <circle cx="240" cy="1" r="4" fill="#7209B7"/>
-        </svg>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Last 90 days</div>
-      </div>
-    </div>
+  <div class="trust-row" style="border-top:none">
+    <span style="font-size:12px;color:#94a3b8;text-align:center">Our AI checks 50+ ranking factors to find what's holding you back.</span>
   </div>
-</section>
+</div>
 
-<!-- FEATURES -->
-<section id="features" class="features">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">Features</div>
-      <div class="section-title">Everything your SEO needs, <span class="gt">done for you</span></div>
-    </div>
-    <div class="features-grid">
-      <div class="feat-card reveal" style="transition-delay:.1s">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(67,97,238,.1)">🤖</div>
-          <span class="feat-tag">AI-Powered</span>
-        </div>
-        <h3>Automated Article Writing</h3>
-        <p>Our AI writes expert-level, long-form articles in your brand voice every day. No briefs, no editing, no writers needed.</p>
-        <div class="article-preview">
-          <div class="article-preview-title">🖊️ Writing: "10 Best Real Estate Tips in Dubai 2025"<span class="type-cursor"></span></div>
-          <div class="article-preview-lines">
-            <div class="apl" style="background:rgba(67,97,238,.15)"></div>
-            <div class="apl" style="background:rgba(67,97,238,.1)"></div>
-            <div class="apl" style="background:rgba(67,97,238,.12)"></div>
-            <div class="apl" style="width:60%;background:rgba(67,97,238,.08)"></div>
-          </div>
-        </div>
-      </div>
-      <div class="feat-card reveal" style="transition-delay:.15s">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(6,214,160,.1)">🔑</div>
-          <span class="feat-tag">Smart Discovery</span>
-        </div>
-        <h3>Keyword Intelligence</h3>
-        <p>Find the exact keywords your customers are searching. Filter by difficulty, volume and intent to target what converts.</p>
-        <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px">
-            <span style="flex:1;color:var(--text)">real estate agent dubai</span>
-            <div style="width:80px;height:6px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:85%;height:100%;background:#06D6A0;border-radius:100px"></div></div>
-            <span style="color:#06D6A0;font-weight:700">8.2K</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px">
-            <span style="flex:1;color:var(--text)">buy apartment dubai marina</span>
-            <div style="width:80px;height:6px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:65%;height:100%;background:#4361EE;border-radius:100px"></div></div>
-            <span style="color:#4361EE;font-weight:700">5.4K</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px">
-            <span style="flex:1;color:var(--text)">off plan properties 2025</span>
-            <div style="width:80px;height:6px;background:var(--border);border-radius:100px;overflow:hidden"><div style="width:45%;height:100%;background:#7209B7;border-radius:100px"></div></div>
-            <span style="color:#7209B7;font-weight:700">3.1K</span>
-          </div>
-        </div>
-      </div>
-      <div class="feat-card reveal" style="transition-delay:.2s">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(114,9,183,.1)">🔗</div>
-          <span class="feat-tag">Authority Building</span>
-        </div>
-        <h3>Backlink Engine</h3>
-        <p>Auto-submit to high-DA directories and queue one-click submissions to 50+ authority sites — building your domain authority while you sleep.</p>
-      </div>
-      <div class="feat-card reveal" style="transition-delay:.25s">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(76,201,240,.1)">📊</div>
-          <span class="feat-tag">Real-time Tracking</span>
-        </div>
-        <h3>Live Ranking Dashboard</h3>
-        <p>See every keyword position, article performance and traffic trend in one clean dashboard. Updated daily, always current.</p>
-      </div>
-      <div class="feat-card reveal feat-card-big" style="transition-delay:.3s;background:linear-gradient(135deg,rgba(67,97,238,0.04),rgba(114,9,183,0.04))">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(67,97,238,.1)">🤖</div>
-          <span class="feat-tag">New — ChatGPT Ranking</span>
-        </div>
-        <h3>Rank on Google <em>and</em> ChatGPT</h3>
-        <p>Millions of people now search on ChatGPT instead of Google. Our AI-optimised articles are structured to appear in ChatGPT answers and AI overviews — so your business gets found no matter where your customers search.</p>
-        <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">🔍 Google Search ✓</div>
-          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">🤖 ChatGPT Answers ✓</div>
-          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;color:var(--text)">✨ Google AI Overview ✓</div>
-        </div>
-      </div>
-      <div class="feat-card reveal" style="transition-delay:.35s">
-        <div class="feat-icon-row">
-          <div class="feat-icon" style="background:rgba(6,214,160,.1)">🌍</div>
-          <span class="feat-tag">Global</span>
-        </div>
-        <h3>50+ Languages</h3>
-        <p>Reach customers in any country. Our AI writes and publishes SEO content in 50+ languages — so you can rank locally or globally without extra cost.</p>
-        <div style="overflow:hidden;margin-top:18px;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%)">
-          <div style="display:flex;gap:8px;width:max-content;animation:lang-scroll 28s linear infinite">
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇺🇸 English</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇦🇪 Arabic</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇪🇸 Spanish</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇫🇷 French</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇩🇪 German</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇯🇵 Japanese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇨🇳 Chinese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇧🇷 Portuguese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇹 Italian</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇰🇷 Korean</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇳🇱 Dutch</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇸🇦 Urdu</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇹🇷 Turkish</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇳 Hindi</span>
-            <!-- duplicate set for seamless loop -->
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇺🇸 English</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇦🇪 Arabic</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇪🇸 Spanish</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇫🇷 French</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇩🇪 German</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇯🇵 Japanese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇨🇳 Chinese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇧🇷 Portuguese</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇹 Italian</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇰🇷 Korean</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇳🇱 Dutch</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇸🇦 Urdu</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇹🇷 Turkish</span>
-            <span style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap">🇮🇳 Hindi</span>
-          </div>
-        </div>
-      </div>
-    </div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 3 — SCAN RESULT
+══════════════════════════════════════════════════════ -->
+<div id="s-result" class="screen" hidden>
+  <div class="nav">
+    <span class="logo">Lead<span>OS</span></span>
+    <button class="nav-btn" onclick="newScan()">New Scan</button>
   </div>
-</section>
-
-<!-- COMPARE TABLE -->
-<section id="compare" class="compare">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">The smarter choice</div>
-      <div class="section-title">Why businesses choose <span class="gt">LeadOS</span></div>
+  <div class="content">
+    <div class="site-hdr">
+      <div class="site-fav" id="site-fav">🌐</div>
+      <div>
+        <div class="site-domain" id="site-domain">example.com</div>
+        <div class="site-meta" id="site-meta">Scanned just now</div>
+      </div>
     </div>
-    <table class="compare-table reveal">
-      <thead>
-        <tr>
-          <th>What you get</th>
-          <th class="col-leados">⚡ LeadOS Auto SEO</th>
-          <th>Traditional Agency</th>
-          <th>DIY / In-house</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Monthly cost</td>
-          <td class="col-leados">From $29/mo</td>
-          <td>$2,000–$8,000/mo</td>
-          <td>$500–$2,000/mo (tools + time)</td>
-        </tr>
-        <tr>
-          <td>Daily AI articles</td>
-          <td class="col-leados"><span class="chk">✓</span> Auto-published daily</td>
-          <td>Possible (+ extra $$$)</td>
-          <td><span class="cross">✗</span> Manual effort</td>
-        </tr>
-        <tr>
-          <td>Ranks on ChatGPT</td>
-          <td class="col-leados"><span class="chk">✓</span> Yes</td>
-          <td><span class="cross">✗</span> No</td>
-          <td><span class="cross">✗</span> No</td>
-        </tr>
-        <tr>
-          <td>Keyword research</td>
-          <td class="col-leados"><span class="chk">✓</span> Automatic</td>
-          <td><span class="chk">✓</span> Manual</td>
-          <td>Paid tools needed</td>
-        </tr>
-        <tr>
-          <td>Backlink building</td>
-          <td class="col-leados"><span class="chk">✓</span> Semi-auto</td>
-          <td>Limited</td>
-          <td><span class="cross">✗</span> Very hard</td>
-        </tr>
-        <tr>
-          <td>Setup time</td>
-          <td class="col-leados">5 minutes</td>
-          <td>2–4 weeks</td>
-          <td>Months of learning</td>
-        </tr>
-        <tr>
-          <td>Contract required</td>
-          <td class="col-leados"><span class="chk">✓</span> Month-to-month</td>
-          <td>6–12 month lock-in</td>
-          <td>N/A</td>
-        </tr>
-        <tr>
-          <td>14-day money back</td>
-          <td class="col-leados"><span class="chk">✓</span> Guaranteed</td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div style="text-align:center;font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px">Your SEO Score</div>
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 188 108" overflow="visible">
+        <path d="M 10 94 A 84 84 0 0 1 178 94" fill="none" stroke="#e2e8f0" stroke-width="13" stroke-linecap="round"/>
+        <path id="gauge-arc" d="M 10 94 A 84 84 0 0 1 178 94" fill="none" stroke="#ef4444" stroke-width="13" stroke-linecap="round"
+              stroke-dasharray="264" stroke-dashoffset="264" style="transition:stroke-dashoffset 1.1s ease,stroke 1.1s ease"/>
+      </svg>
+      <div class="gauge-num">
+        <div class="score-val" id="score-num">0</div>
+        <div class="score-denom">/ 100</div>
+      </div>
+    </div>
+
+    <div class="score-banner" id="score-banner">
+      <span id="score-banner-icon">⚠️</span>
+      <span id="score-banner-text">Your website is not ranking as well as it could in search results.</span>
+    </div>
+
+    <div style="font-size:21px;font-weight:800;letter-spacing:-.4px;line-height:1.3;margin-bottom:8px">
+      We found <span id="opp-count" style="color:#ef4444">0</span> opportunities to improve your rankings.
+    </div>
+    <p style="font-size:13px;margin-bottom:16px" id="result-summary">Your website is missing important keywords and has technical issues.</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-icon">⚠️</div>
+        <div class="metric-n" id="m-critical">0</div>
+        <div class="metric-l">Critical Issues</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">🔍</div>
+        <div class="metric-n" id="m-keywords">0</div>
+        <div class="metric-l">Missed Search Opportunities</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">👥</div>
+        <div class="metric-n" id="m-competitors">0</div>
+        <div class="metric-l">Competitors Ahead</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="show('s-issues')">See What's Holding You Back →</button>
   </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing" class="pricing">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">Pricing</div>
-      <div class="section-title">Simple, transparent <span class="gt">pricing</span></div>
-      <p style="color:var(--text2);font-size:16px;margin-top:10px">1 free article after signup. 14-day money-back guarantee.</p>
-      <div style="margin-top:20px">
-        <div class="pricing-toggle">
-          <button class="ptab active" id="tabM" onclick="setPlan('monthly')">Monthly</button>
-          <button class="ptab" id="tabA" onclick="setPlan('annual')">Annual <span class="save-pill">Save 20%</span></button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pricing-cards">
-      <!-- STARTER -->
-      <div class="pc reveal" style="transition-delay:.1s">
-        <div class="pc-name">Starter</div>
-        <div class="pc-price"><span class="pc-price-num" id="p1">$29</span><span class="pc-price-per">/mo</span></div>
-        <div class="pc-billed" id="p1b"></div>
-        <div class="pc-desc">Perfect for small businesses ready to start ranking on Google.</div>
-        <ul class="pc-features">
-          <li>15 AI articles per month</li>
-          <li>5 backlinks per month</li>
-          <li>1 website</li>
-          <li>Auto-publish daily</li>
-          <li>Keyword research</li>
-          <li>Email support</li>
-        </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('starter')">Get Started — $29/mo →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">14-day money-back guarantee · cancel anytime</p>
-      </div>
-
-      <!-- GROWTH -->
-      <div class="pc popular reveal" style="transition-delay:.2s">
-        <div class="popular-badge">⭐ Most Popular</div>
-        <div class="pc-name">Growth</div>
-        <div class="pc-price"><span class="pc-price-num" id="p2">$49</span><span class="pc-price-per">/mo</span></div>
-        <div class="pc-billed" id="p2b"></div>
-        <div class="pc-desc">For growing businesses that want to dominate their local market.</div>
-        <ul class="pc-features">
-          <li>30 AI articles per month</li>
-          <li>10 backlinks per month</li>
-          <li>1 website</li>
-          <li>Auto-publish daily</li>
-          <li>Competitor gap analysis</li>
-          <li>Priority support</li>
-        </ul>
-        <button class="pc-btn pc-btn-p" onclick="goCheckout('growth')">Get Started — $49/mo →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">14-day money-back guarantee · cancel anytime</p>
-      </div>
-
-      <!-- SCALE -->
-      <div class="pc reveal" style="transition-delay:.3s">
-        <div class="pc-name">Scale</div>
-        <div class="pc-price"><span class="pc-price-num" id="p3">$79</span><span class="pc-price-per">/mo</span></div>
-        <div class="pc-billed" id="p3b"></div>
-        <div class="pc-desc">For agencies and high-growth businesses that need maximum output.</div>
-        <ul class="pc-features">
-          <li>45 AI articles per month</li>
-          <li>13 backlinks per month</li>
-          <li>1 website</li>
-          <li>Auto-publish daily</li>
-          <li>White-label reports</li>
-          <li>Dedicated account manager</li>
-        </ul>
-        <button class="pc-btn pc-btn-o" onclick="goCheckout('scale')">Get Started — $79/mo →</button>
-        <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:10px">14-day money-back guarantee · cancel anytime</p>
-      </div>
-    </div>
-
-    <div class="guarantee reveal">🛡️ All plans include a 14-day money-back guarantee. No questions asked.</div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testi">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-eyebrow">Proof it works</div>
-      <div class="section-title">Real results from <span class="gt">real businesses</span></div>
-    </div>
-    <div class="testi-cards">
-      <div class="tcard reveal" style="transition-delay:.1s">
-        <div class="stars">★★★★★</div>
-        <p class="tcard-text">"We went from page 5 to page 1 in under 60 days. The AI writes better than our previous copywriter — at a fraction of the cost. Game changer."</p>
-        <div class="tcard-author">
-          <div class="avatar" style="background:var(--grad)">S</div>
-          <div><div class="tcard-name">Sarah K.</div><div class="tcard-role">Real Estate Agency, Dubai</div></div>
-        </div>
-      </div>
-      <div class="tcard reveal" style="transition-delay:.2s">
-        <div class="stars">★★★★★</div>
-        <p class="tcard-text">"Traffic up 340% in 3 months. We're now ranking for 47 keywords we were invisible for before. The ROI is insane — we spend $49 and make thousands."</p>
-        <div class="tcard-author">
-          <div class="avatar" style="background:linear-gradient(135deg,#06D6A0,#4CC9F0)">M</div>
-          <div><div class="tcard-name">Marcus T.</div><div class="tcard-role">HVAC Business, Sydney</div></div>
-        </div>
-      </div>
-      <div class="tcard reveal" style="transition-delay:.3s">
-        <div class="stars">★★★★★</div>
-        <p class="tcard-text">"I was spending $3,000/mo on an agency that barely moved the needle. LeadOS does more in a month than they did in a year. Should have switched sooner."</p>
-        <div class="tcard-author">
-          <div class="avatar" style="background:linear-gradient(135deg,#7209B7,#4361EE)">P</div>
-          <div><div class="tcard-name">Priya N.</div><div class="tcard-role">Dental Clinic, London</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="container">
-    <div class="cta-inner reveal">
-      <h2>Ready to rank #1 on Google?</h2>
-      <p>Scan your site free right now. No login, no credit card. See your opportunities in 30 seconds.</p>
-      <div class="cta-actions">
-        <a href="#scan" class="btn btn-white btn-lg">🔍 Free Site Scan</a>
-        <a href="#pricing" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3)">View Pricing</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-logo">LeadOS Auto SEO</div>
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Contact</a>
-      <a href="#">Blog</a>
-    </div>
-    <div style="font-size:13px">© 2025 LeadOS. All rights reserved. · From $29/mo · 14-day money back · No contracts</div>
-  </div>
-</footer>
-
-<!-- FLOAT CTA -->
-<div id="floatCta">
-  <a href="#scan" class="btn btn-p" style="box-shadow:0 8px 28px rgba(67,97,238,0.45)">🔍 Scan My Site — Free</a>
 </div>
 
 
-<!-- CHECKOUT MODAL -->
-<div id="checkout-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(10,15,44,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
-  <div style="background:#fff;border-radius:24px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 32px 80px rgba(10,15,44,0.22);position:relative">
-    <button onclick="closeModal()" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#6B7280;line-height:1">×</button>
-    <div style="text-align:center;margin-bottom:24px">
-      <div style="width:48px;height:48px;background:linear-gradient(135deg,#4361EE,#7209B7);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px">🚀</div>
-      <h2 style="font-size:20px;font-weight:800;color:#0A0F2C;margin-bottom:4px">Get started with Auto SEO</h2>
-      <div id="modal-plan-label" style="font-size:14px;font-weight:600;color:#4361EE;background:#EEF1FF;border-radius:100px;display:inline-block;padding:4px 14px"></div>
-    </div>
-    <div style="margin-bottom:18px">
-      <label style="display:block;font-size:12px;font-weight:600;color:#3B4370;margin-bottom:6px">Your email</label>
-      <input id="modal-email" type="email" placeholder="you@business.com" style="width:100%;border:1.5px solid #E0E4F7;border-radius:12px;padding:12px 16px;font-size:15px;font-family:inherit;color:#0A0F2C;outline:none;box-sizing:border-box" onfocus="this.style.borderColor='#4361EE'" onblur="this.style.borderColor='#E0E4F7'"/>
-    </div>
-    <div id="modal-error" style="color:#EF4444;font-size:13px;margin-bottom:12px;min-height:18px"></div>
-    <button id="stripe-btn" onclick="payWithStripe()" style="width:100%;background:linear-gradient(135deg,#4361EE,#7209B7);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="white" fill-opacity=".15"/><path d="M4 9h16M4 15h16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Start Now — Secure Checkout →
-    </button>
-    <p style="text-align:center;font-size:12px;color:#6B7280;margin-top:14px">🔒 Secure payment via Stripe · 14-day money-back guarantee · cancel anytime</p>
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 4 — TOP ISSUES
+══════════════════════════════════════════════════════ -->
+<div id="s-issues" class="screen" hidden>
+  <div class="nav">
+    <span class="logo">Lead<span>OS</span></span>
+    <button class="nav-btn" onclick="newScan()">New Scan</button>
+  </div>
+  <div class="content">
+    <h2 style="margin-bottom:4px">What's holding your website back?</h2>
+    <p style="font-size:13px;margin-bottom:20px">These are the main issues we found during your scan.</p>
+    <div id="issues-list"></div>
+    <button class="btn btn-primary" onclick="show('s-cta')" style="margin-top:8px">See How to Fix This →</button>
   </div>
 </div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 5 — LEADOS CTA
+══════════════════════════════════════════════════════ -->
+<div id="s-cta" class="screen" hidden>
+  <div class="nav">
+    <span class="logo">Lead<span>OS</span></span>
+    <button class="nav-btn" onclick="show('s-result')">← Results</button>
+  </div>
+  <div class="content" style="display:flex;flex-direction:column;padding-top:36px">
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:44px;margin-bottom:14px">✦</div>
+      <h2 style="font-size:25px;margin-bottom:8px"><span style="color:#4f46e5">LeadOS</span> can fix<br>these issues for you.</h2>
+      <p>We do everything automatically — you just keep running your business.</p>
+    </div>
+    <div class="card" style="margin-bottom:24px">
+      <div class="cap-item"><div class="cap-check">✓</div>Find missing keyword opportunities</div>
+      <div class="cap-item"><div class="cap-check">✓</div>Optimize your website content</div>
+      <div class="cap-item"><div class="cap-check">✓</div>Improve Google &amp; AI search visibility</div>
+      <div class="cap-item"><div class="cap-check">✓</div>Build quality backlinks to your site</div>
+      <div class="cap-item"><div class="cap-check">✓</div>Continuously monitor your rankings</div>
+    </div>
+    <button class="btn btn-primary" onclick="show('s-biz')">Fix My SEO with LeadOS →</button>
+  </div>
+  <div class="trust-row">
+    <div class="trust-item">🔧&nbsp;No setup required</div>
+    <div class="trust-item">🏢&nbsp;Works for your industry</div>
+    <div class="trust-item">↩&nbsp;Cancel anytime</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 6 — WIZARD: BUSINESS (1/3)
+══════════════════════════════════════════════════════ -->
+<div id="s-biz" class="screen" hidden>
+  <div class="nav"><span class="logo">Lead<span>OS</span></span></div>
+  <div class="wizard-progress"><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div></div>
+  <div class="content">
+    <button class="back-btn" onclick="show('s-cta')">← Back</button>
+    <h2 style="margin-bottom:4px">Tell us about your business</h2>
+    <p style="font-size:13px;margin-bottom:22px" id="biz-note">We found this information from your website. Please confirm or edit.</p>
+
+    <div class="field">
+      <label>Business Name</label>
+      <div class="input-wrap"><span class="input-icon">🏢</span><input type="text" id="f-bizname" placeholder="Your business name"></div>
+    </div>
+    <div class="field">
+      <label>Country</label>
+      <select id="f-country">
+        <option value="">Select country</option>
+        <option value="AE">🇦🇪 United Arab Emirates</option>
+        <option value="AU">🇦🇺 Australia</option>
+        <option value="US">🇺🇸 United States</option>
+        <option value="GB">🇬🇧 United Kingdom</option>
+        <option value="SA">🇸🇦 Saudi Arabia</option>
+        <option value="KW">🇰🇼 Kuwait</option>
+        <option value="BH">🇧🇭 Bahrain</option>
+        <option value="QA">🇶🇦 Qatar</option>
+        <option value="OM">🇴🇲 Oman</option>
+        <option value="EG">🇪🇬 Egypt</option>
+        <option value="CA">🇨🇦 Canada</option>
+        <option value="NZ">🇳🇿 New Zealand</option>
+        <option value="SG">🇸🇬 Singapore</option>
+        <option value="IN">🇮🇳 India</option>
+        <option value="PK">🇵🇰 Pakistan</option>
+        <option value="OTHER">🌍 Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>City</label>
+      <div class="input-wrap"><span class="input-icon">📍</span><input type="text" id="f-city" placeholder="City"></div>
+    </div>
+    <div class="field">
+      <label>Industry</label>
+      <select id="f-industry">
+        <option value="">Select industry</option>
+        <option>Aesthetic Clinic</option><option>Dental Clinic</option><option>Medical Clinic</option>
+        <option>Hair Salon</option><option>Beauty Salon</option><option>Spa &amp; Wellness</option>
+        <option>Physiotherapy</option><option>Fitness &amp; Gym</option><option>Real Estate</option>
+        <option>Restaurant</option><option>Law Firm</option><option>Accounting</option>
+        <option>Education</option><option>Retail</option><option>E-commerce</option><option>Other</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="bizNext()">Continue →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 7 — WIZARD: SERVICES (2/3)
+══════════════════════════════════════════════════════ -->
+<div id="s-services" class="screen" hidden>
+  <div class="nav"><span class="logo">Lead<span>OS</span></span></div>
+  <div class="wizard-progress"><div class="pdot"></div><div class="pdot on"></div><div class="pdot"></div></div>
+  <div class="content">
+    <button class="back-btn" onclick="show('s-biz')">← Back</button>
+    <h2 style="margin-bottom:4px">What do you want customers to find you for?</h2>
+    <p style="font-size:13px;margin-bottom:18px">Select the most relevant services.</p>
+
+    <div class="chips" id="chip-wrap"></div>
+    <div class="chip-add-wrap">
+      <input type="text" id="svc-input" placeholder="Add another service" onkeydown="if(event.key==='Enter'){addSvc()}">
+      <button class="chip-add-btn" onclick="addSvc()">+ Add</button>
+    </div>
+
+    <div class="field">
+      <label>Target Location</label>
+      <div class="input-wrap"><span class="input-icon">📍</span><input type="text" id="f-location" placeholder="e.g. Abu Dhabi, UAE"></div>
+    </div>
+    <button class="btn btn-primary" onclick="svcNext()">Continue →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 8 — WIZARD: CONTACT (3/3)
+══════════════════════════════════════════════════════ -->
+<div id="s-contact" class="screen" hidden>
+  <div class="nav"><span class="logo">Lead<span>OS</span></span></div>
+  <div class="wizard-progress"><div class="pdot"></div><div class="pdot"></div><div class="pdot on"></div></div>
+  <div class="content">
+    <button class="back-btn" onclick="show('s-services')">← Back</button>
+    <div style="text-align:center;margin-bottom:26px">
+      <h2 style="font-size:24px;margin-bottom:6px">Almost done!</h2>
+      <p style="font-size:13.5px">Where should we send your personalised SEO plan?</p>
+    </div>
+
+    <div class="field">
+      <label>Full Name</label>
+      <div class="input-wrap"><span class="input-icon">👤</span><input type="text" id="f-name" placeholder="Your full name"></div>
+    </div>
+    <div class="field">
+      <label>Business Email</label>
+      <div class="input-wrap"><span class="input-icon">✉️</span><input type="email" id="f-email" placeholder="you@yourbusiness.com"></div>
+    </div>
+    <div class="field">
+      <label>WhatsApp / Phone <span style="color:#94a3b8;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <div class="input-wrap"><span class="input-icon">📱</span><input type="tel" id="f-phone" placeholder="+971 50 123 4567"></div>
+    </div>
+
+    <button class="btn btn-primary" id="contact-btn" onclick="contactNext()">See My Plan →</button>
+    <div class="error-text" id="contact-err"></div>
+    <div class="sec-note">🔒 Your information is safe with us.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 9 — PRICING
+══════════════════════════════════════════════════════ -->
+<div id="s-pricing" class="screen" hidden>
+  <div class="nav"><span class="logo">Lead<span>OS</span></span></div>
+  <div class="content">
+    <button class="back-btn" onclick="show('s-contact')">← Back</button>
+    <h2 style="margin-bottom:4px">Choose your plan</h2>
+    <p style="font-size:13px;margin-bottom:18px">Start fixing your SEO and grow on Google and AI search.</p>
+
+    <div class="billing-tabs">
+      <button class="btab on" id="tab-monthly" onclick="setBilling('monthly')">Monthly</button>
+      <button class="btab" id="tab-annual" onclick="setBilling('annual')">Yearly <span class="save-tag">Save 20%</span></button>
+    </div>
+
+    <!-- Starter -->
+    <div class="plan-card" id="pc-starter">
+      <div class="plan-hdr">
+        <div><div class="plan-name">Starter</div></div>
+        <div style="text-align:right"><div class="plan-price" id="pr-starter">$29<small>/mo</small></div></div>
+      </div>
+      <div class="plan-tag">Build your SEO foundation</div>
+      <ul class="plan-feats">
+        <li>15 AI articles published per month</li>
+        <li>5 backlinks per month</li>
+        <li>Keyword research &amp; tracking</li>
+        <li>Google Search Console integration</li>
+        <li>14-day money-back guarantee</li>
+      </ul>
+      <button class="plan-cta" id="cta-starter" onclick="checkout('starter')">Choose Plan</button>
+    </div>
+
+    <!-- Growth (most popular) -->
+    <div class="plan-card pop" id="pc-growth" style="margin-top:18px">
+      <div class="pop-badge">★ Most Popular</div>
+      <div class="plan-hdr">
+        <div><div class="plan-name">Growth</div></div>
+        <div style="text-align:right"><div class="plan-price" id="pr-growth">$49<small>/mo</small></div></div>
+      </div>
+      <div class="plan-tag">Grow your visibility continuously</div>
+      <ul class="plan-feats">
+        <li>30 AI articles published per month</li>
+        <li>10 backlinks per month</li>
+        <li>Keyword research &amp; tracking</li>
+        <li>Competitor gap analysis</li>
+        <li>Brand voice customisation</li>
+        <li>14-day money-back guarantee</li>
+      </ul>
+      <button class="plan-cta" id="cta-growth" onclick="checkout('growth')">Choose Plan</button>
+    </div>
+
+    <!-- Pro (Scale) -->
+    <div class="plan-card" id="pc-scale">
+      <div class="plan-hdr">
+        <div><div class="plan-name">Pro</div></div>
+        <div style="text-align:right"><div class="plan-price" id="pr-scale">$79<small>/mo</small></div></div>
+      </div>
+      <div class="plan-tag">Maximum SEO coverage</div>
+      <ul class="plan-feats">
+        <li>45 AI articles published per month</li>
+        <li>13 backlinks per month</li>
+        <li>Keyword research &amp; tracking</li>
+        <li>Competitor gap analysis</li>
+        <li>Rank tracking dashboard</li>
+        <li>Priority support</li>
+        <li>14-day money-back guarantee</li>
+      </ul>
+      <button class="plan-cta" id="cta-scale" onclick="checkout('scale')">Choose Plan</button>
+    </div>
+
+    <div class="sec-note" style="margin-top:16px">🔒 Secure payment by Stripe · Cancel anytime</div>
+  </div>
+</div>
+
+</div><!-- .page -->
 
 <script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const API = 'https://app.myleados.ai';
 
-// ========================
-// ANIMATED CANVAS BACKGROUND
-// ========================
-(function(){
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
-
-  function resize(){
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = document.body.scrollHeight;
-  }
-
-  function initParticles(){
-    particles = [];
-    const count = Math.floor(w * h / 18000);
-    for(let i=0;i<count;i++){
-      particles.push({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        r: Math.random()*3+1,
-        dx: (Math.random()-.5)*.4,
-        dy: (Math.random()-.5)*.4,
-        alpha: Math.random()*.5+.1,
-        color: Math.random()>.5 ? [67,97,238] : [114,9,183]
-      });
-    }
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    // draw connections
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx=particles[i].x-particles[j].x;
-        const dy=particles[i].y-particles[j].y;
-        const dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<120){
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x,particles[i].y);
-          ctx.lineTo(particles[j].x,particles[j].y);
-          ctx.strokeStyle=`rgba(67,97,238,${.12*(1-dist/120)})`;
-          ctx.lineWidth=1;
-          ctx.stroke();
-        }
-      }
-    }
-    // draw dots
-    particles.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(${p.color[0]},${p.color[1]},${p.color[2]},${p.alpha})`;
-      ctx.fill();
-      p.x+=p.dx; p.y+=p.dy;
-      if(p.x<0||p.x>w) p.dx*=-1;
-      if(p.y<0||p.y>h) p.dy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  initParticles();
-  draw();
-  window.addEventListener('resize',()=>{resize();initParticles()});
-})();
-
-// ========================
-// SCAN SIMULATION
-// ========================
-const scanData = {
-  domains: [
-    {score:41,speed:'2.8s',bl:12,missing:'18 pages',kws:['plumber near me','emergency plumber','pipe repair'],kct:[9200,3400,2100],diff:['easy','med','hard'],rank:[47,92,'—']},
-    {score:38,speed:'3.4s',bl:7,missing:'24 pages',kws:['real estate agent dubai','buy apartment marina','off plan 2025'],kct:[8200,5400,3100],diff:['med','med','easy'],rank:[56,83,'—']},
-    {score:44,speed:'1.9s',bl:23,missing:'15 pages',kws:['dental clinic sydney','teeth whitening cost','emergency dentist'],kct:[6100,4200,1800],diff:['hard','easy','med'],rank:[32,18,'—']},
-  ]
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const S = {
+  url:'', report:null,
+  bizName:'', country:'', city:'', industry:'',
+  services:[], location:'',
+  name:'', email:'', phone:'',
+  billing:'monthly',
 };
 
-var _lastScanUrl = '';
-var _gateHtmlBelow = '';
-var _gateEmailCaptured = false;
-
-// ── Meta Pixel helpers ──────────────────────────────────────────────
-function _fbq(){if(typeof fbq==='function'){fbq.apply(null,arguments);}}
-_fbq('track','ViewContent',{content_name:'Auto SEO Landing Page',content_category:'SaaS'});
-// ─────────────────────────────────────────────────────────────────────
-
-// Fetch scan counter on load
-(function(){
-  fetch('https://app.myleados.ai/api/public/seo-scan/count')
-    .then(function(r){return r.json();})
-    .then(function(d){
-      var el = document.getElementById('scanCounterNum');
-      if(!el) return;
-      var target = d.count || 100;
-      var current = 0;
-      var step = Math.max(1, Math.floor(target / 40));
-      var id = setInterval(function(){
-        current = Math.min(current + step, target);
-        el.textContent = current.toLocaleString() + '+';
-        if(current >= target) clearInterval(id);
-      }, 30);
-    })
-    .catch(function(){
-      var el = document.getElementById('scanCounterNum');
-      if(el) el.textContent = '100+';
-    });
-})();
-
-function startScan(){
-  var rawUrl = document.getElementById('scanUrl').value.trim();
-  if(!rawUrl){ alert('Please enter your website URL first.'); return; }
-  if(!rawUrl.startsWith('http')) rawUrl = 'https://' + rawUrl;
-  _lastScanUrl = rawUrl;
-  document.getElementById('scanBtn').textContent = 'Scanning…';
-  document.getElementById('scanBtn').disabled = true;
-  document.getElementById('scanProgress').style.display = 'block';
-  document.getElementById('scanResults').style.display = 'none';
-  document.getElementById('scanLiveUrl').textContent = rawUrl.replace(/^https?:\/\//,'');
-
-  var SCAN_PHASES = [
-    { id:'step1', prog:12, msgs:[
-      ['🌐','Reading your homepage…','Fetching HTML, metadata and page structure'],
-      ['🏷️','Checking your meta tags…','Title, description, H1 — the signals Google reads first'],
-      ['📄','Scanning your content…','Measuring word count, headings and page quality'],
-    ]},
-    { id:'step2', prog:32, msgs:[
-      ['🔑','Discovering your keywords…','Finding what search terms your site currently targets'],
-      ['📊','Mapping keyword gaps…','Identifying high-value searches you\'re missing'],
-      ['🎯','Analysing search intent…','Commercial vs informational — what actually converts'],
-    ]},
-    { id:'step3', prog:54, msgs:[
-      ['⚔️','Finding your competitors…','Who\'s outranking you on Google right now'],
-      ['🏆','Comparing domain authority…','Checking their backlink profiles against yours'],
-      ['📝','Reading their content strategy…','What they publish that you don\'t yet'],
-    ]},
-    { id:'step4', prog:73, msgs:[
-      ['⚡','Running Google PageSpeed…','Testing real load time from Google\'s servers'],
-      ['📱','Checking mobile performance…','Over 60% of searches happen on mobile'],
-      ['🔬','Measuring Core Web Vitals…','LCP, CLS, FID — Google ranking signals since 2021'],
-    ]},
-    { id:'step5', prog:88, msgs:[
-      ['🤖','AI building your report…','LeadOS is writing your personalised SEO analysis'],
-      ['📈','Calculating your SEO score…','Scoring on-page, performance and content quality'],
-      ['🗺️','Generating your action plan…','Custom roadmap to rank #1 for your keywords'],
-      ['✨','Almost done…','Finalising competitor gaps and keyword opportunities'],
-    ]},
-  ];
-
-  var si=0, msgTimer, stepTimer;
-
-  function setCard(icon, msg, sub){
-    var iconEl=document.getElementById('scanCardIcon');
-    var msgEl=document.getElementById('scanCardMsg');
-    var subEl=document.getElementById('scanCardSub');
-    iconEl.style.animation='none'; iconEl.offsetHeight; iconEl.style.animation='sIconPop .35s cubic-bezier(.34,1.56,.64,1)';
-    iconEl.textContent=icon; msgEl.textContent=msg; subEl.textContent=sub;
-  }
-
-  function startPhase(phase){
-    var mi=0;
-    var m=phase.msgs[mi]; setCard(m[0],m[1],m[2]); mi++;
-    msgTimer=setInterval(function(){
-      if(mi<phase.msgs.length){ var m=phase.msgs[mi]; setCard(m[0],m[1],m[2]); mi++; }
-    },2200);
-  }
-
-  function nextStep(){
-    if(si>0) document.getElementById(SCAN_PHASES[si-1].id).className='scan-step done';
-    clearInterval(msgTimer);
-    if(si<SCAN_PHASES.length){
-      var phase=SCAN_PHASES[si];
-      document.getElementById(phase.id).className='scan-step active';
-      document.getElementById('progressFill').style.width=phase.prog+'%';
-      startPhase(phase);
-      si++; stepTimer=setTimeout(nextStep, 900);
-    }
-  }
-  nextStep();
-  fetch('https://app.myleados.ai/api/public/seo-scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({website_url:rawUrl})})
-  .then(function(r){return r.json();})
-  .then(function(data){
-    clearTimeout(stepTimer); clearInterval(msgTimer);
-    SCAN_PHASES.forEach(function(p){document.getElementById(p.id).className='scan-step done';});
-    document.getElementById('progressFill').style.width='100%';
-    setCard('✅','Scan complete!','Building your report now…');
-    if(data.error){
-      document.getElementById('scanProgress').style.display='none';
-      document.getElementById('scanBtn').textContent='Scan My Site →';
-      document.getElementById('scanBtn').disabled=false;
-      var eb=document.getElementById('scanError');
-      if(!eb){eb=document.createElement('div');eb.id='scanError';eb.style='background:#FEF2F2;border:1px solid #FCA5A5;border-radius:12px;padding:16px 20px;margin-top:16px;color:#991B1B;font-size:14px;text-align:center;';document.getElementById('scanProgress').parentNode.appendChild(eb);}
-      eb.style.display='block';eb.textContent='⚠️ '+data.error;
-    } else { setTimeout(function(){showRealResults(data);},400); }
-  })
-  .catch(function(err){
-    clearTimeout(stepTimer); clearInterval(msgTimer);
-    document.getElementById('scanProgress').style.display='none';
-    document.getElementById('scanBtn').textContent='Scan My Site →';
-    document.getElementById('scanBtn').disabled=false;
-    var errBox=document.getElementById('scanError');
-    if(!errBox){errBox=document.createElement('div');errBox.id='scanError';errBox.style='background:#FEF2F2;border:1px solid #FCA5A5;border-radius:12px;padding:16px 20px;margin-top:16px;color:#991B1B;font-size:14px;text-align:center;';document.getElementById('scanProgress').parentNode.appendChild(errBox);}
-    errBox.style.display='block';
-    errBox.textContent='⚠️ Could not complete the scan — please check the URL is correct and try again.';
-  });
+// ─── SCREEN ROUTER ────────────────────────────────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => { s.hidden = true; });
+  const el = document.getElementById(id);
+  if (el) { el.hidden = false; }
+  try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) { window.scrollTo(0, 0); }
+  track(id.replace('s-', ''));
 }
 
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function showRealResults(data){
-  document.getElementById('scanProgress').style.display='none';
-  document.getElementById('scanResults').style.display='block';
-  document.getElementById('scanBtn').textContent='Scan My Site →';
-  document.getElementById('scanBtn').disabled=false;
-  // Switch floating CTA to point at pricing once results are visible
-  var fCta=document.getElementById('floatCta');
-  if(fCta){
-    fCta.innerHTML='<a href="#scan-pricing" class="btn btn-p" style="box-shadow:0 8px 28px rgba(67,97,238,0.45)">⚡ Fix My SEO — Get Started</a>';
-  }
-
-  var score=data.seo_score||42;
-  var bd=data.score_breakdown||{};
-  var kws=data.keyword_opportunities||[];
-  var issues=data.technical_issues||[];
-  var qws=data.quick_wins||[];
-  var comps=data.competitor_sites||[];
-  var roadmap=data.content_roadmap||[];
-  var ap=data.action_plan||{week_1:[],month_1:[],month_3:[]};
-  var signupUrl='https://myleados.ai/auto-seo?website='+encodeURIComponent(_lastScanUrl)+'#pricing';
-
-  // Auto-fix detection — issues containing these keywords can be resolved by LeadOS
-  var AUTO_FIX_KW=['meta','description','title','h1','heading','alt text','image alt','content','keyword','article','blog','schema','structured','sitemap','canonical','anchor'];
-  function isAutoFix(label){
-    var l=(label||'').toLowerCase();
-    return AUTO_FIX_KW.some(function(k){return l.indexOf(k)>=0;});
-  }
-
-  // Score ring color
-  var ringBg=score>=70?'linear-gradient(135deg,#10b981,#059669)':score>=45?'linear-gradient(135deg,#f59e0b,#d97706)':'linear-gradient(135deg,#ef4444,#b91c1c)';
-
-  var html='';
-
-  // ── 1. Summary banner ──────────────────────────────────────────────────────
-  html+='<div class="rpt-summary-banner">';
-  html+='<div class="rpt-score-ring" style="background:'+ringBg+'">'+score+'</div>';
-  html+='<div style="flex:1;min-width:0">';
-  if(data.business_name) html+='<p class="rpt-biz-name">'+esc(data.business_name)+'</p>';
-  html+='<p class="rpt-biz-summary">'+esc(data.scan_summary||'')+'</p>';
-  html+='</div></div>';
-
-  // ── 2. Score breakdown ─────────────────────────────────────────────────────
-  if(bd.total){
-    html+='<div class="rpt-breakdown">';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.technical_on_page||0))+'</div><div class="rpt-bd-max">/55</div><div class="rpt-bd-label">On-page</div></div>';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.performance||0))+'</div><div class="rpt-bd-max">/20</div><div class="rpt-bd-label">Performance</div></div>';
-    html+='<div class="rpt-bd-card"><div class="rpt-bd-val">'+((bd.content||0))+'</div><div class="rpt-bd-max">/25</div><div class="rpt-bd-label">Content</div></div>';
-    html+='</div>';
-  }
-
-  // ── EMAIL GATE: everything below score tiles is locked ────────────────────
-  _gateEmailCaptured = false;
-  _gateHtmlBelow = '';
-
-  var criticalIssues=issues.filter(function(i){return i.severity==='critical'||i.severity==='high';}).slice(0,5);
-  var autoFixCount=criticalIssues.filter(function(i){return isAutoFix(i.label);}).length;
-
-  function renderBelowGate(){
-    var h='';
-
-  // ── A. Traffic boost — big hook number ─────────────────────────────────────
-  if(data.monthly_traffic_potential){
-    h+='<div class="rpt-boost-banner">';
-    h+='<div class="rpt-boost-arrow">↗</div>';
-    h+='<div class="rpt-boost-val">'+esc(data.monthly_traffic_potential)+'</div>';
-    h+='<div class="rpt-boost-label">potential visitors / month</div>';
-    if(data.traffic_uplift_estimate) h+='<div class="rpt-boost-sub">'+esc(data.traffic_uplift_estimate)+' within 9 months</div>';
-    h+='</div>';
-  }
-
-  // ── B. Issues found — compact pills (our edge over Soro) ───────────────────
-  if(criticalIssues.length){
-    h+='<div class="rpt-section"><div class="rpt-section-title">⚠️ Issues Found on Your Site</div>';
-    h+='<div class="rpt-issues-compact">';
-    criticalIssues.slice(0,5).forEach(function(issue){
-      var sev=issue.severity||'medium';
-      var bg=sev==='critical'?'#FEF2F2':sev==='high'?'#FFF7ED':'#FFFBEB';
-      var col=sev==='critical'?'#DC2626':sev==='high'?'#EA580C':'#CA8A04';
-      var dot=sev==='critical'?'#EF4444':sev==='high'?'#F97316':'#FBBF24';
-      h+='<div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:'+bg+';margin-bottom:6px">';
-      h+='<div style="width:7px;height:7px;border-radius:50%;background:'+dot+';flex-shrink:0"></div>';
-      h+='<span style="font-size:13px;font-weight:600;color:'+col+';flex:1">'+esc(issue.label)+'</span>';
-      if(isAutoFix(issue.label)) h+='<span style="font-size:10px;font-weight:800;background:#D1FAE5;color:#065F46;padding:2px 7px;border-radius:100px">Auto Fix</span>';
-      h+='</div>';
-    });
-    h+='</div></div>';
-  }
-
-  // ── C. Content gaps — problem → LeadOS fix ─────────────────────────────────
-  if(kws.length){
-    var loc=(data.target_locations||[])[0]||'';
-    var trafficMap={high:[1200,2400],medium:[500,900],low:[150,420]};
-    var volLabel={high:'High volume',medium:'Medium volume',low:'Low volume'};
-    function kwToTitle(kw,intent){
-      var k=kw.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();});
-      var l=loc?' in '+loc.replace(/\b([a-z])/g,function(_,c){return c.toUpperCase();}):'';
-      if(intent==='informational') return 'How to Choose the Right '+k+l;
-      if(intent==='transactional') return 'Best '+k+l+' — Full Guide';
-      if(intent==='commercial') return 'Top '+k+l+': What to Know';
-      return k+l+': Complete Guide';
-    }
-    h+='<div class="rpt-section">';
-    // Section header with icon box + subtitle
-    h+='<div class="rpt-gap-hdr">';
-    h+='<div class="rpt-gap-hdr-icon">📊</div>';
-    h+='<div><div class="rpt-gap-hdr-ttl">Traffic gaps costing you clients</div>';
-    h+='<div class="rpt-gap-hdr-sub">Find high-value keywords you\'re not ranking for and see how LeadOS can help you capture more traffic.</div></div>';
-    h+='</div>';
-    kws.slice(0,5).forEach(function(kw){
-      var r=trafficMap[kw.volume]||[300,600];
-      var mid=Math.round((r[0]+r[1])/2/10)*10;
-      var title=kwToTitle(kw.keyword,kw.intent);
-      var vl=volLabel[kw.volume]||'';
-      h+='<div class="rpt-gap-card">';
-      // Problem half — red tint
-      h+='<div class="rpt-gap-problem">';
-      h+='<div class="rpt-gap-xcircle">✕</div>';
-      h+='<div class="rpt-gap-problem-body">';
-      h+='<span class="rpt-gap-not-ranking">Not ranking for</span>';
-      h+='<span class="rpt-gap-keyword">"'+esc(kw.keyword)+'"</span>';
-      if(vl) h+='<span class="rpt-gap-vol-badge">'+esc(vl)+'</span>';
-      h+='</div>';
-      h+='<div class="rpt-gap-traffic"><div class="rpt-gap-traffic-num">-'+mid.toLocaleString()+'</div><div class="rpt-gap-traffic-unit">visitors/mo</div></div>';
-      h+='</div>';
-      // Solution half — lavender tint
-      h+='<div class="rpt-gap-solution">';
-      h+='<span class="rpt-gap-lightning">⚡</span>';
-      h+='<div class="rpt-gap-fix-body">';
-      h+='<span class="rpt-gap-fix-label">LeadOS fix:</span>';
-      h+='<span class="rpt-gap-fix-title">'+esc(title)+'</span>';
-      h+='</div>';
-      h+='<div class="rpt-gap-fix-right"><span class="rpt-gap-uplift">+'+mid.toLocaleString()+'/mo</span><span class="rpt-gap-arrow">›</span></div>';
-      h+='</div>';
-      h+='</div>';
-    });
-    h+='</div>';
-  }
-
-  // ── D. Competitors — show 1 real, lock rest ────────────────────────────────
-  var loc2=((data.target_locations||[])[0]||'your area');
-  var ind2=(data.industry||'your industry');
-  h+='<div class="rpt-section"><div class="rpt-section-title">🏆 Competitors stealing your traffic</div>';
-  if(comps.length){
-    // Show first competitor (real, verified) — lock the rest
-    var c1=comps[0];
-    var sClass=c1.strength==='high'?'rpt-comp-high':c1.strength==='medium'?'rpt-comp-medium':'rpt-comp-low';
-    var sLabel=c1.strength==='high'?'Strong':'Medium';
-    h+='<div class="rpt-comp-card"><div class="rpt-comp-icon">🌐</div>';
-    h+='<div style="flex:1;min-width:0"><div class="rpt-comp-domain">'+esc(c1.domain)+'</div><div class="rpt-comp-why">'+esc(c1.why)+'</div></div>';
-    h+='<span class="rpt-comp-strength '+sClass+'">'+sLabel+'</span>';
-    h+='</div>';
-    // Locked card for remaining competitors
-    var extraCount=comps.length-1;
-    var lockedCount=Math.max(extraCount,2); // always show at least 2 locked
-    h+='<div style="position:relative;border-radius:12px;overflow:hidden;margin-top:4px">';
-    // Blurred/locked rows
-    for(var li=0;li<lockedCount;li++){
-      h+='<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;margin-bottom:6px;filter:blur(4px);pointer-events:none;user-select:none">';
-      h+='<div style="width:36px;height:36px;border-radius:50%;background:#e2e8f0"></div>';
-      h+='<div style="flex:1"><div style="height:12px;background:#cbd5e1;border-radius:6px;width:60%;margin-bottom:6px"></div><div style="height:10px;background:#e2e8f0;border-radius:6px;width:85%"></div></div>';
-      h+='<div style="width:50px;height:20px;background:#e2e8f0;border-radius:100px"></div>';
-      h+='</div>';
-    }
-    // Lock overlay
-    h+='<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(248,250,252,0.2) 0%,rgba(248,250,252,0.95) 40%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px">';
-    h+='<div style="font-size:22px">🔒</div>';
-    h+='<div style="font-size:13px;font-weight:800;color:#0f172a">'+lockedCount+' more competitors identified</div>';
-    h+='<div style="font-size:12px;color:#64748b;text-align:center;max-width:280px;line-height:1.5">Sign up to see every business outranking you for <strong>'+esc(ind2)+'</strong> searches in '+esc(loc2)+' — and get a plan to beat them.</div>';
-    h+='</div>';
-    h+='</div>';
-  } else {
-    // No competitors verified — full locked teaser
-    h+='<div style="background:rgba(79,70,229,0.06);border:1.5px dashed rgba(99,102,241,0.3);border-radius:14px;padding:20px;text-align:center">';
-    h+='<div style="font-size:22px;margin-bottom:8px">🔒</div>';
-    h+='<div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px">Competitors identified for '+esc(loc2)+'</div>';
-    h+='<div style="font-size:13px;color:#64748b;line-height:1.6">Our AI detected businesses outranking you for <strong>'+esc(ind2)+'</strong> searches in your area. Sign up to see exactly who they are and get a plan to beat them.</div>';
-    h+='</div>';
-  }
-  h+='</div>';
-
-    return h;
-  }
-
-  _gateHtmlBelow = renderBelowGate();
-
-  // Inject email gate immediately after score tiles — blurs all report content
-  html += '<div id="email-gate-wrap">';
-  html += '<div id="email-gate-blur" style="position:relative;border-radius:16px;margin-top:12px;min-height:420px">';
-  html += '<div style="filter:blur(5px);pointer-events:none;user-select:none;opacity:0.45;overflow:hidden;max-height:420px">'+_gateHtmlBelow+'</div>';
-  html += '<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.97) 35%);display:flex;align-items:flex-start;justify-content:center;padding-top:20px">';
-  html += '<div style="background:white;border:2px solid #e0e7ff;border-radius:20px;padding:32px 28px;text-align:center;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(79,70,229,0.14)">';
-  html += '<div style="font-size:28px;margin-bottom:10px">🔓</div>';
-  html += '<div style="font-size:19px;font-weight:800;color:#0a0f2c;margin-bottom:6px">Unlock Your Full Report</div>';
-  html += '<div style="font-size:13px;color:#64748b;margin-bottom:14px;line-height:1.6">See your full issues list, keyword opportunities, competitor analysis, content roadmap and action plan.</div>';
-  html += '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">';
-  html += '<input id="gate-email-input" type="email" placeholder="your@email.com" style="width:100%;padding:13px 14px;border:1.5px solid #e0e7ff;border-radius:10px;font-size:14px;font-family:inherit;color:#0a0f2c;outline:none;box-sizing:border-box" onfocus="this.style.borderColor=\'#4f46e5\'" onblur="this.style.borderColor=\'#e0e7ff\'">';
-  html += '<button onclick="submitGateEmail()" style="width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer">Unlock My Report →</button>';
-  html += '</div>';
-  html += '<div id="gate-email-error" style="color:#ef4444;font-size:12px;display:none;margin-bottom:8px"></div>';
-  html += '<div style="font-size:11px;color:#94a3b8">No spam · Unsubscribe anytime</div>';
-  html += '</div></div>';
-  html += '</div>';
-  html += '</div>';
-
-  document.getElementById('rpt').innerHTML=html;
-  document.getElementById('kwCount').textContent=(data.articles_needed||20);
-
-  // Store scan data for gate submission
-  window._gateData = {
-    website_url: _lastScanUrl,
-    business_name: data.business_name,
-    seo_score: data.seo_score,
-    articles_needed: data.articles_needed,
-    top_issue: (data.technical_issues||[]).reduce(function(found,i){ return found||(i.severity==='critical'||i.severity==='high'?i.label:null); }, null)
-  };
-  // Allow Enter key in gate email input
-  setTimeout(function(){
-    var gi = document.getElementById('gate-email-input');
-    if(gi) gi.addEventListener('keydown', function(e){ if(e.key==='Enter') submitGateEmail(); });
-  }, 100);
-
-  // Dynamic fix count in pricing CTA headline
-  var ctaHl=document.getElementById('scan-pricing-headline');
-  if(ctaHl){
-    if(autoFixCount>0&&criticalIssues.length>0){
-      ctaHl.innerHTML='LeadOS Can Automatically Fix <span style="color:#4ade80">'+autoFixCount+' of '+criticalIssues.length+'</span> Issues We Found';
-    } else {
-      ctaHl.innerHTML='Your site can rank #1 for <span id="kwCount2">'+(data.articles_needed||20)+'</span> keywords';
-    }
-  }
-
-  // Scroll report into view smoothly
-  document.getElementById('rpt').scrollIntoView({behavior:'smooth',block:'start'});
+// ─── META PIXEL EVENTS ────────────────────────────────────────────────────────
+function track(name, data) {
+  try {
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'seo_' + name, data || {});
+  } catch(e) {}
 }
 
-function submitGateEmail(){
-  var input = document.getElementById('gate-email-input');
-  var errEl = document.getElementById('gate-email-error');
-  var email = (input ? input.value : '').trim();
-  if(!email || !email.includes('@')){
-    if(errEl){ errEl.textContent='Please enter a valid email address.'; errEl.style.display='block'; }
+// ─── SCAN CACHE (sessionStorage, 10 min TTL) ─────────────────────────────────
+function ck(url) { return 'leados_v2_' + url.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''); }
+function getCached(url) {
+  try {
+    const r = sessionStorage.getItem(ck(url));
+    if (!r) return null;
+    const o = JSON.parse(r);
+    if (Date.now() - o.ts > 600000) { sessionStorage.removeItem(ck(url)); return null; }
+    return o.d;
+  } catch { return null; }
+}
+function setCache(url, d) {
+  try { sessionStorage.setItem(ck(url), JSON.stringify({ ts: Date.now(), d })); } catch {}
+}
+
+// ─── SCAN FLOW ────────────────────────────────────────────────────────────────
+let _scanDone = false, _animDone = false;
+
+function startScan() {
+  let url = (document.getElementById('url-input').value || '').trim();
+  if (!url) { showErr('scan-err', 'Please enter your website URL.'); return; }
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  S.url = url;
+  hideErr('scan-err');
+  track('scan_started', { url });
+
+  const cached = getCached(url);
+  if (cached) {
+    S.report = cached;
+    show('s-scanning');
+    animateScan(true);
     return;
   }
-  if(errEl) errEl.style.display='none';
 
-  var btn = document.querySelector('#email-gate-blur button');
-  if(btn){ btn.textContent='Sending…'; btn.disabled=true; }
+  show('s-scanning');
+  _scanDone = false; _animDone = false;
+  animateScan(false);
 
-  var gd = window._gateData || {};
-  fetch('https://app.myleados.ai/api/public/seo-scan/capture-email',{
+  fetch(API + '/api/public/seo-scan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ website_url: url }),
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.error) { scanFail(d.error); return; }
+    S.report = d;
+    setCache(url, d);
+    track('scan_completed', { score: d.seo_score });
+    _scanDone = true;
+    if (_animDone) goToResult();
+  })
+  .catch(() => scanFail('Could not reach the scan server. Please try again.'));
+}
+
+function animateScan(fast) {
+  _animDone = false;
+  const delay = fast ? 180 : 850;
+  const pcts = [20, 42, 62, 82, 100];
+  [0,1,2,3,4].forEach((i, idx) => {
+    setTimeout(() => {
+      if (idx > 0) setStep(idx-1,'done');
+      setStep(idx,'active');
+      setRing(pcts[idx]);
+      if (idx === 4) {
+        setTimeout(() => {
+          setStep(4,'done');
+          _animDone = true;
+          if (_scanDone || fast) goToResult();
+        }, fast ? 150 : 500);
+      }
+    }, idx * delay);
+  });
+}
+
+function setStep(i, state) {
+  const row = document.getElementById('ss' + i);
+  const icon = document.getElementById('si' + i);
+  if (!row || !icon) return;
+  row.className = 'sstep' + (state === 'done' ? ' done' : '');
+  icon.className = 'sstep-icon ' + state;
+  icon.textContent = state === 'done' ? '✓' : state === 'active' ? '●' : '○';
+}
+
+function setRing(pct) {
+  const el = document.getElementById('ring-fill');
+  const pt = document.getElementById('ring-pct');
+  if (!el || !pt) return;
+  const circ = 2 * Math.PI * 56; // r=56 → 351.86
+  el.style.strokeDasharray = circ;
+  el.style.strokeDashoffset = circ * (1 - pct / 100);
+  pt.textContent = pct + '%';
+}
+
+function goToResult() {
+  if (!S.report) return;
+  buildResult(S.report);
+  buildIssues(S.report);
+  prefillWizard(S.report);
+  show('s-result');
+}
+
+function scanFail(msg) {
+  show('s-landing');
+  showErr('scan-err', msg || 'Scan failed. Please try again.');
+}
+
+function newScan() {
+  S.report = null; S.url = '';
+  document.getElementById('url-input').value = '';
+  show('s-landing');
+}
+
+// ─── BUILD RESULT SCREEN ──────────────────────────────────────────────────────
+function buildResult(r) {
+  // Site header
+  const rawUrl = r.website_url || S.url || '';
+  const domain = rawUrl.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+  document.getElementById('site-domain').textContent = domain;
+  document.getElementById('site-meta').textContent =
+    [r.business_name, r.industry, (r.target_locations||[])[0]].filter(Boolean).join(' · ') || 'Scanned just now';
+
+  // Favicon
+  const favEl = document.getElementById('site-fav');
+  if (domain) {
+    const img = new Image();
+    img.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=64';
+    img.onload = () => { favEl.innerHTML = ''; favEl.appendChild(img); };
+    img.onerror = () => { favEl.textContent = '🌐'; };
+  }
+
+  // Score
+  const score = r.seo_score || 0;
+  document.getElementById('score-num').textContent = score;
+  setTimeout(() => animGauge(score), 80);
+
+  // Banner
+  const bn = document.getElementById('score-banner');
+  const bt = document.getElementById('score-banner-text');
+  if (score >= 70) {
+    bn.style.cssText = 'background:#f0fdf4;border:1px solid #86efac;color:#14532d;border-radius:11px;padding:12px 14px;margin:14px 0;font-size:13px;font-weight:500;display:flex;align-items:flex-start;gap:8px';
+    bt.textContent = 'Your website has a solid SEO foundation. Let\'s build on it.';
+    document.getElementById('score-banner-icon').textContent = '✅';
+  } else if (score >= 45) {
+    bn.style.cssText = 'background:#fffbeb;border:1px solid #fcd34d;color:#78350f;border-radius:11px;padding:12px 14px;margin:14px 0;font-size:13px;font-weight:500;display:flex;align-items:flex-start;gap:8px';
+    bt.textContent = 'Your website ranks for some searches but is missing many opportunities.';
+    document.getElementById('score-banner-icon').textContent = '⚠️';
+  } else {
+    bn.style.cssText = 'background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d;border-radius:11px;padding:12px 14px;margin:14px 0;font-size:13px;font-weight:500;display:flex;align-items:flex-start;gap:8px';
+    bt.textContent = 'Your website is not ranking as well as it could in search results.';
+    document.getElementById('score-banner-icon').textContent = '⚠️';
+  }
+
+  // Metrics
+  const crit = (r.technical_issues||[]).filter(i=>i.severity==='critical'||i.severity==='high').length;
+  const kws  = (r.keyword_opportunities||[]).length;
+  const comp = (r.competitor_sites||[]).filter(c=>c.strength==='medium'||c.strength==='high').length;
+  const total = crit + kws + (comp > 0 ? comp : 0);
+  document.getElementById('m-critical').textContent   = crit;
+  document.getElementById('m-keywords').textContent   = kws;
+  document.getElementById('m-competitors').textContent = comp;
+  document.getElementById('opp-count').textContent = total || (crit + kws);
+
+  // Summary sentence
+  const parts = [];
+  if (kws > 0)  parts.push('missing important keywords');
+  if (crit > 0) parts.push('technical issues to address');
+  if (comp > 0) parts.push('competitors with stronger coverage');
+  document.getElementById('result-summary').textContent =
+    parts.length ? 'Your website has ' + parts.join(', ') + '.' :
+    'We found opportunities to improve your search visibility on Google.';
+}
+
+function animGauge(score) {
+  const arc = document.getElementById('gauge-arc');
+  if (!arc) return;
+  // Semi-circle: r=84, path arc length ≈ π*84 ≈ 264
+  const total = 264;
+  arc.style.strokeDashoffset = total - (total * score / 100);
+  arc.style.stroke = score >= 70 ? '#10b981' : score >= 45 ? '#f59e0b' : '#ef4444';
+}
+
+// ─── BUILD ISSUES SCREEN ──────────────────────────────────────────────────────
+function buildIssues(r) {
+  const issues = [];
+
+  // Issue 1: Missing keywords
+  const kws = (r.keyword_opportunities||[]);
+  const topKws = kws.filter(k=>k.volume==='high').slice(0,3);
+  if (kws.length > 0) {
+    const kwHtml = topKws.length
+      ? '<div style="margin-top:10px;font-size:12px">' +
+        '<div style="display:grid;grid-template-columns:1fr auto;gap:3px 16px;border-top:1px solid rgba(0,0,0,.06);padding-top:8px">' +
+        '<div style="font-weight:600;color:#475569;padding-bottom:4px">Keyword</div><div style="font-weight:600;color:#475569;padding-bottom:4px;text-align:right">Your Position</div>' +
+        topKws.map(k=>`<div style="color:#0f172a;padding:3px 0">${esc(k.keyword)}</div><div style="color:#b91c1c;font-weight:600;text-align:right">Not in top 100</div>`).join('') +
+        '</div></div>'
+      : '<p style="font-size:13px;color:#7f1d1d;margin-top:8px">Customers are searching for your services, but your website isn\'t appearing in results.</p>';
+    issues.push({ n:1, t:"You're missing important search keywords", bg:'#fef2f2', br:'#fecaca', nb:'#fee2e2', nc:'#b91c1c', body:kwHtml });
+  }
+
+  // Issue 2: Competitors
+  const strong = (r.competitor_sites||[]).filter(c=>c.strength==='high'||c.strength==='medium');
+  if (strong.length > 0) {
+    issues.push({
+      n:2, t:'Competitors have stronger SEO coverage',
+      bg:'#fff7ed', br:'#fed7aa', nb:'#ffedd5', nc:'#c2410c',
+      body:`<p style="font-size:13px;color:#7c2d12;margin-top:8px">Your competitors have more optimised pages and content, helping them rank for more searches. <strong>${strong.length} competitor${strong.length>1?'s':''}</strong> with stronger SEO detected in your area.</p>`,
+    });
+  }
+
+  // Issue 3: Technical
+  const techs = (r.technical_issues||[]).filter(i=>i.severity==='critical'||i.severity==='high');
+  if (techs.length > 0) {
+    issues.push({
+      n:3, t:'Technical SEO issues detected',
+      bg:'#fdf4ff', br:'#e9d5ff', nb:'#f3e8ff', nc:'#7e22ce',
+      body:`<p style="font-size:13px;color:#581c87;margin-top:8px">We found <strong>${techs.length} critical issue${techs.length>1?'s':''}</strong> that may be affecting your rankings and user experience.</p>`,
+    });
+  }
+
+  // Fallback
+  if (issues.length === 0) {
+    issues.push({ n:1, t:'Limited SEO content detected', bg:'#fef2f2', br:'#fecaca', nb:'#fee2e2', nc:'#b91c1c',
+      body:'<p style="font-size:13px;color:#7f1d1d;margin-top:8px">Your website may need more SEO-optimised content to rank well in your area.</p>' });
+  }
+
+  document.getElementById('issues-list').innerHTML = issues.slice(0,3).map(iss => `
+    <div style="background:${iss.bg};border:1.5px solid ${iss.br};border-radius:14px;padding:16px;margin-bottom:12px">
+      <div style="display:flex;align-items:flex-start;gap:12px">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:${iss.nb};color:${iss.nc};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">${iss.n}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.3">${esc(iss.t)}</div>
+          ${iss.body}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ─── PREFILL WIZARD ───────────────────────────────────────────────────────────
+function prefillWizard(r) {
+  if (r.business_name) {
+    document.getElementById('f-bizname').value = r.business_name;
+    S.bizName = r.business_name;
+  }
+  if (r.industry) {
+    const sel = document.getElementById('f-industry');
+    let found = false;
+    for (const opt of sel.options) {
+      if (opt.text.toLowerCase() === r.industry.toLowerCase()) { sel.value = opt.value; found = true; break; }
+    }
+    if (!found) {
+      const opt = new Option(r.industry, r.industry, true, true);
+      sel.add(opt);
+    }
+    S.industry = r.industry;
+  }
+  const loc = (r.target_locations||[])[0] || '';
+  if (loc) {
+    document.getElementById('f-location').value = loc;
+    S.location = loc;
+    const parts = loc.split(',');
+    if (parts[0]) document.getElementById('f-city').value = parts[0].trim();
+  }
+
+  // Services chips
+  S.services = [...(r.services || [])];
+  renderChips();
+
+  document.getElementById('biz-note').textContent = (r.business_name || r.industry)
+    ? 'We found this information from your website. Please confirm or edit.'
+    : 'Please fill in your business details below.';
+}
+
+// ─── SERVICE CHIPS ────────────────────────────────────────────────────────────
+function renderChips() {
+  document.getElementById('chip-wrap').innerHTML = S.services.map((s,i) =>
+    `<div class="chip on" onclick="rmSvc(${i})"><span>☑</span>${esc(s)}</div>`
+  ).join('');
+}
+function rmSvc(i) { S.services.splice(i,1); renderChips(); }
+function addSvc() {
+  const inp = document.getElementById('svc-input');
+  const v = inp.value.trim();
+  if (!v) return;
+  if (!S.services.includes(v)) S.services.push(v);
+  inp.value = '';
+  renderChips();
+}
+
+// ─── WIZARD STEPS ─────────────────────────────────────────────────────────────
+function bizNext() {
+  S.bizName  = document.getElementById('f-bizname').value.trim();
+  S.country  = document.getElementById('f-country').value;
+  S.city     = document.getElementById('f-city').value.trim();
+  S.industry = document.getElementById('f-industry').value;
+  track('business_confirmed', { industry: S.industry });
+  show('s-services');
+}
+
+function svcNext() {
+  S.location = document.getElementById('f-location').value.trim() || S.location;
+  track('services_confirmed', { count: S.services.length });
+  show('s-contact');
+}
+
+async function contactNext() {
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+
+  if (!name)  { showErr('contact-err','Please enter your name.'); return; }
+  if (!email || !email.includes('@')) { showErr('contact-err','Please enter a valid email address.'); return; }
+
+  S.name = name; S.email = email; S.phone = phone;
+
+  const btn = document.getElementById('contact-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Saving…';
+  hideErr('contact-err');
+
+  // Fire-and-forget: add to drip sequence
+  fetch(API + '/api/public/seo-scan/capture-email', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      email: email,
-      website_url: gd.website_url || _lastScanUrl || '',
-      business_name: gd.business_name || '',
-      seo_score: gd.seo_score || 0,
-      top_issue: gd.top_issue || ''
-    })
-  }).catch(function(){});
+    body: JSON.stringify({
+      email,
+      website_url: S.url,
+      business_name: S.bizName || undefined,
+      seo_score: S.report?.seo_score,
+      top_issue: (S.report?.technical_issues||[]).find(i=>i.severity==='critical'||i.severity==='high')?.label,
+    }),
+  }).catch(()=>{});
 
-  // Reveal full report immediately
-  var gateWrap = document.getElementById('email-gate-wrap');
-  if(gateWrap){ gateWrap.innerHTML = _gateHtmlBelow; }
+  track('contact_submitted', { email_domain: email.split('@')[1] });
 
-  // On mobile, center Growth card by default
-  if(window.innerWidth < 900){
-    setTimeout(function(){
-      var cards = document.getElementById('scan-plan-cards');
-      var growth = document.getElementById('scan-plan-growth');
-      if(cards && growth){
-        cards.scrollLeft = growth.offsetLeft - (cards.offsetWidth - growth.offsetWidth)/2;
-      }
-    }, 50);
-  }
-
-  // Update kwCount in newly revealed content
-  var kwCountEl = document.getElementById('kwCount');
-  if(kwCountEl && window._gateData && window._gateData.articles_needed){ kwCountEl.textContent = window._gateData.articles_needed; }
+  btn.disabled = false;
+  btn.textContent = 'See My Plan →';
+  show('s-pricing');
+  track('pricing_viewed');
 }
 
-function showFallbackResults(){
-  var data=scanData.domains[Math.floor(Math.random()*scanData.domains.length)];
-  document.getElementById('scanProgress').style.display='none';
-  document.getElementById('scanResults').style.display='block';
-  document.getElementById('scanBtn').textContent='Scan My Site →';
-  document.getElementById('scanBtn').disabled=false;
-  var s=0,target=data.score;
-  var ticker=setInterval(function(){s+=2;if(s>=target){s=target;clearInterval(ticker);}document.getElementById('scoreNum').textContent=s;},20);
-  document.getElementById('speedVal').textContent=data.speed;
-  document.getElementById('backlinkVal').textContent=data.bl;
-  document.getElementById('contentVal').textContent=data.missing;
-  var tbody=document.getElementById('kwBody');tbody.innerHTML='';
-  var pillClass={'easy':'diff-easy','med':'diff-med','hard':'diff-hard'};
-  var potentials=['\/mo','\/mo','\/mo'];
-  data.kws.forEach(function(kw,i){
-    tbody.innerHTML+='<tr><td style="text-align:left;font-weight:600;color:var(--text)">'+kw+'</td><td>'+data.kct[i].toLocaleString()+'</td><td><span class="diff-pill '+pillClass[data.diff[i]]+'">'+(data.diff[i].charAt(0).toUpperCase()+data.diff[i].slice(1))+'</span></td><td>'+(data.rank[i]===0?'—':data.rank[i])+'</td><td style="color:var(--green);font-weight:700">'+potentials[i]+'</td></tr>';
-  });
-  document.getElementById('kwCount').textContent=data.kws.length+5;
-}
-
-// ========================
-// SCAN PRICING PICKER
-// ========================
-var _scanSelectedPlan = 'growth';
-var _scanBillingMode = 'monthly';
-var _scanPrices = {
-  monthly: { starter:'$29', growth:'$49', scale:'$79' },
-  annual:  { starter:'$23', growth:'$39', scale:'$63' }
-};
-var _scanBilled = {
-  monthly: { starter:'/month', growth:'/month', scale:'/month' },
-  annual:  { starter:'$276/yr · save $72', growth:'$468/yr · save $120', scale:'$756/yr · save $192' }
+// ─── BILLING TOGGLE ───────────────────────────────────────────────────────────
+const PRICES = {
+  starter:{ monthly:'$29', annual:'$23' },
+  growth: { monthly:'$49', annual:'$39' },
+  scale:  { monthly:'$79', annual:'$63' },
 };
 
-function setScanPlan(mode){
-  _scanBillingMode = mode;
-  document.getElementById('scanTabM').style.background = mode==='monthly'?'#fff':'transparent';
-  document.getElementById('scanTabM').style.color = mode==='monthly'?'#0a0f2c':'#94a3b8';
-  document.getElementById('scanTabA').style.background = mode==='annual'?'#fff':'transparent';
-  document.getElementById('scanTabA').style.color = mode==='annual'?'#0a0f2c':'#94a3b8';
-  ['starter','growth','scale'].forEach(function(p){
-    document.getElementById('scanP-'+p).textContent = _scanPrices[mode][p];
-    document.getElementById('scanB-'+p).textContent = _scanBilled[mode][p];
+function setBilling(b) {
+  S.billing = b;
+  document.getElementById('tab-monthly').className = 'btab' + (b==='monthly' ? ' on' : '');
+  document.getElementById('tab-annual').className  = 'btab' + (b==='annual'  ? ' on' : '');
+  ['starter','growth','scale'].forEach(p => {
+    const el = document.getElementById('pr-' + p);
+    if (el) el.innerHTML = PRICES[p][b] + '<small>/mo</small>';
   });
 }
 
-function selectScanPlan(planKey, el){
-  _scanSelectedPlan = planKey;
-  ['starter','growth','scale'].forEach(function(p){
-    var card = document.getElementById('scan-plan-'+p);
-    if(p === 'growth'){
-      card.style.border = p===planKey ? '2px solid #a78bfa' : '2px solid #818cf8';
-      card.style.opacity = p===planKey ? '1' : '0.7';
-    } else {
-      card.style.border = p===planKey ? '2px solid #818cf8' : '2px solid rgba(255,255,255,0.12)';
-      card.style.opacity = '1';
-    }
+// ─── CHECKOUT ─────────────────────────────────────────────────────────────────
+async function checkout(plan) {
+  track('plan_selected',    { plan, billing:S.billing });
+  track('checkout_started', { plan, billing:S.billing });
+
+  ['starter','growth','scale'].forEach(p => {
+    const btn = document.getElementById('cta-' + p);
+    if (btn) { btn.disabled = true; btn.textContent = p===plan ? 'Loading…' : 'Choose Plan'; }
   });
-  var labels = {starter:'Starter', growth:'Growth', scale:'Scale'};
-  document.getElementById('scanCtaBtn').textContent = 'Fix My SEO — '+labels[planKey]+' Plan →';
-}
 
-function launchScanCheckout(){
-  _fbq('track','Lead');
-  goCheckout(_scanSelectedPlan);
-  if(_scanBillingMode !== planMode){ setPlan(_scanBillingMode); }
-}
-
-// Swipe dots — update active dot as user scrolls the card track
-(function(){
-  function initDots(){
-    var track=document.getElementById('scan-plan-cards');
-    if(!track) return;
-    var plans=['starter','growth','scale'];
-    track.addEventListener('scroll',function(){
-      var idx=Math.round(track.scrollLeft/(track.scrollWidth/3));
-      idx=Math.max(0,Math.min(2,idx));
-      for(var i=0;i<3;i++){
-        var d=document.getElementById('dot-'+i);
-        if(d) d.className='scan-card-dot'+(i===idx?' active':'');
-      }
-      selectScanPlan(plans[idx],null);
-    },{passive:true});
+  try {
+    const res = await fetch(API + '/api/stripe/standalone-checkout', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        email: S.email,
+        name: S.name,
+        business_name: S.bizName,
+        website_url: S.url,
+        plan_key: plan,
+        billing: S.billing,
+        phone: S.phone,
+        industry: S.industry,
+      }),
+    });
+    const d = await res.json();
+    if (d.url) { window.location.href = d.url; }
+    else throw new Error(d.error || 'Checkout failed');
+  } catch(e) {
+    ['starter','growth','scale'].forEach(p => {
+      const btn = document.getElementById('cta-' + p);
+      if (btn) { btn.disabled = false; btn.textContent = 'Choose Plan'; }
+    });
+    alert('Could not start checkout: ' + (e.message || 'Please try again.'));
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDots);
-  else initDots();
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.style.display = 'block'; }
+}
+function hideErr(id) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = 'none';
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+(function() {
+  // Pre-fill URL from query string
+  try {
+    const p = new URLSearchParams(location.search);
+    const wu = p.get('website');
+    if (wu) document.getElementById('url-input').value = decodeURIComponent(wu);
+  } catch {}
+
+  // Enter key
+  document.getElementById('url-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') startScan();
+  });
+
+  // Show landing
+  document.getElementById('s-landing').hidden = false;
 })();
-
-// ========================
-// CHECKOUT MODAL
-// ========================
-var _checkoutPlan='growth';
-var _checkoutEmail='';
-
-function goCheckout(planKey){
-  _checkoutPlan=planKey;
-  var planNames={starter:'Starter — /mo',growth:'Growth — /mo',scale:'Scale — /mo'};
-  var planNamesAnnual={starter:'Starter — /mo (annual)',growth:'Growth — /mo (annual)',scale:'Scale — /mo (annual)'};
-  var label=planMode==='annual'?planNamesAnnual[planKey]:planNames[planKey];
-  document.getElementById('modal-plan-label').textContent=label;
-  document.getElementById('checkout-modal').style.display='flex';
-  document.getElementById('modal-email').focus();
-}
-
-function closeModal(){
-  document.getElementById('checkout-modal').style.display='none';
-  document.getElementById('modal-email').value='';
-  document.getElementById('modal-error').textContent='';
-}
-
-function payWithStripe(){
-  var email=document.getElementById('modal-email').value.trim();
-  if(!email||!email.includes('@')){ document.getElementById('modal-error').textContent='Please enter a valid email.'; return; }
-  _checkoutEmail=email;
-  var btn=document.getElementById('stripe-btn');
-  btn.textContent='Redirecting to Stripe…'; btn.disabled=true;
-  _fbq('track','InitiateCheckout');
-  fetch('https://app.myleados.ai/api/stripe/standalone-checkout',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email:email,plan_key:_checkoutPlan,billing:planMode,website_url:_lastScanUrl||''})
-  })
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.url){(window.top||window).location.href=d.url;}
-    else{document.getElementById('modal-error').textContent=d.error||'Checkout failed. Please try again.';btn.textContent='Start Now — Secure Checkout →';btn.disabled=false;}
-  })
-  .catch(function(){document.getElementById('modal-error').textContent='Network error. Please try again.';btn.textContent='Start Now — Secure Checkout →';btn.disabled=false;});
-}
-
-// ========================
-// PRICING TOGGLE
-// ========================
-const prices={monthly:['$29','$49','$79'],annual:['$23','$39','$63']};
-const billed={monthly:['','',''],annual:['Billed $276/yr (save $72)','Billed $468/yr (save $120)','Billed $756/yr (save $192)']};
-let planMode='monthly';
-
-function setPlan(mode){
-  planMode=mode;
-  document.getElementById('tabM').className='ptab'+(mode==='monthly'?' active':'');
-  document.getElementById('tabA').className='ptab'+(mode==='annual'?' active':'');
-  [1,2,3].forEach(i=>{
-    document.getElementById('p'+i).textContent=prices[mode][i-1];
-    document.getElementById('p'+i+'b').textContent=billed[mode][i-1];
-  });
-}
-
-// Scroll reveal observer
-const revealObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target);}});
-},{threshold:0.08});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revealObs.observe(el));
-
-// stat counter
-const statObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const target=+e.target.dataset.target;
-      let v=0;
-      const step=Math.ceil(target/60);
-      const t=setInterval(()=>{
-        v+=step;
-        if(v>=target){v=target;clearInterval(t);}
-        e.target.textContent=v.toLocaleString();
-      },25);
-      statObs.unobserve(e.target);
-    }
-  });
-},{threshold:.5});
-['stat1','stat2','stat3','stat4'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el) statObs.observe(el);
-});
-
-// floating CTA — hide when any pricing section is visible so it doesn't cover plan CTAs
-window.addEventListener('scroll',function(){
-  var fCta=document.getElementById('floatCta');
-  if(!fCta) return;
-  function inView(id){
-    var el=document.getElementById(id);
-    if(!el) return false;
-    var r=el.getBoundingClientRect();
-    return r.top<window.innerHeight&&r.bottom>0;
-  }
-  var pricingVisible=inView('scan-pricing')||inView('pricing');
-  fCta.classList.toggle('vis',window.scrollY>600&&!pricingVisible);
-});
-
-// type cycling in article preview
-const articles=['Writing: "10 Best Real Estate Tips in Dubai 2025"','Writing: "How to Find a Reliable Plumber Near You"','Writing: "5 Signs Your AC Needs Servicing This Summer"','Writing: "Top 7 Dental Procedures Worth the Investment"'];
-let ai=0;
-setInterval(()=>{
-  ai=(ai+1)%articles.length;
-  const el=document.querySelector('.article-preview-title');
-  if(el) el.innerHTML='🖊️ '+articles[ai]+'<span class="type-cursor"></span>';
-},4000);
 </script>
 </body>
 </html>
