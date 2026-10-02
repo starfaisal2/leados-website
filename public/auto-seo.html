@@ -1071,8 +1071,8 @@ function resumeFromEmail(email, website) {
     }
   }
 
-  // No cache or no website → land on contact screen (email pre-filled, user adds name)
-  show('s-contact');
+  // No cache (different device / expired) → jump straight to pricing; email already captured
+  show('s-pricing');
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
