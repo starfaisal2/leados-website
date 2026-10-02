@@ -220,6 +220,10 @@ input::placeholder{color:#94a3b8}
       </div>
       <button class="btn btn-primary" id="scan-btn" onclick="startScan()">Scan My Website Free →</button>
       <div class="error-text" id="scan-err"></div>
+      <div id="scan-count-row" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:12px;color:#94a3b8;font-weight:500">
+        <span style="font-size:14px">🔍</span>
+        <span><strong id="scan-count-num" style="color:#475569">—</strong> websites scanned</span>
+      </div>
     </div>
   </div>
 
@@ -1111,6 +1115,19 @@ function resumeFromEmail(email, website) {
 
   // Show landing (normal flow)
   document.getElementById('s-landing').hidden = false;
+
+  // Fetch scan count for social proof
+  fetch('https://app.myleados.ai/api/public/seo-scan/count')
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (!d?.count) return;
+      const n = Number(d.count);
+      const formatted = n >= 1000 ? (n >= 10000 ? n.toLocaleString() : (n/1000).toFixed(1).replace('.0','') + 'k+') : String(n);
+      const el = document.getElementById('scan-count-num');
+      const row = document.getElementById('scan-count-row');
+      if (el && row) { el.textContent = formatted; row.style.display = 'flex'; }
+    })
+    .catch(() => {});
 })();
 </script>
 </body>
