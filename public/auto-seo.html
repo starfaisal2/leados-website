@@ -243,7 +243,7 @@ input::placeholder{color:#94a3b8}
       <div class="sstep" id="ss1"><div class="sstep-icon" id="si1">○</div>Analyzing search visibility</div>
       <div class="sstep" id="ss2"><div class="sstep-icon" id="si2">○</div>Finding keyword opportunities</div>
       <div class="sstep" id="ss3"><div class="sstep-icon" id="si3">○</div>Checking technical SEO</div>
-      <div class="sstep" id="ss4"><div class="sstep-icon" id="si4">○</div>Preparing your report</div>
+      <div class="sstep" id="ss4"><div class="sstep-icon" id="si4">○</div><span id="scan-status">Preparing your report</span></div>
     </div>
   </div>
   <div class="trust-row" style="border-top:none">
@@ -292,23 +292,7 @@ input::placeholder{color:#94a3b8}
     </div>
     <p style="font-size:13px;margin-bottom:16px" id="result-summary">Your website is missing important keywords and has technical issues.</p>
 
-    <div class="metrics">
-      <div class="metric">
-        <div class="metric-icon">⚠️</div>
-        <div class="metric-n" id="m-critical">0</div>
-        <div class="metric-l">Critical Issues</div>
-      </div>
-      <div class="metric">
-        <div class="metric-icon">🔍</div>
-        <div class="metric-n" id="m-keywords">0</div>
-        <div class="metric-l">Search Gaps</div>
-      </div>
-      <div class="metric">
-        <div class="metric-icon">👥</div>
-        <div class="metric-n" id="m-competitors">0</div>
-        <div class="metric-l">Competitors Ahead</div>
-      </div>
-    </div>
+    <div class="metrics" id="metrics-grid"></div>
 
     <button class="btn btn-primary" onclick="show('s-issues')">See What's Holding You Back →</button>
   </div>
@@ -601,7 +585,26 @@ function setCache(url, d) {
 }
 
 // ─── SCAN FLOW ────────────────────────────────────────────────────────────────
-let _scanDone = false, _animDone = false;
+let _scanDone = false, _animDone = false, _waitLoop = null, _waitIdx = 0;
+const WAIT_MSGS = ['Preparing your report…','Processing keyword data…','Almost done…','Finalising analysis…'];
+
+function finishScan() {
+  if (_waitLoop) { clearInterval(_waitLoop); _waitLoop = null; }
+  setRing(100);
+  const el = document.getElementById('scan-status');
+  if (el) el.textContent = 'Scan complete';
+  setTimeout(() => goToResult(), 420);
+}
+
+function startWaitLoop() {
+  _waitLoop = setInterval(() => {
+    _waitIdx = (_waitIdx + 1) % WAIT_MSGS.length;
+    const el = document.getElementById('scan-status');
+    if (el) el.textContent = WAIT_MSGS[_waitIdx];
+    // Subtle ring pulse between 92–95 so it never looks frozen
+    setRing(92 + (_waitIdx % 2) * 2);
+  }, 2500);
+}
 
 function startScan() {
   let url = (document.getElementById('url-input').value || '').trim();
@@ -635,15 +638,17 @@ function startScan() {
     setCache(url, d);
     track('scan_completed', { score: d.seo_score });
     _scanDone = true;
-    if (_animDone) goToResult();
+    if (_animDone) finishScan();
   })
   .catch(() => scanFail('Could not reach the scan server. Please try again.'));
 }
 
 function animateScan(fast) {
-  _animDone = false;
+  _animDone = false; _waitIdx = 0;
+  if (_waitLoop) { clearInterval(_waitLoop); _waitLoop = null; }
   const delay = fast ? 180 : 850;
-  const pcts = [20, 42, 62, 82, 100];
+  // Cap at 92% — only finishScan() advances to 100%
+  const pcts = [20, 42, 62, 80, 92];
   [0,1,2,3,4].forEach((i, idx) => {
     setTimeout(() => {
       if (idx > 0) setStep(idx-1,'done');
@@ -653,7 +658,12 @@ function animateScan(fast) {
         setTimeout(() => {
           setStep(4,'done');
           _animDone = true;
-          if (_scanDone || fast) goToResult();
+          if (_scanDone || fast) {
+            finishScan();
+          } else {
+            // API still running — keep screen alive with rotating status
+            startWaitLoop();
+          }
         }, fast ? 150 : 500);
       }
     }, idx * delay);
@@ -738,15 +748,38 @@ function buildResult(r) {
     document.getElementById('score-banner-icon').textContent = '⚠️';
   }
 
-  // Metrics
-  const crit = (r.technical_issues||[]).filter(i=>i.severity==='critical'||i.severity==='high').length;
-  const kws  = (r.keyword_opportunities||[]).length;
-  const comp = (r.competitor_sites||[]).filter(c=>c.strength==='medium'||c.strength==='high').length;
-  const total = crit + kws + (comp > 0 ? comp : 0);
-  document.getElementById('m-critical').textContent   = crit;
-  document.getElementById('m-keywords').textContent   = kws;
-  document.getElementById('m-competitors').textContent = comp;
-  document.getElementById('opp-count').textContent = total || (crit + kws);
+  // Metrics — smart selection: never show a weak zero if a stronger real metric exists
+  const crit  = (r.technical_issues||[]).filter(i=>i.severity==='critical'||i.severity==='high').length;
+  const warns = (r.technical_issues||[]).length; // all severities (always >= crit)
+  const kws   = (r.keyword_opportunities||[]).length;
+  const comp  = (r.competitor_sites||[]).filter(c=>c.strength==='medium'||c.strength==='high').length;
+  const total = crit + kws + comp;
+  document.getElementById('opp-count').textContent = total || warns || 1;
+
+  // Build prioritised candidate list, skip zeros where a better real stat exists
+  const metricCandidates = [
+    crit         > 0 ? { icon:'⚠️', n:crit,         l:'Critical Issues'  } : null,
+    kws          > 0 ? { icon:'🔍', n:kws,           l:'Search Gaps'      } : null,
+    (warns-crit) > 0 ? { icon:'📋', n:(warns-crit),  l:'SEO Warnings'     } : null,
+    comp         > 0 ? { icon:'👥', n:comp,           l:'Competitors Ahead'} : null,
+  ].filter(Boolean);
+
+  // Fill to 3 slots using lower-priority fallbacks if needed
+  const usedLabels = new Set(metricCandidates.map(c=>c.l));
+  const fallbacks = [
+    { icon:'⚠️', n:crit,  l:'Critical Issues'  },
+    { icon:'📋', n:warns, l:'SEO Issues'        },
+    { icon:'🔍', n:kws,   l:'Search Gaps'      },
+    { icon:'👥', n:comp,  l:'Competitors Ahead' },
+  ].filter(c => !usedLabels.has(c.l));
+
+  const slots = [...metricCandidates, ...fallbacks].slice(0, 3);
+  const grid = document.getElementById('metrics-grid');
+  if (grid) {
+    grid.innerHTML = slots.map(s =>
+      `<div class="metric"><div class="metric-icon">${s.icon}</div><div class="metric-n">${s.n}</div><div class="metric-l">${esc(s.l)}</div></div>`
+    ).join('');
+  }
 
   // Summary sentence
   const parts = [];
@@ -771,15 +804,17 @@ function animGauge(score) {
 function buildIssues(r) {
   const issues = [];
 
-  // Issue 1: Missing keywords
+  // Issue 1: Missing keywords — show up to 6 real opportunities
   const kws = (r.keyword_opportunities||[]);
-  const topKws = kws.filter(k=>k.volume==='high').slice(0,3);
+  const topKws = kws.slice(0, 6);
+  const kwRemaining = Math.max(0, kws.length - topKws.length);
   if (kws.length > 0) {
     const kwHtml = topKws.length
       ? '<div style="margin-top:10px;font-size:12px">' +
-        '<div style="display:grid;grid-template-columns:1fr auto;gap:3px 16px;border-top:1px solid rgba(0,0,0,.06);padding-top:8px">' +
-        '<div style="font-weight:600;color:#475569;padding-bottom:4px">Keyword</div><div style="font-weight:600;color:#475569;padding-bottom:4px;text-align:right">Your Position</div>' +
-        topKws.map(k=>`<div style="color:#0f172a;padding:3px 0">${esc(k.keyword)}</div><div style="color:#b91c1c;font-weight:600;text-align:right">Not in top 100</div>`).join('') +
+        '<div style="display:grid;grid-template-columns:1fr auto;gap:3px 12px;border-top:1px solid rgba(0,0,0,.06);padding-top:8px">' +
+        '<div style="font-weight:600;color:#475569;padding-bottom:4px">Keyword</div><div style="font-weight:600;color:#475569;padding-bottom:4px;text-align:right">Status</div>' +
+        topKws.map(k=>`<div style="color:#0f172a;padding:2px 0;word-break:break-word">${esc(k.keyword)}</div><div style="color:#b91c1c;font-weight:600;text-align:right;white-space:nowrap">Not ranked</div>`).join('') +
+        (kwRemaining > 0 ? `<div style="grid-column:1/-1;color:#64748b;font-size:11px;font-weight:500;padding-top:6px">+ ${kwRemaining} more search gap${kwRemaining!==1?'s':''} found</div>` : '') +
         '</div></div>'
       : '<p style="font-size:13px;color:#7f1d1d;margin-top:8px">Customers are searching for your services, but your website isn\'t appearing in results.</p>';
     issues.push({ n:1, t:"You're missing important search keywords", bg:'#fef2f2', br:'#fecaca', nb:'#fee2e2', nc:'#b91c1c', body:kwHtml });
@@ -997,21 +1032,56 @@ function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+// ─── EMAIL RESUME ─────────────────────────────────────────────────────────────
+function resumeFromEmail(email, website) {
+  S.email = email;
+
+  // Pre-fill contact form email in case we end up on that screen
+  const fEmail = document.getElementById('f-email');
+  if (fEmail) fEmail.value = email;
+
+  if (website) {
+    const normalUrl = website.startsWith('http') ? website : 'https://' + website;
+    S.url = normalUrl;
+    document.getElementById('url-input').value = normalUrl.replace(/^https?:\/\/(www\.)?/, '');
+
+    // Cache hit → restore full context and jump straight to pricing
+    const cached = getCached(normalUrl);
+    if (cached) {
+      S.report = cached;
+      buildResult(cached);
+      buildIssues(cached);
+      prefillWizard(cached);
+      show('s-pricing');
+      return;
+    }
+  }
+
+  // No cache or no website → land on contact screen (email pre-filled, user adds name)
+  show('s-contact');
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 (function() {
-  // Pre-fill URL from query string
-  try {
-    const p = new URLSearchParams(location.search);
-    const wu = p.get('website');
-    if (wu) document.getElementById('url-input').value = decodeURIComponent(wu);
-  } catch {}
-
-  // Enter key
+  // Enter key on landing input
   document.getElementById('url-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') startScan();
   });
 
-  // Show landing
+  // Handle email CTA resume: ?step=pricing&email=...&website=...
+  try {
+    const p = new URLSearchParams(location.search);
+    const wu   = p.get('website');
+    const em   = p.get('email');
+    const step = p.get('step');
+    if (wu) document.getElementById('url-input').value = decodeURIComponent(wu).replace(/^https?:\/\/(www\.)?/, '');
+    if (step === 'pricing' && em) {
+      resumeFromEmail(decodeURIComponent(em), wu ? decodeURIComponent(wu) : '');
+      return; // skip landing screen
+    }
+  } catch {}
+
+  // Show landing (normal flow)
   document.getElementById('s-landing').hidden = false;
 })();
 </script>
