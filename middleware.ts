@@ -14,5 +14,5 @@ export const config = {
   // the page is a full-screen standalone HTML iframe with its own nav/footer.
   // Running i18n middleware on it causes the [locale] layout (Nav + Footer) to
   // wrap the iframe, which covers the hero content and makes the page appear blank.
-  matcher: ['/((?!api|_next|blog|auto-seo|s/|.*\\..*).*)']
+  matcher: ['/((?!api|_next|blog|auto-seo|lp|s/|.*\\..*).*)']
 };
