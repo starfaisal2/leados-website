@@ -85,10 +85,10 @@ export default function DemoRequestPage() {
           <Link href="/" className="signup-back">← Back to LeadOS</Link>
           <span className="eyebrow">Book a Demo</span>
           <h1 className="display-lg">
-            Talk to us before you <span className="text-serif-em" style={{ color: "var(--blue)" }}>get started.</span>
+            See LeadOS in action — <span className="text-serif-em" style={{ color: "var(--blue)" }}>live demo, no pressure.</span>
           </h1>
           <p className="body-lg" style={{ marginTop: 18 }}>
-            LeadOS is set up by our team — not a self-serve tool. Fill in your details and we'll reach out within 24 hours to walk you through the platform and get you onboarded.
+            Fill in your details and our team will reach out within 24 hours to walk you through the platform. Or if you're ready, <Link href="/get-started" style={{ color: "var(--blue)", fontWeight: 600 }}>sign up directly →</Link>
           </p>
           <div className="signup-trust-list">
             <div><span>✓</span> Personal onboarding with our team</div>

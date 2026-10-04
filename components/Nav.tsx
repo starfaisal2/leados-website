@@ -152,6 +152,9 @@ export default function Nav() {
             <button className="nav-login" onClick={() => setLoginOpen(true)}>
               {t("login")}
             </button>
+            <a href={SIGNUP_URL} className="nav-trial" style={{ whiteSpace: "nowrap" }}>
+              Get Started
+            </a>
             <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
               {t("bookDemo")}
             </a>
