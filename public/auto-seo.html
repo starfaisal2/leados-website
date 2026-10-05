@@ -245,6 +245,12 @@ input::placeholder{color:#94a3b8}
     <span class="trust-logo">OpenAI</span><div class="divider"></div>
     <span class="trust-logo">Meta</span>
   </div>
+  <div style="text-align:center;padding:20px 20px 32px;border-top:1px solid #f1f5f9">
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:10px">Already know what you need?</p>
+    <button onclick="openPricingModal()" style="display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:12px;border:1.5px solid #4f46e5;background:#fff;color:#4f46e5;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s" onmouseover="this.style.background='#ede9fe'" onmouseout="this.style.background='#fff'">
+      View Pricing →
+    </button>
+  </div>
 </div>
 
 
@@ -577,9 +583,180 @@ input::placeholder{color:#94a3b8}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════
+     PRICING MODAL (opened from landing page button)
+══════════════════════════════════════════════════════ -->
+<div id="pricing-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:20px;overflow-y:auto;align-items:flex-start;justify-content:center" onclick="if(event.target===this)closePricingModal()">
+  <div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:800px;width:100%;margin:auto;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.18)">
+    <button onclick="closePricingModal()" style="position:absolute;top:16px;right:16px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;line-height:1">×</button>
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px">Choose your plan</h2>
+    <p style="font-size:13px;color:#64748b;margin-bottom:18px">Start ranking on Google — cancel anytime.</p>
+
+    <div class="billing-tabs" style="max-width:260px">
+      <button class="btab on" id="mtab-monthly" onclick="setModalBilling('monthly')">Monthly</button>
+      <button class="btab" id="mtab-annual" onclick="setModalBilling('annual')">Yearly <span class="save-tag">Save 20%</span></button>
+    </div>
+
+    <div class="plans-grid" style="margin-bottom:20px">
+      <!-- Starter -->
+      <div class="plan-card">
+        <div class="plan-hdr">
+          <div><div class="plan-name">Starter</div></div>
+          <div style="text-align:right"><div class="plan-price" id="mpr-starter">$29<small>/mo</small></div></div>
+        </div>
+        <div class="plan-tag">Build your SEO foundation</div>
+        <ul class="plan-feats">
+          <li>15 AI articles per month</li>
+          <li>5 backlinks per month</li>
+          <li>Keyword research &amp; tracking</li>
+          <li>Google Search Console</li>
+          <li>14-day money-back guarantee</li>
+        </ul>
+        <button class="plan-cta" onclick="modalSelectPlan('starter')">Choose Plan</button>
+      </div>
+      <!-- Growth -->
+      <div class="plan-card pop">
+        <div class="pop-badge">★ Most Popular</div>
+        <div class="plan-hdr">
+          <div><div class="plan-name">Growth</div></div>
+          <div style="text-align:right"><div class="plan-price" id="mpr-growth">$49<small>/mo</small></div></div>
+        </div>
+        <div class="plan-tag">Grow your visibility continuously</div>
+        <ul class="plan-feats">
+          <li>30 AI articles per month</li>
+          <li>10 backlinks per month</li>
+          <li>Keyword research &amp; tracking</li>
+          <li>Competitor gap analysis</li>
+          <li>Brand voice customisation</li>
+          <li>14-day money-back guarantee</li>
+        </ul>
+        <button class="plan-cta" onclick="modalSelectPlan('growth')">Choose Plan</button>
+      </div>
+      <!-- Pro -->
+      <div class="plan-card">
+        <div class="plan-hdr">
+          <div><div class="plan-name">Pro</div></div>
+          <div style="text-align:right"><div class="plan-price" id="mpr-scale">$79<small>/mo</small></div></div>
+        </div>
+        <div class="plan-tag">Maximum SEO coverage</div>
+        <ul class="plan-feats">
+          <li>45 AI articles per month</li>
+          <li>13 backlinks per month</li>
+          <li>Keyword research &amp; tracking</li>
+          <li>Competitor gap analysis</li>
+          <li>Rank tracking dashboard</li>
+          <li>Priority support</li>
+          <li>14-day money-back guarantee</li>
+        </ul>
+        <button class="plan-cta" onclick="modalSelectPlan('scale')">Choose Plan</button>
+      </div>
+    </div>
+
+    <!-- Email capture step (shown after plan is selected) -->
+    <div id="modal-email-step" style="display:none;border-top:1px solid #f1f5f9;padding-top:20px">
+      <p style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:12px">Enter your email to continue</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input type="email" id="modal-email-input" placeholder="you@example.com" style="flex:1;min-width:200px;padding:12px 14px;padding-left:14px;border-radius:12px;border:1.5px solid #e2e8f0;font-size:14px;font-family:inherit;outline:none" onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e2e8f0'" onkeydown="if(event.key==='Enter')modalStartCheckout()">
+        <button onclick="modalStartCheckout()" id="modal-checkout-btn" style="padding:12px 20px;border-radius:12px;border:none;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Start Plan →</button>
+      </div>
+      <div class="error-text" id="modal-err" style="text-align:left;margin-top:8px"></div>
+      <p style="font-size:12px;color:#94a3b8;margin-top:10px">🔒 Secure payment by Stripe · Cancel anytime</p>
+    </div>
+  </div>
+</div>
+
 </div><!-- .page -->
 
 <script>
+// ─── PRICING MODAL ───────────────────────────────────────────────────────────
+let _modalPlan = null;
+let _modalBilling = 'monthly';
+
+const MODAL_PRICES = {
+  starter:{ monthly:'$29', annual:'$23' },
+  growth: { monthly:'$49', annual:'$39' },
+  scale:  { monthly:'$79', annual:'$63' },
+};
+
+function openPricingModal() {
+  const m = document.getElementById('pricing-modal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  track('pricing_modal_open');
+}
+
+function closePricingModal() {
+  const m = document.getElementById('pricing-modal');
+  m.style.display = 'none';
+  document.body.style.overflow = '';
+  _modalPlan = null;
+  document.getElementById('modal-email-step').style.display = 'none';
+  document.getElementById('modal-email-input').value = '';
+  hideErr('modal-err');
+}
+
+function setModalBilling(b) {
+  _modalBilling = b;
+  document.getElementById('mtab-monthly').className = 'btab' + (b==='monthly' ? ' on' : '');
+  document.getElementById('mtab-annual').className  = 'btab' + (b==='annual'  ? ' on' : '');
+  ['starter','growth','scale'].forEach(p => {
+    const el = document.getElementById('mpr-' + p);
+    if (el) el.innerHTML = MODAL_PRICES[p][b] + '<small>/mo</small>';
+  });
+}
+
+function modalSelectPlan(plan) {
+  _modalPlan = plan;
+  document.getElementById('modal-email-step').style.display = 'block';
+  setTimeout(() => {
+    const inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 50);
+  // Scroll email step into view on mobile
+  document.getElementById('modal-email-step').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  track('modal_plan_selected', { plan, billing: _modalBilling });
+}
+
+async function modalStartCheckout() {
+  const email = (document.getElementById('modal-email-input').value || '').trim();
+  if (!email || !email.includes('@')) {
+    showErr('modal-err', 'Please enter a valid email address.');
+    return;
+  }
+  if (!_modalPlan) return;
+
+  const btn = document.getElementById('modal-checkout-btn');
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
+  hideErr('modal-err');
+
+  try {
+    const res = await fetch('https://app.myleados.ai/api/stripe/standalone-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        plan_key: _modalPlan,
+        billing: _modalBilling,
+      }),
+    });
+    const d = await res.json();
+    if (d.url) {
+      track('modal_checkout_started', { plan: _modalPlan, billing: _modalBilling });
+      window.location.href = d.url;
+    } else {
+      throw new Error(d.error || 'Checkout failed');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Start Plan →';
+    const msg = (e.message || '').toLowerCase().includes('price not configured')
+      ? 'Annual billing is not available right now. Please select monthly.'
+      : 'Could not start checkout. Please try again.';
+    showErr('modal-err', msg);
+  }
+}
+
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const API = 'https://app.myleados.ai';
 

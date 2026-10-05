@@ -41,6 +41,22 @@ export default function Footer() {
                 Block B-B58-069, Sharjah, UAE 23227
               </span>
             </div>
+            {/* Social links */}
+            <div style={{ display: "flex", gap: 10, margin: "16px 0 4px" }}>
+              <a href="https://www.instagram.com/myleados.ai/" target="_blank" rel="noopener noreferrer" aria-label="LeadOS on Instagram" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.1)", color: "white", transition: "background .15s" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4.5"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/Leadoscrm" target="_blank" rel="noopener noreferrer" aria-label="LeadOS on Facebook" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.1)", color: "white", transition: "background .15s" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                </svg>
+              </a>
+            </div>
+
             <div className="footer-chips">
               {["WhatsApp", "Instagram", "Messenger", "Web Chat", "Voice AI", "AI Booking", "Follow-Up", "Multilingual", "Meta Brain"].map((c) => (
                 <span key={c} className="footer-chip">{c}</span>

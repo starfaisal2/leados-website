@@ -58,7 +58,7 @@ const orgSchema = {
   name: "LeadOS",
   url: "https://myleados.ai",
   logo: "https://myleados.ai/icon.svg",
-  sameAs: ["https://www.instagram.com/leados.ai"],
+  sameAs: ["https://www.instagram.com/myleados.ai/", "https://www.facebook.com/Leadoscrm"],
   description: "AI CRM that learns from conversations, bookings and follow-ups. Capture leads, automate bookings, track revenue and improve over time.",
 };
 
@@ -93,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
+          className="whatsapp-fab"
           style={{
             position: "fixed",
             bottom: 96,
