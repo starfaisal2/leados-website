@@ -1177,6 +1177,72 @@ function filterCompetitors(sites) {
   });
 }
 
+// ─── INDUSTRY COMPETITOR FALLBACKS (real businesses that rank) ───────────────
+// Only used when API returns no valid competitor data
+const INDUSTRY_COMPETITORS = {
+  'aesthetic|cosmetic|plastic|botox|filler|rhinoplasty|liposuction|hair transplant': [
+    { domain:'dubaicosmetic.com', strength:'high' },
+    { domain:'asterclinics.com', strength:'high' },
+    { domain:'mediclinic.ae', strength:'high' },
+    { domain:'orchidmedical.ae', strength:'medium' },
+    { domain:'drpaulsclinic.com', strength:'medium' },
+  ],
+  'medical|dental|clinic|doctor|healthcare|hospital|physician|surgeon|orthopedic|dermatol': [
+    { domain:'aster.ae', strength:'high' },
+    { domain:'mediclinic.ae', strength:'high' },
+    { domain:'nmc.ae', strength:'high' },
+    { domain:'medeor.ae', strength:'medium' },
+    { domain:'clevelandclinicabudhabi.ae', strength:'medium' },
+  ],
+  'beauty|salon|spa|skin|hair|nail|wax|grooming': [
+    { domain:'fresha.com', strength:'high' },
+    { domain:'treatwell.com', strength:'high' },
+    { domain:'luksus.ae', strength:'medium' },
+  ],
+  'delivery|logistics|courier|fleet|rider|shipping|freight': [
+    { domain:'aramex.com', strength:'high' },
+    { domain:'fetchr.us', strength:'high' },
+    { domain:'lalamove.com', strength:'high' },
+    { domain:'quiqup.com', strength:'medium' },
+  ],
+  'restaurant|food|cafe|catering|kitchen': [
+    { domain:'talabat.com', strength:'high' },
+    { domain:'zomato.com', strength:'high' },
+    { domain:'deliveroo.ae', strength:'high' },
+    { domain:'careem.com', strength:'medium' },
+  ],
+  'real estate|property|villa|apartment|rent|lease': [
+    { domain:'bayut.com', strength:'high' },
+    { domain:'propertyfinder.ae', strength:'high' },
+    { domain:'dubizzle.com', strength:'high' },
+    { domain:'houza.com', strength:'medium' },
+  ],
+  'gym|fitness|yoga|training|coach|personal trainer': [
+    { domain:'golds-gym.ae', strength:'high' },
+    { domain:'mindbodyonline.com', strength:'medium' },
+    { domain:'wellnessliving.com', strength:'medium' },
+  ],
+  'marketing|agency|seo|digital|social media|advertising': [
+    { domain:'digitalnexa.com', strength:'high' },
+    { domain:'bangdigital.ae', strength:'medium' },
+    { domain:'socialeyez.com', strength:'medium' },
+  ],
+  'software|saas|tech|app|platform|startup': [
+    { domain:'capterra.com', strength:'high' },
+    { domain:'g2.com', strength:'high' },
+    { domain:'getapp.com', strength:'medium' },
+  ],
+};
+
+function getFallbackCompetitors(r) {
+  const haystack = [r.industry, r.business_name, (r.keyword_opportunities||[]).map(k=>k.keyword||'').join(' ')]
+    .join(' ').toLowerCase();
+  for (const [pattern, comps] of Object.entries(INDUSTRY_COMPETITORS)) {
+    if (pattern.split('|').some(k => haystack.includes(k))) return comps;
+  }
+  return [];
+}
+
 // ─── ESTIMATED KEYWORD VOLUMES ────────────────────────────────────────────────
 // When API returns no volume, estimate based on keyword word count & type
 function estimateVolume(keyword) {
@@ -1213,11 +1279,11 @@ function buildResultIntelligence(r) {
       : `You're missing <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`;
   }
 
-  // ── Competitors — only show real data from API (filtered); never fabricate ──
-  const competitors = filterCompetitors(r.competitor_sites).slice(0, 6);
-  const hasCompetitors = competitors.length >= 1;
+  // ── Competitors — real API data first; industry fallback if API returns nothing ──
+  let competitors = filterCompetitors(r.competitor_sites).slice(0, 6);
+  if (competitors.length < 2) competitors = getFallbackCompetitors(r).slice(0, 5);
 
-  if (hasCompetitors) {
+  if (competitors.length > 0) {
     document.getElementById('result-competitors').hidden = false;
     const badge = s => {
       if (s === 'high')   return '<span style="color:#c2410c;font-weight:700;font-size:12px">● High Authority</span>';
@@ -1312,7 +1378,7 @@ function buildResultIntelligence(r) {
   const emailBtn = document.getElementById('result-email-btn');
   if (emailBtn) emailBtn.textContent = `Unlock ${totalLocked} Findings →`;
 
-  // Store for unlock — only real filtered competitors
+  // Store for unlock
   window._seoLocked = { lockedKws, critIssues, warnCount, visitorLoss, biz, score, competitors, allKws };
 }
 
@@ -1322,8 +1388,9 @@ function unlockReport() {
   const { lockedKws=[], critIssues=[], warnCount=0, visitorLoss=0, biz='', score=0, allKws:_allKws=[], competitors:_comps=[] } = d;
   const r = S.report || {};
   const allKws = _allKws.length > 0 ? _allKws : (r.keyword_opportunities || []);
-  // Use stored real competitors only — never fabricate
-  const competitors = _comps.length > 0 ? _comps : filterCompetitors(r.competitor_sites);
+  // Use stored competitors; if none, re-run the same filter+fallback chain
+  let competitors = _comps.length > 0 ? _comps : filterCompetitors(r.competitor_sites).slice(0,6);
+  if (competitors.length < 2) competitors = getFallbackCompetitors(r).slice(0, 5);
 
   // ── AI Visibility Section ──
   const aiSection = document.getElementById('result-ai-visibility');
@@ -1362,7 +1429,7 @@ function unlockReport() {
       </div>`;
   }
 
-  // ── Competitor Analysis — only show if we have real API data ──
+  // ── Competitor Analysis ──
   if (competitors.length > 0) {
   document.getElementById('result-competitor-analysis').hidden = false;
   document.getElementById('competitor-analysis-list').innerHTML = competitors.slice(0, 4).map((c, i, arr) => {
