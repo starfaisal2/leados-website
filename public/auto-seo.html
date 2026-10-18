@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1177,60 +1177,6 @@ function filterCompetitors(sites) {
   });
 }
 
-// ─── INDUSTRY COMPETITOR FALLBACKS ────────────────────────────────────────────
-// If API doesn't return valid competitor_sites, show known competitors by industry keyword
-const INDUSTRY_COMPETITORS = {
-  'delivery|logistics|courier|fleet|rider|shipping|freight': [
-    { domain:'aramex.com', strength:'high' }, { domain:'fetchr.us', strength:'high' },
-    { domain:'lalamove.com', strength:'high' }, { domain:'quiqup.com', strength:'medium' },
-    { domain:'dunzo.com', strength:'medium' }, { domain:'postmates.com', strength:'medium' },
-  ],
-  'restaurant|food|cafe|catering|kitchen': [
-    { domain:'talabat.com', strength:'high' }, { domain:'careem.com', strength:'high' },
-    { domain:'zomato.com', strength:'high' }, { domain:'noon.com', strength:'medium' },
-  ],
-  'real estate|property|villa|apartment|rent|lease': [
-    { domain:'bayut.com', strength:'high' }, { domain:'propertyfinder.ae', strength:'high' },
-    { domain:'dubizzle.com', strength:'high' }, { domain:'houza.com', strength:'medium' },
-  ],
-  'medical|dental|clinic|doctor|healthcare|hospital|physician|surgeon|orthopedic|dermatol|laser|aesthetic': [
-    { domain:'aster.ae', strength:'high' }, { domain:'mediclinic.ae', strength:'high' },
-    { domain:'nmc.ae', strength:'high' }, { domain:'vpsealthcare.com', strength:'medium' },
-    { domain:'emirates-hospitals.com', strength:'medium' }, { domain:'medeor.ae', strength:'medium' },
-  ],
-  'beauty|salon|spa|skin|hair|nail|wax|grooming': [
-    { domain:'treatwell.com', strength:'high' }, { domain:'fresha.com', strength:'high' },
-    { domain:'stylecraze.com', strength:'medium' }, { domain:'beautylaunchpad.com', strength:'medium' },
-  ],
-  'gym|fitness|yoga|training|coach|personal trainer': [
-    { domain:'gympass.com', strength:'high' }, { domain:'mindbodyonline.com', strength:'high' },
-    { domain:'wellnessliving.com', strength:'medium' },
-  ],
-  'marketing|agency|seo|digital|social media|advertising': [
-    { domain:'hubspot.com', strength:'high' }, { domain:'semrush.com', strength:'high' },
-    { domain:'hootsuite.com', strength:'high' }, { domain:'buffer.com', strength:'medium' },
-  ],
-  'software|saas|tech|app|platform|startup': [
-    { domain:'capterra.com', strength:'high' }, { domain:'g2.com', strength:'high' },
-    { domain:'producthunt.com', strength:'medium' }, { domain:'getapp.com', strength:'medium' },
-  ],
-};
-
-function getFallbackCompetitors(r) {
-  const industry = (r.industry || r.business_type || '').toLowerCase();
-  const biz = (r.business_name || '').toLowerCase();
-  const kws = (r.keyword_opportunities || []).map(k => k.keyword||'').join(' ').toLowerCase();
-  const haystack = industry + ' ' + biz + ' ' + kws;
-  for (const [pattern, comps] of Object.entries(INDUSTRY_COMPETITORS)) {
-    if (pattern.split('|').some(k => haystack.includes(k))) return comps;
-  }
-  // Generic fallback
-  return [
-    { domain:'semrush.com', strength:'high' }, { domain:'ahrefs.com', strength:'high' },
-    { domain:'moz.com', strength:'medium' }, { domain:'ubersuggest.com', strength:'medium' },
-  ];
-}
-
 // ─── ESTIMATED KEYWORD VOLUMES ────────────────────────────────────────────────
 // When API returns no volume, estimate based on keyword word count & type
 function estimateVolume(keyword) {
@@ -1267,25 +1213,26 @@ function buildResultIntelligence(r) {
       : `You're missing <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`;
   }
 
-  // ── Competitors — always show (filter bad API data, fallback to industry list if < 2 valid) ──
-  let competitors = filterCompetitors(r.competitor_sites).slice(0, 6);
-  const usingFallback = competitors.length < 2;
-  if (usingFallback) competitors = getFallbackCompetitors(r).slice(0, 5);
+  // ── Competitors — only show real data from API (filtered); never fabricate ──
+  const competitors = filterCompetitors(r.competitor_sites).slice(0, 6);
+  const hasCompetitors = competitors.length >= 1;
 
-  document.getElementById('result-competitors').hidden = false;
-  const badge = s => {
-    if (s === 'high')   return '<span style="color:#c2410c;font-weight:700;font-size:12px">● High Authority</span>';
-    if (s === 'medium') return '<span style="color:#d97706;font-weight:700;font-size:12px">● Medium Authority</span>';
-    return '<span style="color:#65a30d;font-weight:700;font-size:12px">● Growing</span>';
-  };
-  document.getElementById('competitors-list').innerHTML = competitors.map((c, i) => {
-    const raw = c.domain || c.url || c.site || c.name || c.website || '';
-    const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'') : 'Competitor ' + (i+1);
-    return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:11px 14px;${i < competitors.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}background:#fff">
-      <span style="font-size:13.5px;font-weight:600;color:#0f172a">${esc(domain)}</span>
-      ${badge(c.strength)}
-    </div>`;
-  }).join('');
+  if (hasCompetitors) {
+    document.getElementById('result-competitors').hidden = false;
+    const badge = s => {
+      if (s === 'high')   return '<span style="color:#c2410c;font-weight:700;font-size:12px">● High Authority</span>';
+      if (s === 'medium') return '<span style="color:#d97706;font-weight:700;font-size:12px">● Medium Authority</span>';
+      return '<span style="color:#65a30d;font-weight:700;font-size:12px">● Growing</span>';
+    };
+    document.getElementById('competitors-list').innerHTML = competitors.map((c, i) => {
+      const raw = c.domain || c.url || c.site || c.name || c.website || '';
+      const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'') : 'Competitor ' + (i+1);
+      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:11px 14px;${i < competitors.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}background:#fff">
+        <span style="font-size:13.5px;font-weight:600;color:#0f172a">${esc(domain)}</span>
+        ${badge(c.strength)}
+      </div>`;
+    }).join('');
+  }
 
   // ── Helper: render a keyword row with estimated volume if needed ──
   function kwRow(k, i, arr) {
@@ -1365,8 +1312,8 @@ function buildResultIntelligence(r) {
   const emailBtn = document.getElementById('result-email-btn');
   if (emailBtn) emailBtn.textContent = `Unlock ${totalLocked} Findings →`;
 
-  // Store for unlock
-  window._seoLocked = { lockedKws, critIssues, warnCount, visitorLoss, biz, score, usingFallback, competitors, allKws };
+  // Store for unlock — only real filtered competitors
+  window._seoLocked = { lockedKws, critIssues, warnCount, visitorLoss, biz, score, competitors, allKws };
 }
 
 // ─── UNLOCK (called after email capture) ──────────────────────────────────────
@@ -1375,8 +1322,8 @@ function unlockReport() {
   const { lockedKws=[], critIssues=[], warnCount=0, visitorLoss=0, biz='', score=0, allKws:_allKws=[], competitors:_comps=[] } = d;
   const r = S.report || {};
   const allKws = _allKws.length > 0 ? _allKws : (r.keyword_opportunities || []);
-  // Use stored competitors (already filtered + fallback applied at build time)
-  const competitors = _comps.length >= 2 ? _comps : (filterCompetitors(r.competitor_sites).length >= 2 ? filterCompetitors(r.competitor_sites) : getFallbackCompetitors(r));
+  // Use stored real competitors only — never fabricate
+  const competitors = _comps.length > 0 ? _comps : filterCompetitors(r.competitor_sites);
 
   // ── AI Visibility Section ──
   const aiSection = document.getElementById('result-ai-visibility');
@@ -1415,7 +1362,8 @@ function unlockReport() {
       </div>`;
   }
 
-  // ── Competitor Analysis — always visible (uses stored fallback if needed) ──
+  // ── Competitor Analysis — only show if we have real API data ──
+  if (competitors.length > 0) {
   document.getElementById('result-competitor-analysis').hidden = false;
   document.getElementById('competitor-analysis-list').innerHTML = competitors.slice(0, 4).map((c, i, arr) => {
       const raw = c.domain || c.url || c.site || c.name || c.website || '';
@@ -1437,6 +1385,7 @@ function unlockReport() {
         <div style="font-size:12px;color:#dc2626;font-weight:600">↑ Ranks for ~${kwEstimate} of your ${allKws.length} missed keyword${allKws.length!==1?'s':''}</div>
       </div>`;
     }).join('');
+  } // end if (competitors.length > 0)
 
   // ── All Keyword Gaps — Quick Wins vs Big Opportunities ──
   if (lockedKws.length > 0) {
