@@ -306,7 +306,7 @@ input::placeholder{color:#94a3b8}
 
 
 <!-- ══════════════════════════════════════════════════════
-     SCREEN 3 — SCAN RESULT
+     SCREEN 3 — SCAN RESULT (Intelligence + Email Gate)
 ══════════════════════════════════════════════════════ -->
 <div id="s-result" class="screen" hidden>
   <div class="nav">
@@ -340,180 +340,65 @@ input::placeholder{color:#94a3b8}
       <span id="score-banner-text">Your website is not ranking as well as it could in search results.</span>
     </div>
 
-    <div style="font-size:21px;font-weight:800;letter-spacing:-.4px;line-height:1.3;margin-bottom:8px">
-      We found <span id="opp-count" style="color:#ef4444">0</span> opportunities to improve your rankings.
+    <!-- Personalized hook line -->
+    <div id="result-hook" style="font-size:20px;font-weight:800;letter-spacing:-.4px;line-height:1.35;margin:16px 0 20px;color:#0f172a"></div>
+
+    <!-- Competitors ahead of you -->
+    <div id="result-competitors" hidden style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+        <span style="font-size:15px">🏆</span>
+        <span style="font-size:12px;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:.6px">Competitors ahead of you</span>
+      </div>
+      <div style="border:1.5px solid #fed7aa;border-radius:14px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:1fr auto;background:#fff7ed;padding:8px 14px;border-bottom:1px solid #fed7aa">
+          <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.4px">Competitor</span>
+          <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.4px;text-align:right">SEO Strength</span>
+        </div>
+        <div id="competitors-list"></div>
+      </div>
     </div>
-    <p style="font-size:13px;margin-bottom:16px" id="result-summary">Your website is missing important keywords and has technical issues.</p>
 
-    <div class="metrics" id="metrics-grid"></div>
+    <!-- Searches you're missing -->
+    <div id="result-keywords" hidden style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+        <span style="font-size:15px">🔍</span>
+        <span style="font-size:12px;font-weight:700;color:#4338ca;text-transform:uppercase;letter-spacing:.6px">Searches you're missing</span>
+      </div>
+      <div style="border:1.5px solid #c7d2fe;border-radius:14px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:1fr auto;background:#eef2ff;padding:8px 14px;border-bottom:1px solid #c7d2fe">
+          <span style="font-size:11px;font-weight:700;color:#3730a3;text-transform:uppercase;letter-spacing:.4px">Keyword</span>
+          <span style="font-size:11px;font-weight:700;color:#3730a3;text-transform:uppercase;letter-spacing:.4px;text-align:right">Ranking</span>
+        </div>
+        <div id="keywords-list"></div>
+      </div>
+    </div>
 
-    <button class="btn btn-primary" onclick="show('s-issues')">See What's Holding You Back →</button>
+    <!-- Technical issues -->
+    <div id="result-technical" hidden style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+        <span style="font-size:15px">⚙️</span>
+        <span style="font-size:12px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:.6px">Technical issues found</span>
+      </div>
+      <div style="border:1.5px solid #ddd6fe;border-radius:14px;overflow:hidden">
+        <div id="technical-list"></div>
+      </div>
+    </div>
+
+    <!-- Email capture (replaces the old 3-screen wizard) -->
+    <div style="background:linear-gradient(135deg,#f5f3ff,#eef2ff);border:1.5px solid #c7d2fe;border-radius:16px;padding:22px;margin-top:4px">
+      <div style="font-size:17px;font-weight:800;color:#0f172a;margin-bottom:4px">LeadOS fixes this automatically →</div>
+      <p style="font-size:13px;margin-bottom:16px">Fresh SEO articles published to your site every month. No writing. No agencies.</p>
+      <div class="field" style="margin-bottom:10px">
+        <div class="input-wrap"><span class="input-icon">✉️</span><input type="email" id="r-email" placeholder="your@business.com" autocomplete="email" onkeydown="if(event.key==='Enter')resultEmailNext()"></div>
+      </div>
+      <button class="btn btn-primary" id="result-email-btn" onclick="resultEmailNext()">Get My Free SEO Plan →</button>
+      <div class="error-text" id="result-email-err"></div>
+      <div class="sec-note" style="margin-top:10px">🔒 No credit card · Cancel anytime · 14-day money-back</div>
+    </div>
   </div>
 </div>
 
 
-<!-- ══════════════════════════════════════════════════════
-     SCREEN 4 — TOP ISSUES
-══════════════════════════════════════════════════════ -->
-<div id="s-issues" class="screen" hidden>
-  <div class="nav">
-    <a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a>
-    <button class="nav-btn" onclick="newScan()">New Scan</button>
-  </div>
-  <div class="content">
-    <h2 style="margin-bottom:4px">What's holding your website back?</h2>
-    <p style="font-size:13px;margin-bottom:20px">These are the main issues we found during your scan.</p>
-    <div id="issues-list"></div>
-    <button class="btn btn-primary" onclick="show('s-cta')" style="margin-top:8px">See How to Fix This →</button>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════
-     SCREEN 5 — LEADOS CTA
-══════════════════════════════════════════════════════ -->
-<div id="s-cta" class="screen" hidden>
-  <div class="nav">
-    <a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a>
-    <button class="nav-btn" onclick="show('s-result')">← Results</button>
-  </div>
-  <div class="content" style="display:flex;flex-direction:column;padding-top:36px">
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-size:44px;margin-bottom:14px">✦</div>
-      <h2 style="font-size:25px;margin-bottom:8px"><span style="color:#4f46e5">LeadOS</span> can fix<br>these issues for you.</h2>
-      <p>We do everything automatically — you just keep running your business.</p>
-    </div>
-    <div class="card" style="margin-bottom:24px">
-      <div class="cap-item"><div class="cap-check">✓</div>Find missing keyword opportunities</div>
-      <div class="cap-item"><div class="cap-check">✓</div>Optimize your website content</div>
-      <div class="cap-item"><div class="cap-check">✓</div>Improve Google &amp; AI search visibility</div>
-      <div class="cap-item"><div class="cap-check">✓</div>Build quality backlinks to your site</div>
-      <div class="cap-item"><div class="cap-check">✓</div>Continuously monitor your rankings</div>
-    </div>
-    <button class="btn btn-primary" onclick="show('s-biz')">Fix My SEO with LeadOS →</button>
-  </div>
-  <div class="trust-row">
-    <div class="trust-item">🔧&nbsp;No setup required</div>
-    <div class="trust-item">🏢&nbsp;Works for your industry</div>
-    <div class="trust-item">↩&nbsp;Cancel anytime</div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════
-     SCREEN 6 — WIZARD: BUSINESS (1/3)
-══════════════════════════════════════════════════════ -->
-<div id="s-biz" class="screen" hidden>
-  <div class="nav"><a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a></div>
-  <div class="wizard-progress"><div class="pdot on"></div><div class="pdot"></div><div class="pdot"></div></div>
-  <div class="content">
-    <button class="back-btn" onclick="show('s-cta')">← Back</button>
-    <h2 style="margin-bottom:4px">Tell us about your business</h2>
-    <p style="font-size:13px;margin-bottom:22px" id="biz-note">We found this information from your website. Please confirm or edit.</p>
-
-    <div class="field">
-      <label>Business Name</label>
-      <div class="input-wrap"><span class="input-icon">🏢</span><input type="text" id="f-bizname" placeholder="Your business name"></div>
-    </div>
-    <div class="field">
-      <label>Country</label>
-      <select id="f-country">
-        <option value="">Select country</option>
-        <option value="AE">🇦🇪 United Arab Emirates</option>
-        <option value="AU">🇦🇺 Australia</option>
-        <option value="US">🇺🇸 United States</option>
-        <option value="GB">🇬🇧 United Kingdom</option>
-        <option value="SA">🇸🇦 Saudi Arabia</option>
-        <option value="KW">🇰🇼 Kuwait</option>
-        <option value="BH">🇧🇭 Bahrain</option>
-        <option value="QA">🇶🇦 Qatar</option>
-        <option value="OM">🇴🇲 Oman</option>
-        <option value="EG">🇪🇬 Egypt</option>
-        <option value="CA">🇨🇦 Canada</option>
-        <option value="NZ">🇳🇿 New Zealand</option>
-        <option value="SG">🇸🇬 Singapore</option>
-        <option value="IN">🇮🇳 India</option>
-        <option value="PK">🇵🇰 Pakistan</option>
-        <option value="OTHER">🌍 Other</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>City</label>
-      <div class="input-wrap"><span class="input-icon">📍</span><input type="text" id="f-city" placeholder="City"></div>
-    </div>
-    <div class="field">
-      <label>Industry</label>
-      <select id="f-industry">
-        <option value="">Select industry</option>
-        <option>Aesthetic Clinic</option><option>Dental Clinic</option><option>Medical Clinic</option>
-        <option>Hair Salon</option><option>Beauty Salon</option><option>Spa &amp; Wellness</option>
-        <option>Physiotherapy</option><option>Fitness &amp; Gym</option><option>Real Estate</option>
-        <option>Restaurant</option><option>Law Firm</option><option>Accounting</option>
-        <option>Education</option><option>Retail</option><option>E-commerce</option><option>Other</option>
-      </select>
-    </div>
-    <button class="btn btn-primary" onclick="bizNext()">Continue →</button>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════
-     SCREEN 7 — WIZARD: SERVICES (2/3)
-══════════════════════════════════════════════════════ -->
-<div id="s-services" class="screen" hidden>
-  <div class="nav"><a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a></div>
-  <div class="wizard-progress"><div class="pdot"></div><div class="pdot on"></div><div class="pdot"></div></div>
-  <div class="content">
-    <button class="back-btn" onclick="show('s-biz')">← Back</button>
-    <h2 style="margin-bottom:4px">What do you want customers to find you for?</h2>
-    <p style="font-size:13px;margin-bottom:18px">Select the most relevant services.</p>
-
-    <div class="chips" id="chip-wrap"></div>
-    <div class="chip-add-wrap">
-      <input type="text" id="svc-input" placeholder="Add another service" onkeydown="if(event.key==='Enter'){addSvc()}">
-      <button class="chip-add-btn" onclick="addSvc()">+ Add</button>
-    </div>
-
-    <div class="field">
-      <label>Target Location</label>
-      <div class="input-wrap"><span class="input-icon">📍</span><input type="text" id="f-location" placeholder="e.g. Abu Dhabi, UAE"></div>
-    </div>
-    <button class="btn btn-primary" onclick="svcNext()">Continue →</button>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════
-     SCREEN 8 — WIZARD: CONTACT (3/3)
-══════════════════════════════════════════════════════ -->
-<div id="s-contact" class="screen" hidden>
-  <div class="nav"><a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a></div>
-  <div class="wizard-progress"><div class="pdot"></div><div class="pdot"></div><div class="pdot on"></div></div>
-  <div class="content">
-    <button class="back-btn" onclick="show('s-services')">← Back</button>
-    <div style="text-align:center;margin-bottom:26px">
-      <h2 style="font-size:24px;margin-bottom:6px">Almost done!</h2>
-      <p style="font-size:13.5px">Where should we send your personalised SEO plan?</p>
-    </div>
-
-    <div class="field">
-      <label>Full Name</label>
-      <div class="input-wrap"><span class="input-icon">👤</span><input type="text" id="f-name" placeholder="Your full name"></div>
-    </div>
-    <div class="field">
-      <label>Business Email</label>
-      <div class="input-wrap"><span class="input-icon">✉️</span><input type="email" id="f-email" placeholder="you@yourbusiness.com"></div>
-    </div>
-    <div class="field">
-      <label>WhatsApp / Phone <span style="color:#94a3b8;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-      <div class="input-wrap"><span class="input-icon">📱</span><input type="tel" id="f-phone" placeholder="+971 50 123 4567"></div>
-    </div>
-
-    <button class="btn btn-primary" id="contact-btn" onclick="contactNext()">See My Plan →</button>
-    <div class="error-text" id="contact-err"></div>
-    <div class="sec-note">🔒 Your information is safe with us.</div>
-  </div>
-</div>
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -522,7 +407,8 @@ input::placeholder{color:#94a3b8}
 <div id="s-pricing" class="screen" hidden>
   <div class="nav"><a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a></div>
   <div class="content">
-    <button class="back-btn" onclick="show('s-contact')">← Back</button>
+    <button class="back-btn" onclick="show('s-result')">← Results</button>
+    <div id="pricing-biz-header" style="font-size:13px;font-weight:600;color:#4f46e5;margin-bottom:4px"></div>
     <h2 style="margin-bottom:4px">Choose your plan</h2>
     <p style="font-size:13px;margin-bottom:18px">Start fixing your SEO and grow on Google and AI search.</p>
 
@@ -1068,8 +954,6 @@ function setRing(pct) {
 function goToResult() {
   if (!S.report) return;
   buildResult(S.report);
-  buildIssues(S.report);
-  prefillWizard(S.report);
   show('s-result');
 }
 
@@ -1124,47 +1008,7 @@ function buildResult(r) {
     document.getElementById('score-banner-icon').textContent = '⚠️';
   }
 
-  // Metrics — smart selection: never show a weak zero if a stronger real metric exists
-  const crit  = (r.technical_issues||[]).filter(i=>i.severity==='critical'||i.severity==='high').length;
-  const warns = (r.technical_issues||[]).length; // all severities (always >= crit)
-  const kws   = (r.keyword_opportunities||[]).length;
-  const comp  = (r.competitor_sites||[]).filter(c=>c.strength==='medium'||c.strength==='high').length;
-  const total = crit + kws + comp;
-  document.getElementById('opp-count').textContent = total || warns || 1;
-
-  // Build prioritised candidate list, skip zeros where a better real stat exists
-  const metricCandidates = [
-    crit         > 0 ? { icon:'⚠️', n:crit,         l:'Critical Issues'  } : null,
-    kws          > 0 ? { icon:'🔍', n:kws,           l:'Search Gaps'      } : null,
-    (warns-crit) > 0 ? { icon:'📋', n:(warns-crit),  l:'SEO Warnings'     } : null,
-    comp         > 0 ? { icon:'👥', n:comp,           l:'Competitors Ahead'} : null,
-  ].filter(Boolean);
-
-  // Fill to 3 slots using lower-priority fallbacks if needed
-  const usedLabels = new Set(metricCandidates.map(c=>c.l));
-  const fallbacks = [
-    { icon:'⚠️', n:crit,  l:'Critical Issues'  },
-    { icon:'📋', n:warns, l:'SEO Issues'        },
-    { icon:'🔍', n:kws,   l:'Search Gaps'      },
-    { icon:'👥', n:comp,  l:'Competitors Ahead' },
-  ].filter(c => !usedLabels.has(c.l));
-
-  const slots = [...metricCandidates, ...fallbacks].slice(0, 3);
-  const grid = document.getElementById('metrics-grid');
-  if (grid) {
-    grid.innerHTML = slots.map(s =>
-      `<div class="metric"><div class="metric-icon">${s.icon}</div><div class="metric-n">${s.n}</div><div class="metric-l">${esc(s.l)}</div></div>`
-    ).join('');
-  }
-
-  // Summary sentence
-  const parts = [];
-  if (kws > 0)  parts.push('missing important keywords');
-  if (crit > 0) parts.push('technical issues to address');
-  if (comp > 0) parts.push('competitors with stronger coverage');
-  document.getElementById('result-summary').textContent =
-    parts.length ? 'Your website has ' + parts.join(', ') + '.' :
-    'We found opportunities to improve your search visibility on Google.';
+  buildResultIntelligence(r);
 }
 
 function animGauge(score) {
@@ -1176,7 +1020,120 @@ function animGauge(score) {
   arc.style.stroke = score >= 70 ? '#10b981' : score >= 45 ? '#f59e0b' : '#ef4444';
 }
 
-// ─── BUILD ISSUES SCREEN ──────────────────────────────────────────────────────
+// ─── BUILD RESULT INTELLIGENCE (competitors, keywords, technical) ─────────────
+function buildResultIntelligence(r) {
+  // Personalized hook
+  const biz = r.business_name || '';
+  const score = r.seo_score || 0;
+  const visitorLoss = Math.max(10, Math.round((100 - score) * 2.1));
+  const hookEl = document.getElementById('result-hook');
+  if (hookEl) {
+    hookEl.innerHTML = biz
+      ? `<span style="color:#0f172a">${esc(biz)} is missing</span> <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`
+      : `You're missing <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`;
+  }
+
+  // Competitors
+  const competitors = (r.competitor_sites || []).slice(0, 5);
+  if (competitors.length > 0) {
+    document.getElementById('result-competitors').hidden = false;
+    const strengthBadge = s => {
+      if (s === 'high')   return '<span style="color:#c2410c;font-weight:700;font-size:12px">● High</span>';
+      if (s === 'medium') return '<span style="color:#d97706;font-weight:700;font-size:12px">● Medium</span>';
+      return '<span style="color:#65a30d;font-weight:700;font-size:12px">● Low</span>';
+    };
+    document.getElementById('competitors-list').innerHTML = competitors.map((c, i) => {
+      const raw = c.domain || c.url || c.site || c.name || c.website || '';
+      const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '') : 'Competitor ' + (i + 1);
+      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:10px 14px;${i < competitors.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+        <span style="font-size:13.5px;font-weight:600;color:#0f172a">${esc(domain)}</span>
+        ${strengthBadge(c.strength)}
+      </div>`;
+    }).join('');
+  }
+
+  // Keywords
+  const allKws = (r.keyword_opportunities || []);
+  const topKws = allKws.slice(0, 7);
+  if (topKws.length > 0) {
+    document.getElementById('result-keywords').hidden = false;
+    const more = Math.max(0, allKws.length - topKws.length);
+    document.getElementById('keywords-list').innerHTML = topKws.map((k, i) => {
+      const vol = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
+      const volStr = vol ? (vol >= 1000 ? (vol / 1000).toFixed(1).replace('.0', '') + 'k/mo' : vol + '/mo') : null;
+      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:9px 14px;${i < topKws.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+        <div>
+          <span style="font-size:13px;color:#0f172a;font-weight:500">${esc(k.keyword)}</span>
+          ${volStr ? `<span style="font-size:11px;color:#94a3b8;margin-left:6px">${volStr}</span>` : ''}
+        </div>
+        <span style="font-size:11.5px;color:#dc2626;font-weight:600;white-space:nowrap">✗ Not ranked</span>
+      </div>`;
+    }).join('') + (more > 0 ? `<div style="padding:8px 14px;font-size:12px;color:#64748b;border-top:1px solid #f1f5f9">+ ${more} more keyword gap${more !== 1 ? 's' : ''}</div>` : '');
+  }
+
+  // Technical issues
+  const critIssues = (r.technical_issues || []).filter(i => i.severity === 'critical' || i.severity === 'high').slice(0, 4);
+  const warnCount  = (r.technical_issues || []).filter(i => i.severity === 'warning' || i.severity === 'medium').length;
+  if (critIssues.length > 0 || warnCount > 0) {
+    document.getElementById('result-technical').hidden = false;
+    const techRows = critIssues.map((t, i) =>
+      `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;${i < critIssues.length - 1 || warnCount > 0 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+        <span style="font-size:14px;flex-shrink:0">🔴</span>
+        <span style="font-size:13px;color:#0f172a;flex:1">${esc(t.label || t.issue || t.message || 'Critical technical issue')}</span>
+      </div>`
+    ).join('');
+    const warnRow = warnCount > 0
+      ? `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffbeb">
+           <span style="font-size:14px;flex-shrink:0">🟡</span>
+           <span style="font-size:13px;color:#78350f">+ ${warnCount} warning${warnCount !== 1 ? 's' : ''} detected</span>
+         </div>`
+      : '';
+    document.getElementById('technical-list').innerHTML = techRows + warnRow;
+  }
+}
+
+// ─── RESULT EMAIL CAPTURE ─────────────────────────────────────────────────────
+async function resultEmailNext() {
+  const email = (document.getElementById('r-email').value || '').trim();
+  if (!email || !email.includes('@')) {
+    showErr('result-email-err', 'Please enter a valid email address.');
+    return;
+  }
+
+  S.email = email;
+  if (S.report && S.report.business_name) S.bizName = S.report.business_name;
+
+  const btn = document.getElementById('result-email-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Saving…';
+  hideErr('result-email-err');
+
+  fetch(API + '/api/public/seo-scan/capture-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      website_url: S.url,
+      business_name: S.bizName || undefined,
+      seo_score: S.report ? S.report.seo_score : undefined,
+      top_issue: (S.report && S.report.technical_issues || []).find(i => i.severity === 'critical' || i.severity === 'high') ? (S.report.technical_issues.find(i => i.severity === 'critical' || i.severity === 'high').label) : undefined,
+    }),
+  }).catch(() => {});
+
+  track('email_captured', { email_domain: email.split('@')[1] });
+
+  btn.disabled = false;
+  btn.innerHTML = 'Get My Free SEO Plan →';
+
+  // Personalize pricing screen header
+  const pricingHdr = document.getElementById('pricing-biz-header');
+  if (pricingHdr && S.bizName) pricingHdr.textContent = 'Your plan for ' + S.bizName;
+
+  show('s-pricing');
+  track('pricing_viewed');
+}
+
+// ─── LEGACY (unused, kept for safety) ────────────────────────────────────────
 function buildIssues(r) {
   const issues = [];
 
@@ -1454,28 +1411,23 @@ function esc(s) {
 function resumeFromEmail(email, website) {
   S.email = email;
 
-  // Pre-fill contact form email in case we end up on that screen
-  const fEmail = document.getElementById('f-email');
-  if (fEmail) fEmail.value = email;
-
   if (website) {
     const normalUrl = website.startsWith('http') ? website : 'https://' + website;
     S.url = normalUrl;
     document.getElementById('url-input').value = normalUrl.replace(/^https?:\/\/(www\.)?/, '');
 
-    // Cache hit → restore full context and jump straight to pricing
     const cached = getCached(normalUrl);
     if (cached) {
       S.report = cached;
+      S.bizName = cached.business_name || '';
       buildResult(cached);
-      buildIssues(cached);
-      prefillWizard(cached);
+      const pricingHdr = document.getElementById('pricing-biz-header');
+      if (pricingHdr && S.bizName) pricingHdr.textContent = 'Your plan for ' + S.bizName;
       show('s-pricing');
       return;
     }
   }
 
-  // No cache (different device / expired) → jump straight to pricing; email already captured
   show('s-pricing');
 }
 
