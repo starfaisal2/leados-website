@@ -1157,8 +1157,28 @@ function animGauge(score) {
   arc.style.stroke = score >= 70 ? '#10b981' : score >= 45 ? '#f59e0b' : '#ef4444';
 }
 
+// ─── COMPETITOR BLOCKLIST ─────────────────────────────────────────────────────
+// Generic content sites / blogs the API sometimes returns as "competitors" — filter these out
+const COMPETITOR_BLOCKLIST = [
+  'coveteur.com','stylecraze.com','dubaitravelblog.com','beautylaunchpad.com',
+  'vogue.com','cosmopolitan.com','allure.com','elle.com','harpersbazaar.com','instyle.com',
+  'tripadvisor.com','yelp.com','foursquare.com','yellowpages.com','zaubacorp.com',
+  'wikipedia.org','reddit.com','quora.com','pinterest.com','instagram.com','facebook.com',
+  'linkedin.com','twitter.com','youtube.com','tiktok.com','snapchat.com',
+  'healthline.com','webmd.com','mayoclinic.org','nhs.uk','medicalnewstoday.com',
+  'timeout.com','visitdubai.com','dubai.ae','expat.com','gulfnews.com','khaleejtimes.com',
+];
+
+function filterCompetitors(sites) {
+  return (sites || []).filter(c => {
+    const raw = (c.domain || c.url || c.site || c.name || c.website || '').toLowerCase()
+      .replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'');
+    return raw && !COMPETITOR_BLOCKLIST.some(bad => raw === bad || raw.endsWith('.' + bad));
+  });
+}
+
 // ─── INDUSTRY COMPETITOR FALLBACKS ────────────────────────────────────────────
-// If API doesn't return competitor_sites, show known competitors by industry keyword
+// If API doesn't return valid competitor_sites, show known competitors by industry keyword
 const INDUSTRY_COMPETITORS = {
   'delivery|logistics|courier|fleet|rider|shipping|freight': [
     { domain:'aramex.com', strength:'high' }, { domain:'fetchr.us', strength:'high' },
@@ -1247,9 +1267,9 @@ function buildResultIntelligence(r) {
       : `You're missing <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`;
   }
 
-  // ── Competitors — always show (use API data OR fallback by industry) ──
-  let competitors = (r.competitor_sites || []).slice(0, 6);
-  const usingFallback = competitors.length === 0;
+  // ── Competitors — always show (filter bad API data, fallback to industry list if < 2 valid) ──
+  let competitors = filterCompetitors(r.competitor_sites).slice(0, 6);
+  const usingFallback = competitors.length < 2;
   if (usingFallback) competitors = getFallbackCompetitors(r).slice(0, 5);
 
   document.getElementById('result-competitors').hidden = false;
@@ -1355,8 +1375,8 @@ function unlockReport() {
   const { lockedKws=[], critIssues=[], warnCount=0, visitorLoss=0, biz='', score=0, allKws:_allKws=[], competitors:_comps=[] } = d;
   const r = S.report || {};
   const allKws = _allKws.length > 0 ? _allKws : (r.keyword_opportunities || []);
-  // Use stored competitors (includes industry fallback) or API data
-  const competitors = _comps.length > 0 ? _comps : (r.competitor_sites || getFallbackCompetitors(r));
+  // Use stored competitors (already filtered + fallback applied at build time)
+  const competitors = _comps.length >= 2 ? _comps : (filterCompetitors(r.competitor_sites).length >= 2 ? filterCompetitors(r.competitor_sites) : getFallbackCompetitors(r));
 
   // ── AI Visibility Section ──
   const aiSection = document.getElementById('result-ai-visibility');
