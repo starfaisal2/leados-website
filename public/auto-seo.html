@@ -313,7 +313,9 @@ input::placeholder{color:#94a3b8}
     <a href="https://myleados.ai" class="logo" aria-label="LeadOS home"><img src="/leados-logo-full.svg" alt="LeadOS"></a>
     <button class="nav-btn" onclick="newScan()">New Scan</button>
   </div>
-  <div class="content">
+  <div class="content" style="padding-bottom:0">
+
+    <!-- Site header -->
     <div class="site-hdr">
       <div class="site-fav" id="site-fav">🌐</div>
       <div>
@@ -322,6 +324,7 @@ input::placeholder{color:#94a3b8}
       </div>
     </div>
 
+    <!-- Score gauge -->
     <div style="text-align:center;font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px">Your SEO Score</div>
     <div class="gauge-wrap">
       <svg viewBox="0 0 188 108" overflow="visible">
@@ -340,10 +343,10 @@ input::placeholder{color:#94a3b8}
       <span id="score-banner-text">Your website is not ranking as well as it could in search results.</span>
     </div>
 
-    <!-- Personalized hook line -->
+    <!-- Personalized hook -->
     <div id="result-hook" style="font-size:20px;font-weight:800;letter-spacing:-.4px;line-height:1.35;margin:16px 0 20px;color:#0f172a"></div>
 
-    <!-- Competitors ahead of you -->
+    <!-- ── ALWAYS VISIBLE: Competitors ── -->
     <div id="result-competitors" hidden style="margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
         <span style="font-size:15px">🏆</span>
@@ -358,44 +361,91 @@ input::placeholder{color:#94a3b8}
       </div>
     </div>
 
-    <!-- Searches you're missing -->
-    <div id="result-keywords" hidden style="margin-bottom:16px">
+    <!-- ── ALWAYS VISIBLE: First 3 keywords (teaser) ── -->
+    <div id="result-keywords-preview" hidden style="margin-bottom:0">
       <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
         <span style="font-size:15px">🔍</span>
         <span style="font-size:12px;font-weight:700;color:#4338ca;text-transform:uppercase;letter-spacing:.6px">Searches you're missing</span>
       </div>
-      <div style="border:1.5px solid #c7d2fe;border-radius:14px;overflow:hidden">
+      <div style="border:1.5px solid #c7d2fe;border-radius:14px 14px 0 0;overflow:hidden">
         <div style="display:grid;grid-template-columns:1fr auto;background:#eef2ff;padding:8px 14px;border-bottom:1px solid #c7d2fe">
           <span style="font-size:11px;font-weight:700;color:#3730a3;text-transform:uppercase;letter-spacing:.4px">Keyword</span>
           <span style="font-size:11px;font-weight:700;color:#3730a3;text-transform:uppercase;letter-spacing:.4px;text-align:right">Ranking</span>
         </div>
-        <div id="keywords-list"></div>
+        <div id="keywords-preview-list" style="background:#fff"></div>
       </div>
     </div>
 
-    <!-- Technical issues -->
-    <div id="result-technical" hidden style="margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
-        <span style="font-size:15px">⚙️</span>
-        <span style="font-size:12px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:.6px">Technical issues found</span>
-      </div>
-      <div style="border:1.5px solid #ddd6fe;border-radius:14px;overflow:hidden">
-        <div id="technical-list"></div>
-      </div>
+  </div><!-- /.content -->
+
+  <!-- ── EMAIL GATE (blurred locked content) ── -->
+  <div id="result-gate" hidden>
+
+    <!-- Blurred preview of remaining data -->
+    <div style="position:relative;overflow:hidden;max-height:140px;margin:0 20px">
+      <div id="gate-blur-rows" style="filter:blur(5px);opacity:.5;pointer-events:none;user-select:none;background:#fff;border:1.5px solid #c7d2fe;border-top:none;border-radius:0 0 0 0"></div>
+      <!-- fade to white -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,#fff 75%)"></div>
     </div>
 
-    <!-- Email capture (replaces the old 3-screen wizard) -->
-    <div style="background:linear-gradient(135deg,#f5f3ff,#eef2ff);border:1.5px solid #c7d2fe;border-radius:16px;padding:22px;margin-top:4px">
-      <div style="font-size:17px;font-weight:800;color:#0f172a;margin-bottom:4px">LeadOS fixes this automatically →</div>
-      <p style="font-size:13px;margin-bottom:16px">Fresh SEO articles published to your site every month. No writing. No agencies.</p>
-      <div class="field" style="margin-bottom:10px">
-        <div class="input-wrap"><span class="input-icon">✉️</span><input type="email" id="r-email" placeholder="your@business.com" autocomplete="email" onkeydown="if(event.key==='Enter')resultEmailNext()"></div>
+    <!-- Lock card -->
+    <div style="background:#fff;padding:0 20px 32px">
+      <div style="background:linear-gradient(135deg,#f8f7ff,#eef2ff);border:1.5px solid #c7d2fe;border-radius:16px;padding:22px">
+        <div style="text-align:center;margin-bottom:16px">
+          <div style="font-size:24px;margin-bottom:8px">🔒</div>
+          <div style="font-size:17px;font-weight:800;color:#0f172a;margin-bottom:4px">Your full report is ready</div>
+          <p style="font-size:13px;color:#64748b;margin-bottom:0">Enter your email to unlock all findings</p>
+        </div>
+
+        <!-- What's locked -->
+        <div id="gate-bullets" style="background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#0f172a;display:flex;flex-direction:column;gap:6px"></div>
+
+        <!-- Email input -->
+        <div class="field" style="margin-bottom:10px">
+          <div class="input-wrap"><span class="input-icon">✉️</span><input type="email" id="r-email" placeholder="your@business.com" autocomplete="email" onkeydown="if(event.key==='Enter')resultEmailNext()"></div>
+        </div>
+        <button class="btn btn-primary" id="result-email-btn" onclick="resultEmailNext()">Unlock My Full Report →</button>
+        <div class="error-text" id="result-email-err"></div>
+        <div class="sec-note" style="margin-top:10px">🔒 No spam · Unsubscribe anytime</div>
       </div>
-      <button class="btn btn-primary" id="result-email-btn" onclick="resultEmailNext()">Get My Free SEO Plan →</button>
-      <div class="error-text" id="result-email-err"></div>
-      <div class="sec-note" style="margin-top:10px">🔒 No credit card · Cancel anytime · 14-day money-back</div>
     </div>
   </div>
+
+  <!-- ── UNLOCKED SECTION (hidden until email entered) ── -->
+  <div id="result-unlocked" hidden>
+    <div style="padding:0 20px 32px">
+
+      <!-- Remaining keywords -->
+      <div id="result-keywords-full" hidden style="margin-bottom:16px"></div>
+
+      <!-- Technical issues -->
+      <div id="result-technical" hidden style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+          <span style="font-size:15px">⚙️</span>
+          <span style="font-size:12px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:.6px">Technical issues found</span>
+        </div>
+        <div style="border:1.5px solid #ddd6fe;border-radius:14px;overflow:hidden">
+          <div id="technical-list"></div>
+        </div>
+      </div>
+
+      <!-- Traffic projection -->
+      <div id="result-projection" hidden style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:16px;margin-bottom:20px">
+        <div style="font-size:12px;font-weight:700;color:#14532d;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">📈 Estimated opportunity</div>
+        <div id="projection-text" style="font-size:15px;font-weight:700;color:#15803d;line-height:1.4"></div>
+      </div>
+
+      <!-- Final CTA -->
+      <div style="border-top:1px solid #f1f5f9;padding-top:20px">
+        <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:4px" id="result-cta-headline">LeadOS fixes all of this automatically</div>
+        <p style="font-size:13px;color:#64748b;margin-bottom:16px">Fresh SEO articles published to your site every month. No writing. No agencies. Cancel anytime.</p>
+        <button class="btn btn-primary" onclick="goToPricing()" style="font-size:17px;padding:18px 24px">Get My SEO Plan →</button>
+        <div class="sec-note" style="margin-top:12px">🔒 No credit card required · 14-day money-back guarantee</div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 
@@ -1020,82 +1070,184 @@ function animGauge(score) {
   arc.style.stroke = score >= 70 ? '#10b981' : score >= 45 ? '#f59e0b' : '#ef4444';
 }
 
-// ─── BUILD RESULT INTELLIGENCE (competitors, keywords, technical) ─────────────
+// ─── BUILD RESULT INTELLIGENCE ────────────────────────────────────────────────
 function buildResultIntelligence(r) {
-  // Reset all intelligence sections (important when called multiple times)
-  ['result-competitors','result-keywords','result-technical'].forEach(id => {
+  // Reset all sections
+  ['result-competitors','result-keywords-preview','result-gate','result-unlocked',
+   'result-keywords-full','result-technical','result-projection'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.hidden = true;
   });
 
-  // Personalized hook
-  const biz = r.business_name || '';
+  const biz   = r.business_name || '';
   const score = r.seo_score || 0;
   const visitorLoss = Math.max(10, Math.round((100 - score) * 2.1));
+
+  // Hook
   const hookEl = document.getElementById('result-hook');
   if (hookEl) {
     hookEl.innerHTML = biz
-      ? `<span style="color:#0f172a">${esc(biz)} is missing</span> <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`
+      ? `<span>${esc(biz)} is missing</span> <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`
       : `You're missing <span style="color:#ef4444">~${visitorLoss} visitors/month</span> to competitors.`;
   }
 
-  // Competitors
-  const competitors = (r.competitor_sites || []).slice(0, 5);
+  // ── Competitors (always visible, all of them) ──
+  const competitors = (r.competitor_sites || []).slice(0, 6);
   if (competitors.length > 0) {
     document.getElementById('result-competitors').hidden = false;
-    const strengthBadge = s => {
+    const badge = s => {
       if (s === 'high')   return '<span style="color:#c2410c;font-weight:700;font-size:12px">● High</span>';
       if (s === 'medium') return '<span style="color:#d97706;font-weight:700;font-size:12px">● Medium</span>';
       return '<span style="color:#65a30d;font-weight:700;font-size:12px">● Low</span>';
     };
     document.getElementById('competitors-list').innerHTML = competitors.map((c, i) => {
       const raw = c.domain || c.url || c.site || c.name || c.website || '';
-      const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '') : 'Competitor ' + (i + 1);
-      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:10px 14px;${i < competitors.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+      const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'') : 'Competitor ' + (i + 1);
+      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:10px 14px;${i < competitors.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}background:#fff">
         <span style="font-size:13.5px;font-weight:600;color:#0f172a">${esc(domain)}</span>
-        ${strengthBadge(c.strength)}
+        ${badge(c.strength)}
       </div>`;
     }).join('');
   }
 
-  // Keywords
-  const allKws = (r.keyword_opportunities || []);
-  const topKws = allKws.slice(0, 7);
-  if (topKws.length > 0) {
-    document.getElementById('result-keywords').hidden = false;
-    const more = Math.max(0, allKws.length - topKws.length);
-    document.getElementById('keywords-list').innerHTML = topKws.map((k, i) => {
-      const vol = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
-      const volStr = vol ? (vol >= 1000 ? (vol / 1000).toFixed(1).replace('.0', '') + 'k/mo' : vol + '/mo') : null;
-      return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:9px 14px;${i < topKws.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
-        <div>
-          <span style="font-size:13px;color:#0f172a;font-weight:500">${esc(k.keyword)}</span>
-          ${volStr ? `<span style="font-size:11px;color:#94a3b8;margin-left:6px">${volStr}</span>` : ''}
-        </div>
-        <span style="font-size:11.5px;color:#dc2626;font-weight:600;white-space:nowrap">✗ Not ranked</span>
+  // ── Helper: render a keyword row ──
+  function kwRow(k, i, arr, borderColor) {
+    // Only show volume if it's a real number (API sometimes returns "high"/"medium" strings)
+    const rawVol = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
+    const numVol = rawVol && !isNaN(Number(rawVol)) ? Number(rawVol) : null;
+    const volStr = numVol ? (numVol >= 1000 ? (numVol/1000).toFixed(1).replace('.0','') + 'k searches/mo' : numVol + ' searches/mo') : null;
+    const isLast = i === arr.length - 1;
+    return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 14px;background:#fff;${!isLast ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+      <div>
+        <div style="font-size:13.5px;color:#0f172a;font-weight:500">${esc(k.keyword)}</div>
+        ${volStr ? `<div style="font-size:11px;color:#94a3b8;margin-top:1px">${volStr}</div>` : ''}
+      </div>
+      <span style="font-size:11.5px;color:#dc2626;font-weight:700;white-space:nowrap;flex-shrink:0">✗ Not ranked</span>
+    </div>`;
+  }
+
+  const allKws    = (r.keyword_opportunities || []);
+  const previewKws = allKws.slice(0, 3);
+  const lockedKws  = allKws.slice(3);
+
+  // ── First 3 keywords: always visible ──
+  if (previewKws.length > 0) {
+    document.getElementById('result-keywords-preview').hidden = false;
+    document.getElementById('keywords-preview-list').innerHTML =
+      previewKws.map((k, i) => kwRow(k, i, previewKws)).join('');
+  }
+
+  // ── Gate section ──
+  const techs     = (r.technical_issues || []);
+  const critIssues = techs.filter(t => t.severity === 'critical' || t.severity === 'high');
+  const warnCount  = techs.filter(t => t.severity === 'warning' || t.severity === 'medium').length;
+  const hasLocked  = lockedKws.length > 0 || techs.length > 0;
+
+  if (hasLocked || previewKws.length > 0) {
+    document.getElementById('result-gate').hidden = false;
+
+    // Blurred preview rows (first 3 locked keywords or generic placeholders)
+    const blurRows = (lockedKws.slice(0, 3).length > 0 ? lockedKws.slice(0, 3) : [
+      { keyword: 'keyword gap #4' }, { keyword: 'keyword gap #5' }, { keyword: 'keyword gap #6' }
+    ]);
+    document.getElementById('gate-blur-rows').innerHTML = blurRows.map((k, i) =>
+      `<div style="display:grid;grid-template-columns:1fr auto;padding:10px 14px;${i < blurRows.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+        <span style="font-size:13px;color:#0f172a">${esc(k.keyword)}</span>
+        <span style="font-size:11.5px;color:#dc2626;font-weight:700">✗ Not ranked</span>
+      </div>`
+    ).join('');
+
+    // Gate bullets
+    const bullets = [];
+    if (lockedKws.length > 0) bullets.push(`${lockedKws.length} more keyword gap${lockedKws.length>1?'s':''} we found`);
+    if (critIssues.length > 0) bullets.push(`${critIssues.length} critical technical issue${critIssues.length>1?'s':''} affecting rankings`);
+    if (warnCount > 0) bullets.push(`${warnCount} SEO warning${warnCount>1?'s':''} to fix`);
+    const projGain = Math.round(visitorLoss * 0.6);
+    bullets.push(`Estimated +${projGain} visitors/month if fixed`);
+    if (biz) bullets.push(`Your personalised plan for ${biz}`);
+
+    document.getElementById('gate-bullets').innerHTML = bullets.map(b =>
+      `<div style="display:flex;align-items:flex-start;gap:8px">
+        <span style="color:#10b981;font-weight:700;flex-shrink:0;margin-top:1px">✓</span>
+        <span>${esc(b)}</span>
+      </div>`
+    ).join('');
+
+    // Store for unlock
+    window._seoLocked = { lockedKws, critIssues, warnCount, visitorLoss, biz, score };
+  }
+}
+
+// ─── UNLOCK (called after email capture) ──────────────────────────────────────
+function unlockReport() {
+  const d = window._seoLocked || {};
+  const { lockedKws=[], critIssues=[], warnCount=0, visitorLoss=0, biz='', score=0 } = d;
+
+  // Remaining keywords
+  if (lockedKws.length > 0) {
+    const el = document.getElementById('result-keywords-full');
+    el.hidden = false;
+    el.innerHTML = `
+      <div style="border:1.5px solid #c7d2fe;border-radius:0 0 14px 14px;overflow:hidden">
+        ${lockedKws.map((k, i) => {
+          const rawVol = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
+          const numVol = rawVol && !isNaN(Number(rawVol)) ? Number(rawVol) : null;
+          const volStr = numVol ? (numVol >= 1000 ? (numVol/1000).toFixed(1).replace('.0','') + 'k searches/mo' : numVol + ' searches/mo') : null;
+          return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 14px;background:#fff;${i < lockedKws.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+            <div>
+              <div style="font-size:13.5px;color:#0f172a;font-weight:500">${esc(k.keyword)}</div>
+              ${volStr ? `<div style="font-size:11px;color:#94a3b8;margin-top:1px">${volStr}</div>` : ''}
+            </div>
+            <span style="font-size:11.5px;color:#dc2626;font-weight:700;white-space:nowrap">✗ Not ranked</span>
+          </div>`;
+        }).join('')}
       </div>`;
-    }).join('') + (more > 0 ? `<div style="padding:8px 14px;font-size:12px;color:#64748b;border-top:1px solid #f1f5f9">+ ${more} more keyword gap${more !== 1 ? 's' : ''}</div>` : '');
   }
 
   // Technical issues
-  const critIssues = (r.technical_issues || []).filter(i => i.severity === 'critical' || i.severity === 'high').slice(0, 4);
-  const warnCount  = (r.technical_issues || []).filter(i => i.severity === 'warning' || i.severity === 'medium').length;
   if (critIssues.length > 0 || warnCount > 0) {
     document.getElementById('result-technical').hidden = false;
     const techRows = critIssues.map((t, i) =>
-      `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;${i < critIssues.length - 1 || warnCount > 0 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
+      `<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:#fff;${i < critIssues.length-1 || warnCount>0 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
         <span style="font-size:14px;flex-shrink:0">🔴</span>
-        <span style="font-size:13px;color:#0f172a;flex:1">${esc(t.label || t.issue || t.message || 'Critical technical issue')}</span>
+        <span style="font-size:13px;color:#0f172a;flex:1">${esc(t.label || t.issue || t.message || 'Critical SEO issue')}</span>
       </div>`
     ).join('');
     const warnRow = warnCount > 0
       ? `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffbeb">
-           <span style="font-size:14px;flex-shrink:0">🟡</span>
-           <span style="font-size:13px;color:#78350f">+ ${warnCount} warning${warnCount !== 1 ? 's' : ''} detected</span>
+           <span style="font-size:14px">🟡</span>
+           <span style="font-size:13px;color:#78350f">+ ${warnCount} SEO warning${warnCount>1?'s':''} detected</span>
          </div>`
       : '';
     document.getElementById('technical-list').innerHTML = techRows + warnRow;
   }
+
+  // Traffic projection
+  const projGain = Math.round(visitorLoss * 0.6);
+  const projEl = document.getElementById('result-projection');
+  projEl.hidden = false;
+  document.getElementById('projection-text').innerHTML =
+    `Fix these issues and <strong>gain an estimated +${projGain} organic visitors/month</strong> — that's ${projGain * 12}+ per year of free traffic you're currently leaving on the table.`;
+
+  // Personalise CTA headline
+  if (biz) {
+    const h = document.getElementById('result-cta-headline');
+    if (h) h.textContent = 'LeadOS fixes all of ' + biz + "'s issues automatically";
+  }
+
+  // Show unlocked section, hide gate
+  document.getElementById('result-gate').hidden = true;
+  document.getElementById('result-unlocked').hidden = false;
+  setTimeout(() => {
+    document.getElementById('result-unlocked').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
+
+function goToPricing() {
+  const pricingHdr = document.getElementById('pricing-biz-header');
+  if (pricingHdr && S.bizName) pricingHdr.textContent = 'Your plan for ' + S.bizName;
+  show('s-pricing');
+  track('pricing_viewed');
 }
 
 // ─── RESULT EMAIL CAPTURE ─────────────────────────────────────────────────────
@@ -1111,7 +1263,7 @@ async function resultEmailNext() {
 
   const btn = document.getElementById('result-email-btn');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Saving…';
+  btn.innerHTML = '<span class="spinner"></span>Unlocking…';
   hideErr('result-email-err');
 
   fetch(API + '/api/public/seo-scan/capture-email', {
@@ -1122,21 +1274,14 @@ async function resultEmailNext() {
       website_url: S.url,
       business_name: S.bizName || undefined,
       seo_score: S.report ? S.report.seo_score : undefined,
-      top_issue: (S.report && S.report.technical_issues || []).find(i => i.severity === 'critical' || i.severity === 'high') ? (S.report.technical_issues.find(i => i.severity === 'critical' || i.severity === 'high').label) : undefined,
+      top_issue: ((S.report && S.report.technical_issues) || []).find(i => i.severity==='critical'||i.severity==='high')?.label,
     }),
   }).catch(() => {});
 
   track('email_captured', { email_domain: email.split('@')[1] });
 
-  btn.disabled = false;
-  btn.innerHTML = 'Get My Free SEO Plan →';
-
-  // Personalize pricing screen header
-  const pricingHdr = document.getElementById('pricing-biz-header');
-  if (pricingHdr && S.bizName) pricingHdr.textContent = 'Your plan for ' + S.bizName;
-
-  show('s-pricing');
-  track('pricing_viewed');
+  // Unlock the full report in-page (no navigation)
+  unlockReport();
 }
 
 // ─── LEGACY (unused, kept for safety) ────────────────────────────────────────
