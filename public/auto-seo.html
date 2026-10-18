@@ -987,9 +987,9 @@ function startScanInsights() {
   _insightTimer = setInterval(() => {
     _insightIdx = (_insightIdx + 1) % SCAN_INSIGHTS.length;
     const card = document.getElementById('scan-insight-card');
-    if (card) { card.style.opacity = '0'; setTimeout(() => { showInsight(_insightIdx); card.style.opacity = '1'; }, 300); }
+    if (card) { card.style.transition = 'opacity 0.4s ease'; card.style.opacity = '0'; setTimeout(() => { showInsight(_insightIdx); card.style.opacity = '1'; }, 450); }
     else showInsight(_insightIdx);
-  }, 3800);
+  }, 6000);
 }
 
 function showInsight(idx) {
