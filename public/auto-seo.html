@@ -414,13 +414,6 @@ input::placeholder{color:#94a3b8}
   <!-- ── UNLOCKED SECTION (hidden until email entered) ── -->
   <div id="result-unlocked" hidden>
 
-    <!-- Revenue Opportunity Banner -->
-    <div id="result-revenue" style="background:linear-gradient(135deg,#1e1b4b,#312e81);padding:20px 20px 22px">
-      <div style="color:#a5b4fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">💰 Your monthly revenue opportunity</div>
-      <div id="revenue-number" style="font-size:38px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px"></div>
-      <div id="revenue-subtext" style="font-size:12.5px;color:#c7d2fe;line-height:1.5"></div>
-    </div>
-
     <div style="padding:20px 20px 32px;display:flex;flex-direction:column;gap:20px">
 
       <!-- Competitor Analysis -->
@@ -1215,18 +1208,6 @@ function unlockReport() {
   const r = S.report || {};
   const allKws = (r.keyword_opportunities || []);
   const competitors = (r.competitor_sites || []);
-
-  // ── Revenue Opportunity ──
-  const totalKws = allKws.length;
-  const avgSearches = 380; // conservative UAE/MENA B2B average per keyword
-  const estimatedVisitors = Math.round(totalKws * avgSearches * 0.05); // 5% CTR
-  const avgLeadValue = 180; // USD, conservative B2B
-  const revenueOpp = Math.round(estimatedVisitors * 0.03 * avgLeadValue); // 3% conv
-  document.getElementById('revenue-number').textContent =
-    revenueOpp >= 1000 ? '$' + (revenueOpp/1000).toFixed(1).replace('.0','') + 'k/month' : '$' + revenueOpp + '/month';
-  document.getElementById('revenue-subtext').innerHTML =
-    `Estimated revenue competitors are capturing from your ${totalKws} keyword gap${totalKws!==1?'s':''} every month.<br>
-     <span style="font-size:11px;opacity:.7">Based on ${avgSearches} avg searches/keyword × 5% CTR × 3% conversion × $${avgLeadValue} lead value</span>`;
 
   // ── Competitor Analysis ──
   if (competitors.length > 0) {
