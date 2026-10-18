@@ -1022,6 +1022,12 @@ function animGauge(score) {
 
 // ─── BUILD RESULT INTELLIGENCE (competitors, keywords, technical) ─────────────
 function buildResultIntelligence(r) {
+  // Reset all intelligence sections (important when called multiple times)
+  ['result-competitors','result-keywords','result-technical'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.hidden = true;
+  });
+
   // Personalized hook
   const biz = r.business_name || '';
   const score = r.seo_score || 0;
