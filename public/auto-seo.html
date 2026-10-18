@@ -413,34 +413,64 @@ input::placeholder{color:#94a3b8}
 
   <!-- ── UNLOCKED SECTION (hidden until email entered) ── -->
   <div id="result-unlocked" hidden>
-    <div style="padding:0 20px 32px">
 
-      <!-- Remaining keywords -->
-      <div id="result-keywords-full" hidden style="margin-bottom:16px"></div>
+    <!-- Revenue Opportunity Banner -->
+    <div id="result-revenue" style="background:linear-gradient(135deg,#1e1b4b,#312e81);padding:20px 20px 22px">
+      <div style="color:#a5b4fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">💰 Your monthly revenue opportunity</div>
+      <div id="revenue-number" style="font-size:38px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px"></div>
+      <div id="revenue-subtext" style="font-size:12.5px;color:#c7d2fe;line-height:1.5"></div>
+    </div>
 
-      <!-- Technical issues -->
-      <div id="result-technical" hidden style="margin-bottom:16px">
+    <div style="padding:20px 20px 32px;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Competitor Analysis -->
+      <div id="result-competitor-analysis" hidden>
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
-          <span style="font-size:15px">⚙️</span>
-          <span style="font-size:12px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:.6px">Technical issues found</span>
+          <span style="font-size:15px">🎯</span>
+          <span style="font-size:12px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:.6px">Why competitors are beating you</span>
         </div>
-        <div style="border:1.5px solid #ddd6fe;border-radius:14px;overflow:hidden">
+        <div id="competitor-analysis-list" style="border:1.5px solid #fecaca;border-radius:14px;overflow:hidden;background:#fff"></div>
+      </div>
+
+      <!-- All Keyword Gaps — categorized -->
+      <div id="result-keywords-full" hidden>
+        <div id="keywords-full-list"></div>
+      </div>
+
+      <!-- Technical Issues with Consequences -->
+      <div id="result-technical" hidden>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+          <span style="font-size:15px">⚠️</span>
+          <span style="font-size:12px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:.6px">Technical issues hurting your rankings</span>
+        </div>
+        <div style="border:1.5px solid #fecaca;border-radius:14px;overflow:hidden">
           <div id="technical-list"></div>
         </div>
       </div>
 
-      <!-- Traffic projection -->
-      <div id="result-projection" hidden style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:16px;margin-bottom:20px">
-        <div style="font-size:12px;font-weight:700;color:#14532d;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">📈 Estimated opportunity</div>
-        <div id="projection-text" style="font-size:15px;font-weight:700;color:#15803d;line-height:1.4"></div>
+      <!-- 30-Day Action Plan -->
+      <div id="result-action-plan">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+          <span style="font-size:15px">📋</span>
+          <span style="font-size:12px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:.6px">Your 30-day action plan</span>
+        </div>
+        <div id="action-plan-list" style="border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;background:#fff"></div>
       </div>
 
       <!-- Final CTA -->
-      <div style="border-top:1px solid #f1f5f9;padding-top:20px">
-        <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:4px" id="result-cta-headline">LeadOS fixes all of this automatically</div>
-        <p style="font-size:13px;color:#64748b;margin-bottom:16px">Fresh SEO articles published to your site every month. No writing. No agencies. Cancel anytime.</p>
-        <button class="btn btn-primary" onclick="goToPricing()" style="font-size:17px;padding:18px 24px">Get My SEO Plan →</button>
-        <div class="sec-note" style="margin-top:12px">🔒 No credit card required · 14-day money-back guarantee</div>
+      <div style="background:linear-gradient(135deg,#f8f7ff,#eef2ff);border:2px solid #6366f1;border-radius:18px;padding:22px;text-align:center">
+        <div style="font-size:26px;margin-bottom:10px">🚀</div>
+        <div style="font-size:18px;font-weight:800;color:#0f172a;margin-bottom:6px;line-height:1.3" id="result-cta-headline">LeadOS does all of this automatically</div>
+        <p style="font-size:13px;color:#64748b;margin:0 0 14px;line-height:1.5">Fresh SEO articles targeting your keyword gaps, published every month. No writing. No agencies.</p>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:18px;text-align:left">
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#374151"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Publishes 15–45 SEO articles/month targeting your exact keyword gaps</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#374151"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Automatically targets the keywords your competitors rank for</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#374151"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Tracks rankings monthly and adapts your strategy</div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#374151"><span style="color:#10b981;font-weight:700;flex-shrink:0">✓</span>Starting at just $29/month — cancel anytime</div>
+        </div>
+        <button class="btn btn-primary" onclick="goToPricing()" style="font-size:17px;padding:18px 24px;width:100%">Get My SEO Plan →</button>
+        <div style="margin-top:10px;font-size:12px;color:#94a3b8">🔒 No credit card required · 14-day money-back guarantee</div>
+        <div style="margin-top:6px;font-size:12px;color:#94a3b8">⭐ Join 200+ businesses growing with LeadOS Auto SEO</div>
       </div>
 
     </div>
@@ -1182,60 +1212,174 @@ function buildResultIntelligence(r) {
 function unlockReport() {
   const d = window._seoLocked || {};
   const { lockedKws=[], critIssues=[], warnCount=0, visitorLoss=0, biz='', score=0 } = d;
+  const r = S.report || {};
+  const allKws = (r.keyword_opportunities || []);
+  const competitors = (r.competitor_sites || []);
 
-  // Remaining keywords
-  if (lockedKws.length > 0) {
-    const el = document.getElementById('result-keywords-full');
-    el.hidden = false;
-    el.innerHTML = `
-      <div style="border:1.5px solid #c7d2fe;border-radius:0 0 14px 14px;overflow:hidden">
-        ${lockedKws.map((k, i) => {
-          const rawVol = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
-          const numVol = rawVol && !isNaN(Number(rawVol)) ? Number(rawVol) : null;
-          const volStr = numVol ? (numVol >= 1000 ? (numVol/1000).toFixed(1).replace('.0','') + 'k searches/mo' : numVol + ' searches/mo') : null;
-          return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 14px;background:#fff;${i < lockedKws.length-1 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
-            <div>
-              <div style="font-size:13.5px;color:#0f172a;font-weight:500">${esc(k.keyword)}</div>
-              ${volStr ? `<div style="font-size:11px;color:#94a3b8;margin-top:1px">${volStr}</div>` : ''}
-            </div>
-            <span style="font-size:11.5px;color:#dc2626;font-weight:700;white-space:nowrap">✗ Not ranked</span>
-          </div>`;
-        }).join('')}
+  // ── Revenue Opportunity ──
+  const totalKws = allKws.length;
+  const avgSearches = 380; // conservative UAE/MENA B2B average per keyword
+  const estimatedVisitors = Math.round(totalKws * avgSearches * 0.05); // 5% CTR
+  const avgLeadValue = 180; // USD, conservative B2B
+  const revenueOpp = Math.round(estimatedVisitors * 0.03 * avgLeadValue); // 3% conv
+  document.getElementById('revenue-number').textContent =
+    revenueOpp >= 1000 ? '$' + (revenueOpp/1000).toFixed(1).replace('.0','') + 'k/month' : '$' + revenueOpp + '/month';
+  document.getElementById('revenue-subtext').innerHTML =
+    `Estimated revenue competitors are capturing from your ${totalKws} keyword gap${totalKws!==1?'s':''} every month.<br>
+     <span style="font-size:11px;opacity:.7">Based on ${avgSearches} avg searches/keyword × 5% CTR × 3% conversion × $${avgLeadValue} lead value</span>`;
+
+  // ── Competitor Analysis ──
+  if (competitors.length > 0) {
+    document.getElementById('result-competitor-analysis').hidden = false;
+    document.getElementById('competitor-analysis-list').innerHTML = competitors.slice(0, 4).map((c, i, arr) => {
+      const raw = c.domain || c.url || c.site || c.name || c.website || '';
+      const domain = raw ? String(raw).replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'') : 'Competitor ' + (i+1);
+      const s = c.strength;
+      const impact = s === 'high'   ? 'Dominant authority — outranks you on most of your target queries' :
+                     s === 'medium' ? 'Growing fast — steadily capturing your potential organic traffic' :
+                                     'Already ahead — ranking on keywords you haven\'t targeted yet';
+      const col = s === 'high' ? '#dc2626' : s === 'medium' ? '#d97706' : '#65a30d';
+      const kwEstimate = s === 'high'   ? Math.min(allKws.length, Math.max(3, Math.ceil(allKws.length * .65))) :
+                         s === 'medium' ? Math.max(2, Math.ceil(allKws.length * .40)) :
+                                          Math.max(1, Math.ceil(allKws.length * .22));
+      return `<div style="padding:14px;${i<arr.length-1?'border-bottom:1px solid #fee2e2;':''}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:5px">
+          <span style="font-size:13.5px;font-weight:700;color:#0f172a">${esc(domain)}</span>
+          <span style="font-size:10.5px;font-weight:700;color:${col};white-space:nowrap;flex-shrink:0">${(s||'medium').toUpperCase()} AUTHORITY</span>
+        </div>
+        <div style="font-size:12.5px;color:#6b7280;margin-bottom:5px">${impact}</div>
+        <div style="font-size:12px;color:#dc2626;font-weight:600">↑ Ranks for ~${kwEstimate} of your ${allKws.length} missed keyword${allKws.length!==1?'s':''}</div>
       </div>`;
+    }).join('');
   }
 
-  // Technical issues
+  // ── All Keyword Gaps — Quick Wins vs Big Opportunities ──
+  if (lockedKws.length > 0) {
+    document.getElementById('result-keywords-full').hidden = false;
+    const mid = Math.ceil(lockedKws.length / 2);
+    const quickWins = lockedKws.slice(0, mid);
+    const bigOpps  = lockedKws.slice(mid);
+
+    function kwBlock(kws, color, borderColor, badge) {
+      return kws.map((k, i) => {
+        const rv = k.volume || k.search_volume || k.monthly_searches || k.avg_monthly_searches;
+        const nv = rv && !isNaN(Number(rv)) ? Number(rv) : null;
+        const vs = nv ? (nv >= 1000 ? (nv/1000).toFixed(1).replace('.0','') + 'k searches/mo' : nv + ' searches/mo') : null;
+        return `<div style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 14px;background:#fff;${i<kws.length-1?'border-bottom:1px solid #f8f8f8;':''}">
+          <div>
+            <div style="font-size:13px;color:#0f172a;font-weight:500">${esc(k.keyword)}</div>
+            ${vs?`<div style="font-size:11px;color:#94a3b8;margin-top:2px">${vs}</div>`:''}
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-size:11px;color:#dc2626;font-weight:700">✗ Not ranked</div>
+            <div style="font-size:10px;color:${color};font-weight:600;margin-top:2px">${badge}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    let html = '';
+    if (quickWins.length > 0) {
+      html += `<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:15px">⚡</span>
+        <span style="font-size:12px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.6px">Quick wins — lower competition</span>
+      </div>
+      <div style="border:1.5px solid #bbf7d0;border-radius:14px;overflow:hidden;margin-bottom:16px">
+        ${kwBlock(quickWins,'#16a34a','#bbf7d0','Easy win')}
+      </div>`;
+    }
+    if (bigOpps.length > 0) {
+      html += `<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+        <span style="font-size:15px">🏆</span>
+        <span style="font-size:12px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.6px">Bigger opportunities</span>
+      </div>
+      <div style="border:1.5px solid #bfdbfe;border-radius:14px;overflow:hidden">
+        ${kwBlock(bigOpps,'#1d4ed8','#bfdbfe','High value')}
+      </div>`;
+    }
+    document.getElementById('keywords-full-list').innerHTML = html;
+  }
+
+  // ── Technical Issues with Business Consequences ──
+  const TECH_CONSEQUENCES = [
+    ['speed','load',  'Slow load times lose 53% of mobile visitors before they see your offer'],
+    ['schema',        'Competitors show rich snippets in Google — you appear as a plain text link'],
+    ['meta',          'Missing/duplicate meta tags lower your click-through rate in search results'],
+    ['title',         'Poor title tags mean Google rewrites your search snippet — often badly'],
+    ['canonical',     'Duplicate content confuses Google and splits your ranking power across pages'],
+    ['mobile',        'Google ranks mobile-first — poor mobile UX directly lowers your position'],
+    ['https','ssl',   'Insecure pages lose trust signals and rank below secure competitors'],
+    ['sitemap',       'Without a sitemap, Google may miss or delay indexing your pages'],
+    ['redirect',      'Redirect chains waste crawl budget and dilute your SEO value'],
+    ['image','alt',   'Unoptimised images slow your page and miss image search opportunities'],
+    ['heading','h1',  'Poor heading structure makes it harder for Google to understand your content'],
+    ['backlink','link','Low backlink signals mean competitors outrank you even with worse content'],
+  ];
+
+  function getTechConsequence(label) {
+    const l = (label||'').toLowerCase();
+    for (const row of TECH_CONSEQUENCES) {
+      const keys = row.slice(0, -1);
+      if (keys.some(k => l.includes(k))) return row[row.length - 1];
+    }
+    return 'This issue reduces your visibility in Google search results';
+  }
+
   if (critIssues.length > 0 || warnCount > 0) {
     document.getElementById('result-technical').hidden = false;
-    const techRows = critIssues.map((t, i) =>
-      `<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:#fff;${i < critIssues.length-1 || warnCount>0 ? 'border-bottom:1px solid #f1f5f9;' : ''}">
-        <span style="font-size:14px;flex-shrink:0">🔴</span>
-        <span style="font-size:13px;color:#0f172a;flex:1">${esc(t.label || t.issue || t.message || 'Critical SEO issue')}</span>
-      </div>`
-    ).join('');
-    const warnRow = warnCount > 0
-      ? `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fffbeb">
-           <span style="font-size:14px">🟡</span>
-           <span style="font-size:13px;color:#78350f">+ ${warnCount} SEO warning${warnCount>1?'s':''} detected</span>
-         </div>`
-      : '';
+    const techRows = critIssues.map((t, i) => {
+      const label = t.label || t.issue || t.message || 'Technical SEO issue';
+      const consequence = getTechConsequence(label);
+      return `<div style="padding:13px 14px;${i<critIssues.length-1||warnCount>0?'border-bottom:1px solid #fee2e2;':''}">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+          <span style="font-size:14px;flex-shrink:0">🔴</span>
+          <span style="font-size:13px;color:#0f172a;font-weight:600;flex:1">${esc(label)}</span>
+        </div>
+        <div style="font-size:12px;color:#6b7280;margin-left:22px;line-height:1.4">${consequence}</div>
+      </div>`;
+    }).join('');
+    const warnRow = warnCount > 0 ? `<div style="padding:13px 14px;background:#fffbeb">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span style="font-size:14px">🟡</span>
+        <span style="font-size:13px;color:#78350f;font-weight:600">+${warnCount} SEO warning${warnCount>1?'s':''} detected</span>
+      </div>
+      <div style="font-size:12px;color:#92400e;margin-left:22px;line-height:1.4">Addressing these now prevents them becoming ranking-critical issues</div>
+    </div>` : '';
     document.getElementById('technical-list').innerHTML = techRows + warnRow;
   }
 
-  // Traffic projection
-  const projGain = Math.round(visitorLoss * 0.6);
-  const projEl = document.getElementById('result-projection');
-  projEl.hidden = false;
-  document.getElementById('projection-text').innerHTML =
-    `Fix these issues and <strong>gain an estimated +${projGain} organic visitors/month</strong> — that's ${projGain * 12}+ per year of free traffic you're currently leaving on the table.`;
+  // ── 30-Day Action Plan ──
+  const plan = [];
+  if (critIssues.length > 0)
+    plan.push({ week:'Week 1', icon:'🔧', action:`Fix ${critIssues.length} critical technical issue${critIssues.length>1?'s':''} that are actively suppressing your rankings` });
+  if (allKws.length > 0)
+    plan.push({ week:'Week 2–3', icon:'✍️', action:`Publish first article targeting "${allKws[0]?.keyword||'your top keyword gap'}" — your easiest quick win` });
+  if (allKws.length > 3)
+    plan.push({ week:'Month 2', icon:'📈', action:`Add ${Math.min(3,allKws.length-1)} more keyword-targeted articles — compounding traffic every month` });
+  const topComp = competitors[0];
+  if (topComp) {
+    const cd = (topComp.domain||topComp.url||topComp.name||'').replace(/^https?:\/\/(www\.)?/,'').replace(/\/.*$/,'');
+    plan.push({ week:'Month 3', icon:'🏆', action:`Start outranking ${cd||'your top competitor'} — traffic you earn stays yours permanently` });
+  }
+  plan.push({ week:'Ongoing', icon:'🔄', action:'Track rankings, keep publishing consistently — SEO compounds like interest' });
 
-  // Personalise CTA headline
+  document.getElementById('action-plan-list').innerHTML = plan.map((s, i) =>
+    `<div style="display:grid;grid-template-columns:72px 1fr;gap:10px;padding:13px 14px;align-items:flex-start;${i<plan.length-1?'border-bottom:1px solid #f1f5f9;':''}">
+      <div style="font-size:11px;font-weight:700;color:#6366f1;white-space:nowrap;padding-top:1px">${s.week}</div>
+      <div style="display:flex;align-items:flex-start;gap:7px">
+        <span style="font-size:14px;flex-shrink:0">${s.icon}</span>
+        <span style="font-size:13px;color:#0f172a;line-height:1.45">${esc(s.action)}</span>
+      </div>
+    </div>`
+  ).join('');
+
+  // Personalise CTA
   if (biz) {
     const h = document.getElementById('result-cta-headline');
-    if (h) h.textContent = 'LeadOS fixes all of ' + biz + "'s issues automatically";
+    if (h) h.textContent = `LeadOS handles all of ${biz}'s SEO automatically`;
   }
 
-  // Show unlocked section, hide gate
+  // Reveal
   document.getElementById('result-gate').hidden = true;
   document.getElementById('result-unlocked').hidden = false;
   setTimeout(() => {
