@@ -1227,16 +1227,18 @@ const INDUSTRY_COMPETITORS = {
     { domain:'bangdigital.ae', strength:'medium' },
     { domain:'socialeyez.com', strength:'medium' },
   ],
-  'software|saas|tech|app|platform|startup': [
-    { domain:'capterra.com', strength:'high' },
-    { domain:'g2.com', strength:'high' },
-    { domain:'getapp.com', strength:'medium' },
+  'software|saas|crm|tech|app|platform|startup': [
+    { domain:'gohighlevel.com', strength:'high' },
+    { domain:'hubspot.com', strength:'high' },
+    { domain:'zoho.com', strength:'high' },
+    { domain:'freshworks.com', strength:'medium' },
+    { domain:'pipedrive.com', strength:'medium' },
   ],
 };
 
 function getFallbackCompetitors(r) {
-  const haystack = [r.industry, r.business_name, (r.keyword_opportunities||[]).map(k=>k.keyword||'').join(' ')]
-    .join(' ').toLowerCase();
+  // Only match on industry + business_name — never keywords (keywords cause false cross-industry matches)
+  const haystack = ((r.industry || '') + ' ' + (r.business_name || '')).toLowerCase();
   for (const [pattern, comps] of Object.entries(INDUSTRY_COMPETITORS)) {
     if (pattern.split('|').some(k => haystack.includes(k))) return comps;
   }
