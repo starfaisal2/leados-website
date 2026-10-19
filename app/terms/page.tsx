@@ -1,6 +1,9 @@
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Terms of Service — LeadOS",
   description: "LeadOS Terms of Service governing use of the platform, AI features, Auto SEO, and all related services.",
+  alternates: { canonical: "https://myleados.ai/terms" },
 };
 
 const EFFECTIVE = "2 July 2026";
