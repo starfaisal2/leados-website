@@ -1,6 +1,9 @@
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Privacy Policy — LeadOS",
   description: "How LeadOS collects, uses, and protects your personal data.",
+  alternates: { canonical: "https://myleados.ai/privacy" },
 };
 
 const EFFECTIVE = "2 July 2026";

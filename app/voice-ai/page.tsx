@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Voice AI – LeadOS | AI Phone Agent That Books Appointments 24/7",
   description:
     "Never miss a call again. LeadOS Voice AI answers every call, qualifies leads, and books appointments automatically – in any language, around the clock.",
+  alternates: { canonical: "https://myleados.ai/voice-ai" },
 };
 
 const voiceAiSchema = {
