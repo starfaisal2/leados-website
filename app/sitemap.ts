@@ -1,7 +1,9 @@
-﻿// Auto-generated sitemap — includes all published blog articles from Auto SEO.
+﻿// Auto-generated sitemap — includes all published blog articles from Auto SEO
+// and all 243 programmatic SEO pages under /seo/[slug].
 // Revalidates every hour so new articles appear in Google within 60 minutes.
 
 import type { MetadataRoute } from "next";
+import SEO_PAGES from "@/lib/seo-pages.json";
 
 export const revalidate = 3600;
 
@@ -53,5 +55,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...articlePages];
+  const seoPages: MetadataRoute.Sitemap = (SEO_PAGES as { slug: string }[]).map((p) => ({
+    url: `${baseUrl}/seo/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...seoPages, ...articlePages];
 }
