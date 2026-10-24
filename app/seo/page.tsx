@@ -55,8 +55,8 @@ export default function SeoIndexPage() {
           <p style={{ fontSize: 18, color: "#475569", marginBottom: 32, lineHeight: 1.7 }}>
             Learn how LeadOS helps businesses across every industry rank on Google with AI-powered SEO. {pages.length} guides and counting.
           </p>
-          <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
-            Get Started with LeadOS
+          <Link href="/auto-seo" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
+            Get Started with Auto SEO
           </Link>
         </div>
       </section>
@@ -93,7 +93,7 @@ export default function SeoIndexPage() {
         <p style={{ color: "#475569", fontSize: 16, marginBottom: 28 }}>
           LeadOS publishes SEO articles for your business automatically — every week. Plans from $29/mo.
         </p>
-        <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
+        <Link href="/auto-seo" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
           Start Ranking on Google
         </Link>
       </section>
