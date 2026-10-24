@@ -61,27 +61,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Blog posts — fetched from Supabase at build time
-  let blogPages: MetadataRoute.Sitemap = [];
-  try {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (url && key) {
-      const res = await fetch(
-        `${url}/rest/v1/seo_articles?status=eq.published&select=slug,published_at&order=published_at.desc&limit=1000`,
-        { headers: { apikey: key, Authorization: `Bearer ${key}` }, next: { revalidate: 3600 } }
-      );
-      if (res.ok) {
-        const articles = await res.json() as { slug: string; published_at: string }[];
-        blogPages = (articles ?? []).map((a) => ({
-          url: `${BASE}/blog/${a.slug}`,
-          lastModified: a.published_at || now,
-          changeFrequency: "monthly" as const,
-          priority: 0.6,
-        }));
-      }
-    }
-  } catch { /* blog posts are optional */ }
-
-  return [...staticPages, ...localePages, ...seoPages, ...blogPages];
+  return [...staticPages, ...localePages, ...seoPages];
 }
