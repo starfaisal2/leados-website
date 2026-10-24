@@ -73,6 +73,8 @@ export default function Footer() {
                 ["/#voice-ai", "Voice AI"],
                 ["/#meta-brain", "Meta Brain"],
                 ["/#pricing", "Pricing"],
+                ["/auto-seo", "Auto SEO"],
+                ["/seo", "SEO Guides"],
                 ["/security", "Security"],
               ].map(([href, label]) => (
                 <li key={href}>

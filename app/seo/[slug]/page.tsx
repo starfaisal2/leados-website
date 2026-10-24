@@ -9,8 +9,18 @@ type PageDef = { slug: string; title: string; keyword: string; metaDescription: 
 const pages: PageDef[] = SEO_PAGES as PageDef[];
 const pageMap = new Map(pages.map((p) => [p.slug, p]));
 
-type ArticleSection = { h2: string; body: string };
-type Article = { intro: string; sections: ArticleSection[]; conclusion: string } | null;
+type ArticleSection  = { h2: string; body: string };
+type ArticleFaq      = { q: string; a: string };
+type ArticleImage    = { url: string; alt: string; photographer: string; pexels_url: string };
+type OutboundLink    = { text: string; url: string };
+type Article = {
+  intro: string;
+  sections: ArticleSection[];
+  conclusion: string;
+  faqs?: ArticleFaq[];
+  outbound_links?: OutboundLink[];
+  image?: ArticleImage;
+} | null;
 
 function loadArticle(slug: string): Article {
   try {
@@ -103,10 +113,11 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
   if (!page) notFound();
 
   const related = getRelated(slug);
-  const faqs = faqsForPage(page);
-  const steps = howItWorks();
   const article = loadArticle(slug);
+  const faqs = (article?.faqs && article.faqs.length > 0) ? article.faqs : faqsForPage(page);
+  const steps = howItWorks();
 
+  const schemaFaqs = faqs; // now keyword-specific when article.faqs exists
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -120,7 +131,7 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
       },
       {
         "@type": "FAQPage",
-        mainEntity: faqs.map((f) => ({
+        mainEntity: schemaFaqs.map((f) => ({
           "@type": "Question",
           name: f.q,
           acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -219,6 +230,35 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
         {article && (
           <section style={{ padding: "72px 24px", background: "#fff" }}>
             <div style={{ maxWidth: 780, margin: "0 auto" }}>
+
+              {/* E-E-A-T author box */}
+              <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "14px 20px", marginBottom: 36 }}>
+                <div style={{ width: 42, height: 42, background: "#6366f1", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ color: "#fff", fontWeight: 800, fontSize: 16 }}>L</span>
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: "#0f172a" }}>LeadOS Editorial Team</div>
+                  <div style={{ fontSize: 13, color: "#64748b" }}>SEO specialists & AI marketing experts · <Link href="/about" style={{ color: "#6366f1", textDecoration: "none" }}>About LeadOS</Link> · Updated {new Date().toLocaleDateString("en-AU", { month: "long", year: "numeric" })}</div>
+                </div>
+              </div>
+
+              {/* Featured image */}
+              {article.image && (
+                <div style={{ marginBottom: 40, borderRadius: 12, overflow: "hidden" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={article.image.url}
+                    alt={article.image.alt}
+                    style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
+                    loading="lazy"
+                  />
+                  <div style={{ fontSize: 12, color: "#94a3b8", padding: "6px 0", textAlign: "right" }}>
+                    Photo by <a href={article.image.pexels_url} target="_blank" rel="noopener noreferrer" style={{ color: "#94a3b8" }}>{article.image.photographer}</a> via Pexels
+                  </div>
+                </div>
+              )}
+
+              {/* Article body */}
               <p style={{ fontSize: 17, color: "#475569", lineHeight: 1.8, marginBottom: 40 }}>{article.intro}</p>
               {article.sections.map((sec, i) => (
                 <div key={i} style={{ marginBottom: 48 }}>
@@ -231,6 +271,23 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
               {article.conclusion && (
                 <p style={{ fontSize: 17, color: "#475569", lineHeight: 1.8, borderTop: "1px solid #e5e7eb", paddingTop: 32, marginTop: 8 }}>{article.conclusion}</p>
               )}
+
+              {/* Outbound links — trust / E-E-A-T */}
+              {article.outbound_links && article.outbound_links.length > 0 && (
+                <div style={{ marginTop: 40, padding: "20px 24px", background: "#f8fafc", borderRadius: 10, border: "1px solid #e2e8f0" }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#64748b", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.05em" }}>Further Reading</div>
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                    {article.outbound_links.map((link, i) => (
+                      <li key={i}>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: "#6366f1", textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ fontSize: 12 }}>↗</span> {link.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
             </div>
           </section>
         )}

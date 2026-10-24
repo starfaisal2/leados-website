@@ -1,66 +1,28 @@
-﻿// Auto-generated sitemap — includes all published blog articles from Auto SEO
-// and all 243 programmatic SEO pages under /seo/[slug].
-// Revalidates every hour so new articles appear in Google within 60 minutes.
-
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import SEO_PAGES from "@/lib/seo-pages.json";
 
-export const revalidate = 3600;
+const BASE = "https://myleados.ai";
 
-async function getPublishedArticles() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return [];
-
-  const headers = { apikey: key, Authorization: `Bearer ${key}` };
-
-  const bizRes = await fetch(
-    `${url}/rest/v1/businesses?slug=eq.leados&select=id&limit=1`,
-    { headers, next: { revalidate: 3600 } }
-  );
-  if (!bizRes.ok) return [];
-  const businesses = await bizRes.json();
-  if (!businesses?.length) return [];
-
-  const artRes = await fetch(
-    `${url}/rest/v1/seo_articles?business_id=eq.${businesses[0].id}&status=eq.published&select=slug,published_at,updated_at&order=published_at.desc&limit=500`,
-    { headers, next: { revalidate: 3600 } }
-  );
-  if (!artRes.ok) return [];
-  return await artRes.json() ?? [];
-}
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://myleados.ai";
-  const articles = await getPublishedArticles();
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date().toISOString();
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/auto-seo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/voice-ai`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/company-brain`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
-    { url: `${baseUrl}/get-started`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${baseUrl}/security`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: BASE,                    lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${BASE}/auto-seo`,      lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${BASE}/seo`,           lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE}/blog`,          lastModified: now, changeFrequency: "daily",   priority: 0.7 },
+    { url: `${BASE}/pricing`,       lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/about`,         lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/privacy`,       lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
+    { url: `${BASE}/terms`,         lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
   ];
 
-  const articlePages: MetadataRoute.Sitemap = articles.map((article: any) => ({
-    url: `${baseUrl}/blog/${article.slug}`,
-    lastModified: new Date(article.updated_at || article.published_at),
-    changeFrequency: "monthly" as const,
+  const seoPages: MetadataRoute.Sitemap = (SEO_PAGES as { slug: string }[]).map((p) => ({
+    url: `${BASE}/seo/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
     priority: 0.7,
   }));
 
-  const seoPages: MetadataRoute.Sitemap = (SEO_PAGES as { slug: string }[]).map((p) => ({
-    url: `${baseUrl}/seo/${p.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
-  return [...staticPages, ...seoPages, ...articlePages];
+  return [...staticPages, ...seoPages];
 }
