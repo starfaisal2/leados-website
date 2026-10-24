@@ -69,7 +69,7 @@ function faqsForPage(page: PageDef): { q: string; a: string }[] {
     },
     {
       q: "What does LeadOS Auto SEO cost?",
-      a: "Plans start at $29/mo for 15 articles per month. A Growth plan at $59/mo gives you 30 articles, and the Enterprise plan at $99/mo delivers 45 articles plus 13 backlinks. All plans include a 14-day free trial.",
+      a: "Plans start at $29/mo (Starter: 15 articles + 5 backlinks), $49/mo (Growth: 30 articles + 10 backlinks), or $79/mo (Scale: 45 articles + 13 backlinks). All plans include a 7-day trial for $5.",
     },
   ];
 }
@@ -138,7 +138,7 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <Link href="/auto-seo" style={{ color: "#6366f1", textDecoration: "none", fontWeight: 500, fontSize: 14 }}>Auto SEO</Link>
             <Link href="/blog" style={{ color: "#555", textDecoration: "none", fontSize: 14 }}>Blog</Link>
-            <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "8px 20px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Start Free Trial</Link>
+            <Link href="/auto-seo" style={{ background: "#6366f1", color: "#fff", padding: "8px 20px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Get Started</Link>
           </div>
         </nav>
 
@@ -155,14 +155,14 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
               {page.metaDescription}
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
-                Start Free Trial — No Card Required
+              <Link href="/auto-seo" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
+                Get Started Today
               </Link>
               <Link href="/auto-seo" style={{ background: "#fff", color: "#6366f1", border: "2px solid #6366f1", padding: "14px 28px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
                 See How It Works
               </Link>
             </div>
-            <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 16 }}>5 free articles included · No credit card · Cancel anytime</p>
+            <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 16 }}>Plans from $29/mo · Cancel anytime</p>
           </div>
         </section>
 
@@ -231,12 +231,12 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
         <section style={{ padding: "72px 24px", background: "#fff" }}>
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
             <h2 style={{ fontSize: 32, fontWeight: 800, textAlign: "center", marginBottom: 8, color: "#0f172a" }}>Simple, Transparent Pricing</h2>
-            <p style={{ textAlign: "center", color: "#64748b", marginBottom: 48, fontSize: 16 }}>All plans include a 14-day free trial. No credit card required to start.</p>
+            <p style={{ textAlign: "center", color: "#64748b", marginBottom: 48, fontSize: 16 }}>Simple monthly pricing. Cancel anytime.</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
               {[
                 { name: "Starter", price: "$29", freq: "/mo", arts: 15, links: 5, highlight: false },
-                { name: "Growth", price: "$59", freq: "/mo", arts: 30, links: 10, highlight: true },
-                { name: "Enterprise", price: "$99", freq: "/mo", arts: 45, links: 13, highlight: false },
+                { name: "Growth", price: "$49", freq: "/mo", arts: 30, links: 10, highlight: true },
+                { name: "Scale", price: "$79", freq: "/mo", arts: 45, links: 13, highlight: false },
               ].map((plan) => (
                 <div key={plan.name} style={{ borderRadius: 14, border: plan.highlight ? "2px solid #6366f1" : "1px solid #e2e8f0", padding: 32, textAlign: "center", background: plan.highlight ? "#eef2ff" : "#fff", position: "relative" }}>
                   {plan.highlight && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "#6366f1", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 12px", borderRadius: 20, whiteSpace: "nowrap" }}>MOST POPULAR</div>}
@@ -249,8 +249,8 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
                     <div>✅ Google Indexing API</div>
                     <div>✅ GSC monitoring</div>
                   </div>
-                  <Link href="/get-started" style={{ display: "block", background: plan.highlight ? "#6366f1" : "#0f172a", color: "#fff", padding: "12px 24px", borderRadius: 8, textDecoration: "none", fontWeight: 600, fontSize: 15 }}>
-                    Start Free Trial
+                  <Link href="/auto-seo" style={{ display: "block", background: plan.highlight ? "#6366f1" : "#0f172a", color: "#fff", padding: "12px 24px", borderRadius: 8, textDecoration: "none", fontWeight: 600, fontSize: 15 }}>
+                    Get Started
                   </Link>
                 </div>
               ))}
@@ -298,10 +298,10 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
             <p style={{ fontSize: 17, color: "#c7d2fe", marginBottom: 36, lineHeight: 1.6 }}>
               Join businesses already using LeadOS to publish weekly SEO articles and grow their organic traffic automatically.
             </p>
-            <Link href="/get-started" style={{ display: "inline-block", background: "#fff", color: "#6366f1", padding: "16px 40px", borderRadius: 12, textDecoration: "none", fontWeight: 800, fontSize: 18 }}>
-              Get 5 Free Articles Now
+            <Link href="/auto-seo" style={{ display: "inline-block", background: "#fff", color: "#6366f1", padding: "16px 40px", borderRadius: 12, textDecoration: "none", fontWeight: 800, fontSize: 18 }}>
+              Start Ranking on Google
             </Link>
-            <p style={{ color: "#a5b4fc", fontSize: 13, marginTop: 16 }}>No credit card · 5 free articles · Cancel anytime</p>
+            <p style={{ color: "#a5b4fc", fontSize: 13, marginTop: 16 }}>Plans from $29/mo · Cancel anytime</p>
           </div>
         </section>
 
@@ -312,9 +312,8 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
               <Link href="/auto-seo" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Auto SEO</Link>
               <Link href="/seo/auto-seo-pricing" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Pricing</Link>
               <Link href="/seo/what-is-auto-seo" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>What Is Auto SEO?</Link>
-              <Link href="/seo/auto-seo-free-trial" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Free Trial</Link>
               <Link href="/blog" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Blog</Link>
-              <Link href="/get-started" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Get Started</Link>
+              <Link href="/auto-seo" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>Get Started</Link>
             </div>
             <p style={{ fontSize: 13 }}>© {new Date().getFullYear()} Leados Technologies FZC · <Link href="/privacy" style={{ color: "#64748b", textDecoration: "none" }}>Privacy</Link> · <Link href="/terms" style={{ color: "#64748b", textDecoration: "none" }}>Terms</Link></p>
           </div>
