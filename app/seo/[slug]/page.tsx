@@ -2,10 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SEO_PAGES from "@/lib/seo-pages.json";
+import fs from "fs";
+import path from "path";
 
 type PageDef = { slug: string; title: string; keyword: string; metaDescription: string };
 const pages: PageDef[] = SEO_PAGES as PageDef[];
 const pageMap = new Map(pages.map((p) => [p.slug, p]));
+
+type ArticleSection = { h2: string; body: string };
+type Article = { intro: string; sections: ArticleSection[]; conclusion: string } | null;
+
+function loadArticle(slug: string): Article {
+  try {
+    const p = path.join(process.cwd(), "lib", "seo-articles", `${slug}.json`);
+    if (!fs.existsSync(p)) return null;
+    return JSON.parse(fs.readFileSync(p, "utf8")) as Article;
+  } catch { return null; }
+}
 
 export async function generateStaticParams() {
   return pages.map((p) => ({ slug: p.slug }));
@@ -92,6 +105,7 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
   const related = getRelated(slug);
   const faqs = faqsForPage(page);
   const steps = howItWorks();
+  const article = loadArticle(slug);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -200,6 +214,26 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
             </div>
           </div>
         </section>
+
+        {/* Article content — unique per page */}
+        {article && (
+          <section style={{ padding: "72px 24px", background: "#fff" }}>
+            <div style={{ maxWidth: 780, margin: "0 auto" }}>
+              <p style={{ fontSize: 17, color: "#475569", lineHeight: 1.8, marginBottom: 40 }}>{article.intro}</p>
+              {article.sections.map((sec, i) => (
+                <div key={i} style={{ marginBottom: 48 }}>
+                  <h2 style={{ fontSize: 26, fontWeight: 800, color: "#0f172a", marginBottom: 16, lineHeight: 1.25 }}>{sec.h2}</h2>
+                  {sec.body.split("\n\n").filter(Boolean).map((para, j) => (
+                    <p key={j} style={{ fontSize: 16, color: "#374151", lineHeight: 1.85, marginBottom: 18 }}>{para.trim()}</p>
+                  ))}
+                </div>
+              ))}
+              {article.conclusion && (
+                <p style={{ fontSize: 17, color: "#475569", lineHeight: 1.8, borderTop: "1px solid #e5e7eb", paddingTop: 32, marginTop: 8 }}>{article.conclusion}</p>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Features grid */}
         <section style={{ padding: "72px 24px", background: "#f8fafc" }}>
