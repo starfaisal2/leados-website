@@ -1,61 +1,85 @@
 import Link from "next/link";
-import seoPages from "@/lib/seo-pages.json";
+import type { Metadata } from "next";
+import SEO_PAGES from "@/lib/seo-pages.json";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "SEO Resources & Guides — LeadOS",
   description: "Browse all LeadOS SEO guides: CRM SEO, AI SEO tools, local SEO for Dubai & UAE, clinic SEO, salon SEO and more.",
+  alternates: { canonical: "https://myleados.ai/seo" },
 };
 
-// Group pages by first word of keyword
-function groupPages(pages: typeof seoPages) {
-  const groups: Record<string, typeof seoPages> = {};
-  for (const p of pages) {
-    const key = p.keyword.split(" ")[0];
+type PageDef = { slug: string; title: string; keyword: string; metaDescription: string };
+const pages: PageDef[] = SEO_PAGES as PageDef[];
+
+// Group pages by first keyword word
+function groupPages(list: PageDef[]) {
+  const groups: Record<string, PageDef[]> = {};
+  for (const p of list) {
+    const key = p.keyword.split(" ")[0].toUpperCase();
     if (!groups[key]) groups[key] = [];
     groups[key].push(p);
   }
   return groups;
 }
 
+function toTitleCase(str: string) {
+  return str.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 export default function SeoIndexPage() {
-  const groups = groupPages(seoPages);
+  const groups = groupPages(pages);
   const sortedKeys = Object.keys(groups).sort();
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Header */}
-      <section className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white py-16 px-6 text-center">
-        <h1 className="text-4xl font-bold mb-4">SEO Resources & Guides</h1>
-        <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-          Learn how LeadOS helps businesses across every industry rank on Google with AI-powered SEO.
-        </p>
-        <Link
-          href="/"
-          className="mt-8 inline-block bg-white text-blue-700 font-semibold px-8 py-3 rounded-full hover:bg-blue-50 transition"
-        >
-          Get Started with LeadOS
-        </Link>
+    <div style={{ fontFamily: "'Inter', system-ui, sans-serif", color: "#111", lineHeight: 1.6 }}>
+
+      {/* Nav */}
+      <nav style={{ borderBottom: "1px solid #e5e7eb", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 1100, margin: "0 auto" }}>
+        <Link href="/" style={{ fontWeight: 700, fontSize: 18, color: "#111", textDecoration: "none" }}>LeadOS</Link>
+        <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+          <Link href="/auto-seo" style={{ color: "#6366f1", textDecoration: "none", fontWeight: 500, fontSize: 14 }}>Auto SEO</Link>
+          <Link href="/blog" style={{ color: "#555", textDecoration: "none", fontSize: 14 }}>Blog</Link>
+          <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "8px 20px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Get Started</Link>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{ background: "linear-gradient(135deg, #eef2ff 0%, #f0fdf4 100%)", padding: "64px 24px 56px", textAlign: "center" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <div style={{ display: "inline-block", background: "#6366f1", color: "#fff", fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 20, marginBottom: 20, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            LeadOS SEO Hub
+          </div>
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 44px)", fontWeight: 800, lineHeight: 1.15, marginBottom: 16, color: "#0f172a" }}>
+            SEO Resources &amp; Guides
+          </h1>
+          <p style={{ fontSize: 18, color: "#475569", marginBottom: 32, lineHeight: 1.7 }}>
+            Learn how LeadOS helps businesses across every industry rank on Google with AI-powered SEO. {pages.length} guides and counting.
+          </p>
+          <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
+            Get Started with LeadOS
+          </Link>
+        </div>
       </section>
 
-      {/* Page grid */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <p className="text-gray-500 mb-10 text-center">{seoPages.length} guides across SEO, CRM, AI tools and local business marketing</p>
+      {/* Topic groups */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px" }}>
+        <p style={{ color: "#64748b", marginBottom: 48, fontSize: 15 }}>
+          {pages.length} guides across SEO, CRM, AI tools and local business marketing
+        </p>
 
         {sortedKeys.map((key) => (
-          <div key={key} className="mb-10">
-            <h2 className="text-lg font-semibold text-gray-800 capitalize mb-4 border-b pb-2">
-              {key.toUpperCase()} topics
+          <div key={key} style={{ marginBottom: 48 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: "#0f172a", marginBottom: 16, paddingBottom: 10, borderBottom: "2px solid #e5e7eb", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              {key} Topics
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12 }}>
               {groups[key].map((page) => (
                 <Link
                   key={page.slug}
                   href={`/seo/${page.slug}`}
-                  className="block p-4 rounded-lg border border-gray-100 hover:border-blue-300 hover:bg-blue-50 transition group"
+                  style={{ display: "block", padding: "12px 16px", borderRadius: 8, border: "1px solid #e5e7eb", textDecoration: "none", color: "#1e293b", fontSize: 14, fontWeight: 500, background: "#fff", transition: "border-color 0.15s" }}
                 >
-                  <span className="text-sm font-medium text-gray-800 group-hover:text-blue-700 leading-tight block">
-                    {page.keyword.replace(/\b\w/g, (c) => c.toUpperCase())}
-                  </span>
+                  {toTitleCase(page.keyword)}
                 </Link>
               ))}
             </div>
@@ -64,16 +88,15 @@ export default function SeoIndexPage() {
       </section>
 
       {/* Footer CTA */}
-      <section className="bg-gray-50 border-t py-12 text-center px-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready to rank on Google?</h2>
-        <p className="text-gray-600 mb-6">LeadOS publishes SEO articles for your business automatically — every week.</p>
-        <Link
-          href="/"
-          className="inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-full hover:bg-blue-700 transition"
-        >
+      <section style={{ background: "#f8fafc", borderTop: "1px solid #e5e7eb", padding: "56px 24px", textAlign: "center" }}>
+        <h2 style={{ fontSize: 28, fontWeight: 800, color: "#0f172a", marginBottom: 12 }}>Ready to rank on Google?</h2>
+        <p style={{ color: "#475569", fontSize: 16, marginBottom: 28 }}>
+          LeadOS publishes SEO articles for your business automatically — every week. Plans from $29/mo.
+        </p>
+        <Link href="/get-started" style={{ background: "#6366f1", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 16 }}>
           Start Ranking on Google
         </Link>
       </section>
-    </main>
+    </div>
   );
 }
