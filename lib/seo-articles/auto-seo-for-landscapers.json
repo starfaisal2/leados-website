@@ -29,5 +29,47 @@
   "conclusion": "Auto SEO for landscapers represents a fundamental shift in how small and medium-sized landscaping businesses compete for local customers. By automating content creation, publishing, indexing, and backlink building, you can achieve professional-grade SEO results without hiring expensive agencies or spending countless hours on technical tasks. When combined with integrated CRM and communication tools, you have a complete system for generating leads, managing customers, and growing your landscaping business systematically. Start your 7-day trial of LeadOS for just $5 today and experience firsthand how auto SEO can transform your Google visibility and put more landscaping jobs in your pipeline.",
   "slug": "auto-seo-for-landscapers",
   "keyword": "auto seo for landscapers",
-  "title": "Auto SEO for Landscapers — Get More Garden Jobs from Google"
+  "title": "Auto SEO for Landscapers — Get More Garden Jobs from Google",
+  "faqs": [
+    {
+      "q": "What is auto SEO for landscapers and how does it differ from regular SEO?",
+      "a": "Auto SEO for landscapers is an automated content and link-building system designed specifically for landscaping businesses to rank higher on Google for local search queries. Unlike traditional SEO that requires manual keyword research and content creation, auto SEO continuously generates optimized blog articles and builds backlinks automatically—so you can focus on running your landscaping business. LeadOS handles this automation with plans starting at $29/month, generating 15+ articles and backlinks monthly so you get consistent organic visibility without the manual work."
+    },
+    {
+      "q": "How long does it typically take to see results from auto SEO for landscapers?",
+      "a": "Most landscapers begin seeing improved search rankings within 4-8 weeks of consistent auto SEO implementation, though competitive keywords may take 3-6 months to rank on the first page of Google. The key is maintaining consistent content and backlink activity, which LeadOS automates across all three pricing tiers ($29, $49, and $79/month). Starting with a 7-day trial for just $5 lets you test the system and track initial performance before committing long-term."
+    },
+    {
+      "q": "Will auto SEO for landscapers help me rank for local garden and landscaping keywords?",
+      "a": "Yes, auto SEO specifically targets local landscaping keywords like \"landscapers near me,\" \"garden maintenance [city],\" and \"lawn care services [location]\" by generating locally-optimized content automatically. LeadOS's auto SEO system creates articles that naturally incorporate geographic keywords and industry-specific terms that potential customers search for. Works on any website regardless of platform, helping you dominate local Google results in your service areas."
+    },
+    {
+      "q": "What's the difference between LeadOS auto SEO pricing plans—15 articles vs. 30 vs. 45?",
+      "a": "The three LeadOS auto SEO plans scale based on your growth goals: $29/month includes 15 articles + 5 backlinks, $49/month provides 30 articles + 10 backlinks, and $79/month delivers 45 articles + 13 backlinks. More articles and backlinks per month accelerate ranking improvements and increase your chances of ranking for multiple landscaping keywords simultaneously. Choose based on your competition level and how aggressively you want to grow your organic lead pipeline."
+    },
+    {
+      "q": "Does auto SEO for landscapers actually generate qualified leads or just website traffic?",
+      "a": "Auto SEO generates qualified traffic from people actively searching for landscaping services in your area—this is higher-intent traffic than generic website visitors. The system works by ranking your website for specific keywords (like \"spring garden cleanup\" or \"landscape design services\"), attracting prospects ready to hire, not just browsers. LeadOS automates the visibility piece; pairing it with a lead capture form or CTA on your site converts that organic traffic into actual landscaping job inquiries."
+    }
+  ],
+  "outbound_links": [
+    {
+      "text": "Google Search Central: Creating helpful, reliable content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "text": "Google Search Console",
+      "url": "https://search.google.com/search-console/about"
+    },
+    {
+      "text": "Google's SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/130154/pexels-photo-130154.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "alt": "auto seo for landscapers — LeadOS Auto SEO",
+    "photographer": "icon0 com",
+    "pexels_url": "https://www.pexels.com/photo/green-and-brown-garden-130154/"
+  }
 }

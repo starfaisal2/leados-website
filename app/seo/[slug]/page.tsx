@@ -145,6 +145,27 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
         offers: { "@type": "Offer", price: "29", priceCurrency: "USD" },
         description: "AI-powered SEO tool that automatically publishes weekly articles to rank your business on Google.",
       },
+      ...(article ? [{
+        "@type": "Article",
+        "@id": `https://myleados.ai/seo/${slug}#article`,
+        headline: page.title,
+        description: page.metaDescription,
+        author: {
+          "@type": "Organization",
+          name: "LeadOS Editorial Team",
+          url: "https://myleados.ai/about",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "LeadOS",
+          url: "https://myleados.ai",
+          logo: { "@type": "ImageObject", url: "https://myleados.ai/leados-logo-full.svg" },
+        },
+        datePublished: "2025-01-01",
+        dateModified: new Date().toISOString().split("T")[0],
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://myleados.ai/seo/${slug}` },
+        ...(article.image ? { image: { "@type": "ImageObject", url: article.image.url, description: article.image.alt } } : {}),
+      }] : []),
     ],
   };
 
@@ -258,14 +279,35 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
                 </div>
               )}
 
+              {/* Table of Contents */}
+              {article.sections.length > 2 && (
+                <nav style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "20px 24px", marginBottom: 40 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: "#0f172a", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>Table of Contents</div>
+                  <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                    {article.sections.map((sec, i) => (
+                      <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                        <span style={{ color: "#6366f1", fontWeight: 700, fontSize: 13, minWidth: 20 }}>{i + 1}.</span>
+                        <a href={`#section-${i}`} style={{ color: "#6366f1", textDecoration: "none", fontSize: 14, lineHeight: 1.4 }}>{sec.h2}</a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              )}
+
               {/* Article body */}
               <p style={{ fontSize: 17, color: "#475569", lineHeight: 1.8, marginBottom: 40 }}>{article.intro}</p>
               {article.sections.map((sec, i) => (
-                <div key={i} style={{ marginBottom: 48 }}>
+                <div key={i} id={`section-${i}`} style={{ marginBottom: 48 }}>
                   <h2 style={{ fontSize: 26, fontWeight: 800, color: "#0f172a", marginBottom: 16, lineHeight: 1.25 }}>{sec.h2}</h2>
-                  {sec.body.split("\n\n").filter(Boolean).map((para, j) => (
-                    <p key={j} style={{ fontSize: 16, color: "#374151", lineHeight: 1.85, marginBottom: 18 }}>{para.trim()}</p>
-                  ))}
+                  {sec.body.split("\n\n").filter(Boolean).map((para, j) => {
+                    const trimmed = para.trim();
+                    // Detect H3 lines: short (≤80 chars), no period at end, bolded or standalone
+                    if (trimmed.startsWith("**") && trimmed.endsWith("**") && trimmed.length < 90) {
+                      const heading = trimmed.replace(/^\*\*|\*\*$/g, "");
+                      return <h3 key={j} style={{ fontSize: 19, fontWeight: 700, color: "#0f172a", marginBottom: 10, marginTop: 28 }}>{heading}</h3>;
+                    }
+                    return <p key={j} style={{ fontSize: 16, color: "#374151", lineHeight: 1.85, marginBottom: 18 }}>{trimmed}</p>;
+                  })}
                 </div>
               ))}
               {article.conclusion && (

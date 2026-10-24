@@ -29,5 +29,47 @@
   "conclusion": "SEO for new websites doesn't have to be a years-long grind. By focusing on consistent content publication, strategic backlink building, technical excellence, smart keyword targeting, and customer-informed content strategy, you can accelerate your path to Google rankings dramatically. LeadOS accelerates this process further with automated AI article writing, backlink building, Google Indexing API submission, and integrated CRM capabilities—all starting at just $5 for a 7-day trial. Whether you're launching a dental clinic, salon, real estate business, restaurant, or coaching practice, the platform works seamlessly with any website builder and helps you build authority from day one. Start your free trial today and discover how quickly your new website can begin ranking and generating organic traffic.",
   "slug": "seo-for-new-websites",
   "keyword": "seo for new websites",
-  "title": "SEO for New Websites — How to Get a New Site Ranking Fast"
+  "title": "SEO for New Websites — How to Get a New Site Ranking Fast",
+  "faqs": [
+    {
+      "q": "How long does it take for a new website to rank on Google?",
+      "a": "Most new websites take 3-6 months to see meaningful rankings, though this varies based on competition and SEO effort. Google needs time to crawl and index your site, and you need to build authority through quality content and backlinks. With a strategic approach using tools like LeadOS, which automates content creation and link building across its $29-$79/month plans, you can accelerate this timeline and start seeing results faster."
+    },
+    {
+      "q": "Why is SEO harder for brand new websites than established ones?",
+      "a": "New websites lack domain authority, backlinks, and search history—all factors Google uses to determine trustworthiness and relevance. Established sites have had years to accumulate these signals, while new sites must build them from scratch. LeadOS helps new websites compete by generating consistent, optimized content (15-45 articles monthly) and acquiring quality backlinks (5-13 monthly), helping you establish authority quickly without the years of waiting."
+    },
+    {
+      "q": "What's the first SEO step you should take when launching a new website?",
+      "a": "Your first priority should be technical SEO: ensure your site is fast, mobile-friendly, has a clean URL structure, and is properly indexed by Google Search Console. After that, create a content strategy targeting low-competition keywords relevant to your niche, as new sites typically rank faster for less competitive terms. LeadOS automates both the content creation and optimization process, allowing you to start building rankings immediately with its 7-day trial for just $5."
+    },
+    {
+      "q": "Does SEO work for new websites in competitive industries?",
+      "a": "Yes, but it requires a longer timeline and more strategic keyword selection—new sites typically need to target long-tail keywords and build topical authority before competing for high-volume terms. Consistency and quality matter more than speed in competitive niches. LeadOS supports competitive niches by generating regular, optimized content and backlinks, helping new websites establish authority even when competing against established players."
+    },
+    {
+      "q": "How many pages does a new website need before starting SEO?",
+      "a": "You should have at least 10-15 quality foundational pages before expecting SEO results, including essential pages like your homepage, about page, and core service/product pages. However, you can start SEO immediately and continue expanding—content growth actually signals to Google that your site is active and relevant. Many new website owners use LeadOS to jumpstart this process, with plans generating 15-45 articles monthly to quickly build your content foundation and improve crawlability."
+    }
+  ],
+  "outbound_links": [
+    {
+      "text": "Google Search Central: Creating helpful, reliable content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "text": "Google Search Console",
+      "url": "https://search.google.com/search-console/about"
+    },
+    {
+      "text": "Google's SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "alt": "seo for new websites — LeadOS Auto SEO",
+    "photographer": "Atlantic Ambience",
+    "pexels_url": "https://www.pexels.com/photo/letters-on-the-wooden-blocks-9822732/"
+  }
 }

@@ -33,5 +33,47 @@
   "conclusion": "SEO for Google Generative AI requires fundamentally rethinking your content strategy from keyword-focused to authority-focused, from individual articles to topical clusters, and from manual creation to intelligent automation. The businesses winning in this new landscape are those that combine strategic content planning with systematic, AI-powered execution. Start your transformation today with LeadOS—try 7 days for just $5 and discover how automated AI SEO can position your business to rank in Google AI Overviews and connect with qualified customers actively seeking your services.",
   "slug": "seo-for-google-generative-ai",
   "keyword": "seo for google generative ai",
-  "title": "SEO for Google AI Overviews — How to Rank in AI Search"
+  "title": "SEO for Google AI Overviews — How to Rank in AI Search",
+  "faqs": [
+    {
+      "q": "What is Google AI Overviews and how does it differ from traditional search results?",
+      "a": "Google AI Overviews (formerly SGE) are AI-generated summaries that appear at the top of search results, synthesizing information from multiple sources to answer user queries directly. Unlike traditional organic results, AI Overviews pull content from various pages, meaning your content can get visibility even if you don't rank in position one. To optimize for this new format, you need to focus on comprehensive, authoritative content that answers questions thoroughly—something LeadOS helps automate with AI-generated articles designed to rank across multiple search intent categories."
+    },
+    {
+      "q": "Why is traditional SEO no longer enough for Google Generative AI search results?",
+      "a": "Traditional SEO focused on ranking your page in the top 10 results, but AI Overviews can cite content from 10+ different sources simultaneously, often leaving less real estate for click-through traffic. Google's AI prioritizes content that directly answers queries with specificity, structure, and authority rather than just keyword density. LeadOS adapts to this shift by generating SEO-optimized content that targets the exact answer formats AI models favor, plus building quality backlinks to establish domain authority—critical factors in getting selected by Google's AI systems."
+    },
+    {
+      "q": "How long does it take to see results from SEO optimized for Google Generative AI?",
+      "a": "Most websites see AI Overview visibility within 4-12 weeks of publishing optimized content, though this varies based on domain authority and competition. Unlike traditional SEO, AI Overviews tend to favor recently updated, comprehensive content more aggressively, meaning newer pages can rank faster. With LeadOS's auto SEO plans ($29-$79/month generating 15-45 articles plus backlinks), you can build content velocity quickly and test what resonates with Google's AI ranking factors before committing major resources."
+    },
+    {
+      "q": "Does being cited in a Google AI Overview actually drive traffic to your website?",
+      "a": "Yes, but differently than traditional organic results—users still click through citations to learn more, but click-through rates are typically 20-30% lower than position-one rankings because the AI already provided a partial answer. However, appearing in AI Overviews significantly boosts brand visibility and establishes authority, which improves your chances of ranking higher in traditional results below the overview. LeadOS helps you capture both opportunities by creating content optimized for AI citation while maintaining keyword rankings that drive supplementary traffic."
+    },
+    {
+      "q": "What content strategy works best for ranking in Google AI Overviews?",
+      "a": "Google AI Overviews favor comprehensive, well-structured content that directly answers specific questions with clear data, examples, and multiple perspectives on a topic. Content should be longer-form (2,000+ words), include stats and original research, use clear headings, and address related queries your target audience might have. LeadOS automates this strategy by generating topically-clustered articles that comprehensively cover keyword themes while building supporting backlinks—helping your content get selected as a authoritative source Google's AI can confidently cite."
+    }
+  ],
+  "outbound_links": [
+    {
+      "text": "Google Search Central: Creating helpful, reliable content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "text": "Google Search Console",
+      "url": "https://search.google.com/search-console/about"
+    },
+    {
+      "text": "Google's SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "alt": "seo for google generative ai — LeadOS Auto SEO",
+    "photographer": "AS Photography",
+    "pexels_url": "https://www.pexels.com/photo/black-samsung-tablet-display-google-browser-on-screen-218717/"
+  }
 }

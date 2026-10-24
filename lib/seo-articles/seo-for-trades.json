@@ -29,5 +29,47 @@
   "conclusion": "SEO for trades is no longer optional—it's the primary way customers find service providers in their area. By implementing a strategic approach to local search optimization combined with a system that manages leads and customer relationships, you can build a predictable pipeline of quality jobs. Start your journey today with a 7-day free trial of LeadOS for just $5 and discover how automated SEO can transform your trades business from hoping for referrals to consistently ranking where customers are actively searching for your services.",
   "slug": "seo-for-trades",
   "keyword": "seo for trades",
-  "title": "SEO for Tradespeople — Never Run Out of Local Jobs Again"
+  "title": "SEO for Tradespeople — Never Run Out of Local Jobs Again",
+  "faqs": [
+    {
+      "q": "Why is SEO so important for plumbers, electricians, and other tradespeople?",
+      "a": "Local SEO helps tradespeople rank higher in Google search results when potential customers in their area search for services like 'emergency plumber near me' or 'licensed electrician.' Most homeowners and businesses search online before calling a tradesperson, so ranking on the first page of Google directly translates to more job calls. LeadOS automates this process by consistently publishing optimized content and building backlinks that improve your visibility over time."
+    },
+    {
+      "q": "How long does it take for SEO to generate leads for my trade business?",
+      "a": "Most tradespeople see initial traction within 4-8 weeks, though significant lead flow typically builds over 3-6 months as your website authority grows. SEO is a long-term strategy that compounds—the longer you maintain consistent optimization, the more passive leads you generate. With LeadOS's Auto SEO plans starting at $29/month, you can start building your online presence affordably while you focus on your actual trade work."
+    },
+    {
+      "q": "What kind of content should tradespeople create for SEO rankings?",
+      "a": "Tradespeople should create content that answers common customer questions like 'how much does it cost to replace a water heater?' or 'signs you need a new roof.' Local service guides, before-and-after case studies, and blog posts about maintenance tips all perform well for trade businesses. LeadOS generates targeted articles and builds quality backlinks automatically, so you don't have to spend hours writing content while managing your jobs and client calls."
+    },
+    {
+      "q": "Does SEO for trades work differently than SEO for other businesses?",
+      "a": "Yes—trade SEO heavily emphasizes local keywords, service area pages, and customer trust signals like reviews and certifications, since customers need someone nearby and trustworthy. Trade businesses also benefit significantly from Google My Business optimization and local citations, which LeadOS supports across all Auto SEO plans. Generic SEO strategies often miss these trade-specific opportunities, which is why a targeted approach yields better results."
+    },
+    {
+      "q": "Can I use LeadOS for SEO if I'm just starting my trade business without an existing website?",
+      "a": "Yes—LeadOS works on any website, whether it's brand new or established, so you can start building your online presence from day one. A new tradesperson can begin with the $29/month plan (15 articles and 5 backlinks) to establish foundational content and authority while building their client base. The 7-day trial for just $5 lets you test the platform risk-free before committing to a full plan."
+    }
+  ],
+  "outbound_links": [
+    {
+      "text": "Google Search Central: Creating helpful, reliable content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "text": "Google Search Console",
+      "url": "https://search.google.com/search-console/about"
+    },
+    {
+      "text": "Google's SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/12813050/pexels-photo-12813050.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "alt": "seo for trades — LeadOS Auto SEO",
+    "photographer": "Sarah Blocksidge",
+    "pexels_url": "https://www.pexels.com/photo/close-up-of-scrabble-tiles-12813050/"
+  }
 }

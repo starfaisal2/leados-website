@@ -29,5 +29,41 @@
   "conclusion": "Doing SEO without an agency is no longer a risky experiment—it's a proven, practical approach used by thousands of businesses globally to rank on Google and save thousands monthly. LeadOS combines AI-powered keyword research, automated article writing, backlink building, Google indexing, and integrated CRM with WhatsApp, Instagram, AI chatbots, and pipeline management into one platform that works on any website, starting at just $29 per month. Try it for seven days for only $5 and experience how much faster you can grow when you eliminate the agency middleman and take control of your own SEO strategy.",
   "slug": "seo-without-an-agency",
   "keyword": "seo without an agency",
-  "title": "SEO Without an Agency — Save Thousands Monthly"
+  "title": "SEO Without an Agency — Save Thousands Monthly",
+  "faqs": [
+    {
+      "q": "What skills do I actually need to do SEO without hiring an agency?",
+      "a": "You don't need to be a technical expert—basic skills in keyword research, content writing, and link building are enough to get started. Most in-house SEO work involves identifying what your audience searches for, creating relevant content, and building backlinks, all of which are learnable through free resources. Tools like LeadOS simplify this by automating article creation and backlink building, so you can focus on strategy rather than execution."
+    },
+    {
+      "q": "How much time does DIY SEO actually take compared to using an agency?",
+      "a": "In-house SEO typically requires 10-20 hours per week for a small business, though automation tools can cut this significantly. Agencies handle everything but cost $1,000-$5,000+ monthly, whereas LeadOS auto SEO plans start at just $29/month and handle content and backlinks automatically. Even spending a few hours weekly on strategy with automated tools is more cost-effective than agency fees over time."
+    },
+    {
+      "q": "Does doing SEO without an agency work for competitive industries?",
+      "a": "Yes, but it requires patience and smart strategy—you won't outrank competitors overnight without significant resources. Competitive industries benefit from consistent, high-volume content and backlink building, which is where automation becomes crucial. LeadOS plans scale from 15 to 45 articles monthly with 5 to 13 backlinks, allowing even small teams to maintain the output needed to compete."
+    },
+    {
+      "q": "What are the main costs I'll save by handling SEO without an agency?",
+      "a": "The biggest saving is avoiding agency retainers, which typically range from $1,000-$10,000+ monthly depending on your market. You'll only pay for tools and your own time, making the total investment substantially lower—LeadOS auto SEO plans range from $29 to $79/month. Over a year, this difference can amount to thousands in savings while maintaining competitive SEO performance."
+    },
+    {
+      "q": "Can I do SEO without an agency if I'm not technical and don't know where to start?",
+      "a": "Absolutely—you don't need to be technical because modern SEO tools handle the complex parts for you. LeadOS works on any website and automates both article creation and backlink acquisition, so non-technical founders can start with just a $5 seven-day trial. Your main role becomes deciding topics and reviewing results, while the platform handles strategy execution."
+    }
+  ],
+  "outbound_links": [
+    {
+      "text": "Google Search Central: Creating helpful, reliable content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "text": "Google Search Console",
+      "url": "https://search.google.com/search-console/about"
+    },
+    {
+      "text": "Google's SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ]
 }
