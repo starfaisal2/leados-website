@@ -2,7 +2,7 @@
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://myleados.ai'),
+  metadataBase: new URL('https://www.myleados.ai'),
   title: {
     default: 'LeadOS — Most CRMs Store Data. LeadOS Learns From It.',
     template: '%s | LeadOS',
@@ -56,8 +56,8 @@ const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "LeadOS",
-  url: "https://myleados.ai",
-  logo: "https://myleados.ai/icon.svg",
+  url: "https://www.myleados.ai",
+  logo: "https://www.myleados.ai/icon.svg",
   sameAs: ["https://www.instagram.com/myleados.ai/", "https://www.facebook.com/Leadoscrm"],
   description: "AI CRM that learns from conversations, bookings and follow-ups. Capture leads, automate bookings, track revenue and improve over time.",
 };
@@ -66,10 +66,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "LeadOS",
-  url: "https://myleados.ai",
+  url: "https://www.myleados.ai",
   potentialAction: {
     "@type": "SearchAction",
-    target: { "@type": "EntryPoint", urlTemplate: "https://myleados.ai/blog?q={search_term_string}" },
+    target: { "@type": "EntryPoint", urlTemplate: "https://www.myleados.ai/blog?q={search_term_string}" },
     "query-input": "required name=search_term_string",
   },
 };
@@ -118,3 +118,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+

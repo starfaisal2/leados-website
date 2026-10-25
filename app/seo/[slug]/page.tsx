@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SEO_PAGES from "@/lib/seo-pages.json";
@@ -41,11 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.title,
     description: page.metaDescription,
-    alternates: { canonical: `https://myleados.ai/seo/${slug}` },
+    alternates: { canonical: `https://www.myleados.ai/seo/${slug}` },
     openGraph: {
       title: page.title,
       description: page.metaDescription,
-      url: `https://myleados.ai/seo/${slug}`,
+      url: `https://www.myleados.ai/seo/${slug}`,
       siteName: "LeadOS",
       type: "website",
     },
@@ -123,11 +123,11 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": `https://myleados.ai/seo/${slug}`,
-        url: `https://myleados.ai/seo/${slug}`,
+        "@id": `https://www.myleados.ai/seo/${slug}`,
+        url: `https://www.myleados.ai/seo/${slug}`,
         name: page.title,
         description: page.metaDescription,
-        isPartOf: { "@id": "https://myleados.ai" },
+        isPartOf: { "@id": "https://www.myleados.ai" },
       },
       {
         "@type": "FAQPage",
@@ -147,23 +147,23 @@ export default async function SeoPage({ params }: { params: Promise<{ slug: stri
       },
       ...(article ? [{
         "@type": "Article",
-        "@id": `https://myleados.ai/seo/${slug}#article`,
+        "@id": `https://www.myleados.ai/seo/${slug}#article`,
         headline: page.title,
         description: page.metaDescription,
         author: {
           "@type": "Organization",
           name: "LeadOS Editorial Team",
-          url: "https://myleados.ai/about",
+          url: "https://www.myleados.ai/about",
         },
         publisher: {
           "@type": "Organization",
           name: "LeadOS",
-          url: "https://myleados.ai",
-          logo: { "@type": "ImageObject", url: "https://myleados.ai/leados-logo-full.svg" },
+          url: "https://www.myleados.ai",
+          logo: { "@type": "ImageObject", url: "https://www.myleados.ai/leados-logo-full.svg" },
         },
         datePublished: "2025-01-01",
         dateModified: new Date().toISOString().split("T")[0],
-        mainEntityOfPage: { "@type": "WebPage", "@id": `https://myleados.ai/seo/${slug}` },
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.myleados.ai/seo/${slug}` },
         ...(article.image ? { image: { "@type": "ImageObject", url: article.image.url, description: article.image.alt } } : {}),
       }] : []),
     ],

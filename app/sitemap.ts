@@ -1,7 +1,7 @@
 ﻿import type { MetadataRoute } from "next";
 import SEO_PAGES from "@/lib/seo-pages.json";
 
-const BASE = "https://myleados.ai";
+const BASE = "https://www.myleados.ai";
 
 const LOCALES = ["en", "ar", "de", "es", "fr", "hi", "pt", "ru", "tr", "zh"];
 

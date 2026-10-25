@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import WebsiteBuilderPage from "./WebsiteBuilderPage";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400","500","600","700","800","900"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Website Builder – LeadOS | Build Your Business Website",
+  title: "Website Builder â€“ LeadOS | Build Your Business Website",
   description:
     "Describe your business and LeadOS builds a complete, professional website in seconds. Free to build. No code, no designers, no agency.",
   openGraph: {
     title: "Website Builder by LeadOS",
     description: "Your business website, built by LeadOS. Describe it. We build it. Free to start.",
-    url: "https://myleados.ai/website-builder",
+    url: "https://www.myleados.ai/website-builder",
     siteName: "LeadOS",
     type: "website",
   },
@@ -23,14 +23,14 @@ const schema = {
   name: "LeadOS Website Builder",
   applicationCategory: "BusinessApplication",
   description: "Build a complete business website by describing your business in plain English. Free to start.",
-  url: "https://myleados.ai/website-builder",
+  url: "https://www.myleados.ai/website-builder",
   offers: [
     { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan" },
     { "@type": "Offer", price: "19", priceCurrency: "USD", name: "Website Pro", billingPeriod: "P1M" },
     { "@type": "Offer", price: "59", priceCurrency: "USD", name: "Pro + Auto SEO", billingPeriod: "P1M" },
   ],
   operatingSystem: "Web",
-  provider: { "@type": "Organization", name: "LeadOS", url: "https://myleados.ai" },
+  provider: { "@type": "Organization", name: "LeadOS", url: "https://www.myleados.ai" },
 };
 
 export default function Page() {
@@ -41,3 +41,4 @@ export default function Page() {
     </div>
   );
 }
+
