@@ -26,7 +26,9 @@ export default function Nav() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [startOpen, setStartOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
+  const startRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
@@ -37,12 +39,11 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // Close lang dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) {
-        setLangOpen(false);
-      }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+      if (startRef.current && !startRef.current.contains(e.target as Node)) setStartOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -152,12 +153,40 @@ export default function Nav() {
             <button className="nav-login" onClick={() => setLoginOpen(true)}>
               {t("login")}
             </button>
-            <a href={SIGNUP_URL} className="nav-trial" style={{ whiteSpace: "nowrap" }}>
-              Get Started
-            </a>
-            <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="nav-demo">
-              {t("bookDemo")}
-            </a>
+            <div ref={startRef} style={{ position: "relative" }}>
+              <button
+                className="nav-trial"
+                onClick={() => setStartOpen(!startOpen)}
+                style={{ whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 6 }}
+              >
+                Get Started
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              {startOpen && (
+                <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, background: "white", border: "1px solid var(--border)", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,.12)", padding: "6px 0", zIndex: 200, minWidth: 180 }}>
+                  <a
+                    href="/auto-seo"
+                    onClick={() => setStartOpen(false)}
+                    style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 16px", fontSize: 14, fontWeight: 500, color: "var(--ink)", textDecoration: "none", whiteSpace: "nowrap" }}
+                    onMouseOver={e => (e.currentTarget.style.background = "var(--blue-50)")}
+                    onMouseOut={e => (e.currentTarget.style.background = "transparent")}
+                  >
+                    ✨ Auto SEO
+                  </a>
+                  <a
+                    href={SIGNUP_URL}
+                    onClick={() => setStartOpen(false)}
+                    style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 16px", fontSize: 14, fontWeight: 500, color: "var(--ink)", textDecoration: "none", whiteSpace: "nowrap" }}
+                    onMouseOver={e => (e.currentTarget.style.background = "var(--blue-50)")}
+                    onMouseOut={e => (e.currentTarget.style.background = "transparent")}
+                  >
+                    🤖 AI CRM & OS
+                  </a>
+                </div>
+              )}
+            </div>
             <button
               className="nav-hamburger"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -235,21 +264,20 @@ export default function Nav() {
                 Login
               </button>
               <a
-                href={SIGNUP_URL}
+                href="/auto-seo"
                 className="nav-trial"
                 style={{ width: "100%", textAlign: "center", justifyContent: "center" }}
                 onClick={() => setMobileOpen(false)}
               >
-                Get Started
+                ✨ Get Started — Auto SEO
               </a>
               <a
-                href={BOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={SIGNUP_URL}
                 className="nav-demo"
                 style={{ width: "100%", textAlign: "center" }}
+                onClick={() => setMobileOpen(false)}
               >
-                Book Demo
+                🤖 Get Started — AI CRM & OS
               </a>
             </div>
           </div>
