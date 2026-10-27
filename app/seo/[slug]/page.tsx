@@ -92,7 +92,7 @@ function faqsForPage(page: PageDef): { q: string; a: string }[] {
     },
     {
       q: "What does LeadOS Auto SEO cost?",
-      a: "Plans start at $29/mo (Starter: 15 articles + 5 backlinks), $49/mo (Growth: 30 articles + 10 backlinks), or $79/mo (Scale: 45 articles + 13 backlinks). All plans include a 7-day trial for $5.",
+      a: "Plans start at $29/mo (Starter: 30 articles + 5 backlinks), $49/mo (Growth: 45 articles + 10 backlinks), or $79/mo (Scale: 60 articles + 13 backlinks). All plans include a 7-day trial for $5.",
     },
   ];
 }

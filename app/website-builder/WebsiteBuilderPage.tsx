@@ -99,7 +99,7 @@ const PRICING = [
     price: "$59",
     period: "per month",
     desc: "Your site keeps growing after launch.",
-    features: ["Everything in Website Pro", "15–45 SEO articles/month", "Keyword research", "Auto-publish to your site", "Google indexing", "Backlink building", "Monthly performance report"],
+    features: ["Everything in Website Pro", "30–60 SEO articles/month", "Keyword research", "Auto-publish to your site", "Google indexing", "Backlink building", "Monthly performance report"],
     note: "The only website builder with native Auto SEO.",
     cta: "Get Pro + SEO",
     highlight: false,
@@ -549,7 +549,7 @@ export default function WebsiteBuilderPage() {
               </p>
               <div className="wb-seo-features">
                 {[
-                  { icon: "✍️", t: "15–45 SEO articles/month", d: "Keyword-targeted content written and published to your site automatically." },
+                  { icon: "✍️", t: "30–60 SEO articles/month", d: "Keyword-targeted content written and published to your site automatically." },
                   { icon: "🔍", t: "Keyword research included", d: "LeadOS finds the exact terms your customers search for in your city." },
                   { icon: "📈", t: "Google indexing", d: "New pages are submitted directly. No waiting for Google to find them." },
                   { icon: "🔗", t: "Backlink building", d: "Authoritative links pointing to your site, built every month." },
