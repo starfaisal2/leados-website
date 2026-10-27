@@ -62,7 +62,6 @@ export default function Nav() {
     { href: "/voice-ai", label: t("voiceAi") },
     { href: "/website-builder", label: "Website Builder 🌐" },
     { href: "/auto-seo", label: `Auto SEO ✨` },
-    { href: "/seo", label: "SEO Guides" },
     { href: "/#pricing", label: t("pricing") },
     { href: "/blog", label: t("blog") },
     { href: "/contact", label: t("contact") },
