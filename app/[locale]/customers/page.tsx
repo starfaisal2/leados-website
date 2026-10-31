@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const API = "https://app.myleados.ai/api/public/customers";
+const API = "/api/customers";
 const SIGNUP_URL = "/get-started";
 
 interface Customer {
