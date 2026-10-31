@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const res = await fetch("https://app.myleados.ai/api/public/customers", {
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
     const data = await res.json();
     return NextResponse.json(data, {
