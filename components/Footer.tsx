@@ -102,6 +102,7 @@ export default function Footer() {
             <ul className="footer-links">
               {[
                 ["/about", "About Us"],
+                ["/customers", "Customers"],
                 ["/contact", "Contact"],
                 ["#", "Blog"],
                 ["#", "Careers"],
@@ -138,6 +139,7 @@ export default function Footer() {
           <span style={{ fontSize: 11, color: "rgba(255,255,255,.3)", textTransform: "uppercase", letterSpacing: "0.08em", marginRight: 4 }}>Trusted by</span>
           <a href="https://enfieldroyalclinics.ae" target="_blank" rel="noopener" style={{ fontSize: 12, color: "rgba(255,255,255,.45)", textDecoration: "none", padding: "3px 10px", border: "1px solid rgba(255,255,255,.1)", borderRadius: 20 }}>Enfield Royal Clinics</a>
           <a href="https://www.fbcdelivery.ae" target="_blank" rel="noopener" style={{ fontSize: 12, color: "rgba(255,255,255,.45)", textDecoration: "none", padding: "3px 10px", border: "1px solid rgba(255,255,255,.1)", borderRadius: 20 }}>FBC Delivery Services</a>
+          <Link href="/customers" style={{ fontSize: 12, color: "rgba(99,102,241,.8)", textDecoration: "none", padding: "3px 10px", border: "1px solid rgba(99,102,241,.25)", borderRadius: 20 }}>View all customers →</Link>
         </div>
         <div className="footer-bottom">
           <div className="footer-bot-logo">
