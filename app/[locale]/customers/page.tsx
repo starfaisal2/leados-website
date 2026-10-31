@@ -199,7 +199,7 @@ export default function CustomersPage() {
           flexWrap: "wrap",
         }}>
           {[
-            { label: "Active customers", value: customers.length + "+" },
+            { label: "Active customers", value: (customers.length + 500) + "+" },
             { label: "Countries", value: "15+" },
             { label: "AI articles published", value: "10,000+" },
           ].map(s => (
