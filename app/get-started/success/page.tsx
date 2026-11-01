@@ -41,6 +41,14 @@ export default function GetStartedSuccessPage() {
           const url = data.onboarding_url || data.dashboard_url;
           setOnboardingUrl(url || null);
           setPhase("ready");
+          // Fire Google Ads Sign-up conversion
+          if (typeof window !== "undefined" && (window as any).gtag) {
+            (window as any).gtag('event', 'conversion', {
+              send_to: 'AW-18542773757/v4lMCPHmnq4dEP2L8YlF',
+              value: 1.0,
+              currency: 'AED',
+            });
+          }
           if (url) {
             // Brief pause so the user sees the confirmation before the redirect.
             setTimeout(() => { if (active) window.location.href = url; }, 1500);
