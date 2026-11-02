@@ -1,6 +1,11 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { createHash } from "node:crypto";
+
+function contentRevision(article: { title?: string | null; content?: string | null }) {
+  return createHash("sha256").update(JSON.stringify([article.title ?? "", article.content ?? ""])).digest("hex");
+}
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -153,8 +158,11 @@ export default async function ArticlePage({
     ],
   };
 
+  const marker = `leados-article:${article.id}:${contentRevision(article)}`;
+
   return (
     <>
+      <meta name="leados-article" content={marker} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* ── Hero ── */}
