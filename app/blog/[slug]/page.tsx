@@ -8,7 +8,7 @@ function contentRevision(article: { title?: string | null; content?: string | nu
 }
 
 export const revalidate = 3600;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 // Pre-render all known published articles at build time → true ISR, not dynamic rendering.
 // This produces Cache-Control: s-maxage=3600 instead of private/no-store, making pages
