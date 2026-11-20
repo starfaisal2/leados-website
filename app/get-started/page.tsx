@@ -189,27 +189,27 @@ export default function GetStartedPage() {
       <div className="container signup-container">
         <div className="signup-copy">
           <Link href="/" className="signup-back">← Back to LeadOS</Link>
-          <span className="eyebrow">Get Started</span>
+          <span className="eyebrow">Start Your Free Trial</span>
           <h1 className="display-lg">
-            Set up your LeadOS workspace on the{" "}
+            Try LeadOS free for 14 days on the{" "}
             <span className="text-serif-em" style={{ color: "var(--blue)" }}>{selectedPlanLabel}</span> plan.
           </h1>
           <p className="body-lg" style={{ marginTop: 18 }}>
-            Complete your details and a one-time setup fee, and our team begins your professional
-            onboarding right away.
+            No credit card required. Get full access to your CRM, AI automations, and omni-channel
+            inbox — free for 14 days.
           </p>
           <div className="signup-trust-list">
-            <div><span>✓</span> Professional onboarding included</div>
-            <div><span>✓</span> First month included after setup</div>
+            <div><span>✓</span> 14-day free trial, no card needed</div>
+            <div><span>✓</span> Full access from day one</div>
             <div><span>✓</span> Human + AI setup support</div>
-            <div><span>✓</span> Terms &amp; Conditions apply</div>
+            <div><span>✓</span> Cancel anytime</div>
           </div>
         </div>
 
         <form className="signup-card" onSubmit={submit}>
           <div className="signup-card-header">
             <div>
-              <h2>Get started</h2>
+              <h2>Start your free trial</h2>
               <p>Tell us about your business.</p>
             </div>
             <div className="signup-plan-pill">{selectedPlanLabel}</div>
@@ -268,7 +268,7 @@ export default function GetStartedPage() {
             />
             <span style={{ fontSize: 13, lineHeight: 1.5, color: "var(--ink-3)" }}>
               I agree to the LeadOS <Link href="/terms">Terms &amp; Conditions</Link> and{" "}
-              <Link href="/privacy">Privacy Policy</Link>, including the one-time setup fee.
+              <Link href="/privacy">Privacy Policy</Link>.
             </span>
           </label>
 
@@ -285,11 +285,11 @@ export default function GetStartedPage() {
           )}
 
           <button className="signup-submit" type="submit" disabled={loading}>
-            {loading ? "Setting up…" : "Continue to secure payment"}
+            {loading ? "Setting up…" : "Start My Free Trial →"}
           </button>
 
           <p className="signup-smallprint">
-            Professional onboarding included · First month included after setup · Terms &amp; Conditions apply
+            14-day free trial · No credit card required · Cancel anytime
           </p>
         </form>
       </div>
