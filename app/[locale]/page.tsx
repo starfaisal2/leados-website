@@ -9,6 +9,8 @@ const SIGNUP_URL = "/get-started";
 
 function GetStartedDropdown({ label }: { label: string }) {
   const [open, setOpen] = useState(false);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const btnRef = useRef<HTMLButtonElement>(null);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,12 +21,17 @@ function GetStartedDropdown({ label }: { label: string }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  function toggle() {
+    if (btnRef.current) {
+      const r = btnRef.current.getBoundingClientRect();
+      setPos({ top: r.bottom + 10, left: r.left + r.width / 2 });
+    }
+    setOpen(o => !o);
+  }
+
   return (
-    <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="btn btn-primary btn-lg"
-      >
+    <div ref={ref} style={{ display: "inline-block" }}>
+      <button ref={btnRef} onClick={toggle} className="btn btn-primary btn-lg">
         {label}
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ marginLeft: 6 }}>
           <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -32,16 +39,16 @@ function GetStartedDropdown({ label }: { label: string }) {
       </button>
       {open && (
         <div style={{
-          position: "absolute",
-          top: "calc(100% + 10px)",
-          left: "50%",
+          position: "fixed",
+          top: pos.top,
+          left: pos.left,
           transform: "translateX(-50%)",
           background: "#fff",
           borderRadius: 14,
-          boxShadow: "0 12px 40px rgba(0,0,0,0.16)",
-          minWidth: 230,
+          boxShadow: "0 12px 40px rgba(0,0,0,0.22)",
+          minWidth: 240,
           overflow: "hidden",
-          zIndex: 200,
+          zIndex: 99999,
         }}>
           <Link
             href="/get-started"
