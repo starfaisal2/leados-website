@@ -20,61 +20,49 @@ function GetStartedDropdown({ label }: { label: string }) {
   }, []);
 
   return (
-    <div ref={ref} style={{ position: "relative", display: "inline-flex" }}>
-      <div style={{ display: "flex", borderRadius: 9999, overflow: "hidden" }}>
-        <Link
-          href="/get-started"
-          className="btn btn-primary btn-lg"
-          style={{ borderRadius: 0, paddingRight: 20 }}
-        >
-          {label}
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ marginLeft: 6 }}>
-            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
-        <button
-          onClick={() => setOpen(o => !o)}
-          aria-label="Choose product"
-          className="btn btn-primary btn-lg"
-          style={{ borderRadius: 0, borderLeft: "1px solid rgba(255,255,255,0.25)", padding: "0 14px", minWidth: 0 }}
-        >
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
+    <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="btn btn-primary btn-lg"
+      >
+        {label}
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ marginLeft: 6 }}>
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
       {open && (
         <div style={{
           position: "absolute",
-          top: "calc(100% + 8px)",
-          left: 0,
+          top: "calc(100% + 10px)",
+          left: "50%",
+          transform: "translateX(-50%)",
           background: "#fff",
-          borderRadius: 12,
-          boxShadow: "0 8px 32px rgba(0,0,0,0.14)",
-          minWidth: 200,
+          borderRadius: 14,
+          boxShadow: "0 12px 40px rgba(0,0,0,0.16)",
+          minWidth: 230,
           overflow: "hidden",
-          zIndex: 100,
+          zIndex: 200,
         }}>
           <Link
             href="/get-started"
             onClick={() => setOpen(false)}
-            style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 18px", color: "#111", textDecoration: "none", fontWeight: 600, fontSize: 15, borderBottom: "1px solid #f0f0f0" }}
+            style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none", borderBottom: "1px solid #f0f0f0" }}
           >
-            <span style={{ fontSize: 20 }}>🤖</span>
+            <span style={{ fontSize: 22 }}>🤖</span>
             <div>
-              <div style={{ fontWeight: 700 }}>AI CRM &amp; OS</div>
-              <div style={{ fontSize: 12, color: "#666", fontWeight: 400 }}>Leads, inbox &amp; automation</div>
+              <div style={{ fontWeight: 700, fontSize: 15 }}>AI CRM &amp; OS</div>
+              <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Leads, inbox &amp; automation</div>
             </div>
           </Link>
           <Link
             href="/get-started?product=auto-seo"
             onClick={() => setOpen(false)}
-            style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 18px", color: "#111", textDecoration: "none", fontWeight: 600, fontSize: 15 }}
+            style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none" }}
           >
-            <span style={{ fontSize: 20 }}>✨</span>
+            <span style={{ fontSize: 22 }}>✨</span>
             <div>
-              <div style={{ fontWeight: 700 }}>Auto SEO</div>
-              <div style={{ fontSize: 12, color: "#666", fontWeight: 400 }}>Rank on Google automatically</div>
+              <div style={{ fontWeight: 700, fontSize: 15 }}>Auto SEO</div>
+              <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Rank on Google automatically</div>
             </div>
           </Link>
         </div>
