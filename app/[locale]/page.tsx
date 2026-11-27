@@ -30,7 +30,7 @@ function GetStartedDropdown({ label }: { label: string }) {
             <span>🤖</span> AI CRM &amp; OS
           </Link>
           <Link
-            href="/get-started?product=auto-seo"
+            href="/auto-seo"
             className="btn btn-primary btn-lg"
             style={{ gap: 8, textDecoration: "none", background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
           >
