@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
 
@@ -10,12 +11,15 @@ const SIGNUP_URL = "/get-started";
 function GetStartedDropdown({ label }: { label: string }) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
+  const [mounted, setMounted] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (btnRef.current && !btnRef.current.closest("[data-gs-root]")?.contains(e.target as Node)) {
+        setOpen(false);
+      }
     }
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -29,51 +33,56 @@ function GetStartedDropdown({ label }: { label: string }) {
     setOpen(o => !o);
   }
 
+  const dropdown = (
+    <div
+      data-gs-menu
+      style={{
+        position: "fixed",
+        top: pos.top,
+        left: pos.left,
+        transform: "translateX(-50%)",
+        background: "#fff",
+        borderRadius: 14,
+        boxShadow: "0 16px 48px rgba(0,0,0,0.22)",
+        minWidth: 240,
+        overflow: "hidden",
+        zIndex: 2147483647,
+      }}
+    >
+      <Link
+        href="/get-started"
+        onClick={() => setOpen(false)}
+        style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none", borderBottom: "1px solid #f0f0f0" }}
+      >
+        <span style={{ fontSize: 22 }}>🤖</span>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: 15 }}>AI CRM &amp; OS</div>
+          <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Leads, inbox &amp; automation</div>
+        </div>
+      </Link>
+      <Link
+        href="/get-started?product=auto-seo"
+        onClick={() => setOpen(false)}
+        style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none" }}
+      >
+        <span style={{ fontSize: 22 }}>✨</span>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: 15 }}>Auto SEO</div>
+          <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Rank on Google automatically</div>
+        </div>
+      </Link>
+    </div>
+  );
+
   return (
-    <div ref={ref} style={{ display: "inline-block" }}>
+    <div data-gs-root style={{ display: "inline-block" }}>
       <button ref={btnRef} onClick={toggle} className="btn btn-primary btn-lg">
         {label}
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ marginLeft: 6 }}>
           <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      {open && (
-        <div style={{
-          position: "fixed",
-          top: pos.top,
-          left: pos.left,
-          transform: "translateX(-50%)",
-          background: "#fff",
-          borderRadius: 14,
-          boxShadow: "0 12px 40px rgba(0,0,0,0.22)",
-          minWidth: 240,
-          overflow: "hidden",
-          zIndex: 99999,
-        }}>
-          <Link
-            href="/get-started"
-            onClick={() => setOpen(false)}
-            style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none", borderBottom: "1px solid #f0f0f0" }}
-          >
-            <span style={{ fontSize: 22 }}>🤖</span>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 15 }}>AI CRM &amp; OS</div>
-              <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Leads, inbox &amp; automation</div>
-            </div>
-          </Link>
-          <Link
-            href="/get-started?product=auto-seo"
-            onClick={() => setOpen(false)}
-            style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", color: "#111", textDecoration: "none" }}
-          >
-            <span style={{ fontSize: 22 }}>✨</span>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 15 }}>Auto SEO</div>
-              <div style={{ fontSize: 12, color: "#777", marginTop: 2 }}>Rank on Google automatically</div>
-            </div>
-          </Link>
-        </div>
-      )}
+      {mounted && open && createPortal(dropdown, document.body)}
     </div>
   );
 }
